@@ -1,0 +1,101 @@
+﻿@model IEnumerable<AppCenagas_v2.Models.DetalleProyecto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProyecto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdResidencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAsignacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoDesarrollo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Desarrollo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcionActividad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaltanteComentarios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlanAccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anexos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoProyecto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProyecto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdResidencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAsignacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoDesarrollo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Desarrollo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionActividad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Avance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FaltanteComentarios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentarios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanAccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anexos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoProyecto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdDetalleProyecto">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdDetalleProyecto">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdDetalleProyecto">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
