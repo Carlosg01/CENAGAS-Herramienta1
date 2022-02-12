@@ -22,7 +22,8 @@ namespace AppCenagas_v2.Controllers
         // GET: Empleado
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Empleado.ToListAsync());
+            IEnumerable<Empleado> empleados = await _context.Empleado.ToListAsync();
+            return View(empleados);
         }
 
         // GET: Empleado/Details/5
@@ -54,7 +55,7 @@ namespace AppCenagas_v2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idempleado,Nombre,Paterno,Materno,Titulo,Observaciones")] Empleado empleado)
+        public async Task<IActionResult> Create(Empleado empleado)
         {
             if (ModelState.IsValid)
             {

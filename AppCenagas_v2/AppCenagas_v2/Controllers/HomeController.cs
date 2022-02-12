@@ -1,4 +1,5 @@
-﻿using AppCenagas_v2.Models;
+﻿using AppCenagas_v2.Data;
+using AppCenagas_v2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,6 +17,7 @@ namespace AppCenagas_v2.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            
         }
 
         public IActionResult Index()
@@ -25,8 +27,9 @@ namespace AppCenagas_v2.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            return View("Privacy");
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
