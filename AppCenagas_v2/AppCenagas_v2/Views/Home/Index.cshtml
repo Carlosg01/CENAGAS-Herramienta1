@@ -17,7 +17,7 @@
                     <p class="lead">Escribe tus credenciales para accesar</p>
                     <form asp-controller="Home" asp-action="Login">
                         <div class="form-group">
-                            <input asp-for="Email" placeholder="Email" class="form-control" />
+                            <input asp-for="Email" type="email" placeholder="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <br />
