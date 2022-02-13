@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppCenagas_v2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220212111421_Usuarios")]
-    partial class Usuarios
+    [Migration("20220213074327_Usuarios2")]
+    partial class Usuarios2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,6 +214,10 @@ namespace AppCenagas_v2.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
                     b.Property<string>("MencionEnConversacion")
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
@@ -228,7 +232,6 @@ namespace AppCenagas_v2.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Observaciones")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
@@ -242,7 +245,6 @@ namespace AppCenagas_v2.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Ubicacion")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
