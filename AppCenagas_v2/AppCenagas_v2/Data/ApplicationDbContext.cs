@@ -18,5 +18,6 @@ namespace AppCenagas_v2.Data
         public DbSet<Asignacion> Asignacion { get; set; }
         public DbSet<Proyectos> Proyectos { get; set; }
         public DbSet<DetalleProyecto> DetalleProyecto { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
     }
 }

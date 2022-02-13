@@ -1,6 +1,8 @@
 ﻿using AppCenagas_v2.Data;
 using AppCenagas_v2.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,11 @@ namespace AppCenagas_v2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext _context)
         {
-            _logger = logger;
-            
+            context = _context;            
         }
 
         public IActionResult Index()
@@ -25,9 +27,43 @@ namespace AppCenagas_v2.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(Usuario user)
         {
-            return View("Privacy");
+            IEnumerable<Usuario> users = await context.Usuario.ToListAsync();
+            foreach(Usuario u in users)
+            {
+                if(u.Email.Equals(user.Email) && u.Password.Equals(user.Password))
+                {
+                    return RedirectToAction(nameof(Dashboard));
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+
+        public IActionResult CreateAccount()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAccount(Usuario user)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Add(user);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+            
         }
 
 

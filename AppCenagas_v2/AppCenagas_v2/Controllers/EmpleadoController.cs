@@ -12,11 +12,12 @@ namespace AppCenagas_v2.Controllers
 {
     public class EmpleadoController : Controller
     {
+        
         private readonly ApplicationDbContext _context;
 
         public EmpleadoController(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context;            
         }
 
         // GET: Empleado
