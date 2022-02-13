@@ -1,6 +1,46 @@
-﻿@*
+﻿@model AppCenagas_v2.Models.Usuario
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-<h1>Crear cuenta</h1>
+<div class="main-container fullscreen">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-7">
+                <div class="text-center">
+                    <h1 class="h2">Crear cuenta</h1>
+                    <p class="lead">Crea tu cuenta y espera la validacion</p>
+
+                    <hr>
+                    <form asp-controller="Home" asp-action="CreateAccount">
+                        <div class="form-group">
+                            <input asp-for="Nombre" placeholder="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input asp-for="Apellido" placeholder="Apellido" class="form-control" />
+                            <span asp-validation-for="Apellido" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input asp-for="Email" placeholder="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input asp-for="Password" type="password" placeholder="Contraseña" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input type="submit" value="Crear cuenta" class="btn btn-primary" />                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
