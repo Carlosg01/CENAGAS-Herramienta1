@@ -6,9 +6,14 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="row" stykle="width:100%;">
+    <div class="col-6">
+        <h2 class="text-primary">Lista de proyectos</h2>
+    </div>
+    <div class="col-4 text-right">
+        <a class="btn btn-primary form-control" asp-controller="Asignacion" asp-action="Create">Nueva proyecto</a>
+    </div>
+</div>
 <div class="p-4 border rounded bg-light">
     <table id="tblData" class="table table-bordered table-responsive-xl">
         <thead class="thead-dark">
@@ -57,4 +62,4 @@
             }
         </tbody>
     </table>
- </div>
+</div>

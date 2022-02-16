@@ -36,7 +36,7 @@ namespace SistemaCenagas.Controllers
             results = await _context.DetalleProyecto.FromSqlRaw("Call DetalleProyectosEmpleado(@idEmpleado)",
             outputParameter).ToListAsync();
 
-
+            Global.sesionDetalleProyecto = (DetalleProyecto)results.FirstOrDefault();
             ViewBag.session = Global.session;
             ViewBag.nombreProyectoEmpleado = Global.nombreProyectoEmpleado;
             ////return Content(ViewBag.nombreProyectoEmpleado);
@@ -65,6 +65,8 @@ namespace SistemaCenagas.Controllers
         // GET: DetalleProyecto/Create
         public IActionResult Create()
         {
+            ViewBag.idProyecto = Global.sesionDetalleProyecto.Id_Proyecto;
+            ViewBag.idAsignacion = Global.sesionDetalleProyecto.Id_Asignacion;
             return View();
         }
 
@@ -79,7 +81,7 @@ namespace SistemaCenagas.Controllers
             {
                 _context.Add(detalleProyecto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("/DetalleProyecto/Index");
             }
             return View(detalleProyecto);
         }

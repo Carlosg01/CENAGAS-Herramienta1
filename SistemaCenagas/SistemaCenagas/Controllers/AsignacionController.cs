@@ -46,6 +46,7 @@ namespace SistemaCenagas.Controllers
         // GET: Asignacion/Create
         public IActionResult Create()
         {
+            ViewBag.idEmpleado = Global.sesionEmpleado.Id_Empleado;
             return View();
         }
 
@@ -58,9 +59,10 @@ namespace SistemaCenagas.Controllers
         {
             if (ModelState.IsValid)
             {
+                asignacion.Id_Empleado = Global.sesionEmpleado.Id_Empleado;
                 _context.Add(asignacion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("/DetalleProyecto/Index");
             }
             return View(asignacion);
         }

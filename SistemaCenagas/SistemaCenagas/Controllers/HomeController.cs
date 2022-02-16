@@ -40,6 +40,8 @@ namespace SistemaCenagas.Controllers
             if(us != null)
             {
                 Global.sesionUsuario = (Usuario)us;
+                var emp = _context.Empleado.Where(e => e.Id_Usuario == Global.sesionUsuario.Id_Usuario).FirstOrDefault();
+                Global.sesionEmpleado = (Empleado)emp;
 
                 return RedirectToAction(nameof(Dashboard));
 

@@ -10,6 +10,11 @@ namespace SistemaCenagas
     {
         public static Usuario sesionUsuario { get; set; }
         public static Empleado sesionEmpleado { get; set; }
+
+        public static Proyectos sesionProyecto { get; set; }
+
+        public static DetalleProyecto sesionDetalleProyecto { get; set; }
+
         public static string session { get; set; }
         public static string nombreProyectoEmpleado { get; set; }
     }

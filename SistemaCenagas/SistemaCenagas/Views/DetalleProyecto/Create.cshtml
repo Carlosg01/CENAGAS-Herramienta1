@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Id_Proyecto" class="control-label"></label>
-                <input asp-for="Id_Proyecto" class="form-control" />
+                <input disabled asp-for="Id_Proyecto" value="ViewBag.idProyecto" class="form-control" />
                 <span asp-validation-for="Id_Proyecto" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Id_Asignacion" class="control-label"></label>
-                <input asp-for="Id_Asignacion" class="form-control" />
+                <input disabled asp-for="Id_Asignacion" value="ViewBag.idAsignacion" class="form-control" />
                 <span asp-validation-for="Id_Asignacion" class="text-danger"></span>
             </div>
             <div class="form-group">
