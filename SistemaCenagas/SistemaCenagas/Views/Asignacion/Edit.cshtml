@@ -1,0 +1,59 @@
+﻿@model SistemaCenagas.Models.Asignacion
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Asignacion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_Asignacion" />
+            <div class="form-group">
+                <label asp-for="Id_Empleado" class="control-label"></label>
+                <input asp-for="Id_Empleado" class="form-control" />
+                <span asp-validation-for="Id_Empleado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id_Proyecto" class="control-label"></label>
+                <input asp-for="Id_Proyecto" class="form-control" />
+                <span asp-validation-for="Id_Proyecto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id_Residencia" class="control-label"></label>
+                <input asp-for="Id_Residencia" class="form-control" />
+                <span asp-validation-for="Id_Residencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha_alta" class="control-label"></label>
+                <input asp-for="Fecha_alta" class="form-control" />
+                <span asp-validation-for="Fecha_alta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha_baja" class="control-label"></label>
+                <input asp-for="Fecha_baja" class="form-control" />
+                <span asp-validation-for="Fecha_baja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Funcion" class="control-label"></label>
+                <input asp-for="Funcion" class="form-control" />
+                <span asp-validation-for="Funcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

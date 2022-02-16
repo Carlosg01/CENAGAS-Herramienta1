@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SistemaCenagas.Models.Proyectos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="p-4 border rounded bg-light">
+    <table id="tblData" class="table table-bordered table-responsive-xl">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Folio_adc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Instalacion_Area)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tipo_Cambio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Folio_adc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Instalacion_Area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Cambio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        <a class="btn btn-info form-control" asp-controller="DetalleProyecto" asp-action="Index" asp-route-id="@item.Id_Proyecto">Detalles</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+ </div>

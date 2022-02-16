@@ -1,8 +1,10 @@
 ﻿using AppCenagas_v2.Data;
 using AppCenagas_v2.Models;
+using AppCenagas_v2.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,18 @@ using System.Threading.Tasks;
 
 namespace AppCenagas_v2.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext context;
 
+
         public HomeController(ApplicationDbContext _context)
         {
-            context = _context;            
+            context = _context;              
         }
+
 
         public IActionResult Index()
         {
@@ -56,6 +61,7 @@ namespace AppCenagas_v2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAccount(Usuario user)
         {
+            
             if (ModelState.IsValid)
             {
                 context.Add(user);
@@ -70,7 +76,6 @@ namespace AppCenagas_v2.Controllers
         {
             return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

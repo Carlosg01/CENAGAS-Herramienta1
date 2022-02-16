@@ -23,16 +23,22 @@ namespace AppCenagas_v2.Models
         [MaxLength(200)]
         public string Email { get; set; }
 
-        //[Required(ErrorMessage = "La ubicación de usuario es requerida")]
+        [Required(ErrorMessage = "La contraseña de usuario es requerida")]
+        [MaxLength(200)]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "La confirmacion de contraseña es requerida")]
+        [MaxLength(200)]
+        public string ConfirmPassword { get; set; }
+
         [MaxLength(200)]
         public string Ubicacion { get; set; }
 
         [MaxLength(500)]
         public string Observaciones { get; set; }
 
-        [Required(ErrorMessage = "La contraseña de usuario es requerida")]
         [MaxLength(200)]
-        public string Password { get; set; }
+        public string Token { get; set; }
 
         [MaxLength(500)]
         public string ImageUrl { get; set; }

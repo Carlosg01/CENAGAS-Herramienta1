@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceso al sistema integral CENAGAS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!--AÑADIDOS-->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52115242-14"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-52115242-14');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A project management Bootstrap theme by Medium Rare">
+    <link href="assets/img/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
+    <link href="assets/css/theme.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cenagas</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (!(ViewBag.session == "usuario"))
+                {
+
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Empleado" asp-action="Index">Empleados</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateAccount">Registrarse</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                }
+                else
+                {
+
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" > Bienvenido</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Perfil de Usuario</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Configuración</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proyectos" asp-action="Index" asp-route-id="">Proyectos</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                }
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Cenagas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+    <!-- This appears in the demo only - demonstrates different layouts -->
+    <style type="text/css">
+        .layout-switcher {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(73px);
+            color: #fff;
+            transition: all .35s ease;
+            background: #343a40;
+            border-radius: .25rem .25rem 0 0;
+            padding: .75rem;
+            z-index: 999;
+        }
+
+            .layout-switcher:not(:hover) {
+                opacity: .95;
+            }
+
+            .layout-switcher:not(:focus) {
+                cursor: pointer;
+            }
+
+        .layout-switcher-head {
+            font-size: .75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+            .layout-switcher-head i {
+                font-size: 1.25rem;
+                transition: all .35s ease;
+            }
+
+        .layout-switcher-body {
+            transition: all .55s ease;
+            opacity: 0;
+            padding-top: .75rem;
+            transform: translateY(24px);
+            text-align: center;
+        }
+
+        .layout-switcher:focus {
+            opacity: 1;
+            outline: none;
+            transform: translateX(-50%) translateY(0);
+        }
+
+            .layout-switcher:focus .layout-switcher-head i {
+                transform: rotateZ(180deg);
+                opacity: 0;
+            }
+
+            .layout-switcher:focus .layout-switcher-body {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        .layout-switcher-option {
+            width: 72px;
+            padding: .25rem;
+            border: 2px solid rgba(255,255,255,0);
+            display: inline-block;
+            border-radius: 4px;
+            transition: all .35s ease;
+        }
+
+            .layout-switcher-option.active {
+                border-color: #007bff;
+            }
+
+        .layout-switcher-icon {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .layout-switcher-body:hover .layout-switcher-option:not(:hover) {
+            opacity: .5;
+            transform: scale(0.9);
+        }
+    </style>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
