@@ -9,6 +9,8 @@ values
 ('Rodrigo','Espinoza Lara', 'rodrigoel@gmail.com', '123','123')
 ('Jessica','Ortíz Ochoterena', 'jessicaoo@gmail.com','123','123')
 select * from usuario
+delete from usuario where Id_Usuario = 5
+
 
 
 describe empleado
@@ -34,6 +36,7 @@ values
     */
 ;
 select * from empleado
+delete from empleado where Id_Empleado = 5
 
 describe proyectos
 insert into proyectos(Id_Proyecto,Folio_adc,Nombre,Instalacion_Area,Tipo_Cambio,Descripcion)

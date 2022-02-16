@@ -62,7 +62,7 @@ namespace SistemaCenagas.Controllers
                 asignacion.Id_Empleado = Global.sesionEmpleado.Id_Empleado;
                 _context.Add(asignacion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("/DetalleProyecto/Index");
+                return RedirectToAction("Index", "Proyectos");
             }
             return View(asignacion);
         }

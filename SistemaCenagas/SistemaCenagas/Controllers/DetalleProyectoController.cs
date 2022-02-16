@@ -17,7 +17,7 @@ namespace SistemaCenagas.Controllers
     {
         private readonly ApplicationDbContext _context;
         private Usuario userSession;
-        private int idUser;
+        private int idUser, idProyecto;
         IEnumerable<DetalleProyecto> results;
 
         public DetalleProyectoController(ApplicationDbContext context)
@@ -31,14 +31,16 @@ namespace SistemaCenagas.Controllers
             //idUser = int.Parse(HttpContext.Session.GetString("IdUser"));
 
             idUser = Global.sesionUsuario.Id_Usuario;
+            idProyecto = Global.sesionProyecto.Id_Proyecto;
 
-            var outputParameter = new MySqlParameter("@idEmpleado", idUser);
-            results = await _context.DetalleProyecto.FromSqlRaw("Call DetalleProyectosEmpleado(@idEmpleado)",
-            outputParameter).ToListAsync();
+            var idempleadoParam = new MySqlParameter("@idEmpleado", idUser);
+            var idproyectoParam = new MySqlParameter("@idProyecto", idProyecto);
+            results = await _context.DetalleProyecto.FromSqlRaw("Call DetalleProyectosEmpleado(@idEmpleado, @idProyecto)",
+            idempleadoParam, idproyectoParam).ToListAsync();
 
             Global.sesionDetalleProyecto = (DetalleProyecto)results.FirstOrDefault();
             ViewBag.session = Global.session;
-            ViewBag.nombreProyectoEmpleado = Global.nombreProyectoEmpleado;
+            ViewBag.nombreProyectoEmpleado = Global.sesionProyecto.Nombre;
             ////return Content(ViewBag.nombreProyectoEmpleado);
 
             return View(results);

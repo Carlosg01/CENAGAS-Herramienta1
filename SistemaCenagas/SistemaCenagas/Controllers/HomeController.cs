@@ -91,8 +91,23 @@ namespace SistemaCenagas.Controllers
 
             if (ModelState.IsValid)
             {
+
                 _context.Add(user);
                 await _context.SaveChangesAsync();
+
+                Empleado emp = new Empleado();
+                emp.Id_Usuario = user.Id_Usuario;
+                emp.Nombre = user.Nombre;
+                string[] ap = user.Apellido.Split(" ");
+                emp.Paterno = ap[0];
+                emp.Materno = "";
+                if (ap.Length == 2)
+                    emp.Materno = ap[1];
+                emp.Titulo = "Ing.";
+                emp.Observaciones = "";
+                _context.Add(emp);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(user);

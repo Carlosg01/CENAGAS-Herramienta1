@@ -4,8 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <div class="row" stykle="width:100%;">
     <div class="col-6">
         <h2 class="text-primary">Lista de proyectos</h2>
@@ -56,7 +54,7 @@
                         @Html.DisplayFor(modelItem => item.Descripcion)
                     </td>
                     <td>
-                        <a class="btn btn-info form-control" asp-controller="DetalleProyecto" asp-action="Index" asp-route-id="@item.Id_Proyecto">Detalles</a>
+                        <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Details" asp-route-id="@item.Id_Proyecto">Detalles</a>
                     </td>
                 </tr>
             }

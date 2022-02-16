@@ -32,7 +32,7 @@ namespace SistemaCenagas.Controllers
 
             //int idUser = int.Parse(HttpContext.Session.GetString("IdUser"));
 
-            int idUser = Global.sesionUsuario.Id_Usuario;
+            int idUser = Global.sesionEmpleado.Id_Empleado;
 
             var outputParameter = new MySqlParameter("@idEmpleado", idUser);
             IEnumerable<Proyectos> results = await _context.Proyectos.FromSqlRaw("Call ProyectosEmpleado(@idEmpleado)",
@@ -45,11 +45,11 @@ namespace SistemaCenagas.Controllers
             //return View(await _context.Proyectos.ToListAsync());
         }
 
-        public IActionResult Details()
+        /*public IActionResult Details()
         {
             
             return View();
-        }
+        }*/
 
         // GET: Proyectos/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -65,8 +65,10 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            Global.nombreProyectoEmpleado = _context.Proyectos.Find(id).Nombre;
-            return RedirectToAction(("/DetalleProyecto/Index"));
+            
+
+            Global.sesionProyecto = (Proyectos)proyectos;
+            return RedirectToAction("Index", "DetalleProyecto");
         }
 
         // GET: Proyectos/Create
