@@ -15,9 +15,7 @@ namespace SistemaCenagas.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-        private Usuario userlogin;
 
         public HomeController(ApplicationDbContext context)
         {
@@ -32,10 +30,8 @@ namespace SistemaCenagas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Usuario user)
-        {
-            IEnumerable<Usuario> users = await _context.Usuario.ToListAsync();
-
-            var us = _context.Usuario.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
+        {            
+            Usuario us = _context.Usuario.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
 
             if(us != null)
             {
@@ -44,23 +40,7 @@ namespace SistemaCenagas.Controllers
                 Global.sesionEmpleado = (Empleado)emp;
 
                 return RedirectToAction(nameof(Dashboard));
-
-            }
-
-
-            /*foreach (Usuario u in users)
-            {
-                if (u.Email.Equals(user.Email) && u.Password.Equals(user.Password))
-                {
-                    HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(u));
-                    HttpContext.Session.SetString("Session", "usuario");
-                    HttpContext.Session.SetString("IdUser", u.Id_Usuario.ToString());
-
-                    Global.userSession = u;
-
-                    return RedirectToAction(nameof(Dashboard));
-                }
-            }*/
+            }            
             return RedirectToAction(nameof(Index));
         }
 
@@ -91,24 +71,23 @@ namespace SistemaCenagas.Controllers
 
             if (ModelState.IsValid)
             {
+                if (user.Password.Equals(user.Confirmar_Password))
+                {
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
 
-                _context.Add(user);
-                await _context.SaveChangesAsync();
+                    Empleado emp = new Empleado();
 
-                Empleado emp = new Empleado();
-                emp.Id_Usuario = user.Id_Usuario;
-                emp.Nombre = user.Nombre;
-                string[] ap = user.Apellido.Split(" ");
-                emp.Paterno = ap[0];
-                emp.Materno = "";
-                if (ap.Length == 2)
-                    emp.Materno = ap[1];
-                emp.Titulo = "Ing.";
-                emp.Observaciones = "";
-                _context.Add(emp);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                    emp.Id_Usuario = user.Id_Usuario;
+                    emp.Nombre = "";
+                    emp.Paterno = "";
+                    emp.Materno = "";
+                    emp.Titulo = "Ing.";
+                    emp.Observaciones = "";
+                    _context.Add(emp);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }                    
             }
             return View(user);
 
@@ -128,10 +107,71 @@ namespace SistemaCenagas.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult AccountSettings()
+        {
+            ViewBag.session = Global.session;
+            return View((Usuario)Global.sesionUsuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAccountSettings(Usuario user)
+        {
+            //return Content(JsonConvert.SerializeObject(user));
+            /*actualiza tabla de usuarios*/
+            user.Id_Usuario = Global.sesionUsuario.Id_Usuario;
+            Usuario consultaUsuario = _context.Usuario.Find(Global.sesionUsuario.Id_Usuario);
+            consultaUsuario.Nombre = user.Nombre;
+            consultaUsuario.Paterno = user.Paterno;
+            consultaUsuario.Materno = user.Materno;
+            consultaUsuario.Email = user.Email;
+            consultaUsuario.Ubicacion = user.Ubicacion;
+            consultaUsuario.Observaciones = user.Observaciones;
+            _context.Update(consultaUsuario);
+            await _context.SaveChangesAsync();
+            Global.sesionUsuario = consultaUsuario;
+
+            /*actualiza tabla de empleado*/
+            Empleado consultaEmpleado = _context.Empleado.Find(Global.sesionEmpleado.Id_Empleado);
+            consultaEmpleado.Nombre = user.Nombre;
+            consultaEmpleado.Paterno = user.Paterno;
+            consultaEmpleado.Materno = user.Materno;
+            _context.Update(consultaEmpleado);
+            await _context.SaveChangesAsync();
+            Global.sesionEmpleado = consultaEmpleado;
+
+            return RedirectToAction(nameof(AccountSettings));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdatePassword(Usuario user)
+        {
+            if (user.Password.Equals(Global.sesionUsuario.Password) &&
+                user.Nueva_Password.Equals(user.Confirmar_Password))
+            {
+                /*actualiza tabla de usuarios*/
+                user.Id_Usuario = Global.sesionUsuario.Id_Usuario;
+                Usuario consultaUsuario = _context.Usuario.Find(Global.sesionUsuario.Id_Usuario);
+                consultaUsuario.Password = user.Nueva_Password;
+                _context.Update(consultaUsuario);
+                await _context.SaveChangesAsync();
+                Global.sesionUsuario = consultaUsuario;
+            }
+
+            return RedirectToAction(nameof(AccountSettings));
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private bool UsuarioExists(int id)
+        {
+            return _context.Usuario.Any(e => e.Id_Usuario == id);
         }
     }
 }

@@ -30,10 +30,6 @@ namespace SistemaCenagas.Models
         [MaxLength(9)]
         public string Titulo { get; set; }
 
-        /*[Required(ErrorMessage = "El puesto del empleado es requerido")]
-        [MaxLength(32)]
-        public string Puesto { get; set; }*/
-
         [Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(220)]
         public string Observaciones { get; set; }

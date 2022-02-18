@@ -4,60 +4,111 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="row" stykle="width:100%;">
-    <div class="col-6">
-        <h2 class="text-primary">Lista de proyectos</h2>
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Principal</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Proyectos</li>
+                
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="material-icons">configuracion</i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="nav-side-user.html" class="dropdown-item">Perfil</a>
+                <a asp-controller="Home" asp-action="AccountSettings" class="dropdown-item">Configuración de la cuenta</a>
+                <a asp-controller="Home" asp-action="LogOut" class="dropdown-item text-danger">Cerrar sesión</a>
+            </div>
+        </div>
+
     </div>
-    <div class="col-4 text-right">
-        <a class="btn btn-primary form-control" asp-controller="Asignacion" asp-action="Create">Nueva proyecto</a>
-    </div>
-</div>
-<div class="p-4 border rounded bg-light">
-    <table id="tblData" class="table table-bordered table-responsive-xl">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Folio_adc)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Instalacion_Area)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tipo_Cambio)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descripcion)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h2 class="mb-0">Proyectos asignados</h2>
+                </div>
+                <div class="col-4 text-right">
+                    <a class="btn btn-primary form-control" asp-controller="Asignacion" asp-action="Create">Nueva asignación</a>
+                </div>
+            </div>
+
+        </div>
+        <table id="tblData" class="table table-bordered table-responsive-xl">
+            <thead class="thead-dark">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Folio_adc)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Instalacion_Area)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo_Cambio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Details" asp-route-id="@item.Id_Proyecto">Detalles</a>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Folio_adc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Instalacion_Area)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tipo_Cambio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Instalacion_Area)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tipo_Cambio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Folio_adc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Instalacion_Area)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Cambio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Instalacion_Area)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Cambio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Details" asp-route-id="@item.Id_Proyecto">Detalles</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+

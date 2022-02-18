@@ -17,5 +17,7 @@ namespace SistemaCenagas
 
         public static string session { get; set; }
         public static string nombreProyectoEmpleado { get; set; }
+
+        public static IEnumerable<Proyectos> listaProyectos;
     }
 }

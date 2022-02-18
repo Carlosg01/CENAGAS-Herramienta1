@@ -60,6 +60,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
+            ViewBag.session = Global.session;
 
             return View(detalleProyecto);
         }
@@ -101,6 +102,9 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.session = Global.session;
+
             return View(detalleProyecto);
         }
 

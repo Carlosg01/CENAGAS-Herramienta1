@@ -4,87 +4,108 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="main-container">
 
-<div>
-    <h4>DetalleProyecto</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id_Proyecto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id_Proyecto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id_Residencia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id_Residencia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id_Asignacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id_Asignacion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.No_Desarrollo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.No_Desarrollo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Desarrollo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Desarrollo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion_Actividad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion_Actividad)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Avance)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Avance)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Faltante_Comentarios)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Faltante_Comentarios)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Comentarios)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Comentarios)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Plan_Accion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Plan_Accion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Anexos)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Anexos)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tipo_Proyecto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tipo_Proyecto)
-        </dd>
-    </dl>
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Principal</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="DetalleProyecto" asp-action="index">Detalles</a>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="material-icons">configuracion</i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="nav-side-user.html" class="dropdown-item">Perfil</a>
+                <a asp-controller="Home" asp-action="AccountSettings" class="dropdown-item">Configuración de la cuenta</a>
+                <a asp-controller="Home" asp-action="LogOut" class="dropdown-item text-danger">Cerrar sesión</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h1 class="mb-0">Detalles</h1>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Desarrollo)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Desarrollo)
+                            </dd>
+                            <dt class="col-sm-2">
+                                Descripción de actividad
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Descripcion_Actividad)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Avance)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Avance)
+                            </dd>
+                            <dt class="col-sm-2">
+                                Faltante comentarios
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Faltante_Comentarios)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Comentarios)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Comentarios)
+                            </dd>
+                            <dt class="col-sm-2">
+                                Plan de Acción
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Plan_Accion)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Anexos)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Anexos)
+                            </dd>
+                            <dt class="col-sm-2">
+                                Tipo de proyecto
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Tipo_Proyecto)
+                            </dd>
+                        </dl>
+
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@Model.Id_DetalleProyecto">Edit</a> |
+                            <a asp-action="Index">Regresar</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id_DetalleProyecto">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

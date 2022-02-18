@@ -1,15 +1,17 @@
-use bd_cenagas
+use bd_cenagas2
 
 
 describe usuario
-insert into usuario (Nombre, Apellido, Email, Password, Confirm_Password)
+insert into usuario (Nombre, Paterno, Materno, Email, Password)
 values 
-('Jose','Luis Esparza', 'joselp@gmail.com', '123','123'),
-('Jose','Luis Razo', 'joselr@gmail.com', '123','123'),
-('Rodrigo','Espinoza Lara', 'rodrigoel@gmail.com', '123','123')
-('Jessica','Ortíz Ochoterena', 'jessicaoo@gmail.com','123','123')
-select * from usuario
+('Jose','Luis','Esparza', 'joselp@gmail.com', '123'),
+('Jose','Luis', 'Razo', 'joselr@gmail.com', '123'),
+('Rodrigo','Espinoza', 'Lara', 'rodrigoel@gmail.com', '123'),
+('Jessica','Ortíz','Ochoterena', 'jessicaoo@gmail.com','123')
+select * from usuario where Id_Usuario = 7
 delete from usuario where Id_Usuario = 5
+
+update usuario set ubicacion = "V" where Id_Usuario = 7
 
 
 

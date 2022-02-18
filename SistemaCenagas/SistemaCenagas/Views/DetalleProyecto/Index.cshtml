@@ -6,89 +6,117 @@
     
 }
 
-<div class="row" stykle="width:100%;">
-    <div class="col-6">
-        <h2 class="text-primary">Proyecto: @ViewBag.nombreProyectoEmpleado</h2>
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Principal</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Detalles</li>
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="material-icons">configuracion</i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="nav-side-user.html" class="dropdown-item">Perfil</a>
+                <a asp-controller="Home" asp-action="AccountSettings" class="dropdown-item">Configuración de la cuenta</a>
+                <a asp-controller="Home" asp-action="LogOut" class="dropdown-item text-danger">Cerrar sesión</a>
+            </div>
+        </div>
+
     </div>
-    <div class="col-4 text-right">
-        <!--a class="btn btn-primary form-control" asp-controller="DetalleProyecto" asp-action="Create">Nueva actividad</a-->
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h2 class="mb-0">Proyecto: @ViewBag.nombreProyectoEmpleado</h2>
+                </div>
+                <div class="col-4 text-right">
+                    <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Index">Regresar</a>
+                </div>
+            </div>
+        </div>
+        <table id="tblData" class="table table-bordered table-responsive-xl">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Desarrollo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion_Actividad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Avance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Faltante_Comentarios)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comentarios)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Plan_Accion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Anexos)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tipo_Proyecto)
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Desarrollo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion_Actividad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Avance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Faltante_Comentarios)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comentarios)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Plan_Accion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Anexos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Proyecto)
+                        </td>
+                        <td>
+                            <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.Id_DetalleProyecto">Editar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.Id_DetalleProyecto">Detalles</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_DetalleProyecto">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
-
-<!--Aquí inicia mi DataTable-->
-<div class="p-4 border rounded bg-light">
-    <table id="tblData" class="table table-bordered table-responsive-xl">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Desarrollo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descripcion_Actividad)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Avance)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Faltante_Comentarios)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Comentarios)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Plan_Accion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Anexos)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tipo_Proyecto)
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Desarrollo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion_Actividad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Avance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Faltante_Comentarios)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Comentarios)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Plan_Accion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Anexos)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tipo_Proyecto)
-                </td>
-                <td>
-                    <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.Id_DetalleProyecto">Editar</a>
-                </td>
-                <td>
-                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.Id_DetalleProyecto">Detalles</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_DetalleProyecto">Eliminar</a>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>

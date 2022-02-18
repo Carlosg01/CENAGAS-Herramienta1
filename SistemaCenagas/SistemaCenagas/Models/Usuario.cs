@@ -11,13 +11,14 @@ namespace SistemaCenagas.Models
         [Key]
         public int Id_Usuario { get; set; }
 
-        [Required(ErrorMessage = "Este campo es requerido")]
-        [MaxLength(200)]
+        [MaxLength(32)]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "Este campo es requerido")]
-        [MaxLength(200)]
-        public string Apellido { get; set; }
+        [MaxLength(32)]
+        public string Paterno { get; set; }
+
+        [MaxLength(32)]
+        public string Materno { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(200)]
@@ -27,9 +28,13 @@ namespace SistemaCenagas.Models
         [MaxLength(200)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Este campo es requerido")]
+        //[Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(200)]
-        public string Confirm_Password { get; set; }
+        public string Confirmar_Password { get; set; }
+
+        //[Required(ErrorMessage = "Este campo es requerido")]
+        [MaxLength(200)]
+        public string Nueva_Password { get; set; }
 
         [MaxLength(200)]
         public string Ubicacion { get; set; }

@@ -47,6 +47,9 @@ namespace SistemaCenagas.Controllers
         public IActionResult Create()
         {
             ViewBag.idEmpleado = Global.sesionEmpleado.Id_Empleado;
+            ViewBag.session = Global.session;
+            Global.listaProyectos = _context.Proyectos.ToList();
+            ViewBag.listaProyectos = Global.listaProyectos;
             return View();
         }
 
