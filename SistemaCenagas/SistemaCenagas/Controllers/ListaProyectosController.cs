@@ -2,56 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
-using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ProyectosController : Controller
+    public class ListaProyectosController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private Usuario userSession;
 
-        public ProyectosController(ApplicationDbContext context)
+        public ListaProyectosController(ApplicationDbContext context)
         {
             _context = context;
-            
         }
 
-        // GET: Proyectos
+        // GET: ListaProyectos
         public async Task<IActionResult> Index()
         {
-
-            int idUser = Global.sesionEmpleado.Id_Empleado;
-
-            var outputParameter = new MySqlParameter("@idEmpleado", idUser);
-            IEnumerable<Asignacion> asignacionProyectosEmpleado = await _context.Asignacion.FromSqlRaw(
-                "Call AsignacionProyectosEmpleado(@idEmpleado)", outputParameter).ToListAsync();
-
-            //return Content(JsonConvert.SerializeObject(asignacionProyectosEmpleado));
-
-            ViewBag.proyectosEmpleado = await _context.Proyectos.FromSqlRaw(
-                "call ProyectosEmpleado(@idEmpleado)", outputParameter).ToListAsync();
-
-            ViewBag.session = Global.session;//HttpContext.Session.GetString("Session");
-
-            return View(asignacionProyectosEmpleado);
-            //return View(await _context.Proyectos.ToListAsync());
+            ViewBag.session = Global.session;
+            return View(await _context.Proyectos.ToListAsync());
         }
 
-        /*public IActionResult Details()
-        {
-            
-            return View();
-        }*/
-
-        // GET: Proyectos/Details/5
+        // GET: ListaProyectos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,24 +34,24 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            //return Content(JsonConvert.SerializeObject(detalleProyectos));
-            Asignacion asignacion = _context.Asignacion.Where(a => a.Id_Asignacion == id).FirstOrDefault();
-            Proyectos proyecto = _context.Proyectos.Where(p => p.Id_Proyecto == asignacion.Id_Proyecto).FirstOrDefault();
+            var proyectos = await _context.Proyectos
+                .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
+            if (proyectos == null)
+            {
+                return NotFound();
+            }
 
-            Global.asignacionProyecto = asignacion;
-            Global.sesionProyecto = proyecto;
-            
-            //return Content(JsonConvert.SerializeObject(proyecto));
-            return RedirectToAction("Index", "DetalleProyecto");
+            return View(proyectos);
         }
 
-        // GET: Proyectos/Create
+        // GET: ListaProyectos/Create
         public IActionResult Create()
         {
+            ViewBag.session = Global.session;
             return View();
         }
 
-        // POST: Proyectos/Create
+        // POST: ListaProyectos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -92,7 +67,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // GET: Proyectos/Edit/5
+        // GET: ListaProyectos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -108,7 +83,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // POST: Proyectos/Edit/5
+        // POST: ListaProyectos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -143,7 +118,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // GET: Proyectos/Delete/5
+        // GET: ListaProyectos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -161,7 +136,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // POST: Proyectos/Delete/5
+        // POST: ListaProyectos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

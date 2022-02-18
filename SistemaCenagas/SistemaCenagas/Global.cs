@@ -13,7 +13,7 @@ namespace SistemaCenagas
         public static Proyectos sesionProyecto { get; set; }
         public static Asignacion asignacionProyecto { get; set; }
         public static DetalleProyecto sesionDetalleProyecto { get; set; }
-
+        public static string despliegaProyectos { get; set; }
         public static string session { get; set; }
         public static string nombreProyectoEmpleado { get; set; }
 

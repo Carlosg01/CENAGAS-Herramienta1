@@ -1,9 +1,8 @@
-﻿@model IEnumerable<SistemaCenagas.Models.Asignacion>
+﻿@model IEnumerable<SistemaCenagas.Models.Proyectos>
 
 @{
     ViewData["Title"] = "Index";
 }
-
 <div class="main-container">
 
     <div class="navbar bg-white breadcrumb-bar">
@@ -13,7 +12,7 @@
                     <a asp-controller="Home" asp-action="Dashboard">Principal</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Proyectos</li>
-                
+
             </ol>
         </nav>
 
@@ -33,57 +32,62 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h2 class="mb-0">Proyectos asignados</h2>
+                    <h2 class="mb-0">Lista de proyectos</h2>
                 </div>
                 <div class="col-4 text-right">
-                    <a class="btn btn-primary form-control" asp-controller="Asignacion" asp-action="Create">Nueva asignación</a>
+                    <a class="btn btn-primary form-control" asp-action="Create">Nuevo proyecto</a>
                 </div>
             </div>
 
         </div>
         <table id="tblData" class="table table-bordered table-responsive-xl">
-            <thead class="thead-dark">
+            <thead>
                 <tr>
                     <th>
-                        Folio ADC
+                        @Html.DisplayNameFor(model => model.Folio_adc)
                     </th>
                     <th>
-                        Nombre
+                        @Html.DisplayNameFor(model => model.Nombre)
                     </th>
                     <th>
-                        Instalación area
+                        @Html.DisplayNameFor(model => model.Instalacion_Area)
                     </th>
                     <th>
-                        Tipo cambio
+                        @Html.DisplayNameFor(model => model.Tipo_Cambio)
                     </th>
                     <th>
-                        Descripción
+                        @Html.DisplayNameFor(model => model.Descripcion)
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < Model.ToList().Count; i++)
+                @foreach (var item in Model)
                 {
                 <tr>
                     <td>
-                        @ViewBag.proyectosEmpleado[i].Folio_adc
+                        @Html.DisplayFor(modelItem => item.Folio_adc)
                     </td>
                     <td>
-                        @ViewBag.proyectosEmpleado[i].Nombre
+                        @Html.DisplayFor(modelItem => item.Nombre)
                     </td>
                     <td>
-                        @ViewBag.proyectosEmpleado[i].Instalacion_Area
+                        @Html.DisplayFor(modelItem => item.Instalacion_Area)
                     </td>
                     <td>
-                        @ViewBag.proyectosEmpleado[i].Tipo_Cambio
+                        @Html.DisplayFor(modelItem => item.Tipo_Cambio)
                     </td>
                     <td>
-                        @ViewBag.proyectosEmpleado[i].Descripcion
+                        @Html.DisplayFor(modelItem => item.Descripcion)
                     </td>
-
                     <td>
-                        <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Details" asp-route-id="@Model.ToList()[i].Id_Asignacion">Detalles</a>
+                        <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.Id_Proyecto">Editar</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.Id_Proyecto">Detalles</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_Proyecto">Eliminar</a>
                     </td>
                 </tr>
                 }
