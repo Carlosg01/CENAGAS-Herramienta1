@@ -41,32 +41,36 @@
         {
             <div class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
 
-                <a class="navbar-brand" href="index-2.html">
-                    <img alt="Pipeline" src="~/assets/img/logo.svg" />
-                </a>
-                <div class="d-flex align-items-center">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="d-block d-lg-none ml-2">
-                        <div class="dropdown">
-                            <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img alt="Image" src="~/assets/img/avatar-male-4.jpg" class="avatar" />
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="nav-side-user.html" class="dropdown-item">Perfil de Usuario</a>
-                                <a href="utility-account-settings.html" class="dropdown-item">Configuración de Cuenta</a>
-                                <a href="#" class="dropdown-item">Cierre de Sesión</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="collapse navbar-collapse flex-column" id="navbar-collapse">
                     <ul class="navbar-nav d-lg-block">
+                        <li class="nav-item">
+
+                            <a class="nav-link" asp-controller="Home" asp-action="Dashboard">Sistema interno CENAGAS</a>
+
+                        </li>
 
                         <li class="nav-item">
 
-                            <a class="nav-link" href="index-2.html">Sistema interno CENAGAS</a>
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-2">
+                                <img alt="Image" src="~/assets/img/avatar-male-4.jpg" class="avatar" /> Bienvenido
+                            </a>
+                            <div id="submenu-1" class="collapse">
+                                <ul class="nav nav-small flex-column">
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">Perfil</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+                                    </li>
+
+                                </ul>
+                            </div>
 
                         </li>
 
@@ -77,15 +81,15 @@
                                 <ul class="nav nav-small flex-column">
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="www.csipa.com.mx">ADC</a>
+                                        <a class="nav-link" asp-controller="Proyectos" asp-action="Index">ADC</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="www.csipa.com.mx">Heramienta 2</a>
+                                        <a class="nav-link" href="#">Heramienta 2</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="www.csipa.com.mx">Herramienta 3</a>
+                                        <a class="nav-link" href="#">Herramienta 3</a>
                                     </li>
 
                                 </ul>
@@ -100,11 +104,11 @@
                                 <ul class="nav nav-small flex-column">
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="components-bootstrap.html">Por proyecto</a>
+                                        <a class="nav-link" href="#">Por proyecto</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="components-pipeline.html">Por equipo</a>
+                                        <a class="nav-link" href="#">Por equipo</a>
                                     </li>
 
                                 </ul>
@@ -114,13 +118,13 @@
 
                         <li class="nav-item">
 
-                            <a class="nav-link" href="documentation#/index.html">Documentos</a>
+                            <a class="nav-link" href="#">Documentos</a>
 
                         </li>
 
                         <li class="nav-item">
 
-                            <a class="nav-link" href="documentation#/changelog.html">Cambiar USR</a>
+                            <a class="nav-link" href="#">Cambiar USR</a>
 
                         </li>
 
@@ -130,16 +134,16 @@
                         <span class="text-small text-muted">Enlaces rápidos</span>
                         <ul class="nav nav-small flex-column mt-2">
                             <li class="nav-item">
-                                <a href="nav-side-team.html" class="nav-link">Equipos de Trabajo</a>
+                                <a href="#" class="nav-link">Equipos de Trabajo</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Proyectos" asp-action="Index">Proyectos</a>
                             </li>
                             <li class="nav-item">
-                                <a href="nav-side-task.html" class="nav-link">Tareas Únicas</a>
+                                <a href="#" class="nav-link">Tareas Únicas</a>
                             </li>
                             <li class="nav-item">
-                                <a href="nav-side-kanban-board.html" class="nav-link">Anexos y Formatos</a>
+                                <a href="#" class="nav-link">Anexos y Formatos</a>
                             </li>
                         </ul>
                         <hr>
@@ -168,18 +172,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-none d-lg-block">
-                    <div class="dropup">
-                        <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img alt="Image" src="~/assets/img/avatar-male-4.jpg" class="avatar" />
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="nav-side-user.html" class="dropdown-item">Perfil</a>
-                            <a asp-controller="Home" asp-action="AccountSettings" class="dropdown-item">Configuración de la cuenta</a>
-                            <a asp-controller="Home" asp-action="LogOut" class="dropdown-item">Cerrar sesión</a>
-                        </div>
-                    </div>
-                </div>
+                
 
             </div>
         }

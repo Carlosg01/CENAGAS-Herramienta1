@@ -53,6 +53,7 @@ namespace SistemaCenagas.Controllers
             //userlogin = JsonConvert.DeserializeObject<Usuario>(HttpContext.Session.GetString("UserSession"));
             Global.session = "usuario";
             ViewBag.session = Global.session; //HttpContext.Session.GetString("Session");
+            ViewBag.username = Global.sesionUsuario.Nombre;
 
 
             
@@ -150,6 +151,7 @@ namespace SistemaCenagas.Controllers
             if (user.Password.Equals(Global.sesionUsuario.Password) &&
                 user.Nueva_Password.Equals(user.Confirmar_Password))
             {
+                
                 /*actualiza tabla de usuarios*/
                 user.Id_Usuario = Global.sesionUsuario.Id_Usuario;
                 Usuario consultaUsuario = _context.Usuario.Find(Global.sesionUsuario.Id_Usuario);
