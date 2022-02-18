@@ -10,12 +10,11 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Principal</a>
+                    <a asp-controller="Home" asp-action="Dashboard">Principal</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#">App Pages</a>
+                    <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">User</li>
             </ol>
         </nav>
 
@@ -46,10 +45,7 @@
                         <!--end of avatar-->
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
-                                <input type="hidden" asp-for="Id_Empleado" value="@ViewBag.idEmpleado" class="form-control" />
-                                <span asp-validation-for="Id_Empleado" class="text-danger"></span>
-                            </div>
+                            <input type="hidden" asp-for="Id_Empleado" value="@ViewBag.idEmpleado" class="form-control" />
                             <div class="form-group">
                                 <label asp-for="Id_Proyecto" class="control-label">Proyecto</label>
                                 <select asp-for="Id_Proyecto" class="form-control">
@@ -85,7 +81,7 @@
                                 <input type="submit" value="Create" class="btn btn-primary" />
                             </div>
                             <div>
-                                <a asp-action="Index">Back to List</a>
+                                <a asp-controller="Proyectos" asp-action="Index">Regresar</a>
                             </div>
                         </form>
 

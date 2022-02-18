@@ -4,84 +4,118 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="main-container">
 
-<h4>DetalleProyecto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id_Proyecto" class="control-label"></label>
-                <input disabled asp-for="Id_Proyecto" value="ViewBag.idProyecto" class="form-control" />
-                <span asp-validation-for="Id_Proyecto" class="text-danger"></span>
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Principal</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="DetalleProyecto" asp-action="index">Detalles</a>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="material-icons">configuracion</i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="nav-side-user.html" class="dropdown-item">Perfil</a>
+                <a asp-controller="Home" asp-action="AccountSettings" class="dropdown-item">Configuración de la cuenta</a>
+                <a asp-controller="Home" asp-action="LogOut" class="dropdown-item text-danger">Cerrar sesión</a>
             </div>
-            <div class="form-group">
-                <label asp-for="Id_Residencia" class="control-label"></label>
-                <input asp-for="Id_Residencia" class="form-control" />
-                <span asp-validation-for="Id_Residencia" class="text-danger"></span>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h2 class="mb-0">Nueva actividad de proyecto</h2>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Id_Asignacion" class="control-label"></label>
-                <input disabled asp-for="Id_Asignacion" value="ViewBag.idAsignacion" class="form-control" />
-                <span asp-validation-for="Id_Asignacion" class="text-danger"></span>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id_Proyecto" value="@ViewBag.asignacionProyecto.Id_Proyecto" class="form-control" />
+                            <input type="hidden" asp-for="Id_Residencia" value="@ViewBag.asignacionProyecto.Id_Residencia" class="form-control" />
+                            <input type="hidden" asp-for="Id_Asignacion" value="@ViewBag.asignacionProyecto.Id_Asignacion" class="form-control" />
+
+                            <div class="form-group">
+                                <label asp-for="No_Desarrollo" class="control-label"></label>
+                                <input asp-for="No_Desarrollo" class="form-control" />
+                                <span asp-validation-for="No_Desarrollo" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Desarrollo" class="control-label"></label>
+                                <input asp-for="Desarrollo" class="form-control" />
+                                <span asp-validation-for="Desarrollo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Descripcion_Actividad" class="control-label"></label>
+                                <input asp-for="Descripcion_Actividad" class="form-control" />
+                                <span asp-validation-for="Descripcion_Actividad" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Avance" class="control-label"></label>
+                                <input asp-for="Avance" class="form-control" />
+                                <span asp-validation-for="Avance" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Faltante_Comentarios" class="control-label"></label>
+                                <input asp-for="Faltante_Comentarios" class="form-control" />
+                                <span asp-validation-for="Faltante_Comentarios" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Comentarios" class="control-label"></label>
+                                <input asp-for="Comentarios" class="form-control" />
+                                <span asp-validation-for="Comentarios" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Plan_Accion" class="control-label"></label>
+                                <input asp-for="Plan_Accion" class="form-control" />
+                                <span asp-validation-for="Plan_Accion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Anexos" class="control-label"></label>
+                                <input asp-for="Anexos" class="form-control" />
+                                <span asp-validation-for="Anexos" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Tipo_Proyecto" class="control-label"></label>
+                                <select asp-for="Tipo_Proyecto" class="form-control">
+                                    <option>ADC</option>
+                                    <option>Prearranque</option>
+                                </select>
+                                <span asp-validation-for="Tipo_Proyecto" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Crear" class="btn btn-primary" />
+                            </div>
+                            <div>
+                                <a asp-action="Index">Regresar</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="No_Desarrollo" class="control-label"></label>
-                <input asp-for="No_Desarrollo" class="form-control" />
-                <span asp-validation-for="No_Desarrollo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Desarrollo" class="control-label"></label>
-                <input asp-for="Desarrollo" class="form-control" />
-                <span asp-validation-for="Desarrollo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion_Actividad" class="control-label"></label>
-                <input asp-for="Descripcion_Actividad" class="form-control" />
-                <span asp-validation-for="Descripcion_Actividad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Avance" class="control-label"></label>
-                <input asp-for="Avance" class="form-control" />
-                <span asp-validation-for="Avance" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Faltante_Comentarios" class="control-label"></label>
-                <input asp-for="Faltante_Comentarios" class="form-control" />
-                <span asp-validation-for="Faltante_Comentarios" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comentarios" class="control-label"></label>
-                <input asp-for="Comentarios" class="form-control" />
-                <span asp-validation-for="Comentarios" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Plan_Accion" class="control-label"></label>
-                <input asp-for="Plan_Accion" class="form-control" />
-                <span asp-validation-for="Plan_Accion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Anexos" class="control-label"></label>
-                <input asp-for="Anexos" class="form-control" />
-                <span asp-validation-for="Anexos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tipo_Proyecto" class="control-label"></label>
-                <input asp-for="Tipo_Proyecto" class="form-control" />
-                <span asp-validation-for="Tipo_Proyecto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -40,7 +40,7 @@
                     <h2 class="mb-0">Proyecto: @ViewBag.nombreProyectoEmpleado</h2>
                 </div>
                 <div class="col-4 text-right">
-                    <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Index">Regresar</a>
+                    <a class="btn btn-primary form-control" asp-controller="DetalleProyecto" asp-action="Create">Nueva actividad</a>
                 </div>
             </div>
         </div>
@@ -117,6 +117,13 @@
                 }
             </tbody>
         </table>
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="col-4 text-right">
+                    <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Index">Regresar</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -35,13 +35,17 @@ namespace SistemaCenagas.Controllers
             int idUser = Global.sesionEmpleado.Id_Empleado;
 
             var outputParameter = new MySqlParameter("@idEmpleado", idUser);
-            IEnumerable<Proyectos> results = await _context.Proyectos.FromSqlRaw("Call ProyectosEmpleado(@idEmpleado)",
-            outputParameter).ToListAsync();
+            IEnumerable<Asignacion> asignacionProyectosEmpleado = await _context.Asignacion.FromSqlRaw(
+                "Call AsignacionProyectosEmpleado(@idEmpleado)", outputParameter).ToListAsync();
 
-            //HttpContext.Session.SetString("Session", "usuario");
+            //return Content(JsonConvert.SerializeObject(asignacionProyectosEmpleado));
+
+            ViewBag.proyectosEmpleado = await _context.Proyectos.FromSqlRaw(
+                "call ProyectosEmpleado(@idEmpleado)", outputParameter).ToListAsync();
+
             ViewBag.session = Global.session;//HttpContext.Session.GetString("Session");
 
-            return View(results);
+            return View(asignacionProyectosEmpleado);
             //return View(await _context.Proyectos.ToListAsync());
         }
 
@@ -59,15 +63,14 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var proyectos = await _context.Proyectos.FirstOrDefaultAsync(m => m.Id_Proyecto == id);
-            if (proyectos == null)
-            {
-                return NotFound();
-            }
+            //return Content(JsonConvert.SerializeObject(detalleProyectos));
+            Asignacion asignacion = _context.Asignacion.Where(a => a.Id_Asignacion == id).FirstOrDefault();
+            Proyectos proyecto = _context.Proyectos.Where(p => p.Id_Proyecto == asignacion.Id_Proyecto).FirstOrDefault();
 
+            Global.asignacionProyecto = asignacion;
+            Global.sesionProyecto = proyecto;
             
-
-            Global.sesionProyecto = (Proyectos)proyectos;
+            //return Content(JsonConvert.SerializeObject(proyecto));
             return RedirectToAction("Index", "DetalleProyecto");
         }
 

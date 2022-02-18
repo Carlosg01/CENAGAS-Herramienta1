@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaCenagas.Models.Proyectos>
+﻿@model IEnumerable<SistemaCenagas.Models.Asignacion>
 
 @{
     ViewData["Title"] = "Index";
@@ -45,64 +45,45 @@
             <thead class="thead-dark">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Folio_adc)
+                        Folio ADC
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nombre)
+                        Nombre
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Instalacion_Area)
+                        Instalación area
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Tipo_Cambio)
+                        Tipo cambio
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Instalacion_Area)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Tipo_Cambio)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
+                        Descripción
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @for (int i = 0; i < Model.ToList().Count; i++)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Folio_adc)
+                            @ViewBag.proyectosEmpleado[i].Folio_adc
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
+                            @ViewBag.proyectosEmpleado[i].Nombre
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Instalacion_Area)
+                            @ViewBag.proyectosEmpleado[i].Instalacion_Area
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Tipo_Cambio)
+                            @ViewBag.proyectosEmpleado[i].Tipo_Cambio
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
+                            @ViewBag.proyectosEmpleado[i].Descripcion
                         </td>
-
+                        
                         <td>
-                            @Html.DisplayFor(modelItem => item.Instalacion_Area)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tipo_Cambio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Details" asp-route-id="@item.Id_Proyecto">Detalles</a>
+                            <a class="btn btn-info form-control" asp-controller="Proyectos" asp-action="Details" asp-route-id="@Model.ToList()[i].Id_Asignacion">Detalles</a>
                         </td>
                     </tr>
                 }
