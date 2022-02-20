@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace SistemaCenagas.Models
         [Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(200)]
         public string Email { get; set; }
+
+        [MaxLength(100)]
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(200)]

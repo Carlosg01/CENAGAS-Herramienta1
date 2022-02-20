@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SistemaCenagas.Data;
+using SistemaCenagas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,8 @@ namespace SistemaCenagas
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.28-mysql")));
 
+            
+
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
@@ -38,7 +42,6 @@ namespace SistemaCenagas
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
             });
-
 
             services.AddControllersWithViews();
 

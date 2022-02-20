@@ -11,6 +11,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+using MailKit.Net.Smtp;
+using MimeKit;
+using System.Security.Authentication;
+using Microsoft.AspNetCore.Identity;
+
+using System.Text;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.WebUtilities;
+
+/*using System.Net;
+using System.Net.Mail;
+using SistemaCenagas.Email;*/
+
 namespace SistemaCenagas.Controllers
 {
     public class HomeController : Controller
@@ -31,7 +44,8 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Usuario user)
         {            
-            Usuario us = _context.Usuario.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
+            Usuario us = _context.Usuario.Where(u => u.Email == user.Email && 
+                    u.Password == user.Password && u.Token != null).FirstOrDefault();
 
             if(us != null)
             {
@@ -62,6 +76,7 @@ namespace SistemaCenagas.Controllers
 
         public IActionResult CreateAccount()
         {
+            ViewBag.CreateAccountSendEmail = false;
             return View();
         }
 
@@ -69,11 +84,13 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAccount(Usuario user)
         {
+            //return Content(JsonConvert.SerializeObject(user));
 
             if (ModelState.IsValid)
             {
                 if (user.Password.Equals(user.Confirmar_Password))
                 {
+                    user.Username = user.Email.Split("@")[0];
                     _context.Add(user);
                     await _context.SaveChangesAsync();
 
@@ -87,7 +104,16 @@ namespace SistemaCenagas.Controllers
                     emp.Observaciones = "";
                     _context.Add(emp);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+
+                    ViewBag.CreateAccountSendEmail = true;
+                    ViewBag.email = user.Email;
+
+                    string emailText = "<h1>Bienvenido al sistema cenagas</h1>" +
+                    "<p>Por favor confirma tu email haciendo clic en el siguiente enlace. </p>";
+
+                    SendEmail(user, "CreateAccountConfirm", "Confirma tu email para acceder", emailText);
+
+                    return View();
                 }                    
             }
             return View(user);
@@ -96,7 +122,107 @@ namespace SistemaCenagas.Controllers
 
         public IActionResult ForgotPassword()
         {
+            ViewBag.ForgotPasswordSendEmail = false;
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(Usuario user)
+        {
+            ViewBag.ForgotPasswordSendEmail = true;
+            ViewBag.email = user.Email;
+
+            string emailText = "<h1>Olvidaste tu contraseña</h1>" +
+            "<p>Por favor has clic en el siguiente enlace para resetear tu contraseña. </p>";
+
+            SendEmail(user, "ResetPassword", "Verificacion para cambio de contraseña", emailText);
+
+            return View();
+        }
+
+        
+
+        [HttpGet]
+        public async Task<IActionResult> CreateAccountConfirm(string idUser)
+        {
+            if (string.IsNullOrWhiteSpace(idUser))
+                return NotFound();
+
+            Usuario confirmUser = _context.Usuario.Find(int.Parse(idUser));
+            confirmUser.Token = "Confirmado";
+            _context.Update(confirmUser);
+            _context.SaveChanges();
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            Usuario user = new Usuario
+            {
+                Email = email
+            };
+            
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(Usuario user)
+        {
+            if (user.Password.Equals(user.Confirmar_Password))
+            {
+                Usuario confirmUser = _context.Usuario.Where(u => u.Email == user.Email).FirstOrDefault();
+                confirmUser.Password = user.Password;
+                _context.Update(confirmUser);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        public string SendEmail(Usuario user, string action, string subject, string bodyText)
+        {
+            string url = $"https://localhost:44330/Home/{action}?" + 
+                ((action.Equals("CreateAccountConfirm")) ? $"idUser={user.Id_Usuario}" : $"email={user.Email}");
+            string emailText = bodyText + $"<a href='{url}'>Clic aquí</a>";
+            string fromAddress = "email_test@gmail.com";
+            string password = "password_test";
+            string toAddress = user.Email;
+
+
+            try
+            {
+                using (var client = new SmtpClient())
+                {
+                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                    client.Connect("smtp.gmail.com", 465, MailKit.Security.SecureSocketOptions.Auto);
+                    client.Authenticate(fromAddress, password);
+
+                    var body = new BodyBuilder
+                    {
+                        HtmlBody = emailText//$"<p>Body test</p>",
+                        //TextBody = emailText
+                    };
+                    var message = new MimeMessage
+                    {
+                        Body = body.ToMessageBody()
+                    };
+                    message.From.Add(new MailboxAddress("Sistema Cenagas", fromAddress));
+                    message.To.Add(new MailboxAddress("", toAddress));
+                    message.Subject = "Confirma tu email para acceder";
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+                return "Envio exitoso! :)";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
         }
 
         public IActionResult LogOut()
@@ -163,7 +289,7 @@ namespace SistemaCenagas.Controllers
 
             return RedirectToAction(nameof(AccountSettings));
         }
-
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

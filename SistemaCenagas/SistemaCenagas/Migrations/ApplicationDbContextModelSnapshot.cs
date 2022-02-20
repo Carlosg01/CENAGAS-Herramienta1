@@ -394,7 +394,6 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Confirmar_Password")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
@@ -424,7 +423,6 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Nueva_Password")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
@@ -452,6 +450,10 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Ubicacion")
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Username")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id_Usuario");
 

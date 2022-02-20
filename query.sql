@@ -2,12 +2,12 @@ use bd_cenagas2
 
 
 describe usuario
-insert into usuario (Nombre, Paterno, Materno, Email, Password)
+insert into usuario (Nombre, Paterno, Materno, Email, Password, Username)
 values 
-('Jose','Luis','Esparza', 'joselp@gmail.com', '123'),
-('Jose','Luis', 'Razo', 'joselr@gmail.com', '123'),
-('Rodrigo','Espinoza', 'Lara', 'rodrigoel@gmail.com', '123'),
-('Jessica','Ortíz','Ochoterena', 'jessicaoo@gmail.com','123')
+('Jose','Luis','Esparza', 'joselp@gmail.com', '123','joselp'),
+('Jose','Luis', 'Razo', 'joselr@gmail.com', '123','joselr'),
+('Rodrigo','Espinoza', 'Lara', 'rodrigoel@gmail.com', '123','rodrigoel'),
+('Jessica','Ortíz','Ochoterena', 'jessicaoo@gmail.com','123','jessicaoo')
 select * from usuario where Id_Usuario = 7
 delete from usuario where Id_Usuario = 5
 
@@ -50,6 +50,7 @@ values
     (104,'PRO-CEN-UTA-020-F07','Construcción de la Trampa de Envió y Recibo de Diablos Las Huertas','instalación área','permanente','El procedimiento de Administración de Cambios Temporales o Definitivos con Clave: PRO-CEN-UTA-020,  debe utilizarse como mecanismo para administrar todos los cambios temporales y definitivos antes de la puesta en operación de un Sistema de Transporte nuevo, rehabilitado o modificado con el propósito de identificar y controlar los riesgos asociados a las actividades que puedan ser causa de incidentes, confirmando que los elementos de Seguridad Industrial, Seguridad Operativa y Protección al Medio Ambiente del Sistema de Transporte han sido construidos o instalados conforme al diseño y proporciona la certeza de que la instalación es segura para el inicio de operaciones. La ADC debe ser aplicada y cumplirse estrictamente a todos los niveles del  Ser el primer documento emitido cuando se propone un cambio (no debe tomarse como "papeleo de rutina" posterior al cambio).')
 ;
 select * from proyectos
+delete from proyectos
 
 
 describe asignacion
@@ -63,6 +64,7 @@ values
 (1005,6,101,0,'20220401','20220728','responsable del prearranque')*/
 ;
 select * from asignacion
+delete from asignacion
 
 
 describe detalleproyecto
@@ -82,6 +84,7 @@ UTA/CIM/006/2018, que celebraron por una parte “FERMACA” y “CENAGAS” se 
 (1008,100,0,1000,9,'Control de cambios de centro de trabajo','La Dirección de Seguridad Industrial, Revisa que la documentación seleccionada en el numeral 13 del Anexo 3. Proyecto de la Administración del Cambio, PRO-CEN-UTA-020-F03 esté cargada en el sitio web indicado y Archiva la Administración del Cambio y registra la fecha de cierre de esta en el Anexo 2. Lista de control de Administración del Cambio, PRO-CEN-UTA-020-F02. Asimismo, cambia el estatus de “En elaboración” por “Concluida”, asi como debe Difundir la Administración del Cambio al personal de la UTA.',100,'La documentación a la que hace referencía el Anexo 3. Proyecto de la Administración del Cambio, PRO-CEN-UTA-020-F03, se encuentra cargada y revisada por el equipo verificado ren el sitio web indicado.','Integrar la información conforme al Anexo 3. Proyecto de la Administración del Cambio, PRO-CEN-UTA-020-F03. ','Realizar AR con la metodología  HazOp y What If..?','aqui va un anexo','ADC')
 ;
 select * from detalleproyecto
+delete from detalleproyecto
 
 select  p.Nombre,
 		p.Instalacion_Area,
