@@ -16,45 +16,50 @@ namespace SistemaCenagas.Controllers
     public class DetalleProyectoController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private Usuario userSession;
-        private int idUser, idProyecto, idAsignacion;
-        IEnumerable<DetalleProyecto> results;
 
         public DetalleProyectoController(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        private void inicializarInfoProyecto()
+        {
+            //Global.sesionDetalleProyecto = (DetalleProyecto)results.FirstOrDefault();
+            ViewBag.session = Global.session;
+            ViewBag.folioProyecto = Global._proyecto.Folio_adc;
+            ViewBag.nombreProyecto = Global._proyecto.Nombre;
+            ViewBag.instalacionArea = Global._proyecto.Instalacion_Area;
+            ViewBag.tipoCambio = Global._proyecto.Tipo_Cambio;
+
+            /*Consulta a los asignados del proyecto*/
+            var idProyecto = new MySqlParameter("@idProyecto", Global._proyecto.Id_Proyecto);
+            //var funcion = new MySqlParameter("@funcion", "lider de equipo verificador");
+            IEnumerable<Empleado> empleadosProyecto = _context.Empleado.FromSqlRaw(
+                "Call Proc_empleadosProyecto(@idProyecto)", idProyecto).ToList();
+
+            ViewBag.empleadosProyecto = new string[3];
+            int i;
+            for (i = 0; i < 3; i++) ViewBag.empleadosProyecto[i] = "";
+            i = 0;
+            foreach (Empleado e in empleadosProyecto)
+            {
+                ViewBag.empleadosProyecto[i] = $"{e.Titulo} {e.Nombre} {e.Paterno} {e.Materno}";
+                i++;
+            }
+        }
+
         // GET: DetalleProyecto
         public async Task<IActionResult> Index()
         {
-            /*Global.sesionDetalleProyecto = _context.DetalleProyecto.Where(dp =>
-                dp.Id_Proyecto == Global.sesionProyecto.Id_Proyecto).FirstOrDefault();*/
+            var idproyectoParam = new MySqlParameter("@idProyecto", Global._proyecto.Id_Proyecto);
+            Global._detallesProyecto = await _context.DetalleProyecto.FromSqlRaw("Call Proc_DetallesProyectos(@idProyecto)",
+            idproyectoParam).ToListAsync();
 
-            /*Global.asignacionProyecto = _context.Asignacion.Where(a =>
-                a.Id_Proyecto == Global.sesionDetalleProyecto.Id_Asignacion).FirstOrDefault();*/
+            inicializarInfoProyecto();            
 
-            idUser = Global.sesionUsuario.Id_Usuario;
-            idProyecto = Global.sesionProyecto.Id_Proyecto;
-            idAsignacion = Global.asignacionProyecto.Id_Asignacion;
-
-            //return Content("" + idUser + "-" + idProyecto + "-" + idAsignacion);
-
-            var idempleadoParam = new MySqlParameter("@idEmpleado", idUser);
-            var idproyectoParam = new MySqlParameter("@idProyecto", idProyecto);
-            var idasignacionParam = new MySqlParameter("@idAsignacion", idAsignacion);
-            results = await _context.DetalleProyecto.FromSqlRaw("Call DetalleProyectosEmpleado(@idEmpleado, @idProyecto, @idAsignacion)",
-            idempleadoParam, idproyectoParam, idasignacionParam).ToListAsync();
-
-            
-            //Global.sesionDetalleProyecto = (DetalleProyecto)results.FirstOrDefault();
-            ViewBag.session = Global.session;
-            ViewBag.nombreProyectoEmpleado = Global.sesionProyecto.Nombre;
-            ////return Content(ViewBag.nombreProyectoEmpleado);
-
-            return View(results);
+            return View(Global._detallesProyecto);
         }
-
+        
         // GET: DetalleProyecto/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -69,7 +74,9 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-            ViewBag.session = Global.session;            
+            ViewBag.session = Global.session;
+            
+            inicializarInfoProyecto();
 
             return View(detalleProyecto);
         }
@@ -77,10 +84,10 @@ namespace SistemaCenagas.Controllers
         // GET: DetalleProyecto/Create
         public IActionResult Create()
         {
-            /*Global.sesionDetalleProyecto = _context.DetalleProyecto.Where(dp =>
-                dp.Id_Proyecto == Global.sesionProyecto.Id_Proyecto).FirstOrDefault();*/
-
-            ViewBag.asignacionProyecto = Global.asignacionProyecto;
+            ViewBag.session = Global.session;
+            ViewBag.asignacionProyecto = Global._proyecto;
+            inicializarInfoProyecto();
+            
             return View();
         }
 
@@ -113,7 +120,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-
+            inicializarInfoProyecto();
             ViewBag.session = Global.session;
 
             return View(detalleProyecto);

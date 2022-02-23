@@ -49,9 +49,9 @@ namespace SistemaCenagas.Controllers
 
             if(us != null)
             {
-                Global.sesionUsuario = (Usuario)us;
-                var emp = _context.Empleado.Where(e => e.Id_Usuario == Global.sesionUsuario.Id_Usuario).FirstOrDefault();
-                Global.sesionEmpleado = (Empleado)emp;
+                Global._usuario = (Usuario)us;
+                var emp = _context.Empleado.Where(e => e.Id_Usuario == Global._usuario.Id_Usuario).FirstOrDefault();
+                Global._empleado = (Empleado)emp;
 
                 return RedirectToAction(nameof(Dashboard));
             }            
@@ -61,13 +61,13 @@ namespace SistemaCenagas.Controllers
         public IActionResult Dashboard()
         {
 
-            if (Global.sesionUsuario == null)
+            if (Global._usuario == null)
                 return RedirectToAction(nameof(Index));
 
             //userlogin = JsonConvert.DeserializeObject<Usuario>(HttpContext.Session.GetString("UserSession"));
             Global.session = "usuario";
             ViewBag.session = Global.session; //HttpContext.Session.GetString("Session");
-            ViewBag.username = Global.sesionUsuario.Nombre;
+            ViewBag.username = Global._usuario.Nombre;
 
 
             
@@ -188,8 +188,8 @@ namespace SistemaCenagas.Controllers
             string url = $"https://localhost:44330/Home/{action}?" + 
                 ((action.Equals("CreateAccountConfirm")) ? $"idUser={user.Id_Usuario}" : $"email={user.Email}");
             string emailText = bodyText + $"<a href='{url}'>Clic aquí</a>";
-            string fromAddress = "email_test@gmail.com";
-            string password = "password_test";
+            string fromAddress = "ahdzt.97@gmail.com";
+            string password = "matochiva1530343";
             string toAddress = user.Email;
 
 
@@ -227,8 +227,10 @@ namespace SistemaCenagas.Controllers
 
         public IActionResult LogOut()
         {
-            Global.sesionUsuario = null;
-            Global.sesionEmpleado = null;
+            Global._usuario = null;
+            Global._empleado = null;
+            Global._proyecto = null;
+            Global._detallesProyecto = null;
             Global.session = null;
             Global.nombreProyectoEmpleado = null;
             return RedirectToAction(nameof(Index));
@@ -237,7 +239,7 @@ namespace SistemaCenagas.Controllers
         public IActionResult AccountSettings()
         {
             ViewBag.session = Global.session;
-            return View((Usuario)Global.sesionUsuario);
+            return View((Usuario)Global._usuario);
         }
 
         [HttpPost]
@@ -246,8 +248,8 @@ namespace SistemaCenagas.Controllers
         {
             //return Content(JsonConvert.SerializeObject(user));
             /*actualiza tabla de usuarios*/
-            user.Id_Usuario = Global.sesionUsuario.Id_Usuario;
-            Usuario consultaUsuario = _context.Usuario.Find(Global.sesionUsuario.Id_Usuario);
+            user.Id_Usuario = Global._usuario.Id_Usuario;
+            Usuario consultaUsuario = _context.Usuario.Find(Global._usuario.Id_Usuario);
             consultaUsuario.Nombre = user.Nombre;
             consultaUsuario.Paterno = user.Paterno;
             consultaUsuario.Materno = user.Materno;
@@ -256,16 +258,16 @@ namespace SistemaCenagas.Controllers
             consultaUsuario.Observaciones = user.Observaciones;
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
-            Global.sesionUsuario = consultaUsuario;
+            Global._usuario = consultaUsuario;
 
             /*actualiza tabla de empleado*/
-            Empleado consultaEmpleado = _context.Empleado.Find(Global.sesionEmpleado.Id_Empleado);
+            Empleado consultaEmpleado = _context.Empleado.Find(Global._empleado.Id_Empleado);
             consultaEmpleado.Nombre = user.Nombre;
             consultaEmpleado.Paterno = user.Paterno;
             consultaEmpleado.Materno = user.Materno;
             _context.Update(consultaEmpleado);
             await _context.SaveChangesAsync();
-            Global.sesionEmpleado = consultaEmpleado;
+            Global._empleado = consultaEmpleado;
 
             return RedirectToAction(nameof(AccountSettings));
         }
@@ -274,17 +276,17 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdatePassword(Usuario user)
         {
-            if (user.Password.Equals(Global.sesionUsuario.Password) &&
+            if (user.Password.Equals(Global._usuario.Password) &&
                 user.Nueva_Password.Equals(user.Confirmar_Password))
             {
                 
                 /*actualiza tabla de usuarios*/
-                user.Id_Usuario = Global.sesionUsuario.Id_Usuario;
-                Usuario consultaUsuario = _context.Usuario.Find(Global.sesionUsuario.Id_Usuario);
+                user.Id_Usuario = Global._usuario.Id_Usuario;
+                Usuario consultaUsuario = _context.Usuario.Find(Global._usuario.Id_Usuario);
                 consultaUsuario.Password = user.Nueva_Password;
                 _context.Update(consultaUsuario);
                 await _context.SaveChangesAsync();
-                Global.sesionUsuario = consultaUsuario;
+                Global._usuario = consultaUsuario;
             }
 
             return RedirectToAction(nameof(AccountSettings));

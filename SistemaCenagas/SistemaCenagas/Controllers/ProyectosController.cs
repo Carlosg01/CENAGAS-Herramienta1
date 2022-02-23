@@ -15,8 +15,7 @@ namespace SistemaCenagas.Controllers
 {
     public class ProyectosController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private Usuario userSession;
+        private readonly ApplicationDbContext _context; 
 
         public ProyectosController(ApplicationDbContext context)
         {
@@ -28,28 +27,9 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Index()
         {
 
-            int idUser = Global.sesionEmpleado.Id_Empleado;
-
-            var outputParameter = new MySqlParameter("@idEmpleado", idUser);
-            IEnumerable<Asignacion> asignacionProyectosEmpleado = await _context.Asignacion.FromSqlRaw(
-                "Call AsignacionProyectosEmpleado(@idEmpleado)", outputParameter).ToListAsync();
-
-            //return Content(JsonConvert.SerializeObject(asignacionProyectosEmpleado));
-
-            ViewBag.proyectosEmpleado = await _context.Proyectos.FromSqlRaw(
-                "call ProyectosEmpleado(@idEmpleado)", outputParameter).ToListAsync();
-
             ViewBag.session = Global.session;//HttpContext.Session.GetString("Session");
-
-            return View(asignacionProyectosEmpleado);
-            //return View(await _context.Proyectos.ToListAsync());
+            return View(await _context.Proyectos.ToListAsync());
         }
-
-        /*public IActionResult Details()
-        {
-            
-            return View();
-        }*/
 
         // GET: Proyectos/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,20 +39,17 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            //return Content(JsonConvert.SerializeObject(detalleProyectos));
-            Asignacion asignacion = _context.Asignacion.Where(a => a.Id_Asignacion == id).FirstOrDefault();
-            Proyectos proyecto = _context.Proyectos.Where(p => p.Id_Proyecto == asignacion.Id_Proyecto).FirstOrDefault();
+            Global._detallesProyecto = _context.DetalleProyecto.Where(
+                    dp => dp.Id_Proyecto == id);
+            Global._proyecto = _context.Proyectos.Find(id);
 
-            Global.asignacionProyecto = asignacion;
-            Global.sesionProyecto = proyecto;
-            
-            //return Content(JsonConvert.SerializeObject(proyecto));
             return RedirectToAction("Index", "DetalleProyecto");
         }
 
         // GET: Proyectos/Create
         public IActionResult Create()
         {
+            ViewBag.session = Global.session;
             return View();
         }
 
@@ -105,6 +82,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
+            ViewBag.session = Global.session;
             return View(proyectos);
         }
 

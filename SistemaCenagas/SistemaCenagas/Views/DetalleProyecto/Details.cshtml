@@ -18,6 +18,7 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="DetalleProyecto" asp-action="index">Detalles</a>
                 </li>
+                <li class="breadcrumb-item active" aria-current="page">Desarrollo</li>
             </ol>
         </nav>
 
@@ -37,7 +38,54 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h1 class="mb-0">Detalles</h1>
+                    <h2 class="mb-0">@ViewBag.folioProyecto</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                Proyecto:
+                            </dt>
+                            <dd class="col-sm-10">
+                                @ViewBag.nombreProyecto
+                            </dd>
+                            <dt class="col-sm-2">
+                                Instalación/Área:
+                            </dt>
+                            <dd class="col-sm-10">
+                                @ViewBag.instalacionArea
+                            </dd>
+                            <dt class="col-sm-2">
+                                Tipo de cambio:
+                            </dt>
+                            <dd class="col-sm-10">
+                                @ViewBag.tipoCambio
+                            </dd>
+                            <dt class="col-sm-2">
+                                Responsable de la ADC
+                            </dt>
+                            <dd class="col-sm-10">
+                                @ViewBag.empleadosProyecto[1]
+                            </dd>
+                            <dt class="col-sm-2">
+                                Suplente:
+                            </dt>
+                            <dd class="col-sm-10">
+                                @ViewBag.empleadosProyecto[2]
+                            </dd>
+                            <dt class="col-sm-2">
+                                Lider del equipo verificador:
+                            </dt>
+                            <dd class="col-sm-10">
+                                @ViewBag.empleadosProyecto[0]
+                            </dd>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>

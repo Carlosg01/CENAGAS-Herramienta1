@@ -36,11 +36,23 @@ namespace SistemaCenagas.Controllers
 
             var proyectos = await _context.Proyectos
                 .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
+
+            int u = 0;
+
+            var emp = _context.Empleado.Join(_context.Asignacion, e => e.Id_Empleado, a => a.Id_Empleado,
+                (e, a) => new { e, a }).FirstOrDefault(x => x.a.Id_Asignacion == id);
+
+            //ViewBag.lider = 
+                           
+
             if (proyectos == null)
             {
                 return NotFound();
             }
 
+            //ViewBag.asignados = (from a in _context.Asignacion)
+
+            ViewBag.session = Global.session;
             return View(proyectos);
         }
 
@@ -80,6 +92,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
+            ViewBag.session = Global.session;
             return View(proyectos);
         }
 
@@ -132,7 +145,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.session = Global.session;
             return View(proyectos);
         }
 

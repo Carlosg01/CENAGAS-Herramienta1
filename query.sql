@@ -1,4 +1,4 @@
-use bd_cenagas2
+use bd_cenagas
 
 
 describe usuario
@@ -9,11 +9,10 @@ values
 ('Rodrigo','Espinoza', 'Lara', 'rodrigoel@gmail.com', '123','rodrigoel'),
 ('Jessica','Ortíz','Ochoterena', 'jessicaoo@gmail.com','123','jessicaoo')
 select * from usuario where Id_Usuario = 7
-delete from usuario where Id_Usuario = 5
+delete from usuario where Id_Usuario > 4
+update usuario set Token = 'Confirmado' where Id_Usuario <= 4
 
 update usuario set ubicacion = "V" where Id_Usuario = 7
-
-
 
 describe empleado
 insert into empleado(Id_Usuario,nombre,paterno,materno,titulo,observaciones)
@@ -65,7 +64,6 @@ values
 ;
 select * from asignacion
 delete from asignacion
-
 
 describe detalleproyecto
 insert into detalleproyecto(Id_DetalleProyecto,Id_Proyecto,Id_Residencia,Id_Asignacion,No_Desarrollo,Desarrollo,Descripcion_Actividad,Avance,Faltante_Comentarios,Comentarios,Plan_Accion,Anexos,Tipo_Proyecto)

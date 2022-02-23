@@ -4,49 +4,97 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="main-container">
 
-<h4>Proyectos</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id_Proyecto" />
-            <div class="form-group">
-                <label asp-for="Folio_adc" class="control-label"></label>
-                <input asp-for="Folio_adc" class="form-control" />
-                <span asp-validation-for="Folio_adc" class="text-danger"></span>
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Principal</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="DetalleProyecto" asp-action="index">Detalles</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Editar</li>
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="material-icons">configuracion</i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="nav-side-user.html" class="dropdown-item">Perfil</a>
+                <a asp-controller="Home" asp-action="AccountSettings" class="dropdown-item">Configuración de la cuenta</a>
+                <a asp-controller="Home" asp-action="LogOut" class="dropdown-item text-danger">Cerrar sesión</a>
             </div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Instalacion_Area" class="control-label"></label>
-                <input asp-for="Instalacion_Area" class="form-control" />
-                <span asp-validation-for="Instalacion_Area" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tipo_Cambio" class="control-label"></label>
-                <input asp-for="Tipo_Cambio" class="form-control" />
-                <span asp-validation-for="Tipo_Cambio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
     </div>
-</div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h2 class="mb-0">@ViewBag.folioProyecto</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id_Proyecto" />
+                            <div class="form-group">
+                                <label asp-for="Folio_adc" class="control-label"></label>
+                                <input asp-for="Folio_adc" class="form-control" />
+                                <span asp-validation-for="Folio_adc" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Nombre" class="control-label"></label>
+                                <input asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Instalacion_Area" class="control-label"></label>
+                                <input asp-for="Instalacion_Area" class="form-control" />
+                                <span asp-validation-for="Instalacion_Area" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Tipo_Cambio" class="control-label"></label>
+                                <select asp-for="Tipo_Cambio" class="form-control">
+                                    <option>Permanente</option>
+                                    <option>Temporal</option>
+                                    <option>Definitivo</option>
+                                    <option>Nuevo rehabilitado</option>
+                                    <option>Modificado</option>
+                                </select>
+                                <span asp-validation-for="Tipo_Cambio" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Descripcion" class="control-label"></label>
+                                <input asp-for="Descripcion" class="form-control" />
+                                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                        <div>
+                            <a asp-action="Index">Cancelar</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

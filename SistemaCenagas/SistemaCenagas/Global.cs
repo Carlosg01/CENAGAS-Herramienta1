@@ -8,11 +8,12 @@ namespace SistemaCenagas
 {
     public static class Global
     {
-        public static Usuario sesionUsuario { get; set; }
-        public static Empleado sesionEmpleado { get; set; }
-        public static Proyectos sesionProyecto { get; set; }
-        public static Asignacion asignacionProyecto { get; set; }
-        public static DetalleProyecto sesionDetalleProyecto { get; set; }
+        public static Usuario _usuario { get; set; }
+        public static Empleado _empleado { get; set; }
+        public static Proyectos _proyecto { get; set; }
+        public static Asignacion _asignacion { get; set; }
+        public static DetalleProyecto _detalleProyecto { get; set; }
+        public static IEnumerable<DetalleProyecto> _detallesProyecto { get; set; }
         public static string despliegaProyectos { get; set; }
         public static string session { get; set; }
         public static string nombreProyectoEmpleado { get; set; }
