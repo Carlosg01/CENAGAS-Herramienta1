@@ -88,7 +88,8 @@ namespace SistemaCenagas.Controllers
 
             if (ModelState.IsValid)
             {
-                if (user.Password.Equals(user.Confirmar_Password))
+                if (user.Password.Equals(user.Confirmar_Password) &&
+                    user.Email.Split("@")[1].Equals("cenagas.gob.mx")) //validacion de dominio
                 {
                     user.Username = user.Email.Split("@")[0];
                     _context.Add(user);
@@ -188,8 +189,8 @@ namespace SistemaCenagas.Controllers
             string url = $"https://localhost:44330/Home/{action}?" + 
                 ((action.Equals("CreateAccountConfirm")) ? $"idUser={user.Id_Usuario}" : $"email={user.Email}");
             string emailText = bodyText + $"<a href='{url}'>Clic aquí</a>";
-            string fromAddress = "ahdzt.97@gmail.com";
-            string password = "matochiva1530343";
+            string fromAddress = "test@gmail.com";
+            string password = "test";
             string toAddress = user.Email;
 
 
