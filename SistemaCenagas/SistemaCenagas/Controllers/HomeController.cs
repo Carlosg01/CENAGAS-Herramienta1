@@ -29,10 +29,13 @@ namespace SistemaCenagas.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private string EMAIL_ADDRESS, EMAIL_PASSWORD;
 
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
+            EMAIL_ADDRESS = "test@gmail.com";
+            EMAIL_PASSWORD = "test";
         }
 
         public IActionResult Index()
@@ -189,8 +192,8 @@ namespace SistemaCenagas.Controllers
             string url = $"https://localhost:44330/Home/{action}?" + 
                 ((action.Equals("CreateAccountConfirm")) ? $"idUser={user.Id_Usuario}" : $"email={user.Email}");
             string emailText = bodyText + $"<a href='{url}'>Clic aquí</a>";
-            string fromAddress = "test@gmail.com";
-            string password = "test";
+            string fromAddress = EMAIL_ADDRESS;
+            string password = EMAIL_PASSWORD;
             string toAddress = user.Email;
 
 
