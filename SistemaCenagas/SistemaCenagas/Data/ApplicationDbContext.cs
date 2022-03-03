@@ -15,8 +15,12 @@ namespace SistemaCenagas.Data
         }
         public DbSet<SistemaCenagas.Models.Asignacion> Asignacion { get; set; }
         public DbSet<SistemaCenagas.Models.DetalleProyecto> DetalleProyecto { get; set; }
-        public DbSet<SistemaCenagas.Models.Empleado> Empleado { get; set; }
         public DbSet<SistemaCenagas.Models.Proyectos> Proyectos { get; set; }
         public DbSet<SistemaCenagas.Models.Usuario> Usuario { get; set; }
+        public DbSet<SistemaCenagas.Models.Instalaciones> Instalaciones { get; set; }
+        public DbSet<SistemaCenagas.Models.Gasoductos> Gasoductos { get; set; }
+        public DbSet<SistemaCenagas.Models.Tramos> Tramos { get; set; }
+        public DbSet<SistemaCenagas.Models.Residencias> Residencias { get; set; }
+
     }
 }

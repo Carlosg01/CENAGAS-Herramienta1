@@ -9,7 +9,6 @@ namespace SistemaCenagas
     public static class Global
     {
         public static Usuario _usuario { get; set; }
-        public static Empleado _empleado { get; set; }
         public static Proyectos _proyecto { get; set; }
         public static Asignacion _asignacion { get; set; }
         public static DetalleProyecto _detalleProyecto { get; set; }

@@ -21,6 +21,12 @@ namespace SistemaCenagas.Models
         [MaxLength(32)]
         public string Materno { get; set; }
 
+        [MaxLength(10)]
+        public string Titulo { get; set; }
+
+        [MaxLength(220)]
+        public string Observaciones { get; set; }
+
         [Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(200)]
         public string Email { get; set; }
@@ -32,22 +38,17 @@ namespace SistemaCenagas.Models
         [MaxLength(200)]
         public string Password { get; set; }
 
-        //[Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(200)]
         public string Confirmar_Password { get; set; }
 
-        //[Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(200)]
         public string Nueva_Password { get; set; }
 
         [MaxLength(200)]
-        public string Ubicacion { get; set; }
-
-        [MaxLength(500)]
-        public string Observaciones { get; set; }
+        public string Rol { get; set; }
 
         [MaxLength(200)]
-        public string Token { get; set; }
+        public string Confirmacion_email { get; set; }
 
         [MaxLength(500)]
         public string Image_Url { get; set; }

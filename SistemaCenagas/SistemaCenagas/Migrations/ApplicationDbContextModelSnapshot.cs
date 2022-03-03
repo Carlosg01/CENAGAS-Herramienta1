@@ -297,43 +297,109 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("DetalleProyecto");
                 });
 
-            modelBuilder.Entity("SistemaCenagas.Models.Empleado", b =>
+            modelBuilder.Entity("SistemaCenagas.Models.Gasoductos", b =>
                 {
-                    b.Property<int>("Id_Empleado")
+                    b.Property<int>("Id_Instalacion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_Usuario")
+                    b.Property<string>("Denominacion")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Descripcion_Pemex")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<float>("Diametro_o_pulgadas")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Gasoducto")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<float>("Longitud_Metros")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Sistema")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Ut_Ducto")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Ut_Gasoducto")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Ut_Pemex")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id_Instalacion");
+
+                    b.ToTable("Gasoductos");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Instalaciones", b =>
+                {
+                    b.Property<int>("Id_Instalacion")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Materno")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
+                    b.Property<float>("Altitud_Z_decimal")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
+                    b.Property<string>("Clase")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Observaciones")
-                        .IsRequired()
-                        .HasMaxLength(220)
-                        .HasColumnType("varchar(220)");
+                    b.Property<string>("Gmas_Pemex")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Paterno")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
+                    b.Property<string>("Instalacion")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("varchar(9)");
+                    b.Property<float>("Km")
+                        .HasMaxLength(200)
+                        .HasColumnType("float");
 
-                    b.HasKey("Id_Empleado");
+                    b.Property<float>("Latitud_Y_decimal")
+                        .HasColumnType("float");
 
-                    b.ToTable("Empleado");
+                    b.Property<float>("Longitud_X_decimal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Residencia")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Sector_Pemex")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Sistema")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Ut_Instalacion")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Ut_Tramo")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id_Instalacion");
+
+                    b.ToTable("Instalaciones");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.Proyectos", b =>
@@ -371,6 +437,70 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("Proyectos");
                 });
 
+            modelBuilder.Entity("SistemaCenagas.Models.Residencias", b =>
+                {
+                    b.Property<int>("Id_Residencia")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id_Residencia");
+
+                    b.ToTable("Residencias");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Tramos", b =>
+                {
+                    b.Property<int>("Id_Tramo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("Diametro")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Espesor_Nominal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Fecha_Construccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<float>("Km_Fin")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Km_Inicio")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Longitud_Metros")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Residencia")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<float>("SMYS")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Tramo")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Ut_Gasoducto")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Ut_Tramo")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id_Tramo");
+
+                    b.ToTable("Tramos");
+                });
+
             modelBuilder.Entity("SistemaCenagas.Models.Usuario", b =>
                 {
                     b.Property<int>("Id_Usuario")
@@ -392,6 +522,10 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Caracteristicas_Principales")
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Confirmacion_email")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Confirmar_Password")
                         .HasMaxLength(200)
@@ -427,8 +561,8 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Observaciones")
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasMaxLength(220)
+                        .HasColumnType("varchar(220)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -439,17 +573,17 @@ namespace SistemaCenagas.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("varchar(32)");
 
+                    b.Property<string>("Rol")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
                     b.Property<string>("Tarea_Asignada")
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
-                    b.Property<string>("Token")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("Ubicacion")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                    b.Property<string>("Titulo")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("Username")
                         .HasMaxLength(100)

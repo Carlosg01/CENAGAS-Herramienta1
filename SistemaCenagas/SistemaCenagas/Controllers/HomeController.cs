@@ -48,13 +48,11 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Login(Usuario user)
         {            
             Usuario us = _context.Usuario.Where(u => u.Email == user.Email && 
-                    u.Password == user.Password && u.Token != null).FirstOrDefault();
+                    u.Password == user.Password && u.Confirmacion_email != null).FirstOrDefault();
 
             if(us != null)
             {
                 Global._usuario = (Usuario)us;
-                var emp = _context.Empleado.Where(e => e.Id_Usuario == Global._usuario.Id_Usuario).FirstOrDefault();
-                Global._empleado = (Empleado)emp;
 
                 return RedirectToAction(nameof(Dashboard));
             }            
@@ -95,18 +93,12 @@ namespace SistemaCenagas.Controllers
                     user.Email.Split("@")[1].Equals("cenagas.gob.mx")) //validacion de dominio
                 {
                     user.Username = user.Email.Split("@")[0];
+                    user.Nombre = "";
+                    user.Paterno = "";
+                    user.Materno = "";
+                    user.Titulo = "Ing.";
+                    user.Observaciones = "";
                     _context.Add(user);
-                    await _context.SaveChangesAsync();
-
-                    Empleado emp = new Empleado();
-
-                    emp.Id_Usuario = user.Id_Usuario;
-                    emp.Nombre = "";
-                    emp.Paterno = "";
-                    emp.Materno = "";
-                    emp.Titulo = "Ing.";
-                    emp.Observaciones = "";
-                    _context.Add(emp);
                     await _context.SaveChangesAsync();
 
                     ViewBag.CreateAccountSendEmail = true;
@@ -154,7 +146,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
 
             Usuario confirmUser = _context.Usuario.Find(int.Parse(idUser));
-            confirmUser.Token = "Confirmado";
+            confirmUser.Confirmacion_email = "Confirmado";
             _context.Update(confirmUser);
             _context.SaveChanges();
 
@@ -232,7 +224,6 @@ namespace SistemaCenagas.Controllers
         public IActionResult LogOut()
         {
             Global._usuario = null;
-            Global._empleado = null;
             Global._proyecto = null;
             Global._detallesProyecto = null;
             Global.session = null;
@@ -258,21 +249,12 @@ namespace SistemaCenagas.Controllers
             consultaUsuario.Paterno = user.Paterno;
             consultaUsuario.Materno = user.Materno;
             consultaUsuario.Email = user.Email;
-            consultaUsuario.Ubicacion = user.Ubicacion;
+            consultaUsuario.Rol = user.Rol;
             consultaUsuario.Observaciones = user.Observaciones;
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
             Global._usuario = consultaUsuario;
-
-            /*actualiza tabla de empleado*/
-            Empleado consultaEmpleado = _context.Empleado.Find(Global._empleado.Id_Empleado);
-            consultaEmpleado.Nombre = user.Nombre;
-            consultaEmpleado.Paterno = user.Paterno;
-            consultaEmpleado.Materno = user.Materno;
-            _context.Update(consultaEmpleado);
-            await _context.SaveChangesAsync();
-            Global._empleado = consultaEmpleado;
-
+            
             return RedirectToAction(nameof(AccountSettings));
         }
 

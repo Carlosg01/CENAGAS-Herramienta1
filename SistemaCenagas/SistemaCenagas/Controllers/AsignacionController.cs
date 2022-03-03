@@ -46,7 +46,7 @@ namespace SistemaCenagas.Controllers
         // GET: Asignacion/Create
         public IActionResult Create()
         {
-            ViewBag.idEmpleado = Global._empleado.Id_Empleado;
+            ViewBag.idEmpleado = Global._usuario.Id_Usuario;
             ViewBag.session = Global.session;
             Global.listaProyectos = _context.Proyectos.ToList();
             ViewBag.listaProyectos = Global.listaProyectos;
@@ -62,7 +62,7 @@ namespace SistemaCenagas.Controllers
         {
             if (ModelState.IsValid)
             {
-                asignacion.Id_Empleado = Global._empleado.Id_Empleado;
+                asignacion.Id_Empleado = Global._usuario.Id_Usuario;
                 _context.Add(asignacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Proyectos");

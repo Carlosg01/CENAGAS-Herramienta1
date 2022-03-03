@@ -110,7 +110,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Descripcion_Actividad" class="control-label"></label>
-                                <input asp-for="Descripcion_Actividad" class="form-control" />
+                                <textarea asp-for="Descripcion_Actividad" class="form-control"></textarea>
                                 <span asp-validation-for="Descripcion_Actividad" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -120,7 +120,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Faltante_Comentarios" class="control-label"></label>
-                                <input asp-for="Faltante_Comentarios" class="form-control" />
+                                <textarea asp-for="Faltante_Comentarios" class="form-control"></textarea>
                                 <span asp-validation-for="Faltante_Comentarios" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -147,14 +147,10 @@
                                 <span asp-validation-for="Tipo_Proyecto" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Save" class="btn btn-primary" />
+                                <input type="submit" value="Guardar" class="btn btn-success" />
+                                <a asp-action="Index" class="btn btn-danger">Cancelar</a>
                             </div>
                         </form>
-
-                        <div>
-                            <a asp-action="Index">Cancelar</a>
-                        </div>
-
                     </div>
                 </div>
             </div>

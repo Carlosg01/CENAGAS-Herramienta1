@@ -1,3 +1,5 @@
+#describe instalaciones
+#select * from instalaciones
 insert into instalaciones (instalacion, ut_instalacion, clase, km, residencia, region, ut_tramo, sistema, longitud_X_decimal, latitud_Y_decimal, altitud_Z_decimal, sector_pemex, gmas_pemex) values 
 #('Cruzamiento Agua Dulce - Nudo Teapa','CEN-DUC-GSD-D0023-TRM01-CRUCE','Cruce',0.0,'Minatitlán','Sur','CEN-DUC-GSD-D0023-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
 #('Cruzamiento Agua Dulce - Nuevo Teapa','CEN-DUC-GSD-D0019-TRM04-CRUCE','Cruce',18819.0,'Minatitlán','Sur','CEN-DUC-GSD-D0019-TRM04',NULL,NULL,NULL,NULL,NULL,NULL),

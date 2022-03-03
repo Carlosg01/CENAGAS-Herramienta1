@@ -34,14 +34,14 @@ namespace SistemaCenagas.Controllers
             /*Consulta a los asignados del proyecto*/
             var idProyecto = new MySqlParameter("@idProyecto", Global._proyecto.Id_Proyecto);
             //var funcion = new MySqlParameter("@funcion", "lider de equipo verificador");
-            IEnumerable<Empleado> empleadosProyecto = _context.Empleado.FromSqlRaw(
-                "Call Proc_empleadosProyecto(@idProyecto)", idProyecto).ToList();
+            IEnumerable<Usuario> empleadosProyecto = _context.Usuario.FromSqlRaw(
+                "Call Proc_usuariosProyecto(@idProyecto)", idProyecto).ToList();
 
             ViewBag.empleadosProyecto = new string[3];
             int i;
             for (i = 0; i < 3; i++) ViewBag.empleadosProyecto[i] = "";
             i = 0;
-            foreach (Empleado e in empleadosProyecto)
+            foreach (Usuario e in empleadosProyecto)
             {
                 ViewBag.empleadosProyecto[i] = $"{e.Titulo} {e.Nombre} {e.Paterno} {e.Materno}";
                 i++;
