@@ -37,7 +37,7 @@ call Proc_usuariosProyecto(100)
 
 
 delimiter //
-create procedure DetalleProyectosEmpleado(in id_usuario int, in id_proyecto int, in id_asignacion int)
+create procedure DetalleProyectosUsuario(in id_usuario int, in id_proyecto int, in id_asignacion int)
 begin
 	select
 		dp.Id_DetalleProyecto,
