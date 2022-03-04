@@ -10,14 +10,15 @@ For more information on enabling MVC for empty projects, visit https://go.micros
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index-2.html">Principal</a>
+                <a href="index-2.html">Inicio</a>
             </li>
-            <li class="breadcrumb-item">
-                <a href="pages-utility.html#">Utility Pages</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Account Settings</li>
+            <li class="breadcrumb-item active" aria-current="page">Configuracion</li>
         </ol>
     </nav>
+
+    <div class="dropdown">
+        <a class="dropdown-item">@(Global._usuario.Rol != null ? Global._usuario.Rol : Global._usuario.Nombre)</a>
+    </div>
 
 </div>
 <div class="container">
@@ -85,11 +86,13 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label asp-for="Confirmacion_email" class="col-3"></label>
+                                    <label asp-for="Rol" class="col-3"></label>
                                     <div class="col">
-                                        <input type="text" placeholder="Ubicacion" asp-for="Confirmacion_email" class="form-control" required />
+                                        <input disabled type="text" value="@ViewBag.Rol" class="form-control" required />
                                     </div>
                                 </div>
+                                
+
                                 <div class="form-group row">
                                     <label asp-for="Observaciones" class="col-3"></label>
                                     <div class="col">

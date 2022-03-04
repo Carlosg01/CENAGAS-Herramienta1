@@ -52,7 +52,7 @@ namespace SistemaCenagas.Controllers
 
             if(us != null)
             {
-                Global._usuario = (Usuario)us;
+                Global._usuario = us;
 
                 return RedirectToAction(nameof(Dashboard));
             }            
@@ -65,13 +65,10 @@ namespace SistemaCenagas.Controllers
             if (Global._usuario == null)
                 return RedirectToAction(nameof(Index));
 
-            //userlogin = JsonConvert.DeserializeObject<Usuario>(HttpContext.Session.GetString("UserSession"));
             Global.session = "usuario";
             ViewBag.session = Global.session; //HttpContext.Session.GetString("Session");
             ViewBag.username = Global._usuario.Nombre;
-
-
-            
+            ViewBag.Rol = Global._usuario.Rol;
             return View();
         }
 
@@ -234,6 +231,8 @@ namespace SistemaCenagas.Controllers
         public IActionResult AccountSettings()
         {
             ViewBag.session = Global.session;
+            ViewBag.Rol = (Global._usuario.Rol != null) ? Global._usuario.Rol : "Sin asignar";
+            ViewBag.username = Global._usuario.Username;
             return View((Usuario)Global._usuario);
         }
 

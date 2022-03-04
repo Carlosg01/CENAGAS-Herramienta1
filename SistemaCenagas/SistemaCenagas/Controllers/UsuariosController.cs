@@ -2,48 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
-using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ProyectosController : Controller
+    public class UsuariosController : Controller
     {
-        private readonly ApplicationDbContext _context; 
+        private readonly ApplicationDbContext _context;
 
-        public ProyectosController(ApplicationDbContext context)
+        public UsuariosController(ApplicationDbContext context)
         {
             _context = context;
-            
         }
 
-        // GET: Proyectos
+        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-
-            if(Global._usuario.Rol != null &&
-                (Global._usuario.Rol.Equals("superadmin") || Global._usuario.Rol.Equals("superadmin")))
-            {
-                return View(await _context.Proyectos.ToListAsync());
-            }
-            else
-            {
-                var idUsuarioParam = new MySqlParameter("@idUsuario", Global._usuario.Id_Usuario);
-                IEnumerable<Proyectos> proyectos = await _context.Proyectos.FromSqlRaw("Call ProyectosUsuario(@idUsuario)",
-                idUsuarioParam).ToListAsync();
-                return View(proyectos);
-            }
-
-            
+            ViewBag.session = Global.session;
+            ViewBag.Rol = Global._usuario.Rol;
+            return View(await _context.Usuario.ToListAsync());
         }
 
-        // GET: Proyectos/Details/5
+        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,37 +35,42 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            Global._detallesProyecto = _context.DetalleProyecto.Where(
-                    dp => dp.Id_Proyecto == id);
-            Global._proyecto = _context.Proyectos.Find(id);
+            var usuario = await _context.Usuario
+                .FirstOrDefaultAsync(m => m.Id_Usuario == id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
 
-            return RedirectToAction("Index", "DetalleProyecto");
+            ViewBag.session = Global.session;
+            ViewBag.Rol = Global._usuario.Rol;
+
+            return View(usuario);
         }
 
-        // GET: Proyectos/Create
+        // GET: Usuarios/Create
         public IActionResult Create()
         {
-            ViewBag.session = Global.session;
             return View();
         }
 
-        // POST: Proyectos/Create
+        // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Proyecto,Folio_adc,Nombre,Instalacion_Area,Tipo_Cambio,Descripcion")] Proyectos proyectos)
+        public async Task<IActionResult> Create([Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url,Tarea_Asignada,Mencion_En_Conversacion,Agregacion_A_Proyecto,Actividad_Proyecto_Miembro,Notas_Mensuales,Caracteristicas_Principales,Actualizacion_Y_Errores")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(proyectos);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(proyectos);
+            return View(usuario);
         }
 
-        // GET: Proyectos/Edit/5
+        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,23 +78,22 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var proyectos = await _context.Proyectos.FindAsync(id);
-            if (proyectos == null)
+            var usuario = await _context.Usuario.FindAsync(id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            ViewBag.session = Global.session;
-            return View(proyectos);
+            return View(usuario);
         }
 
-        // POST: Proyectos/Edit/5
+        // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Folio_adc,Nombre,Instalacion_Area,Tipo_Cambio,Descripcion")] Proyectos proyectos)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url,Tarea_Asignada,Mencion_En_Conversacion,Agregacion_A_Proyecto,Actividad_Proyecto_Miembro,Notas_Mensuales,Caracteristicas_Principales,Actualizacion_Y_Errores")] Usuario usuario)
         {
-            if (id != proyectos.Id_Proyecto)
+            if (id != usuario.Id_Usuario)
             {
                 return NotFound();
             }
@@ -114,12 +102,12 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    _context.Update(proyectos);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProyectosExists(proyectos.Id_Proyecto))
+                    if (!UsuarioExists(usuario.Id_Usuario))
                     {
                         return NotFound();
                     }
@@ -130,10 +118,10 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(proyectos);
+            return View(usuario);
         }
 
-        // GET: Proyectos/Delete/5
+        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,30 +129,30 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var proyectos = await _context.Proyectos
-                .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
-            if (proyectos == null)
+            var usuario = await _context.Usuario
+                .FirstOrDefaultAsync(m => m.Id_Usuario == id);
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(proyectos);
+            return View(usuario);
         }
 
-        // POST: Proyectos/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var proyectos = await _context.Proyectos.FindAsync(id);
-            _context.Proyectos.Remove(proyectos);
+            var usuario = await _context.Usuario.FindAsync(id);
+            _context.Usuario.Remove(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProyectosExists(int id)
+        private bool UsuarioExists(int id)
         {
-            return _context.Proyectos.Any(e => e.Id_Proyecto == id);
+            return _context.Usuario.Any(e => e.Id_Usuario == id);
         }
     }
 }

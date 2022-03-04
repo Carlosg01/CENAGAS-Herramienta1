@@ -10,7 +10,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a asp-controller="Home" asp-action="Dashboard">Principal</a>
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a asp-controller="ListaProyectos" asp-action="Index">Proyectos</a>
@@ -21,14 +21,7 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" data-toggle="dropdown" aria-expanded="false">
-                <i class="material-icons">configuracion</i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a href="nav-side-user.html" class="dropdown-item">Perfil</a>
-                <a asp-controller="Home" asp-action="AccountSettings" class="dropdown-item">Configuración de la cuenta</a>
-                <a asp-controller="Home" asp-action="LogOut" class="dropdown-item text-danger">Cerrar sesión</a>
-            </div>
+            <a class="dropdown-item">@(Global._usuario.Rol != null ? Global._usuario.Rol : Global._usuario.Nombre)</a>
         </div>
 
     </div>

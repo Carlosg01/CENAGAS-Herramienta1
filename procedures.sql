@@ -101,3 +101,4 @@ select * from asignacion
 call ProyectosEmpleado(1)
 call AsignacionProyectosEmpleado(1)
 call DetalleProyectosEmpleado(1,100,1000)
+call ProyectosUsuario(1)
