@@ -27,7 +27,7 @@ values
 ;
 select * from usuario
 update usuario set Confirmacion_email = "confirmado"
-update usuario set Rol = "superadmin" where Id_Usuario = 5
+update usuario set Rol = "Responsable del prearranque" where Id_Usuario = 3
 
 
 

@@ -16,9 +16,13 @@ For more information on enabling MVC for empty projects, visit https://go.micros
         </ol>
     </nav>
 
-    <div class="dropdown">
-        <a class="dropdown-item">@(Global._usuario.Rol != null ? Global._usuario.Rol : Global._usuario.Nombre)</a>
-    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                @(Global._usuario.Titulo + " " + Global._usuario.Nombre + " | " + (Global._usuario.Rol != null ? Global._usuario.Rol : "Sin asignación"))
+            </li>
+        </ol>
+    </nav>
 
 </div>
 <div class="container">
