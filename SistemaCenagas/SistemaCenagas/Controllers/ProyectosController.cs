@@ -61,7 +61,7 @@ namespace SistemaCenagas.Controllers
         // GET: Proyectos/Create
         public IActionResult Create()
         {
-            ViewBag.session = Global.session;
+
             return View();
         }
 

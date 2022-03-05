@@ -47,7 +47,7 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
                                 <label asp-for="Folio_adc" class="control-label"></label>
-                                <input asp-for="Folio_adc" class="form-control" />
+                                <input disabled asp-for="Folio_adc" value="PRO-CEN-UTA-022" class="form-control" />
                                 <span asp-validation-for="Folio_adc" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -56,12 +56,12 @@
                                 <span asp-validation-for="Nombre" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Instalacion_Area" class="control-label"></label>
+                                <label asp-for="Instalacion_Area" class="control-label">Instalación / Área</label>
                                 <input asp-for="Instalacion_Area" class="form-control" />
                                 <span asp-validation-for="Instalacion_Area" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Tipo_Cambio" class="control-label"></label>
+                                <label asp-for="Tipo_Cambio" class="control-label">Tipo de cambio</label>
                                 <select asp-for="Tipo_Cambio" class="form-control">
                                     <option>Permanente</option>
                                     <option>Temporal</option>

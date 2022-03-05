@@ -4,6 +4,34 @@
     ViewData["Title"] = "Create";
 }
 
+<script>
+    function soloLetras(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toLowerCase();
+        letras = " áéíóúabcdefghijklmnñopqrstuvwxyz0123456789";
+        especiales = [8, 46, 95];
+
+        tecla_especial = false
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if (letras.indexOf(tecla) == -1 && !tecla_especial)
+            return false;
+    }
+
+    function limpia() {
+        var val = document.getElementById("miInput").value;
+        var tam = val.length;
+        for (i = 0; i < tam; i++) {
+            if (!isNaN(val[i]))
+                document.getElementById("miInput").value = '';
+        }
+    }
+</script>
 
 <div class="main-container">
 
@@ -70,20 +98,21 @@
                                 <span asp-validation-for="Titulo" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <label class="control-label">Username (dominio <b>cenagas.gob.mx</b>)</label>
+                                <input onkeypress="return soloLetras(event)" asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Password" class="control-label"></label>
-                                <input asp-for="Password" class="form-control" />
+                                <label class="control-label">Contraseña</label>
+                                <input asp-for="Password" type="password" class="form-control" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Username" class="control-label"></label>
-                                <input asp-for="Username" class="form-control" />
-                                <span asp-validation-for="Username" class="text-danger"></span>
+                                <label class="control-label">Confirmar contraseña</label>
+                                <input asp-for="Confirmar_Password" type="password" class="form-control" />
+                                <span asp-validation-for="Confirmar_Password" class="text-danger"></span>
                             </div>
+                            
                             <div class="form-group">
                                 <label asp-for="Rol" class="control-label"></label>
                                 <select asp-for="Rol" class="form-control">

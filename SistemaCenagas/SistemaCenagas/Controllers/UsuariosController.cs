@@ -19,6 +19,13 @@ namespace SistemaCenagas.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        public JsonResult EmailAuto(string username)
+        {
+            string email = username + "@cenagas.gob.mx";
+            return Json(email);            
+        }
+
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {

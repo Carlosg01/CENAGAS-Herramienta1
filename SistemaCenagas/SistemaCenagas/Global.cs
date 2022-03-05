@@ -13,6 +13,7 @@ namespace SistemaCenagas
         public static Asignacion _asignacion { get; set; }
         public static DetalleProyecto _detalleProyecto { get; set; }
         public static IEnumerable<DetalleProyecto> _detallesProyecto { get; set; }
+        public static IEnumerable<Instalaciones> _instalaciones { get; set; }
         public static string despliegaProyectos { get; set; }
         public static string session { get; set; }
         public static string nombreProyectoEmpleado { get; set; }

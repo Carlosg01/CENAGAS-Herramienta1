@@ -98,6 +98,18 @@ end //
 delimiter ;
 select * from asignacion
 
+delimiter //
+create procedure Proc_InstalacionesResidencia(in residencia varchar(200))
+begin
+	select * 
+	from instalaciones as i 
+	inner join residencias as r on i.residencia = r.Nombre
+	where r.Nombre = residencia;
+end //
+delimiter ;
+
+call Proc_InstalacionesResidencia('Monterrey')
+
 call ProyectosEmpleado(1)
 call AsignacionProyectosEmpleado(1)
 call DetalleProyectosEmpleado(1,100,1000)
