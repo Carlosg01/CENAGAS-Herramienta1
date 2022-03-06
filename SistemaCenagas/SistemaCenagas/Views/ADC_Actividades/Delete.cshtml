@@ -1,0 +1,64 @@
+﻿@model SistemaCenagas.Models.ADC_Actividades
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Eliminar</li>
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h2 class="mb-0">Eliminar actividad ADC</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <h5>¿Seguro que quieres eliminar esta actividad?</h5>
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Actividad)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Actividad)
+                            </dd>
+                        </dl>
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id_Actividad" />
+                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                            <a class="btn btn-info" asp-action="Index">Regresar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

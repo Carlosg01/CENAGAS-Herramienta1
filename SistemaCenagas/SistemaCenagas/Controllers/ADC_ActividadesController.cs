@@ -10,22 +10,22 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class AsignacionController : Controller
+    public class ADC_ActividadesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public AsignacionController(ApplicationDbContext context)
+        public ADC_ActividadesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Asignacion
+        // GET: ADC_Actividades
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Asignacion.ToListAsync());
+            return View(await _context.ADC_Actividades.ToListAsync());
         }
 
-        // GET: Asignacion/Details/5
+        // GET: ADC_Actividades/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,44 +33,44 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var asignacion = await _context.Asignacion
-                .FirstOrDefaultAsync(m => m.Id_Asignacion == id);
-            if (asignacion == null)
+            Global.adc_actividad = await _context.ADC_Actividades
+                .FirstOrDefaultAsync(m => m.Id_Actividad == id);
+            /*if (aDC_Actividades == null)
             {
                 return NotFound();
-            }
+            }*/
 
-            return View(asignacion);
+            return RedirectToAction("Index", "ADC_Normativas");
         }
 
-        // GET: Asignacion/Create
+        // GET: ADC_Actividades/Create
         public IActionResult Create()
         {
-            ViewBag.idEmpleado = Global._usuario.Id_Usuario;
-            ViewBag.session = Global.session;
-            Global.listaProyectos = _context.Proyectos.ToList();
-            ViewBag.listaProyectos = Global.listaProyectos;
             return View();
         }
 
-        // POST: Asignacion/Create
+        // POST: ADC_Actividades/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Asignacion,Id_Empleado,Id_Proyecto,Id_Residencia,Fecha_alta,Fecha_baja,Funcion")] Asignacion asignacion)
+        public async Task<IActionResult> Create([Bind("Id_Actividad,Actividad")] ADC_Actividades aDC_Actividades)
         {
             if (ModelState.IsValid)
             {
-                asignacion.Id_Empleado = Global._usuario.Id_Usuario;
-                _context.Add(asignacion);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Proyectos");
+                int coincidencias_actividad = _context.ADC_Actividades.Where(
+                    a => a.Actividad.Equals(aDC_Actividades.Actividad)).Count();
+                if(coincidencias_actividad == 0)
+                {
+                    _context.Add(aDC_Actividades);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }                
             }
-            return View(asignacion);
+            return View(aDC_Actividades);
         }
 
-        // GET: Asignacion/Edit/5
+        // GET: ADC_Actividades/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,22 +78,22 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var asignacion = await _context.Asignacion.FindAsync(id);
-            if (asignacion == null)
+            var aDC_Actividades = await _context.ADC_Actividades.FindAsync(id);
+            if (aDC_Actividades == null)
             {
                 return NotFound();
             }
-            return View(asignacion);
+            return View(aDC_Actividades);
         }
 
-        // POST: Asignacion/Edit/5
+        // POST: ADC_Actividades/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Asignacion,Id_Empleado,Id_Proyecto,Id_Residencia,Fecha_alta,Fecha_baja,Funcion")] Asignacion asignacion)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Actividad,Actividad,Descripcion")] ADC_Actividades aDC_Actividades)
         {
-            if (id != asignacion.Id_Asignacion)
+            if (id != aDC_Actividades.Id_Actividad)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    _context.Update(asignacion);
+                    _context.Update(aDC_Actividades);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AsignacionExists(asignacion.Id_Asignacion))
+                    if (!ADC_ActividadesExists(aDC_Actividades.Id_Actividad))
                     {
                         return NotFound();
                     }
@@ -118,10 +118,10 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(asignacion);
+            return View(aDC_Actividades);
         }
 
-        // GET: Asignacion/Delete/5
+        // GET: ADC_Actividades/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,30 +129,30 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var asignacion = await _context.Asignacion
-                .FirstOrDefaultAsync(m => m.Id_Asignacion == id);
-            if (asignacion == null)
+            var aDC_Actividades = await _context.ADC_Actividades
+                .FirstOrDefaultAsync(m => m.Id_Actividad == id);
+            if (aDC_Actividades == null)
             {
                 return NotFound();
             }
 
-            return View(asignacion);
+            return View(aDC_Actividades);
         }
 
-        // POST: Asignacion/Delete/5
+        // POST: ADC_Actividades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var asignacion = await _context.Asignacion.FindAsync(id);
-            _context.Asignacion.Remove(asignacion);
+            var aDC_Actividades = await _context.ADC_Actividades.FindAsync(id);
+            _context.ADC_Actividades.Remove(aDC_Actividades);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AsignacionExists(int id)
+        private bool ADC_ActividadesExists(int id)
         {
-            return _context.Asignacion.Any(e => e.Id_Asignacion == id);
+            return _context.ADC_Actividades.Any(e => e.Id_Actividad == id);
         }
     }
 }

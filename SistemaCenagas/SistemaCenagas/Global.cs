@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 namespace SistemaCenagas
 {
     public static class Global
-    {
-        public static Usuario _usuario { get; set; }
-        public static Proyectos _proyecto { get; set; }
-        public static Asignacion _asignacion { get; set; }
-        public static DetalleProyecto _detalleProyecto { get; set; }
-        public static IEnumerable<DetalleProyecto> _detallesProyecto { get; set; }
-        public static IEnumerable<Instalaciones> _instalaciones { get; set; }
-        public static string despliegaProyectos { get; set; }
+    {        
         public static string session { get; set; }
-        public static string nombreProyectoEmpleado { get; set; }
 
-        public static IEnumerable<Proyectos> listaProyectos;
+        public static Usuarios usuario { get; set; }
+        public static Proyectos proyecto { get; set; }
+        public static ADC adc { get; set; }
+        public static ADC_Actividades adc_actividad { get; set; }
+        public static ADC_Procesos adc_proceso { get; set; }
+        public static ADC_Normativas adc_normativas { get; set; }
+        public static IEnumerable<Anexos> anexos { get; set; }
+        public static IEnumerable<Residencias> residencias { get; set; }
+        public static IEnumerable<Gasoductos> gasoductos { get; set; }
+        public static IEnumerable<Tramos> tramos { get; set; }
+        public static IEnumerable<Instalaciones> instalaciones { get; set; }
     }
 }

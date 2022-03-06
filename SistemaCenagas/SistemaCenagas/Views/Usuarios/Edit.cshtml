@@ -1,9 +1,36 @@
-﻿@model SistemaCenagas.Models.Usuario
+﻿@model SistemaCenagas.Models.Usuarios
 
 @{
     ViewData["Title"] = "Edit";
 }
+<script>
+    function soloLetras(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toLowerCase();
+        letras = " áéíóúabcdefghijklmnñopqrstuvwxyz0123456789";
+        especiales = [8, 46, 95];
 
+        tecla_especial = false
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if (letras.indexOf(tecla) == -1 && !tecla_especial)
+            return false;
+    }
+
+    function limpia() {
+        var val = document.getElementById("miInput").value;
+        var tam = val.length;
+        for (i = 0; i < tam; i++) {
+            if (!isNaN(val[i]))
+                document.getElementById("miInput").value = '';
+        }
+    }
+</script>
 <div class="main-container">
 
     <div class="navbar bg-white breadcrumb-bar">
@@ -22,7 +49,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global._usuario.Titulo + " " + Global._usuario.Nombre + " | " + (Global._usuario.Rol != null ? Global._usuario.Rol : "Sin asignación"))
+                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
                 </li>
             </ol>
         </nav>
@@ -68,27 +95,30 @@
                                 <span asp-validation-for="Titulo" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Username" class="control-label"></label>
-                                <input asp-for="Username" class="form-control" />
+                                <label class="control-label">Username (dominio <b>cenagas.gob.mx</b>)</label>
+                                <input asp-for="Username" onkeypress="return soloLetras(event)" class="form-control" />
                                 <span asp-validation-for="Username" class="text-danger"></span>
                             </div>
+
                             <div class="form-group">
                                 <label asp-for="Password" class="control-label"></label>
-                                <input asp-for="Password" class="form-control" />
+                                <input asp-for="Password" type="password" class="form-control" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Confirmar contraseña</label>
+                                <input asp-for="Confirmar_Password" type="password" class="form-control" />
+                                <span asp-validation-for="Confirmar_Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Rol" class="control-label"></label>
                                 <select asp-for="Rol" class="form-control">
-                                    <option>Administrador</option>
+                                    <option>Empleado</option>
                                     <option>Lider de equipo verificador</option>
-                                    <option>Responsable del prearranque</option>
+                                    <option>Responsable de la administración de cambio</option>
                                     <option>Suplente</option>
+                                    <option>Superadmin</option>
+                                    <option>Administrador</option>
                                 </select>
                                 <span asp-validation-for="Rol" class="text-danger"></span>
                             </div>
@@ -117,15 +147,7 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

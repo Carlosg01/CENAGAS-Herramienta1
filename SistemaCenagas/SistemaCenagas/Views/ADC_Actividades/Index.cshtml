@@ -1,0 +1,97 @@
+﻿@model IEnumerable<SistemaCenagas.Models.ADC_Actividades>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Actividades para ADC</li>
+
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">Actividades para la administración de cambios</h3>
+                </div>
+                <div class="col-4 text-right">
+                    <a class="btn btn-primary form-control" asp-action="Create">Nuevo actividad</a>
+                </div>
+            </div>
+
+        </div>
+        @if (Model.Count() > 0)
+        {
+            <table id="tblData" class="table table-bordered table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Desarrollo
+                        </th>
+                        <th></th>
+                        @if (Global.usuario.Rol.Equals("Superadmin") || Global.usuario.Rol.Equals("Administrador"))
+                        {
+                            <th></th>
+                            <th></th>
+                        }
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_Actividad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Actividad)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.Id_Actividad">Normativas</a>
+                        </td>
+                        @if (Global.usuario.Rol.Equals("Superadmin") || Global.usuario.Rol.Equals("Administrador"))
+                        {
+                            <td>
+                                <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.Id_Actividad">Editar</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_Actividad">Eliminar</a>
+                            </td>
+                        }
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <label class="control-label">No hay actividades registradas</label>
+        }
+
+    </div>
+</div>
+
+

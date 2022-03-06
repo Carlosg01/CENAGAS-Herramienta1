@@ -1,0 +1,103 @@
+﻿@model IEnumerable<SistemaCenagas.Models.ADC_Normativas>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Normativas</li>
+                
+
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">@(Global.adc_actividad.Actividad): Normativas</h3>
+                </div>
+                <div class="col-4 text-right">
+                    <a class="btn btn-primary form-control" asp-action="Create">Nueva normativa</a>
+                </div>
+            </div>
+
+        </div>
+        @if (Model.Count() > 0)
+        {
+            <table id="tblData" class="table table-bordered table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clave)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Responsable)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </th>
+                        <th>
+                            Registro
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(int i = 0; i < Model.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                @Model.ElementAt(i).Clave
+                            </td>
+                            <td>
+                                @Model.ElementAt(i).Responsable
+                            </td>
+                            <td>
+                                @Model.ElementAt(i).Descripcion
+                            </td>
+                            <td>
+                                @Global.anexos.ElementAt(Model.ElementAt(i).Id_Anexo-1).Nombre
+                            </td>
+                            <td>
+                                <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@Model.ElementAt(i).Id_Normativa">Editar</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@Model.ElementAt(i).Id_Normativa">Detalles</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@Model.ElementAt(i).Id_Normativa">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <label class="control-label">No hay normativas registradas para esta actividad</label>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@model SistemaCenagas.Models.ADC
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ADC</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_ADC" />
+            <div class="form-group">
+                <label asp-for="Id_Proyecto" class="control-label"></label>
+                <input asp-for="Id_Proyecto" class="form-control" />
+                <span asp-validation-for="Id_Proyecto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id_ResponsableADC" class="control-label"></label>
+                <input asp-for="Id_ResponsableADC" class="form-control" />
+                <span asp-validation-for="Id_ResponsableADC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id_Suplente" class="control-label"></label>
+                <input asp-for="Id_Suplente" class="form-control" />
+                <span asp-validation-for="Id_Suplente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id_Lider" class="control-label"></label>
+                <input asp-for="Id_Lider" class="form-control" />
+                <span asp-validation-for="Id_Lider" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha_Actualizacion" class="control-label"></label>
+                <input asp-for="Fecha_Actualizacion" class="form-control" />
+                <span asp-validation-for="Fecha_Actualizacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

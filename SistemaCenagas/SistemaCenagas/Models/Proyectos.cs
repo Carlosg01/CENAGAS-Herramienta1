@@ -8,28 +8,15 @@ namespace SistemaCenagas.Models
 {
     public class Proyectos
     {
-
         [Key]
         public int Id_Proyecto { get; set; }
 
-        [Required(ErrorMessage = "Este campo es requerido")]
-        [MaxLength(19)]
-        public string Folio_adc { get; set; }
+        [MaxLength(20)]
+        public string Clave { get; set; }
 
-        [Required(ErrorMessage = "Este campo es requerido")]
-        [MaxLength(220)]
+        [MaxLength(300)]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "Este campo es requerido")]
-        [MaxLength(200)]
-        public string Instalacion_Area { get; set; }
-
-        [Required(ErrorMessage = "Este campo es requerido")]
-        [MaxLength(200)]
-        public string Tipo_Cambio { get; set; }
-
-        [Required(ErrorMessage = "Este campo es requerido")]
         public string Descripcion { get; set; }
-
     }
 }

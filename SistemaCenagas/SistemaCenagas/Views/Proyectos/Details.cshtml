@@ -15,16 +15,14 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a asp-controller="" asp-action="">Detalles</a>
-                </li>
+                <li class="breadcrumb-item active" aria-current="page">Detalles</li>
             </ol>
         </nav>
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global._usuario.Titulo + " " + Global._usuario.Nombre + " | " + (Global._usuario.Rol != null ? Global._usuario.Rol : "Sin asignación"))
+                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
                 </li>
             </ol>
         </nav>
@@ -34,7 +32,7 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h1 class="mb-0">Detalles</h1>
+                    <h2 class="mb-0">Detalles proyecto</h2>
                 </div>
             </div>
         </div>
@@ -45,28 +43,16 @@
                         <!--end of avatar-->
                         <dl class="row">
                             <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Folio_adc)
+                                @Html.DisplayNameFor(model => model.Clave)
                             </dt>
                             <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Folio_adc)
+                                @Html.DisplayFor(model => model.Clave)
                             </dd>
                             <dt class="col-sm-2">
                                 @Html.DisplayNameFor(model => model.Nombre)
                             </dt>
                             <dd class="col-sm-10">
                                 @Html.DisplayFor(model => model.Nombre)
-                            </dd>
-                            <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Instalacion_Area)
-                            </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Instalacion_Area)
-                            </dd>
-                            <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Tipo_Cambio)
-                            </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Tipo_Cambio)
                             </dd>
                             <dt class="col-sm-2">
                                 @Html.DisplayNameFor(model => model.Descripcion)
@@ -87,3 +73,4 @@
         </div>
     </div>
 </div>
+

@@ -1,7 +1,11 @@
 use bd_cenagas
+describe adc_normativas
+insert into usuarios (Username, Email, Password, Rol, Confirmacion_email) values
+('admin', 'admin@cenagas.gob.mx', '123', 'Superadmin', 'Confirmado')
 
-select *
-from empleado as e
-inner join asignacion as a on e.Id_Empleado = a.Id_Empleado
-inner join detalleproyecto as dp on a.Id_Asignacion = dp.Id_Asignacion
-where a.Funcion like '%Lider%'
+update usuarios set rol = 'superadmin' where id_usuario = 1
+
+select * from usuarios
+
+
+drop database bd_cenagas

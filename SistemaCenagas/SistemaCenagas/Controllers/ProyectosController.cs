@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
-using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
@@ -15,35 +12,28 @@ namespace SistemaCenagas.Controllers
 {
     public class ProyectosController : Controller
     {
-        private readonly ApplicationDbContext _context; 
+        private readonly ApplicationDbContext _context;
 
         public ProyectosController(ApplicationDbContext context)
         {
             _context = context;
-            
         }
 
         // GET: Proyectos
         public async Task<IActionResult> Index()
         {
-
-            if(Global._usuario.Rol != null &&
-                (Global._usuario.Rol.Equals("superadmin") || Global._usuario.Rol.Equals("superadmin")))
-            {
-                return View(await _context.Proyectos.ToListAsync());
-            }
-            else
-            {
-                var idUsuarioParam = new MySqlParameter("@idUsuario", Global._usuario.Id_Usuario);
-                IEnumerable<Proyectos> proyectos = await _context.Proyectos.FromSqlRaw("Call ProyectosUsuario(@idUsuario)",
-                idUsuarioParam).ToListAsync();
-                return View(proyectos);
-            }
-
-            
+            return View(await _context.Proyectos.ToListAsync());
         }
 
-        // GET: Proyectos/Details/5
+        //GET: Proyectos/PropuestaCambio
+        public async Task<IActionResult> PropuestaCambio(int? id)
+        {
+            Global.proyecto = await _context.Proyectos
+                .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
+            return RedirectToAction("Index", "Anexo1_PropuestaCambio");
+        }
+
+        // GET: Proyectos/Details/
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,17 +41,19 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            Global._detallesProyecto = _context.DetalleProyecto.Where(
-                    dp => dp.Id_Proyecto == id);
-            Global._proyecto = _context.Proyectos.Find(id);
+            Global.proyecto = await _context.Proyectos
+                .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
+            /*if (proyectos == null)
+            {
+                return NotFound();
+            }*/
 
-            return RedirectToAction("Index", "DetalleProyecto");
+            return RedirectToAction("Index", "Anexo1_PropuestaCambio");
         }
 
         // GET: Proyectos/Create
         public IActionResult Create()
         {
-
             return View();
         }
 
@@ -70,10 +62,11 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Proyecto,Folio_adc,Nombre,Instalacion_Area,Tipo_Cambio,Descripcion")] Proyectos proyectos)
+        public async Task<IActionResult> Create([Bind("Id_Proyecto,Clave,Nombre,Descripcion")] Proyectos proyectos)
         {
             if (ModelState.IsValid)
             {
+                proyectos.Clave = "PRO-CEN-UTA-022";
                 _context.Add(proyectos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +87,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-            ViewBag.session = Global.session;
+            
             return View(proyectos);
         }
 
@@ -103,7 +96,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Folio_adc,Nombre,Instalacion_Area,Tipo_Cambio,Descripcion")] Proyectos proyectos)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Clave,Nombre,Descripcion")] Proyectos proyectos)
         {
             if (id != proyectos.Id_Proyecto)
             {

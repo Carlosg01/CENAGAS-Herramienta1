@@ -209,69 +209,114 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SistemaCenagas.Models.Asignacion", b =>
+            modelBuilder.Entity("SistemaCenagas.Models.ADC", b =>
                 {
-                    b.Property<int>("Id_Asignacion")
+                    b.Property<int>("Id_ADC")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Fecha_alta")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Fecha_Actualizacion")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Fecha_baja")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Funcion")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<int>("Id_Empleado")
+                    b.Property<int>("Id_Lider")
                         .HasColumnType("int");
 
                     b.Property<int>("Id_Proyecto")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_Residencia")
+                    b.Property<int>("Id_ResponsableADC")
                         .HasColumnType("int");
 
-                    b.HasKey("Id_Asignacion");
+                    b.Property<int>("Id_Suplente")
+                        .HasColumnType("int");
 
-                    b.ToTable("Asignacion");
+                    b.HasKey("Id_ADC");
+
+                    b.ToTable("ADC");
                 });
 
-            modelBuilder.Entity("SistemaCenagas.Models.DetalleProyecto", b =>
+            modelBuilder.Entity("SistemaCenagas.Models.ADC_Actividades", b =>
                 {
-                    b.Property<int>("Id_DetalleProyecto")
+                    b.Property<int>("Id_Actividad")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Anexos")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                    b.Property<string>("Actividad")
+                        .HasColumnType("longtext");
 
-                    b.Property<int>("Avance")
+                    b.HasKey("Id_Actividad");
+
+                    b.ToTable("ADC_Actividades");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.ADC_Normativas", b =>
+                {
+                    b.Property<int>("Id_Normativa")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Comentarios")
+                    b.Property<string>("Clave")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Desarrollo")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
-
-                    b.Property<string>("Descripcion_Actividad")
-                        .IsRequired()
+                    b.Property<string>("Descripcion")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Id_Actividad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id_Anexo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Responsable")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id_Normativa");
+
+                    b.ToTable("ADC_Normativas");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.ADC_Procesos", b =>
+                {
+                    b.Property<int>("Id_Proceso")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("Avance")
+                        .HasColumnType("float");
 
                     b.Property<string>("Faltante_Comentarios")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Id_Asignacion")
+                    b.Property<int>("Id_ADC")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id_Actividad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Plan_Accion")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id_Proceso");
+
+                    b.ToTable("ADC_Procesos");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Anexo1_PropuestaCambio", b =>
+                {
+                    b.Property<int>("Id_PropuestaCambio")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Estatus")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Fecha")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Id_ProponenteCambio")
                         .HasColumnType("int");
 
                     b.Property<int>("Id_Proyecto")
@@ -280,21 +325,47 @@ namespace SistemaCenagas.Migrations
                     b.Property<int>("Id_Residencia")
                         .HasColumnType("int");
 
-                    b.Property<int>("No_Desarrollo")
+                    b.Property<int>("Id_ResponsableADC")
                         .HasColumnType("int");
 
-                    b.Property<string>("Plan_Accion")
-                        .IsRequired()
+                    b.Property<string>("Planta_Instalacion")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Tipo_Proyecto")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                    b.Property<string>("Prestacion_Servicio")
+                        .HasColumnType("longtext");
 
-                    b.HasKey("Id_DetalleProyecto");
+                    b.Property<string>("Proceso")
+                        .HasColumnType("longtext");
 
-                    b.ToTable("DetalleProyecto");
+                    b.Property<string>("Resultados_Analisis")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Resultados_Propuesta")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Sector_Area")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Tipo_Cambio")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id_PropuestaCambio");
+
+                    b.ToTable("Anexo1_PropuestaCambio");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Anexos", b =>
+                {
+                    b.Property<int>("Id_Anexo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id_Anexo");
+
+                    b.ToTable("Anexos");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.Gasoductos", b =>
@@ -408,29 +479,16 @@ namespace SistemaCenagas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Clave")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("Descripcion")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Folio_adc")
-                        .IsRequired()
-                        .HasMaxLength(19)
-                        .HasColumnType("varchar(19)");
-
-                    b.Property<string>("Instalacion_Area")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
                     b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(220)
-                        .HasColumnType("varchar(220)");
-
-                    b.Property<string>("Tipo_Cambio")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
 
                     b.HasKey("Id_Proyecto");
 
@@ -501,7 +559,7 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("Tramos");
                 });
 
-            modelBuilder.Entity("SistemaCenagas.Models.Usuario", b =>
+            modelBuilder.Entity("SistemaCenagas.Models.Usuarios", b =>
                 {
                     b.Property<int>("Id_Usuario")
                         .ValueGeneratedOnAdd()
@@ -532,7 +590,6 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
@@ -586,12 +643,13 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("varchar(10)");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("Id_Usuario");
 
-                    b.ToTable("Usuario");
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

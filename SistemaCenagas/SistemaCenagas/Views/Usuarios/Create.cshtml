@@ -1,4 +1,4 @@
-﻿@model SistemaCenagas.Models.Usuario
+﻿@model SistemaCenagas.Models.Usuarios
 
 @{
     ViewData["Title"] = "Create";
@@ -52,7 +52,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global._usuario.Titulo + " " + Global._usuario.Nombre + " | " + (Global._usuario.Rol != null ? Global._usuario.Rol : "Sin asignación"))
+                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
                 </li>
             </ol>
         </nav>
@@ -116,10 +116,13 @@
                             <div class="form-group">
                                 <label asp-for="Rol" class="control-label"></label>
                                 <select asp-for="Rol" class="form-control">
-                                    <option>Administrador</option>
+                                    <option>Empleado</option>
                                     <option>Lider de equipo verificador</option>
-                                    <option>Responsable del prearranque</option>
+                                    <option>Responsable de la administración de cambio</option>
                                     <option>Suplente</option>
+                                    <option>Superadmin</option>
+                                    <option>Administrador</option>
+
                                 </select>
                                 <span asp-validation-for="Rol" class="text-danger"></span>
                             </div>
@@ -149,15 +152,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

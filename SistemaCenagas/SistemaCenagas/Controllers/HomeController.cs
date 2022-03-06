@@ -34,8 +34,8 @@ namespace SistemaCenagas.Controllers
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
-            EMAIL_ADDRESS = "test@gmail.com";
-            EMAIL_PASSWORD = "test";
+            EMAIL_ADDRESS = "aihm.mytests@gmail.com";
+            EMAIL_PASSWORD = "test#12345";  
         }
 
         public IActionResult Index()
@@ -45,14 +45,14 @@ namespace SistemaCenagas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(Usuario user)
+        public async Task<IActionResult> Login(Usuarios user)
         {            
-            Usuario us = _context.Usuario.Where(u => u.Email == user.Email && 
+            Usuarios us = _context.Usuarios.Where(u => u.Email == user.Email && 
                     u.Password == user.Password && u.Confirmacion_email != null).FirstOrDefault();
 
-            if(us != null)
+            if(us != null && us.Confirmacion_email.Equals("Confirmado"))
             {
-                Global._usuario = us;
+                Global.usuario = us;
 
                 return RedirectToAction(nameof(Dashboard));
             }            
@@ -62,13 +62,17 @@ namespace SistemaCenagas.Controllers
         public IActionResult Dashboard()
         {
 
-            if (Global._usuario == null)
+            if (Global.usuario == null)
                 return RedirectToAction(nameof(Index));
+
+            //catalogos
+            Global.anexos = _context.Anexos.ToList();
+            Global.residencias = _context.Residencias.ToList();
 
             Global.session = "usuario";
             ViewBag.session = Global.session; //HttpContext.Session.GetString("Session");
-            ViewBag.username = Global._usuario.Nombre;
-            ViewBag.Rol = Global._usuario.Rol;
+            ViewBag.username = Global.usuario.Nombre;
+            ViewBag.Rol = Global.usuario.Rol;
             return View();
         }
 
@@ -80,7 +84,7 @@ namespace SistemaCenagas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAccount(Usuario user)
+        public async Task<IActionResult> CreateAccount(Usuarios user)
         {
             //return Content(JsonConvert.SerializeObject(user));
 
@@ -121,7 +125,7 @@ namespace SistemaCenagas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(Usuario user)
+        public async Task<IActionResult> ForgotPassword(Usuarios user)
         {
             ViewBag.ForgotPasswordSendEmail = true;
             ViewBag.email = user.Email;
@@ -142,7 +146,7 @@ namespace SistemaCenagas.Controllers
             if (string.IsNullOrWhiteSpace(idUser))
                 return NotFound();
 
-            Usuario confirmUser = _context.Usuario.Find(int.Parse(idUser));
+            Usuarios confirmUser = _context.Usuarios.Find(int.Parse(idUser));
             confirmUser.Confirmacion_email = "Confirmado";
             _context.Update(confirmUser);
             _context.SaveChanges();
@@ -153,7 +157,7 @@ namespace SistemaCenagas.Controllers
         [HttpGet]
         public async Task<IActionResult> ResetPassword(string email)
         {
-            Usuario user = new Usuario
+            Usuarios user = new Usuarios
             {
                 Email = email
             };
@@ -163,11 +167,11 @@ namespace SistemaCenagas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(Usuario user)
+        public async Task<IActionResult> ResetPassword(Usuarios user)
         {
             if (user.Password.Equals(user.Confirmar_Password))
             {
-                Usuario confirmUser = _context.Usuario.Where(u => u.Email == user.Email).FirstOrDefault();
+                Usuarios confirmUser = _context.Usuarios.Where(u => u.Email == user.Email).FirstOrDefault();
                 confirmUser.Password = user.Password;
                 _context.Update(confirmUser);
                 _context.SaveChanges();
@@ -176,7 +180,7 @@ namespace SistemaCenagas.Controllers
             return View();
         }
 
-        public string SendEmail(Usuario user, string action, string subject, string bodyText)
+        public string SendEmail(Usuarios user, string action, string subject, string bodyText)
         {
             string url = $"https://localhost:44330/Home/{action}?" + 
                 ((action.Equals("CreateAccountConfirm")) ? $"idUser={user.Id_Usuario}" : $"email={user.Email}");
@@ -220,58 +224,58 @@ namespace SistemaCenagas.Controllers
 
         public IActionResult LogOut()
         {
-            Global._usuario = null;
-            Global._proyecto = null;
-            Global._detallesProyecto = null;
             Global.session = null;
-            Global.nombreProyectoEmpleado = null;
+            Global.usuario = null;
+            Global.proyecto = null;
+            Global.adc = null;            
+            Global.adc_actividad = null;
+            Global.adc_proceso = null;
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult AccountSettings()
         {
             ViewBag.session = Global.session;
-            ViewBag.Rol = (Global._usuario.Rol != null) ? Global._usuario.Rol : "Sin asignar";
-            ViewBag.username = Global._usuario.Username;
-            return View((Usuario)Global._usuario);
+            ViewBag.Rol = (Global.usuario.Rol != null) ? Global.usuario.Rol : "Sin asignar";
+            ViewBag.username = Global.usuario.Username;
+            return View((Usuarios)Global.usuario);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateAccountSettings(Usuario user)
+        public async Task<IActionResult> UpdateAccountSettings(Usuarios user)
         {
-            //return Content(JsonConvert.SerializeObject(user));
             /*actualiza tabla de usuarios*/
-            user.Id_Usuario = Global._usuario.Id_Usuario;
-            Usuario consultaUsuario = _context.Usuario.Find(Global._usuario.Id_Usuario);
+            user.Id_Usuario = Global.usuario.Id_Usuario;
+            Usuarios consultaUsuario = _context.Usuarios.Find(Global.usuario.Id_Usuario);
             consultaUsuario.Nombre = user.Nombre;
             consultaUsuario.Paterno = user.Paterno;
             consultaUsuario.Materno = user.Materno;
             consultaUsuario.Email = user.Email;
-            consultaUsuario.Rol = user.Rol;
+            consultaUsuario.Rol = Global.usuario.Rol;
             consultaUsuario.Observaciones = user.Observaciones;
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
-            Global._usuario = consultaUsuario;
+            Global.usuario = consultaUsuario;
             
             return RedirectToAction(nameof(AccountSettings));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdatePassword(Usuario user)
+        public async Task<IActionResult> UpdatePassword(Usuarios user)
         {
-            if (user.Password.Equals(Global._usuario.Password) &&
+            if (user.Password.Equals(Global.usuario.Password) &&
                 user.Nueva_Password.Equals(user.Confirmar_Password))
             {
                 
                 /*actualiza tabla de usuarios*/
-                user.Id_Usuario = Global._usuario.Id_Usuario;
-                Usuario consultaUsuario = _context.Usuario.Find(Global._usuario.Id_Usuario);
+                user.Id_Usuario = Global.usuario.Id_Usuario;
+                Usuarios consultaUsuario = _context.Usuarios.Find(Global.usuario.Id_Usuario);
                 consultaUsuario.Password = user.Nueva_Password;
                 _context.Update(consultaUsuario);
                 await _context.SaveChangesAsync();
-                Global._usuario = consultaUsuario;
+                Global.usuario = consultaUsuario;
             }
 
             return RedirectToAction(nameof(AccountSettings));
@@ -286,7 +290,7 @@ namespace SistemaCenagas.Controllers
 
         private bool UsuarioExists(int id)
         {
-            return _context.Usuario.Any(e => e.Id_Usuario == id);
+            return _context.Usuarios.Any(e => e.Id_Usuario == id);
         }
     }
 }

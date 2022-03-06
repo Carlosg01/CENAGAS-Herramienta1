@@ -12,24 +12,14 @@ namespace SistemaCenagas.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Usuario",
+                name: "Usuarios",
                 columns: table => new
                 {
                     Id_Usuario = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true)
+                    Username = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Paterno = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Materno = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Titulo = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Observaciones = table.Column<string>(type: "varchar(220)", maxLength: 220, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Username = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
+                    Email = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Password = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -40,6 +30,16 @@ namespace SistemaCenagas.Migrations
                     Rol = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Confirmacion_email = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nombre = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Paterno = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Materno = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Titulo = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Observaciones = table.Column<string>(type: "varchar(220)", maxLength: 220, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image_Url = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -60,7 +60,7 @@ namespace SistemaCenagas.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuario", x => x.Id_Usuario);
+                    table.PrimaryKey("PK_Usuarios", x => x.Id_Usuario);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -70,13 +70,9 @@ namespace SistemaCenagas.Migrations
                 {
                     Id_Proyecto = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Folio_adc = table.Column<string>(type: "varchar(19)", maxLength: 19, nullable: false)
+                    Clave = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "varchar(220)", maxLength: 220, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Instalacion_Area = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tipo_Cambio = table.Column<string>(type: "set('Permanente','Temporal','Definitivo','Nuevo rehabilitado','Modificado')", maxLength: 200, nullable: false)
+                    Nombre = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descripcion = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -93,7 +89,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id_Residencia = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -103,134 +99,189 @@ namespace SistemaCenagas.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Asignacion",
+                name: "ADC",
                 columns: table => new
                 {
-                    Id_Asignacion = table.Column<int>(type: "int", nullable: false)
+                    Id_ADC = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Id_Usuario = table.Column<int>(type: "int", nullable: true),
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
-                    Id_Residencia = table.Column<int>(type: "int", nullable: true),
-                    Fecha_alta = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fecha_baja = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Funcion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    Id_ResponsableADC = table.Column<int>(type: "int", nullable: true),
+                    Id_Suplente = table.Column<int>(type: "int", nullable: true),
+                    Id_Lider = table.Column<int>(type: "int", nullable: true),
+                    Fecha_Actualizacion = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Asignacion", x => x.Id_Asignacion);
-                    table.ForeignKey(
-                        name: "FK_Usuario1",
-                        column: x => x.Id_Usuario,
-                        principalTable: "Usuario",
-                        principalColumn: "Id_Usuario",
-                        onDelete: ReferentialAction.SetNull
-                    );
+                    table.PrimaryKey("PK_ADC", x => x.Id_ADC);
                     table.ForeignKey(
                         name: "FK_Proyecto1",
                         column: x => x.Id_Proyecto,
                         principalTable: "Proyectos",
                         principalColumn: "Id_Proyecto",
                         onDelete: ReferentialAction.SetNull
-                        );
+                    );
                     table.ForeignKey(
-                        name: "FK_Residencia1",
-                        column: x => x.Id_Residencia,
-                        principalTable: "Residencias",
-                        principalColumn: "Id_Residencia",
-                        onDelete: ReferentialAction.Restrict
+                        name: "FK_ResponsableADC1",
+                        column: x => x.Id_ResponsableADC,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id_Usuario",
+                        onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                        name: "FK_Suplente1",
+                        column: x => x.Id_Suplente,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id_Usuario",
+                        onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                        name: "FK_Lider1",
+                        column: x => x.Id_Lider,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id_Usuario",
+                        onDelete: ReferentialAction.SetNull
                     );
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-            /*Llaves foraneas de la tabla Asignacion*/
             migrationBuilder.CreateIndex(
-                name: "Index_Usuario",
-                table: "Asignacion",
-                column: "Id_Usuario"
-                );
-            migrationBuilder.CreateIndex(
-                name: "Index_Proyecto",
-                table: "Asignacion",
+                name: "Index_Proyecto1",
+                table: "ADC",
                 column: "Id_Proyecto"
                 );
             migrationBuilder.CreateIndex(
-                name: "Index_Residencia",
-                table: "Asignacion",
-                column: "Id_Residencia"
+                name: "Index_ResponsableADC1",
+                table: "ADC",
+                column: "Id_ResponsableADC"
+                );
+            migrationBuilder.CreateIndex(
+                name: "Index_Suplente1",
+                table: "ADC",
+                column: "Id_Suplente"
+                );
+            migrationBuilder.CreateIndex(
+                name: "Index_Lider1",
+                table: "ADC",
+                column: "Id_Lider"
                 );
 
             migrationBuilder.CreateTable(
-                name: "DetalleProyecto",
+                name: "ADC_Actividades",
                 columns: table => new
                 {
-                    Id_DetalleProyecto = table.Column<int>(type: "int", nullable: false)
+                    Id_Actividad = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Id_Proyecto = table.Column<int>(type: "int", nullable: true),
-                    Id_Residencia = table.Column<int>(type: "int", nullable: true),
-                    Id_Asignacion = table.Column<int>(type: "int", nullable: true),
-                    No_Desarrollo = table.Column<int>(type: "int", nullable: false),
-                    Desarrollo = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
+                    Actividad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion_Actividad = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Avance = table.Column<int>(type: "int", nullable: false),
-                    Faltante_Comentarios = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Comentarios = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Plan_Accion = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Anexos = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tipo_Proyecto = table.Column<string>(type: "set('ADC','Prearranque')", maxLength: 200, nullable: false)
+                    Descripcion = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DetalleProyecto", x => x.Id_DetalleProyecto);
+                    table.PrimaryKey("PK_ADC_Actividades", x => x.Id_Actividad);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ADC_Procesos",
+                columns: table => new
+                {
+                    Id_Proceso = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_Actividad = table.Column<int>(type: "int", nullable: true),
+                    Id_ADC = table.Column<int>(type: "int", nullable: true),
+                    Avance = table.Column<float>(type: "float", nullable: true),
+                    Faltante_Comentarios = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Plan_Accion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ADC_Procesos", x => x.Id_Proceso);
                     table.ForeignKey(
-                        name: "FK_Proyecto2",
-                        column: x => x.Id_Proyecto,
-                        principalTable: "Proyectos",
-                        principalColumn: "Id_Proyecto",
-                        onDelete: ReferentialAction.Restrict
+                        name: "FK_Actividad1",
+                        column: x => x.Id_Actividad,
+                        principalTable: "ADC_Actividades",
+                        principalColumn: "Id_Actividad",
+                        onDelete: ReferentialAction.SetNull
                     );
                     table.ForeignKey(
-                        name: "FK_Residencia2",
-                        column: x => x.Id_Residencia,
-                        principalTable: "Residencias",
-                        principalColumn: "Id_Residencia",
-                        onDelete: ReferentialAction.Restrict
-                    );
-                    table.ForeignKey(
-                        name: "FK_Asignacion1",
-                        column: x => x.Id_Asignacion,
-                        principalTable: "Asignacion",
-                        principalColumn: "Id_Asignacion",
-                        onDelete: ReferentialAction.Restrict
+                        name: "FK_ADC1",
+                        column: x => x.Id_ADC,
+                        principalTable: "ADC",
+                        principalColumn: "Id_ADC",
+                        onDelete: ReferentialAction.SetNull
                     );
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-            /*Llaves foraneas de la tabla DetalleProyecto*/
             migrationBuilder.CreateIndex(
-                name: "Index_Proyecto",
-                table: "DetalleProyecto",
-                column: "Id_Proyecto"
+                name: "Index_Actividad1",
+                table: "ADC_Procesos",
+                column: "Id_Actividad"
                 );
             migrationBuilder.CreateIndex(
-                name: "Index_Residencia",
-                table: "DetalleProyecto",
-                column: "Id_Residencia"
-                );
-            migrationBuilder.CreateIndex(
-                name: "Index_Asignacion",
-                table: "DetalleProyecto",
-                column: "Id_Asignacion"
+                name: "Index_ADC1",
+                table: "ADC_Procesos",
+                column: "Id_ADC"
                 );
 
+            migrationBuilder.CreateTable(
+                name: "Gasoductos",
+                columns: table => new
+                {
+                    Id_Instalacion = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Ut_Gasoducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Gasoducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Sistema = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Ut_Ducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Diametro_o_pulgadas = table.Column<float>(type: "float", nullable: true),
+                    Denominacion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Longitud_Metros = table.Column<float>(type: "float", nullable: true),
+                    Ut_Pemex = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Descripcion_Pemex = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gasoductos", x => x.Id_Instalacion);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Tramos",
+                columns: table => new
+                {
+                    Id_Tramo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Ut_Tramo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Tramo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Km_Inicio = table.Column<float>(type: "float", nullable: true),
+                    Km_Fin = table.Column<float>(type: "float", nullable: true),
+                    Longitud_Metros = table.Column<float>(type: "float", nullable: true),
+                    Diametro = table.Column<float>(type: "float", nullable: true),
+                    Espesor_Nominal = table.Column<float>(type: "float", nullable: true),
+                    SMYS = table.Column<float>(type: "float", nullable: true),
+                    Fecha_Construccion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Residencia = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Ut_Gasoducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tramos", x => x.Id_Tramo);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Instalaciones",
@@ -268,65 +319,6 @@ namespace SistemaCenagas.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Tramos",
-                columns: table => new
-                {
-                    Id_Tramo = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ut_Tramo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tramo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Km_Inicio = table.Column<float>(type: "float", nullable: true),
-                    Km_Fin = table.Column<float>(type: "float", nullable: true),
-                    Longitud_Metros = table.Column<float>(type: "float", nullable: true),
-                    Diametro = table.Column<float>(type: "float", nullable: true),
-                    Espesor_Nominal = table.Column<float>(type: "float", nullable: true),
-                    SMYS = table.Column<float>(type: "float", nullable: true),
-                    Fecha_Construccion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Residencia = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Gasoducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tramos", x => x.Id_Tramo);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Gasoductos",
-                columns: table => new
-                {
-                    Id_Instalacion = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ut_Gasoducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Gasoducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Sistema = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Ducto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Diametro_o_pulgadas = table.Column<float>(type: "float", nullable: true),
-                    Denominacion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Longitud_Metros = table.Column<float>(type: "float", nullable: true),
-                    Ut_Pemex = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion_Pemex = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Gasoductos", x => x.Id_Instalacion);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -359,7 +351,7 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedEmail = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     PasswordHash = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     SecurityStamp = table.Column<string>(type: "longtext", nullable: true)
@@ -368,11 +360,11 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PhoneNumber = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -380,6 +372,7 @@ namespace SistemaCenagas.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
@@ -548,7 +541,13 @@ namespace SistemaCenagas.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Asignacion");
+                name: "ADC");
+
+            migrationBuilder.DropTable(
+                name: "ADC_Actividades");
+
+            migrationBuilder.DropTable(
+                name: "ADC_Procesos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -566,25 +565,22 @@ namespace SistemaCenagas.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DetalleProyecto");
-
-            migrationBuilder.DropTable(
-                name: "Proyectos");
-
-            migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "Gasoductos");
 
             migrationBuilder.DropTable(
                 name: "Instalaciones");
 
             migrationBuilder.DropTable(
-                name: "Gasoductos");
+                name: "Proyectos");
+
+            migrationBuilder.DropTable(
+                name: "Residencias");
 
             migrationBuilder.DropTable(
                 name: "Tramos");
 
             migrationBuilder.DropTable(
-                name: "Residencias");
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

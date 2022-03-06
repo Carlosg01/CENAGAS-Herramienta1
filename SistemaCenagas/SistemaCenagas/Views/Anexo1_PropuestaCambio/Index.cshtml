@@ -1,0 +1,109 @@
+﻿@model IEnumerable<SistemaCenagas.Models.Anexo1_PropuestaCambio>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Propuesta de cambio</li>
+
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h2 class="mb-0">@(Global.proyecto.Nombre): Propuestas de cambio</h2>
+                </div>
+                <div class="col-4 text-right">
+                    <a class="btn btn-primary form-control" asp-action="Create">Mi propuesta</a>
+                </div>
+
+            </div>
+
+        </div>
+        @if (Model.Count() > 0)
+        {
+            <table style="display: block; overflow-x: auto; white-space: nowrap;" id="tblData" class="table table-bordered table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Tipo de cambio
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fecha)
+                        </th>
+                        <th>
+                            Residencia
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Id_ProponenteCambio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estatus)
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Cambio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_Residencia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_ProponenteCambio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estatus)
+                        </td>
+                        <td>
+                            <a class="btn btn-dark form-control" asp-action="Details" asp-route-id="@item.Id_PropuestaCambio">Proponer cambio</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.Id_PropuestaCambio">Editar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_PropuestaCambio">Eliminar</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <label class="control-label">No hay propuestas de cambio registradas para este proyecto</label>
+        }
+
+    </div>
+</div>
