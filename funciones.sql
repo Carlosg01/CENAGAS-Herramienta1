@@ -5,7 +5,7 @@ insert into usuarios (Username, Email, Password, Rol, Confirmacion_email) values
 
 update usuarios set rol = 'superadmin' where id_usuario = 1
 
-select * from usuarios
+describe anexo1_propuestacambio
 
 
 drop database bd_cenagas
