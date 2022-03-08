@@ -60,25 +60,24 @@
                                 <span asp-validation-for="Fecha" class="text-danger"></span>
                             </div>
                             <div class="form-group">
+                                <label asp-for="Sector_Area" class="control-label"></label>
+                                <select asp-for="Sector_Area" class="form-control" name="utGasoducto" id="utGasoducto" asp-items="@(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"))">
+                                    <option>--- Selecciona una opción ---</option>                                   
+                                </select>
+                                <span asp-validation-for="Sector_Area" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
                                 <label asp-for="Id_Residencia" class="control-label"></label>
-                                <select asp-for="Id_Residencia" class="form-control" >
-                                    @for(int i = 0; i < Global.residencias.Count(); i++)
-                                    {
-                                        <option value="@Global.residencias.ElementAt(i).Id_Residencia">
-                                            @Global.residencias.ElementAt(i).Nombre
-                                        </option>
-                                    }
+                                <select asp-for="Id_Residencia" class="form-control" id="Id_Residencia" name="Id_Residencia" asp-items="@(new SelectList(string.Empty, "Residencia", "Residencia"))">
+                                    
                                 </select>
                                 <span asp-validation-for="Id_Residencia" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Sector_Area" class="control-label"></label>
-                                <input asp-for="Sector_Area" class="form-control" />
-                                <span asp-validation-for="Sector_Area" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
                                 <label asp-for="Planta_Instalacion" class="control-label"></label>
-                                <input asp-for="Planta_Instalacion" class="form-control" />
+                                <select asp-for="Planta_Instalacion" class="form-control" id="Planta_Instalacion">
+                                    
+                                </select>
                                 <span asp-validation-for="Planta_Instalacion" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -122,7 +121,7 @@
                                 <span asp-validation-for="Estatus" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Solicitar" class="btn btn-primary" />
+                                <input type="submit" id="sub" value="Solicitar" class="btn btn-primary" />
                             </div>
                         </form>
 
@@ -132,6 +131,24 @@
         </div>
     </div>
 </div>
+
+<script src="/lib/jquery/dist/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#utGasoducto").change(function () {
+            $.getJSON(@Url.Content("~/") + "/Anexo1_PropuestaCambio/getResidencias", { utGasoducto: $("#utGasoducto").val() }, function (data) {
+                var row = "";
+                $("#Id_Residencia").empty();
+                $.each(data, function (i, v) {
+                    row += "<option value=" + v.value + ">" + v.text + "</option>";
+                });
+                $("#Id_Residencia").html(row);
+            })
+        })
+    })
+    
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

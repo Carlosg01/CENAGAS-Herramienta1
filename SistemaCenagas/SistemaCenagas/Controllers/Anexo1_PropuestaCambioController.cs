@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
@@ -46,7 +48,16 @@ namespace SistemaCenagas.Controllers
         // GET: Anexo1_PropuestaCambio/Create
         public IActionResult Create()
         {
+            Global.gasoductos = _context.Gasoductos.ToList();    
+            
             return View();
+        }
+
+
+        public JsonResult getResidencias(string utGasoducto)
+        {
+            Global.tramos = _context.Tramos.Where(t => t.Ut_Gasoducto.Equals(utGasoducto));
+            return Json(new SelectList(Global.tramos, "Residencia", "Residencia"));
         }
 
         // POST: Anexo1_PropuestaCambio/Create
