@@ -13,7 +13,7 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="Proyectos" asp-action="Index">Proyectos</a>
+                    <a asp-controller="ProyectosAdministrador" asp-action="Index">Proyectos</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Editar</li>
             </ol>
@@ -58,6 +58,16 @@
                             <div class="form-group">
                                 <label asp-for="Descripcion" class="control-label"></label>
                                 <input asp-for="Descripcion" class="form-control" />
+                                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Id_Lider" class="control-label"></label>
+                                <select asp-for="Id_Lider" class="form-control">
+                                    @foreach (var u in Global.lideres)
+                                    {
+                                        <option value="@(u.Id_Usuario)"> @(u.Titulo + " " + u.Nombre + " " + u.Paterno + " " + u.Materno) </option>
+                                    }
+                                </select>
                                 <span asp-validation-for="Descripcion" class="text-danger"></span>
                             </div>
                             <div class="form-group">

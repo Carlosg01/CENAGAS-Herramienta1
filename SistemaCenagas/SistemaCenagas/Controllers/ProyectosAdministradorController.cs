@@ -10,11 +10,11 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ProyectosController : Controller
+    public class ProyectosAdministradorController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProyectosController(ApplicationDbContext context)
+        public ProyectosAdministradorController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -22,7 +22,17 @@ namespace SistemaCenagas.Controllers
         // GET: Proyectos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Proyectos.ToListAsync());
+            Global.vistaProyectos = (from p in _context.Proyectos
+                                     join u in _context.Usuarios on p.Id_Lider equals u.Id_Usuario
+                                     select new Global.VistaProyectos
+                                     {
+                                         id_proyecto = p.Id_Proyecto,
+                                         clave = p.Clave,
+                                         nombre = p.Nombre,
+                                         descripcion = p.Descripcion,
+                                         lider = u.Titulo + " " + u.Nombre + " " + u.Paterno + " " + u.Materno
+                                     });
+            return View();
         }
 
         //GET: Proyectos/PropuestaCambio
@@ -43,6 +53,8 @@ namespace SistemaCenagas.Controllers
 
             Global.proyecto = await _context.Proyectos
                 .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
+            Usuarios lider = _context.Usuarios.Where(u => u.Id_Usuario == id).FirstOrDefault();
+            ViewBag.lider = lider.Titulo + " " + lider.Nombre + " " + lider.Paterno + " " + lider.Materno;
             /*if (proyectos == null)
             {
                 return NotFound();
@@ -54,6 +66,7 @@ namespace SistemaCenagas.Controllers
         // GET: Proyectos/Create
         public IActionResult Create()
         {
+            Global.lideres = _context.Usuarios.Where(u => u.Rol.Equals("Lider de equipo verificador")).ToList();
             return View();
         }
 
@@ -62,9 +75,9 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Proyecto,Clave,Nombre,Descripcion")] Proyectos proyectos)
+        public async Task<IActionResult> Create([Bind("Id_Proyecto,Clave,Nombre,Descripcion,Id_Lider")] Proyectos proyectos)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && proyectos.Id_Lider != -1)
             {
                 proyectos.Clave = "PRO-CEN-UTA-022";
                 _context.Add(proyectos);
@@ -82,12 +95,16 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var proyectos = await _context.Proyectos.FindAsync(id);
+            var proyectos = await _context.Proyectos.FindAsync(id);            
+            Usuarios lider = _context.Usuarios.Where(u => u.Id_Usuario == proyectos.Id_Lider).FirstOrDefault();
+            ViewBag.lider = lider.Titulo + " " + lider.Nombre + " " + lider.Paterno + " " + lider.Materno;
+            Global.lideres = _context.Usuarios.Where(u => u.Rol.Equals("Lider de equipo verificador")).ToList();
+
             if (proyectos == null)
             {
                 return NotFound();
             }
-            
+
             return View(proyectos);
         }
 
@@ -96,7 +113,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Clave,Nombre,Descripcion")] Proyectos proyectos)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Clave,Nombre,Descripcion, Id_Lider")] Proyectos proyectos)
         {
             if (id != proyectos.Id_Proyecto)
             {

@@ -1,9 +1,7 @@
-﻿@model IEnumerable<SistemaCenagas.Models.Proyectos>
-
+﻿
 @{
     ViewData["Title"] = "Index";
 }
-
 
 <div class="main-container">
 
@@ -43,53 +41,49 @@
             </div>
 
         </div>
-        @if (Model.Count() > 0)
+        @if (Global.vistaProyectos.Count() > 0)
         {
             <table id="tblData" class="table table-bordered table-responsive-xl">
                 <thead class="thead-dark">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Clave)
+                            Clave
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Nombre)
+                            Nombre
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Descripcion)
+                            Descripción
+                        </th>
+                        <th>
+                            Lider
                         </th>
                         <th></th>
-                        @if (Global.usuario.Rol.Equals("Superadmin") || Global.usuario.Rol.Equals("Administrador"))
-                        {
-                            <th></th>
-                            <th></th>
-                        }
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach(var vp in Global.vistaProyectos)
                     {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Clave)
+                            @(vp.clave)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
+                            @(vp.nombre)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
+                            @(vp.descripcion)
                         </td>
                         <td>
-                            <a class="btn btn-dark form-control" asp-action="Details" asp-route-id="@item.Id_Proyecto">Proponer cambio</a>
+                            @(vp.lider)
                         </td>
-                        @if (Global.usuario.Rol.Equals("Superadmin") || Global.usuario.Rol.Equals("Administrador"))
-                        {
-                            <td>
-                                <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.Id_Proyecto">Editar</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_Proyecto">Eliminar</a>
-                            </td>
-                        }
+                        <td>
+                            <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@vp.id_proyecto">Editar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@vp.id_proyecto">Eliminar</a>
+                        </td>
                     </tr>
                     }
                 </tbody>
@@ -103,4 +97,3 @@
 
     </div>
 </div>
-

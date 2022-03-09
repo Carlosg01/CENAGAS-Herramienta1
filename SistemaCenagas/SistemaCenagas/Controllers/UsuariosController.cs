@@ -66,7 +66,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url,Tarea_Asignada,Mencion_En_Conversacion,Agregacion_A_Proyecto,Actividad_Proyecto_Miembro,Notas_Mensuales,Caracteristicas_Principales,Actualizacion_Y_Errores")] Usuarios usuario)
+        public async Task<IActionResult> Create([Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url")] Usuarios usuario)
         {
             if (ModelState.IsValid && usuario.Password.Equals(usuario.Confirmar_Password))
             {
@@ -99,7 +99,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url,Tarea_Asignada,Mencion_En_Conversacion,Agregacion_A_Proyecto,Actividad_Proyecto_Miembro,Notas_Mensuales,Caracteristicas_Principales,Actualizacion_Y_Errores")] Usuarios usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url")] Usuarios usuario)
         {
             if (id != usuario.Id_Usuario)
             {

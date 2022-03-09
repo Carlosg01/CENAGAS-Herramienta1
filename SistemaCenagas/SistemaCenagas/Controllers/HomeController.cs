@@ -67,7 +67,7 @@ namespace SistemaCenagas.Controllers
 
             //catalogos
             Global.anexos = _context.Anexos.ToList();
-            Global.residencias = _context.Residencias.ToList();
+            Global.residencias = _context.Residencias.ToList();            
 
             Global.session = "usuario";
             ViewBag.session = Global.session; //HttpContext.Session.GetString("Session");

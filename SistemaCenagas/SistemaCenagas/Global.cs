@@ -21,5 +21,20 @@ namespace SistemaCenagas
         public static IEnumerable<Gasoductos> gasoductos { get; set; }
         public static IEnumerable<Tramos> tramos { get; set; }
         public static IEnumerable<Instalaciones> instalaciones { get; set; }
+        public static IEnumerable<Usuarios> lideres { get; set; }
+        public static IEnumerable<Usuarios> responsables_adc { get; set; }
+        public static IEnumerable<Usuarios> suplentes { get; set; }
+
+        //VISTAS
+        public struct VistaProyectos
+        {
+            public int id_proyecto;
+            public string clave;
+            public string nombre;
+            public string descripcion;
+            public string lider;
+        }
+
+        public static IEnumerable<VistaProyectos> vistaProyectos { get; set; }
     }
 }

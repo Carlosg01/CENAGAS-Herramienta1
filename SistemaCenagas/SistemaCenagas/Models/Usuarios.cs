@@ -52,22 +52,5 @@ namespace SistemaCenagas.Models
 
         [MaxLength(500)]
         public string Image_Url { get; set; }
-
-        /*Notificaciones*/
-        [MaxLength(20)]
-        public string Tarea_Asignada { get; set; }
-        [MaxLength(20)]
-        public string Mencion_En_Conversacion { get; set; }
-        [MaxLength(20)]
-        public string Agregacion_A_Proyecto { get; set; }
-        [MaxLength(20)]
-        public string Actividad_Proyecto_Miembro { get; set; }
-        /*servicio de notificaciones*/
-        [MaxLength(20)]
-        public string Notas_Mensuales { get; set; }
-        [MaxLength(20)]
-        public string Caracteristicas_Principales { get; set; }
-        [MaxLength(20)]
-        public string Actualizacion_Y_Errores { get; set; }
     }
 }

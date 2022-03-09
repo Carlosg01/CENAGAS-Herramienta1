@@ -13,7 +13,10 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="Anexo1_PropuestaCambio" asp-action="Index">Propuestas de cambio</a>
+                    <a asp-controller="ProyectosADC" asp-action="Index">ADC</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Anexo1_PropuestaCambio" asp-action="Index">Propuestas</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Crear mi propuesta</li>
 
@@ -60,66 +63,40 @@
                                 <span asp-validation-for="Fecha" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Sector_Area" class="control-label"></label>
+                                <label asp-for="Sector_Area" class="control-label">Sector / Área</label>
                                 <select asp-for="Sector_Area" class="form-control" name="utGasoducto" id="utGasoducto" asp-items="@(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"))">
                                     <option>--- Selecciona una opción ---</option>                                   
                                 </select>
                                 <span asp-validation-for="Sector_Area" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Id_Residencia" class="control-label"></label>
-                                <select asp-for="Id_Residencia" class="form-control" id="Id_Residencia" name="Id_Residencia" asp-items="@(new SelectList(string.Empty, "Residencia", "Residencia"))">
-                                    
+                                <label asp-for="Id_Residencia" class="control-label">Residencia</label>
+                                <select asp-for="Id_Residencia" class="form-control" id="Id_Residencia" name="Id_Residencia" asp-items="@(new SelectList(Global.residencias, "Id_Residencia", "Nombre"))">
+                                    <option>--- Selecciona una opción ---</option>
                                 </select>
                                 <span asp-validation-for="Id_Residencia" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Planta_Instalacion" class="control-label"></label>
-                                <select asp-for="Planta_Instalacion" class="form-control" id="Planta_Instalacion">
-                                    
+                                <label asp-for="Planta_Instalacion" class="control-label">Planta o instalación</label>
+                                <select asp-for="Planta_Instalacion" class="form-control" id="Planta_Instalacion">                                    
                                 </select>
                                 <span asp-validation-for="Planta_Instalacion" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Proceso" class="control-label"></label>
+                                <label asp-for="Proceso" class="control-label">Proceso, maquinaria o equipo por modificar</label>
                                 <input asp-for="Proceso" class="form-control" />
                                 <span asp-validation-for="Proceso" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Prestacion_Servicio" class="control-label"></label>
+                                <label asp-for="Prestacion_Servicio" class="control-label">Prestación del servicio de la maquinaria o equipo</label>
                                 <input asp-for="Prestacion_Servicio" class="form-control" />
                                 <span asp-validation-for="Prestacion_Servicio" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Descripcion" class="control-label"></label>
+                                <label asp-for="Descripcion" class="control-label">Descripción del cambio propuesto, indicando las razondes del mismo</label>
                                 <input asp-for="Descripcion" class="form-control" />
                                 <span asp-validation-for="Descripcion" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Resultados_Analisis" class="control-label"></label>
-                                <input asp-for="Resultados_Analisis" class="form-control" />
-                                <span asp-validation-for="Resultados_Analisis" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Id_ProponenteCambio" class="control-label"></label>
-                                <input asp-for="Id_ProponenteCambio" class="form-control" />
-                                <span asp-validation-for="Id_ProponenteCambio" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Id_ResponsableADC" class="control-label"></label>
-                                <input asp-for="Id_ResponsableADC" class="form-control" />
-                                <span asp-validation-for="Id_ResponsableADC" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Resultados_Propuesta" class="control-label"></label>
-                                <input asp-for="Resultados_Propuesta" class="form-control" />
-                                <span asp-validation-for="Resultados_Propuesta" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Estatus" class="control-label"></label>
-                                <input asp-for="Estatus" class="form-control" />
-                                <span asp-validation-for="Estatus" class="text-danger"></span>
-                            </div>
+                            </div>                            
                             <div class="form-group">
                                 <input type="submit" id="sub" value="Solicitar" class="btn btn-primary" />
                             </div>

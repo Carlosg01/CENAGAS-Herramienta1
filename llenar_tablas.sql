@@ -1,5 +1,5 @@
 use bd_cenagas
-
+select * from usuarios where Id_Usuario = 2
 insert into usuarios (Username, Email, Password, Rol, Confirmacion_email) values
 ('admin', 'admin@cenagas.gob.mx', '123', 'Superadmin', 'Confirmado')
 
@@ -13,6 +13,12 @@ insert into anexos (Nombre) values
 ('Anexo 6. Acta de cierre de la administración del cambio')
 
 describe residencias
+select * from residencias
 insert into residencias (Nombre) values
 ('Cárdenas'), ('Chihuahua'), ('Ciudad de México'), ('Hermosillo'),('Madero'),('Mendoza'),('Minatitlán'),('Monterrey'),('Reynosa'),
 ('Salamanca'), ('Tlaxcala'),('Torreón'),('Veracruz')
+
+select * from proyectos
+describe proyectos
+
+drop database bd_cenagas

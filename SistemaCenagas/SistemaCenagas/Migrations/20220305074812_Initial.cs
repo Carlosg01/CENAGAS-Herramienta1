@@ -42,20 +42,6 @@ namespace SistemaCenagas.Migrations
                     Observaciones = table.Column<string>(type: "varchar(220)", maxLength: 220, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image_Url = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tarea_Asignada = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Mencion_En_Conversacion = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Agregacion_A_Proyecto = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Actividad_Proyecto_Miembro = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Notas_Mensuales = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Caracteristicas_Principales = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Actualizacion_Y_Errores = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -75,13 +61,28 @@ namespace SistemaCenagas.Migrations
                     Nombre = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descripcion = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_Lider = table.Column<int>(type: "int", nullable: true),
+                    ADC = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Proyectos", x => x.Id_Proyecto);
+                    table.ForeignKey(
+                        name: "FK_Lider1",
+                        column: x => x.Id_Lider,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id_Usuario",
+                        onDelete: ReferentialAction.SetNull
+                    );
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "Index_Lider1",
+                table: "Proyectos",
+                column: "Id_Lider"
+                );
 
             migrationBuilder.CreateTable(
                 name: "Residencias",
@@ -107,7 +108,6 @@ namespace SistemaCenagas.Migrations
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
                     Id_ResponsableADC = table.Column<int>(type: "int", nullable: true),
                     Id_Suplente = table.Column<int>(type: "int", nullable: true),
-                    Id_Lider = table.Column<int>(type: "int", nullable: true),
                     Fecha_Actualizacion = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
@@ -134,13 +134,7 @@ namespace SistemaCenagas.Migrations
                         principalColumn: "Id_Usuario",
                         onDelete: ReferentialAction.SetNull
                     );
-                    table.ForeignKey(
-                        name: "FK_Lider1",
-                        column: x => x.Id_Lider,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id_Usuario",
-                        onDelete: ReferentialAction.SetNull
-                    );
+                    
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
             migrationBuilder.CreateIndex(
@@ -158,11 +152,7 @@ namespace SistemaCenagas.Migrations
                 table: "ADC",
                 column: "Id_Suplente"
                 );
-            migrationBuilder.CreateIndex(
-                name: "Index_Lider1",
-                table: "ADC",
-                column: "Id_Lider"
-                );
+            
 
             migrationBuilder.CreateTable(
                 name: "ADC_Actividades",

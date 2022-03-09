@@ -1,6 +1,6 @@
 #use bd_cenagas
 #describe gasoductos
-select * from gasoductos
+#select * from gasoductos
 
 insert into gasoductos (Ut_Gasoducto, Gasoducto, Sistema, Ut_Ducto, Diametro_o_pulgadas, Denominacion, Longitud_metros, Ut_Pemex, Descripcion_Pemex) values
 ('CEN-DUC-GSD-D0001','GSD 48" Ø 1105.929 Cáctus - San FerNULLdo','SNG','D0001',48,'Cáctus - San FerNULLdo',1105.929,'DUC-TR-GSD-D0001','GSD 48 1105.929 CACTUS-SAN FERNANDO'),

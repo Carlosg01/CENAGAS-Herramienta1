@@ -168,4 +168,11 @@
     <PackageReference Include="SendGrid" Version="9.25.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\ProyectosADC\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
