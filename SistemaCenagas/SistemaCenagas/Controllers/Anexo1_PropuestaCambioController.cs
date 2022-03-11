@@ -83,7 +83,10 @@ namespace SistemaCenagas.Controllers
         {
             if (ModelState.IsValid)
             {
-                anexo1_PropuestaCambio.Estatus = "Pendiente";
+                if (anexo1_PropuestaCambio.Id_ResponsableADC == 1)
+                {
+                    anexo1_PropuestaCambio.Estatus = "Pendiente";
+                }
                 anexo1_PropuestaCambio.Id_ResponsableADC = 1;
                 _context.Add(anexo1_PropuestaCambio);
                 await _context.SaveChangesAsync();
@@ -142,8 +145,11 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    anexo1_PropuestaCambio.Estatus = "Pendiente";
-                    anexo1_PropuestaCambio.Id_ResponsableADC = 1;
+                    if (anexo1_PropuestaCambio.Id_ResponsableADC == 1)
+                    {
+                        anexo1_PropuestaCambio.Estatus = "Pendiente";
+                    }
+                        
                     _context.Update(anexo1_PropuestaCambio);
                     await _context.SaveChangesAsync();
                 }

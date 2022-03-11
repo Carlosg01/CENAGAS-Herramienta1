@@ -57,7 +57,6 @@
                             <input type="hidden" asp-for="Proceso" />
                             <input type="hidden" asp-for="Prestacion_Servicio" />
                             <input type="hidden" asp-for="Descripcion" />
-                            <input type="hidden" asp-for="Estatus" value="En revisión" />
 
                             <div class="form-group">
                                 <label class="control-label">Proponente del cambio</label>
@@ -114,6 +113,7 @@
                             </div>
                             @if (Model.Resultados_Analisis != null)
                             {
+                                <input type="hidden" asp-for="Resultados_Analisis" />
                                 <div class="form-group">
                                     <label asp-for="Resultados_Analisis" class="control-label">Resultados del análisis de la propuesta</label>
                                     <textarea disabled asp-for="Resultados_Analisis" class="form-control"></textarea>
@@ -121,16 +121,24 @@
                                 </div>
                             }
                             @if (Model.Resultados_Propuesta != null)
-                            {   
+                            {
+                                <input type="hidden" asp-for="Resultados_Propuesta" />
                                 <div class="form-group">
                                     <label asp-for="Resultados_Propuesta" class="control-label">Resultados de la propuesta</label>
                                     <textarea disabled asp-for="Resultados_Propuesta" class="form-control"></textarea>
                                     <span asp-validation-for="Resultados_Propuesta" class="text-danger"></span>
                                 </div>
                             }
+                            <input type="hidden" asp-for="Estatus" />
+                            <div class="form-group">
+                                <label asp-for="Estatus" class="control-label">Estatus de la propuesta</label>
+                                <input disabled asp-for="Estatus" class="form-control"/>
+                                <span asp-validation-for="Estatus" class="text-danger"></span>
+                            </div>
 
                             <div class="form-group">
                                 <input type="submit" id="sub" value="Guardar cambios" class="btn btn-primary" />
+                                <a class="btn btn-danger" asp-action="Index">Cancelar</a>
                             </div>
                         </form>
 
