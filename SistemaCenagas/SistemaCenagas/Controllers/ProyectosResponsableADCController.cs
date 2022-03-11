@@ -5,27 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ProyectosLiderController : Controller
+    public class ProyectosResponsableADCController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProyectosLiderController(ApplicationDbContext context)
+        public ProyectosResponsableADCController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: ProyectosLider
+        // GET: ProyectosResponsableADC
         public async Task<IActionResult> Index()
         {
             Global.vistaProyectos = (from p in _context.Proyectos
+                                     join a in _context.Anexo1_PropuestaCambio on p.Id_Proyecto equals a.Id_Proyecto
                                      join u in _context.Usuarios on p.Id_Lider equals u.Id_Usuario
-                                     where p.Id_Lider == Global.usuario.Id_Usuario
+                                     where a.Id_ResponsableADC == Global.usuario.Id_Usuario
                                      select new Global.VistaProyectos
                                      {
                                          id_proyecto = p.Id_Proyecto,
@@ -33,12 +33,58 @@ namespace SistemaCenagas.Controllers
                                          nombre = p.Nombre,
                                          descripcion = p.Descripcion,
                                          lider = u.Titulo + " " + u.Nombre + " " + u.Paterno + " " + u.Materno
-                                     });
+                                     }).Distinct();
 
+            return View(await _context.Proyectos.ToListAsync());
+        }
+
+        public async Task<IActionResult> SolicitudesCambio(int? id)
+        {
+            Global.proyecto = await _context.Proyectos.FindAsync(id);
+            return RedirectToAction("Index", "Anexo1_SolicitudesResponsableADC");
+        }
+
+        // GET: ProyectosResponsableADC/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var proyectos = await _context.Proyectos
+                .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
+            if (proyectos == null)
+            {
+                return NotFound();
+            }
+
+            return View(proyectos);
+        }
+
+        // GET: ProyectosResponsableADC/Create
+        public IActionResult Create()
+        {
             return View();
         }
 
-        // GET: ProyectosLider/Edit/5
+        // POST: ProyectosResponsableADC/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Proyectos proyectos)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(proyectos);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(proyectos);
+        }
+
+        // GET: ProyectosResponsableADC/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -54,14 +100,13 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // POST: ProyectosLider/Edit/5
+        // POST: ProyectosResponsableADC/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Clave,Nombre,Descripcion,Id_Lider,ADC")] Proyectos proyectos)
+        public async Task<IActionResult> Edit(int id, Proyectos proyectos)
         {
-
             if (id != proyectos.Id_Proyecto)
             {
                 return NotFound();
@@ -90,13 +135,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        public async Task<IActionResult> SolicitudesCambio(int? id)
-        {
-            Global.proyecto = await _context.Proyectos.FindAsync(id);
-            return RedirectToAction("Index", "Anexo1_SolicitudesLider");
-        }
-
-        // GET: ProyectosLider/Delete/5
+        // GET: ProyectosResponsableADC/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -114,7 +153,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // POST: ProyectosLider/Delete/5
+        // POST: ProyectosResponsableADC/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

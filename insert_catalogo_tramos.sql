@@ -1,6 +1,6 @@
 #describe tramos
 #select * from tramos
-
+#delete from tramos
 insert into tramos (Ut_Tramo, Tramo, KM_Inicio, KM_Fin, Longitud_Metros, Diametro, Espesor_Nominal, SMYS, Fecha_Construccion, Residencia, Ut_Gasoducto) values 
 ('CEN-DUC-GSD-D0001-TRM01','GSD 48 Cáctus - Est. 1 Cárdenas',0.0,25.298,25.298,48.0,0.625,65000.0,NULL,'Cárdenas','CEN-DUC-GSD-D0001'),
 ('CEN-DUC-GSD-D0001-TRM02','GSD 48 Est. 1 Cárdenas - Las Choapas',25.298,94.388,69.09,48.0,0.625,65000.0,NULL,'Cárdenas','CEN-DUC-GSD-D0001'),
@@ -40,14 +40,14 @@ insert into tramos (Ut_Tramo, Tramo, KM_Inicio, KM_Fin, Longitud_Metros, Diametr
 ('CEN-DUC-GSD-D0007-TRM08','GSD 36 Estero de Becerra - El Castillo',1218.36,1282.335,60.708,36.0,0.438,65000.0,NULL,'Salamanca','CEN-DUC-GSD-D0007'),
 ('CEN-DUC-GSD-D0008-TRM01','GSD 36 Ramones - EC 19 Reynosa',0.0,106.88,106.88000000000001,36.0,0.438,65000.0,NULL,'Monterrey','CEN-DUC-GSD-D0008'),
 ('CEN-DUC-GSD-D0009-TRM01','GSD 36 El Misterio - Las Palomas',0.0,106.761,106.761,36.0,0.469,52000.0,NULL,'Cárdenas','CEN-DUC-GSD-D0009'),
-('CEN-DUC-GSD-D0010-TRM01','GSD 36 Ramones - Escobedo',0.0,91.978,91.978,36.0,0.438,65000.0,NULL,'Monterrey','CEN-DUC-GSD-D0010'),
+('CEN-DUC-GSD-D0010-TRM01','GSD 36 Ramones - Escobedo',0.0,91.978,91.978,36.0,0.438,65000.0,-1,'Monterrey','CEN-DUC-GSD-D0010'),
 ('CEN-DUC-GSD-D0011-TRM01','GSD 36 Nuevo Teapa - Est. 3 Minatitlán',211.615,240.315,28.7,36.0,0.562,52000.0,NULL,'Minatitlán','CEN-DUC-GSD-D0011'),
 ('CEN-DUC-GSD-D0012-TRM01','GSD 36 Cáctus - El Misterio',0.0,19.715,19.715,36.0,0.469,65000.0,NULL,'Cárdenas','CEN-DUC-GSD-D0012'),
 ('CEN-DUC-GSD-D0013-TRM01','GSD 30 Est. 3 Mina - Juán Días Covarrubias',240.315,304.515,64.2,30.0,0.375,60000.0,NULL,'Minatitlán','CEN-DUC-GSD-D0013'),
 ('CEN-DUC-GSD-D0013-TRM02','GSD 30 Juán Días Covarrubias - Est. 5 Arrollo Claro',304.515,370.519,66.004,30.0,0.375,60000.0,NULL,'Mendoza','CEN-DUC-GSD-D0013'),
 ('CEN-DUC-GSD-D0013-TRM03','GSD 30 Est. 5 Arrollo Claro - Est. 6 Tierra Blanca',370.519,437.104,66.585,30.0,0.375,60000.0,NULL,'Mendoza','CEN-DUC-GSD-D0013'),
-('CEN-DUC-GSD-D0013-TRM04','GSD 30 Est. 6 Tierra Blanca - Est.  7 Omealca',437.106,NULL,62.871,30.0,0.375,60000.0,NULL,'Mendoza','CEN-DUC-GSD-D0013'),
-('CEN-DUC-GSD-D0013-TRM05','GSD 30 Est. 7 Omealca - Est. 5 Mendoza',NULL,556.325,56.35,30.0,0.375,60000.0,NULL,'Mendoza','CEN-DUC-GSD-D0013'),
+('CEN-DUC-GSD-D0013-TRM04','GSD 30 Est. 6 Tierra Blanca - Est.  7 Omealca',437.106,-1,62.871,30.0,0.375,60000.0,NULL,'Mendoza','CEN-DUC-GSD-D0013'),
+('CEN-DUC-GSD-D0013-TRM05','GSD 30 Est. 7 Omealca - Est. 5 Mendoza',-1,556.325,56.35,30.0,0.375,60000.0,NULL,'Mendoza','CEN-DUC-GSD-D0013'),
 ('CEN-DUC-GSD-D0013-TRM06','GSD 30 Cd Mendoza - Tecamachalco',556.328,602.746,51.526,30.0,0.375,60000.0,NULL,'Mendoza','CEN-DUC-GSD-D0013'),
 ('CEN-DUC-GSD-D0013-TRM07','GSD 30 Tecamachalco - San Martín',607.851,705.146,97.295,30.0,0.375,60000.0,NULL,'Tlaxcala','CEN-DUC-GSD-D0013'),
 ('CEN-DUC-GSD-D0013-TRM08','GSD 30 San Martín - Venta de Carpio',705.146,780.425,75.279,30.0,0.375,60000.0,NULL,'Estado de México','CEN-DUC-GSD-D0013'),
@@ -85,7 +85,7 @@ insert into tramos (Ut_Tramo, Tramo, KM_Inicio, KM_Fin, Longitud_Metros, Diametr
 ('CEN-DUC-GSD-D0026-TRM01','GSD 24 Santa Rosa - Est. Med. 13 GIMSA',0.0,12.454,12.454,24.0,0.375,52000.0,NULL,'Monterrey','CEN-DUC-GSD-D0026'),
 ('CEN-DUC-GSD-D0027-TRM01','GSD 24 Los Cocos - Cangrejera',0.0,7.3,7.0,24.0,0.406,35000.0,NULL,'Minatitlán','CEN-DUC-GSD-D0027'),
 ('CEN-DUC-GSD-D0028-TRM01','GSD 24 Rio Bravo - Argüelles (Kindermorgan)',0.0,2.21,2.38,24.0,0.281,60000.0,NULL,'Reynosa','CEN-DUC-GSD-D0028'),
-('CEN-DUC-GSD-D0029-TRM01','GSD 24 Miravalle - CFE San Jerónimo',NULL,NULL,1.067,24.0,0.375,52000.0,NULL,'Monterrey','CEN-DUC-GSD-D0029'),
+('CEN-DUC-GSD-D0029-TRM01','GSD 24 Miravalle - CFE San Jerónimo',-1,-1,1.067,24.0,0.375,52000.0,NULL,'Monterrey','CEN-DUC-GSD-D0029'),
 ('CEN-DUC-GSD-D0030-TRM01','GSD 22 P Culebra - Los Herrera',0.0,38.472,38.03,22.0,0.375,42000.0,NULL,'Monterrey','CEN-DUC-GSD-D0030'),
 ('CEN-DUC-GSD-D0030-TRM02','GSD 22 Los Herrrera - Cadereyta',38.472,98.736,60.706,22.0,0.375,42000.0,NULL,'Monterrey','CEN-DUC-GSD-D0030'),
 ('CEN-DUC-GSD-D0030-TRM03','GSD 22 Cadereyta - Santa Catarina',98.736,170.404,71.668,22.0,0.375,42000.0,NULL,'Monterrey','CEN-DUC-GSD-D0030'),
@@ -109,7 +109,7 @@ insert into tramos (Ut_Tramo, Tramo, KM_Inicio, KM_Fin, Longitud_Metros, Diametr
 ('CEN-DUC-GSD-D0043-TRM02','GSD 16 Ojo Laguna - La Escuadra',113.5,194.4,80.9,16.0,0.25,46000.0,NULL,'Chihuahua','CEN-DUC-GSD-D0043'),
 ('CEN-DUC-GSD-D0043-TRM03','GSD 16 La Escuadra - Candelaria',194.4,284.78,90.38,16.0,0.25,46000.0,NULL,'Chihuahua','CEN-DUC-GSD-D0043'),
 ('CEN-DUC-GSD-D0043-TRM04','GSD 16 Candelaria - Gloria a Dios',284.78,328.166,43.46,16.0,0.25,46000.0,NULL,'Chihuahua','CEN-DUC-GSD-D0043'),
-('CEN-DUC-GSD-D0043-TRM05','GSD 16 Gloria a Dios - Terminal Juárez',328.24,342.0,13.76,16.0,NULL,NULL,NULL,NULL,'CEN-DUC-GSD-D0043'),
+('CEN-DUC-GSD-D0043-TRM05','GSD 16 Gloria a Dios - Terminal Juárez',328.24,342.0,13.76,16.0,-1,-1,NULL,NULL,'CEN-DUC-GSD-D0043'),
 ('CEN-DUC-GSD-D0044-TRM01','GSD 16 Imp. Naco - Est. Compresión',0.0,13.449,13.3,16.0,0.281,52000.0,NULL,'Hermosillo','CEN-DUC-GSD-D0044'),
 ('CEN-DUC-GSD-D0044-TRM02','GSD 16 Estación de Compresión  - Cuitaca',13.3,78.579,65.279,16.0,0.25,52000.0,NULL,'Hermosillo','CEN-DUC-GSD-D0044'),
 ('CEN-DUC-GSD-D0044-TRM03','GSD 16 Cuitaca - Santa Ana Son',78.579,168.0,89.421,16.0,0.25,52000.0,NULL,'Hermosillo','CEN-DUC-GSD-D0044'),
@@ -168,7 +168,7 @@ insert into tramos (Ut_Tramo, Tramo, KM_Inicio, KM_Fin, Longitud_Metros, Diametr
 ('CEN-DUC-GSD-D0081-TRM01','GSD 08 La Laguna - Camargo',0.0,14.411,14.411,8.0,0.25,35000.0,NULL,'Chihuahua','CEN-DUC-GSD-D0081'),
 ('CEN-DUC-GSD-D0082-TRM01','GSD 08 Los Pilares - Paredón',0.0,11.0,11.0,8.0,1.0,1.0,NULL,'Cárdenas','CEN-DUC-GSD-D0082'),
 ('CEN-DUC-GSD-D0083-TRM01','GSD 08 Km 56 CaNULLea - Mexicana de CaNULLea',0.0,6.585,6.585,8.0,0.219,52000.0,NULL,'Hermosillo','CEN-DUC-GSD-D0083'),
-('CEN-DUC-GSD-D0083-TRM02','GSD 08 Parque Industrial - CaNULLea Vieja',NULL,NULL,1.9,8.0,0.219,42000.0,NULL,'Hermosillo','CEN-DUC-GSD-D0083'),
+('CEN-DUC-GSD-D0083-TRM02','GSD 08 Parque Industrial - CaNULLea Vieja',-1,-1,1.9,8.0,0.219,42000.0,NULL,'Hermosillo','CEN-DUC-GSD-D0083'),
 ('CEN-DUC-GSD-D0084-TRM01','GSD 08 Nuevo Teapa - Pajaritos',0.0,8.102,8.102,8.0,0.312,35000.0,NULL,'Minatitlán','CEN-DUC-GSD-D0084'),
 ('CEN-DUC-GSD-D0085-TRM01','GSD 06 Ranchería - Atotonilco',0.0,90.0,90.0,6.0,0.219,42000.0,NULL,'Estado de México','CEN-DUC-GSD-D0085'),
 ('CEN-DUC-GSD-D0085-TRM02','GSD 06 Atotonilco - Zacualtipan',90.0,147.7,57.7,6.0,0.219,42000.0,NULL,'Estado de México','CEN-DUC-GSD-D0085'),
@@ -176,4 +176,4 @@ insert into tramos (Ut_Tramo, Tramo, KM_Inicio, KM_Fin, Longitud_Metros, Diametr
 ('CEN-DUC-GSD-D0086-TRM01','GSD 04 Escobedo - Hidalgo',0.0,25.502,25.502,4.0,0.25,35000.0,NULL,'Monterrey','CEN-DUC-GSD-D0086'),
 ('CEN-DUC-GSD-D0087-TRM01','GSD 04 Paila - Parras',0.0,24.023,24.023,4.0,0.188,35000.0,NULL,'Torreón','CEN-DUC-GSD-D0087'),
 ('CEN-DUC-GSD-D0088-TRM01','GSD 04 Peronal - Bermejillo',0.0,22.0,22.0,4.0,0.337,35000.0,NULL,'Torreón','CEN-DUC-GSD-D0088'),
-('CEN-DUC-GSD-D0046-TRM01','EC00A No asignado',NULL,NULL,NULL,NULL,0.25,52000.0,NULL,'Torreón','CEN-DUC-GSD-D0046')
+('CEN-DUC-GSD-D0046-TRM01','EC00A No asignado',-1,-1,-1,-1,0.25,52000.0,NULL,'Torreón','CEN-DUC-GSD-D0046')

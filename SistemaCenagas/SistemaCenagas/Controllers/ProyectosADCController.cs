@@ -24,6 +24,7 @@ namespace SistemaCenagas.Controllers
         {
             Global.vistaProyectos = (from p in _context.Proyectos
                                      join u in _context.Usuarios on p.Id_Lider equals u.Id_Usuario
+                                     where p.ADC.Equals("Activado")
                                      select new Global.VistaProyectos
                                      {
                                          id_proyecto = p.Id_Proyecto,

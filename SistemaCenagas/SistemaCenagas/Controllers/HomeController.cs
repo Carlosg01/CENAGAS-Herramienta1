@@ -48,9 +48,9 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Login(Usuarios user)
         {            
             Usuarios us = _context.Usuarios.Where(u => u.Email == user.Email && 
-                    u.Password == user.Password && u.Confirmacion_email != null).FirstOrDefault();
+                    u.Password == user.Password && u.Estatus != null).FirstOrDefault();
 
-            if(us != null && us.Confirmacion_email.Equals("Confirmado"))
+            if(us != null && us.Estatus.Equals("Habilitado"))
             {
                 Global.usuario = us;
 
@@ -67,7 +67,9 @@ namespace SistemaCenagas.Controllers
 
             //catalogos
             Global.anexos = _context.Anexos.ToList();
-            Global.residencias = _context.Residencias.ToList();            
+            Global.residencias = _context.Residencias.ToList();
+            Global.gasoductos = _context.Gasoductos.ToList();
+            Global.tramos = _context.Tramos.ToList();
 
             Global.session = "usuario";
             ViewBag.session = Global.session; //HttpContext.Session.GetString("Session");
@@ -147,7 +149,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
 
             Usuarios confirmUser = _context.Usuarios.Find(int.Parse(idUser));
-            confirmUser.Confirmacion_email = "Confirmado";
+            confirmUser.Estatus = "Habilitado";
             _context.Update(confirmUser);
             _context.SaveChanges();
 

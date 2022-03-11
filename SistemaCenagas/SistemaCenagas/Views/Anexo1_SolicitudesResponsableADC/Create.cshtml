@@ -13,10 +13,10 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="ProyectosADC" asp-action="Index">ADC</a>
+                    <a asp-controller="ProyectosLider" asp-action="Index">Mis proyectos</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="Anexo1_PropuestaCambio" asp-action="Index">Propuestas</a>
+                    <a asp-controller="Anexo1_SolicitudesCambio" asp-action="Index">Solicitudes de cambio</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Crear</li>
 
@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Sector_Area" class="control-label">Sector / Área</label>
-                                <select required asp-for="Sector_Area" class="form-control" name="Sector_Area" id="Sector_Area" asp-items="@(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"))">
+                                <select required asp-for="Sector_Area" class="form-control" name="utGasoducto" id="utGasoducto" asp-items="@(new SelectList(Global.gasoductos, "Gasoducto", "Gasoducto"))">
                                 </select>
                                 <span asp-validation-for="Sector_Area" class="text-danger"></span>
                             </div>
@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Planta_Instalacion" class="control-label">Planta o instalación</label>
-                                <select required asp-for="Planta_Instalacion" class="form-control" id="Planta_Instalacion" asp-items="@(new SelectList(Global.tramos, "Ut_Tramo", "Tramo"))">
+                                <select required asp-for="Planta_Instalacion" class="form-control" id="Planta_Instalacion" asp-items="@(new SelectList(Global.tramos, "Tramo", "Tramo"))">
                                 </select>
                                 <span asp-validation-for="Planta_Instalacion" class="text-danger"></span>
                             </div>
@@ -112,8 +112,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#Sector_Area").change(function () {
-            $.getJSON(@Url.Content("~/") + "Anexo1_PropuestaCambio/getResidencias", { utGasoducto: $("#Sector_Area").val() }, function (data) {
+        $("#utGasoducto").change(function () {
+            $.getJSON(@Url.Content("~/") + "/Anexo1_PropuestaCambio/getResidencias", { utGasoducto: $("#utGasoducto").val() }, function (data) {
                 var row = "";
                 $("#Id_Residencia").empty();
                 $.each(data, function (i, v) {

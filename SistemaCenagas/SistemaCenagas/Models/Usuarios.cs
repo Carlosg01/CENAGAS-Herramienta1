@@ -33,7 +33,7 @@ namespace SistemaCenagas.Models
         public string Rol { get; set; }
 
         [MaxLength(200)]
-        public string Confirmacion_email { get; set; }
+        public string Estatus { get; set; }
 
         [MaxLength(32)]
         public string Nombre { get; set; }

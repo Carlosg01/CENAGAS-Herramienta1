@@ -13,12 +13,12 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="ProyectosADC" asp-action="Index">ADC</a>
+                    <a asp-controller="ProyectosLider" asp-action="Index">Mis proyectos</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="Anexo1_PropuestaCambio" asp-action="Index">Propuestas</a>
+                    <a asp-controller="Anexo1_SolicitudesLider" asp-action="Index">Solicitudes de cambio</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Editar</li>
+                <li class="breadcrumb-item active" aria-current="page">Administrar</li>
             </ol>
         </nav>
 
@@ -35,7 +35,7 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h2 class="mb-0"> Editar propuesta </h2>
+                    <h2 class="mb-0"> Administrar propuesta </h2>
                 </div>
             </div>
         </div>
@@ -47,85 +47,88 @@
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Id_PropuestaCambio" />
-                            <input type="hidden" asp-for="Id_Proyecto" value="@(Global.proyecto.Id_Proyecto)" class="form-control" />
-                            <input type="hidden" asp-for="Id_ProponenteCambio" value="@(Global.usuario.Id_Usuario)" class="form-control" />
+                            <input type="hidden" asp-for="Id_Proyecto" />
+                            <input type="hidden" asp-for="Id_ProponenteCambio" />
+                            <input type="hidden" asp-for="Tipo_Cambio" />
+                            <input type="hidden" asp-for="Fecha" />
+                            <input type="hidden" asp-for="Id_Residencia" />
+                            <input type="hidden" asp-for="Sector_Area" />
+                            <input type="hidden" asp-for="Planta_Instalacion" />
+                            <input type="hidden" asp-for="Proceso" />
+                            <input type="hidden" asp-for="Prestacion_Servicio" />
+                            <input type="hidden" asp-for="Descripcion" />
+                            <input type="hidden" asp-for="Estatus" value="En revisión" />
+
+                            <div class="form-group">
+                                <label class="control-label">Proponente del cambio</label>
+                                <input disabled value="@(Global.vistaPropuesta.proponente)" class="form-control" />
+                            </div>
                             <div class="form-group">
                                 <label asp-for="Tipo_Cambio" class="control-label">Tipo de cambio</label>
-                                <select asp-for="Tipo_Cambio" class="form-control">
-                                    <option>Temporal</option>
-                                    <option>Permanente</option>
-                                </select>
+                                <input disabled asp-for="Tipo_Cambio" class="form-control" />
                                 <span asp-validation-for="Tipo_Cambio" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Fecha" class="control-label"></label>
-                                <input asp-for="Fecha" class="form-control" type="date" />
+                                <input disabled asp-for="Fecha" class="form-control" />
                                 <span asp-validation-for="Fecha" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Sector_Area" class="control-label">Sector / Área</label>
-                                <select required asp-for="Sector_Area" class="form-control" name="Sector_Area" id="Sector_Area" asp-items="@(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"))">
-                                </select>
+                                <input disabled asp-for="Sector_Area" value="@(Global.vistaPropuesta.sector_area)" class="form-control" />
                                 <span asp-validation-for="Sector_Area" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Id_Residencia" class="control-label">Residencia</label>
-                                <select required asp-for="Id_Residencia" class="form-control" id="Id_Residencia" name="Id_Residencia" asp-items="@(new SelectList(Global.residencias, "Id_Residencia", "Nombre"))">
-                                </select>
-                                <span asp-validation-for="Id_Residencia" class="text-danger"></span>
+                                <label class="control-label">Residencia</label>
+                                <input disabled value="@(Global.vistaPropuesta.residencia)" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label asp-for="Planta_Instalacion" class="control-label">Planta o instalación</label>
-                                <select required asp-for="Planta_Instalacion" class="form-control" id="Planta_Instalacion" asp-items="@(new SelectList(Global.tramos, "Ut_Tramo", "Tramo"))">
-                                </select>
+                                <input disabled asp-for="Planta_Instalacion" value="@(Global.vistaPropuesta.planta_instalacion)" class="form-control" />
                                 <span asp-validation-for="Planta_Instalacion" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Proceso" class="control-label">Proceso, maquinaria o equipo por modificar</label>
-                                <textarea required asp-for="Proceso" class="form-control"></textarea>
+                                <textarea disabled asp-for="Proceso" class="form-control"></textarea>
                                 <span asp-validation-for="Proceso" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Prestacion_Servicio" class="control-label">Prestación del servicio de la maquinaria o equipo</label>
-                                <input asp-for="Prestacion_Servicio" class="form-control" />
+                                <input disabled asp-for="Prestacion_Servicio" class="form-control" />
                                 <span asp-validation-for="Prestacion_Servicio" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Descripcion" class="control-label">Descripción del cambio propuesto, indicando las razondes del mismo</label>
-                                <textarea required asp-for="Descripcion" class="form-control"></textarea>
+                                <textarea disabled asp-for="Descripcion" class="form-control"></textarea>
                                 <span asp-validation-for="Descripcion" class="text-danger"></span>
                             </div>
-                            @if (Model.Id_ResponsableADC != 1)
-                            {
-                                <input type="hidden" asp-for="Id_ResponsableADC" />
-                                <div class="form-group">
-                                    <label class="control-label">Responsable de la administración del cambio</label>
-                                    <input disabled class="form-control" value="@(Global.vistaPropuesta.responsableADC)" />
-                                </div>
-                            }
+                            <div class="form-group">
+                                <label asp-for="Id_ResponsableADC" class="control-label">Asignar responsable de la administración del cambio</label>
+                                <select required asp-for="Id_ResponsableADC" class="form-control" id="Id_ResponsableADC" name="Id_ResponsableADC">
+                                    @foreach (var u in Global.responsables_adc)
+                                    {
+                                        <option value="@(u.Id_Usuario)"> @(u.Titulo + " " + u.Nombre + " " + u.Paterno + " " + u.Materno) </option>
+                                    }
+                                </select>
+                                <span asp-validation-for="Id_ResponsableADC" class="text-danger"></span>
+                            </div>
                             @if (Model.Resultados_Analisis != null)
                             {
-                                <input type="hidden" asp-for="Resultados_Analisis" />
                                 <div class="form-group">
                                     <label asp-for="Resultados_Analisis" class="control-label">Resultados del análisis de la propuesta</label>
                                     <textarea disabled asp-for="Resultados_Analisis" class="form-control"></textarea>
                                     <span asp-validation-for="Resultados_Analisis" class="text-danger"></span>
                                 </div>
-                                
+                            }
+                            @if (Model.Resultados_Propuesta != null)
+                            {   
                                 <div class="form-group">
                                     <label asp-for="Resultados_Propuesta" class="control-label">Resultados de la propuesta</label>
-                                    <textarea required asp-for="Resultados_Propuesta" class="form-control"></textarea>
+                                    <textarea disabled asp-for="Resultados_Propuesta" class="form-control"></textarea>
                                     <span asp-validation-for="Resultados_Propuesta" class="text-danger"></span>
                                 </div>
                             }
-                            @if (Model.Id_ResponsableADC != 1)
-                            {
-                                <input type="hidden" asp-for="Estatus" />
-                                <div class="form-group">
-                                    <label class="control-label">Estatus</label>
-                                    <input disabled class="form-control" value="@(Global.vistaPropuesta.estatus)" />
-                                </div>
-                            }
+
                             <div class="form-group">
                                 <input type="submit" id="sub" value="Guardar cambios" class="btn btn-primary" />
                             </div>
