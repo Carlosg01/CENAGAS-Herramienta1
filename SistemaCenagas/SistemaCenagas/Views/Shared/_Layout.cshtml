@@ -62,7 +62,7 @@
                         <li class="nav-item">
 
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-2">
-                                <img alt="Image" src="~/assets/img/avatar-male-4.jpg" class="avatar" /> @Global.usuario.Username
+                                <img alt="Image" src="~/assets/img/avatar-male-4.jpg" class="avatar" /> @Global.session_usuario.user.Username
                             </a>
                             <div id="submenu-1" class="collapse">
                                 <ul class="nav nav-small flex-column">
@@ -86,7 +86,7 @@
 
                         <li class="nav-item">
 
-                            @if (Global.usuario.Rol != null && Global.usuario.Rol.Equals("Lider de equipo verificador"))
+                            @if (Global.session_usuario.user.Id_Rol == 2)
                             {
                                 <div class="d-none d-lg-block w-100">
                                     <ul class="nav nav-small flex-column mt-2">
@@ -97,7 +97,7 @@
                                     </ul>
                                 </div>
                             }
-                            @if (Global.usuario.Rol != null && Global.usuario.Rol.Equals("Responsable de la administración de cambio"))
+                            @if (Global.session_usuario.user.Id_Rol == 3)
                             {
                                 <div class="d-none d-lg-block w-100">
                                     <ul class="nav nav-small flex-column mt-2">
@@ -133,8 +133,7 @@
 
 
                     </ul>
-                    @if (Global.usuario.Rol != null &&
-                      (Global.usuario.Rol.Equals("Superadmin") || Global.usuario.Rol.Equals("Administrador")))
+                    @if (Global.session_usuario.user.Id_Rol == 5 || Global.session_usuario.user.Id_Rol == 6)
                     {
                         <hr>
                         <div class="d-none d-lg-block w-100">

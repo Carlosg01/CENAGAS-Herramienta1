@@ -15,6 +15,7 @@ namespace SistemaCenagas.Models
         public string Responsable { get; set; }
         public string Descripcion { get; set; }
         public int Id_Anexo { get; set; }
+        public int Registro_Eliminado { get; set; }
 
     }
 }

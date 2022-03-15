@@ -13,5 +13,6 @@ namespace SistemaCenagas.Models
 
         [MaxLength(200)]
         public string Nombre { get; set; }
+        public int Registro_Eliminado { get; set; }
     }
 }

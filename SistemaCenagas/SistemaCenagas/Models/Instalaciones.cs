@@ -46,7 +46,7 @@ namespace SistemaCenagas.Models
 
         [MaxLength(200)]
         public string Gmas_Pemex { get; set; }
-
+        public int Registro_Eliminado { get; set; }
 
 
     }

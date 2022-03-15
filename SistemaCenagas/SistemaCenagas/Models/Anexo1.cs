@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SistemaCenagas.Models
 {
-    public class Anexo1_PropuestaCambio
+    public class Anexo1
     {
         [Key]
         public int Id_PropuestaCambio { get; set; }
+        public int Id_ProponenteCambio { get; set; }
         public int Id_Proyecto { get; set; }
         public string Tipo_Cambio { get; set; }
         public string Fecha { get; set; }
@@ -20,10 +21,9 @@ namespace SistemaCenagas.Models
         public string Prestacion_Servicio { get; set; }
         public string Descripcion { get; set; }
         public string Resultados_Analisis { get; set; }
-        public int Id_ProponenteCambio { get; set; }
-        public int Id_ResponsableADC { get; set; }
         public string Resultados_Propuesta { get; set; }
         public string Estatus { get; set; }
-                                                      
+        public int Registro_Eliminado { get; set; }
+
     }
 }

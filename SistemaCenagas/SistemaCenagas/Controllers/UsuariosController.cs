@@ -29,9 +29,8 @@ namespace SistemaCenagas.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            ViewBag.session = Global.session;
-            ViewBag.Rol = Global.usuario.Rol;
-            return View(await _context.Usuarios.ToListAsync());
+            Global.vista_usuarios = Consultas.VistaUsuarios(_context);
+            return View();
         }
 
         // GET: Usuarios/Details/5
@@ -41,23 +40,24 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-
             var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id_Usuario == id);
             if (usuario == null)
             {
                 return NotFound();
             }
-
-            ViewBag.session = Global.session;
-            ViewBag.Rol = Global.usuario.Rol;
+            Global.usuario = new Global.V_Usuarios
+            {
+                Rol = _context.Roles.Where(
+                    r => r.Id_Rol == usuario.Id_Rol).FirstOrDefault().Nombre
+            };
 
             return View(usuario);
         }
 
         // GET: Usuarios/Create
         public IActionResult Create()
-        {
+        {   
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url")] Usuarios usuario)
+        public async Task<IActionResult> Create(Usuarios usuario)
         {
             if (ModelState.IsValid && usuario.Password.Equals(usuario.Confirmar_Password))
             {
@@ -99,7 +99,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Usuario,Nombre,Paterno,Materno,Titulo,Observaciones,Email,Username,Password,Confirmar_Password,Nueva_Password,Rol,Confirmacion_email,Image_Url")] Usuarios usuario)
+        public async Task<IActionResult> Edit(int id, Usuarios usuario)
         {
             if (id != usuario.Id_Usuario)
             {
@@ -128,7 +128,13 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            Global.usuario = _context.Usuarios.Find(id);
+            /*Global.usuario = new Global.V_Usuarios
+            {
+                user = _context.Usuarios.Find(id),
+                Rol = _context.Roles.Where(
+                    r => r.Id_Rol == usuario.Id_Rol).FirstOrDefault().Nombre
+
+            };*/
 
             return View(usuario);
         }
@@ -147,6 +153,11 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
+            Global.usuario = new Global.V_Usuarios
+            {
+                Rol = _context.Roles.Where(
+                    r => r.Id_Rol == usuario.Id_Rol).FirstOrDefault().Nombre
+            };
 
             return View(usuario);
         }
@@ -157,7 +168,8 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
-            _context.Usuarios.Remove(usuario);
+            usuario.Registro_Eliminado = 1; 
+            _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

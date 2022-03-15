@@ -1,11 +1,12 @@
 #describe instalaciones
 #select * from instalaciones
+#update instalaciones set registro_eliminado = 0
 insert into instalaciones (instalacion, ut_instalacion, clase, km, residencia, region, ut_tramo, sistema, longitud_X_decimal, latitud_Y_decimal, altitud_Z_decimal, sector_pemex, gmas_pemex) values 
-#('Cruzamiento Agua Dulce - Nudo Teapa','CEN-DUC-GSD-D0023-TRM01-CRUCE','Cruce',0.0,'Minatitlán','Sur','CEN-DUC-GSD-D0023-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
-#('Cruzamiento Agua Dulce - Nuevo Teapa','CEN-DUC-GSD-D0019-TRM04-CRUCE','Cruce',18819.0,'Minatitlán','Sur','CEN-DUC-GSD-D0019-TRM04',NULL,NULL,NULL,NULL,NULL,NULL),
-#('Cruzamiento Alcalde Mayor - Cemento Apasco','CEN-DUC-GSD-D0077-TRM01-CRUCE','Cruce',0.0,'Cárdenas','Sur','CEN-DUC-GSD-D0077-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
-#('Cruzamiento Altamira - Barberena','CEN-DUC-GSD-D0001-TRM14-CRUCE','Cruce',806873.0,'Madero','Noreste','CEN-DUC-GSD-D0001-TRM14',NULL,NULL,NULL,NULL,NULL,NULL),
-#('Cruzamiento Angostura - Puente Moreno','CEN-DUC-GSD-D0032-TRM01-CRUCE','Cruce',0.0,'Veracruz','Sur','CEN-DUC-GSD-D0032-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
+('Cruzamiento Agua Dulce - Nudo Teapa','CEN-DUC-GSD-D0023-TRM01-CRUCE','Cruce',0.0,'Minatitlán','Sur','CEN-DUC-GSD-D0023-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
+('Cruzamiento Agua Dulce - Nuevo Teapa','CEN-DUC-GSD-D0019-TRM04-CRUCE','Cruce',18819.0,'Minatitlán','Sur','CEN-DUC-GSD-D0019-TRM04',NULL,NULL,NULL,NULL,NULL,NULL),
+('Cruzamiento Alcalde Mayor - Cemento Apasco','CEN-DUC-GSD-D0077-TRM01-CRUCE','Cruce',0.0,'Cárdenas','Sur','CEN-DUC-GSD-D0077-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
+('Cruzamiento Altamira - Barberena','CEN-DUC-GSD-D0001-TRM14-CRUCE','Cruce',806873.0,'Madero','Noreste','CEN-DUC-GSD-D0001-TRM14',NULL,NULL,NULL,NULL,NULL,NULL),
+('Cruzamiento Angostura - Puente Moreno','CEN-DUC-GSD-D0032-TRM01-CRUCE','Cruce',0.0,'Veracruz','Sur','CEN-DUC-GSD-D0032-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Cruzamiento Anzalduas - Campo Brasil','CEN-DUC-GSD-D0040-TRM01-CRUCE','Cruce',13603.0,'Reynosa','Noreste','CEN-DUC-GSD-D0040-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Cruzamiento Apaseo Alto - Valtierrilla','CEN-DUC-GSD-D0007-TRM05-CRUCE','Cruce',991.0,'Salamanca','Centro','CEN-DUC-GSD-D0007-TRM05',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Cruzamiento Apodaca - Est 13 GIMSA','CEN-DUC-GSD-D0041-TRM01-CRUCE','Cruce',0.0,'Monterrey','Noreste','CEN-DUC-GSD-D0041-TRM01',NULL,NULL,NULL,NULL,NULL,NULL),

@@ -1,6 +1,7 @@
 #describe tramos
 #select * from tramos
 #delete from tramos
+#update tramos set registro_eliminado = 0
 insert into tramos (Ut_Tramo, Tramo, KM_Inicio, KM_Fin, Longitud_Metros, Diametro, Espesor_Nominal, SMYS, Fecha_Construccion, Residencia, Ut_Gasoducto) values 
 ('CEN-DUC-GSD-D0001-TRM01','GSD 48 Cáctus - Est. 1 Cárdenas',0.0,25.298,25.298,48.0,0.625,65000.0,NULL,'Cárdenas','CEN-DUC-GSD-D0001'),
 ('CEN-DUC-GSD-D0001-TRM02','GSD 48 Est. 1 Cárdenas - Las Choapas',25.298,94.388,69.09,48.0,0.625,65000.0,NULL,'Cárdenas','CEN-DUC-GSD-D0001'),

@@ -6,20 +6,14 @@ using System.Threading.Tasks;
 
 namespace SistemaCenagas.Models
 {
-    public class Proyectos
+    public class Roles
     {
         [Key]
-        public int Id_Proyecto { get; set; }
-
-        [MaxLength(20)]
-        public string Clave { get; set; }
-
-        [MaxLength(300)]
+        public int Id_Rol { get; set; }
         public string Nombre { get; set; }
-
         public string Descripcion { get; set; }
-        public int Id_Lider { get; set; }
-        public string Estado_ADC { get; set; }
+        public string Privilegios { get; set; }
+        public string Estado { get; set; }
         public int Registro_Eliminado { get; set; }
     }
 }

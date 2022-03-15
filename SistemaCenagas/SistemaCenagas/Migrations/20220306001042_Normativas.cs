@@ -18,7 +18,8 @@ namespace SistemaCenagas.Migrations
                     Id_Anexo = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nombre = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Registro_Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,7 +40,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descripcion = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Id_Anexo = table.Column<int>(type: "int", nullable: true)
+                    Id_Anexo = table.Column<int>(type: "int", nullable: true),
+                    Registro_Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

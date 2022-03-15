@@ -19,7 +19,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
-                @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
+                @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
             </li>
         </ol>
     </nav>
@@ -90,14 +90,13 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                         <input disabled type="text" placeholder="Email" asp-for="Email" class="form-control" required />
                                     </div>
                                 </div>
+                                <input asp-for="Id_Rol" type="hidden" />
                                 <div class="form-group row align-items-center">
-                                    <label asp-for="Rol" class="col-3"></label>
+                                    <label asp-for="Id_Rol" class="col-3">Rol</label>
                                     <div class="col">
-                                        <input disabled type="text" asp-for="Rol" class="form-control" required />
+                                        <input disabled type="text" value="@(Global.session_usuario.Rol)" class="form-control" required />
                                     </div>
                                 </div>
-
-
                                 <div class="form-group row">
                                     <label asp-for="Observaciones" class="col-3"></label>
                                     <div class="col">

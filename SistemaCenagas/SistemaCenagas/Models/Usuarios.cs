@@ -29,8 +29,7 @@ namespace SistemaCenagas.Models
         [MaxLength(200)]
         public string Nueva_Password { get; set; }
 
-        [MaxLength(200)]
-        public string Rol { get; set; }
+        public int Id_Rol { get; set; }
 
         [MaxLength(200)]
         public string Estatus { get; set; }
@@ -52,5 +51,6 @@ namespace SistemaCenagas.Models
 
         [MaxLength(500)]
         public string Image_Url { get; set; }
+        public int Registro_Eliminado { get; set; }
     }
 }

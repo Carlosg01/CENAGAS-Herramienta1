@@ -15,5 +15,6 @@ namespace SistemaCenagas.Models
         public float Avance { get; set; }
         public string Faltante_Comentarios { get; set; }
         public string Plan_Accion { get; set; }
+        public int Registro_Eliminado { get; set; }
     }
 }

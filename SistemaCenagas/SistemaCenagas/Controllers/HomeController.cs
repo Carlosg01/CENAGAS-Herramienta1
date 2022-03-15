@@ -40,20 +40,23 @@ namespace SistemaCenagas.Controllers
 
         public IActionResult Index()
         {
+            Global.vista_usuarios = Consultas.VistaUsuarios(_context);
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Usuarios user)
-        {            
+        {
             Usuarios us = _context.Usuarios.Where(u => u.Email == user.Email && 
                     u.Password == user.Password && u.Estatus != null).FirstOrDefault();
 
             if(us != null && us.Estatus.Equals("Habilitado"))
             {
-                Global.usuario = us;
-
+                
+                Global.session_usuario = new Global.V_Usuarios { user = us, Rol = _context.Roles.Where(
+                    r => r.Id_Rol == us.Id_Rol).FirstOrDefault().Nombre };
                 return RedirectToAction(nameof(Dashboard));
             }            
             return RedirectToAction(nameof(Index));
@@ -62,19 +65,14 @@ namespace SistemaCenagas.Controllers
         public IActionResult Dashboard()
         {
 
-            if (Global.usuario == null)
+            if (Global.session_usuario.user == null)
                 return RedirectToAction(nameof(Index));
 
             //catalogos
-            Global.anexos = _context.Anexos.ToList();
-            Global.residencias = _context.Residencias.ToList();
-            Global.gasoductos = _context.Gasoductos.ToList();
-            Global.tramos = _context.Tramos.ToList();
+            Global.roles = _context.Roles.ToList();
+
 
             Global.session = "usuario";
-            ViewBag.session = Global.session; //HttpContext.Session.GetString("Session");
-            ViewBag.username = Global.usuario.Nombre;
-            ViewBag.Rol = Global.usuario.Rol;
             return View();
         }
 
@@ -227,20 +225,13 @@ namespace SistemaCenagas.Controllers
         public IActionResult LogOut()
         {
             Global.session = null;
-            Global.usuario = null;
-            Global.proyecto = null;
-            Global.adc = null;            
-            Global.adc_actividad = null;
-            Global.adc_proceso = null;
+            Global.usuario.user = null;
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult AccountSettings()
         {
-            ViewBag.session = Global.session;
-            ViewBag.Rol = (Global.usuario.Rol != null) ? Global.usuario.Rol : "Sin asignar";
-            ViewBag.username = Global.usuario.Username;
-            return View((Usuarios)Global.usuario);
+            return View((Usuarios)Global.session_usuario.user);
         }
 
         [HttpPost]
@@ -248,17 +239,17 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> UpdateAccountSettings(Usuarios user)
         {
             /*actualiza tabla de usuarios*/
-            user.Id_Usuario = Global.usuario.Id_Usuario;
-            Usuarios consultaUsuario = _context.Usuarios.Find(Global.usuario.Id_Usuario);
+            user.Id_Usuario = Global.session_usuario.user.Id_Usuario;
+            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id_Usuario);
             consultaUsuario.Nombre = user.Nombre;
             consultaUsuario.Paterno = user.Paterno;
             consultaUsuario.Materno = user.Materno;
             consultaUsuario.Email = user.Email;
-            consultaUsuario.Rol = Global.usuario.Rol;
+            consultaUsuario.Id_Rol = user.Id_Rol;
             consultaUsuario.Observaciones = user.Observaciones;
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
-            Global.usuario = consultaUsuario;
+            Global.session_usuario.user = consultaUsuario;
             
             return RedirectToAction(nameof(AccountSettings));
         }
@@ -267,17 +258,17 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdatePassword(Usuarios user)
         {
-            if (user.Password.Equals(Global.usuario.Password) &&
+            if (user.Password.Equals(Global.session_usuario.user.Password) &&
                 user.Nueva_Password.Equals(user.Confirmar_Password))
             {
                 
                 /*actualiza tabla de usuarios*/
-                user.Id_Usuario = Global.usuario.Id_Usuario;
-                Usuarios consultaUsuario = _context.Usuarios.Find(Global.usuario.Id_Usuario);
+                user.Id_Usuario = Global.session_usuario.user.Id_Usuario;
+                Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id_Usuario);
                 consultaUsuario.Password = user.Nueva_Password;
                 _context.Update(consultaUsuario);
                 await _context.SaveChangesAsync();
-                Global.usuario = consultaUsuario;
+                Global.session_usuario.user = consultaUsuario;
             }
 
             return RedirectToAction(nameof(AccountSettings));

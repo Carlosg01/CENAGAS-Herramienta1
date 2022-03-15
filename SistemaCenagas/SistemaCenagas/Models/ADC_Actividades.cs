@@ -11,5 +11,6 @@ namespace SistemaCenagas.Models
         [Key]
         public int Id_Actividad { get; set; }
         public string Actividad { get; set; }
+        public int Registro_Eliminado { get; set; }
     }
 }

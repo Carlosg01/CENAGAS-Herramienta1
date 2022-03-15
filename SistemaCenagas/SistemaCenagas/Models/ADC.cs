@@ -17,6 +17,7 @@ namespace SistemaCenagas.Models
         public int Id_Lider { get; set; }
         //-------------------------------
         public int Fecha_Actualizacion { get; set; }
+        public int Registro_Eliminado { get; set; }
 
     }
 }

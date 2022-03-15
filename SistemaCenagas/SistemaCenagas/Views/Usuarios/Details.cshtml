@@ -22,7 +22,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
+                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
                 </li>
             </ol>
         </nav>
@@ -32,7 +32,7 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h1 class="mb-0">Detalles</h1>
+                    <h2 class="mb-0">Detalles usuario</h2>
                 </div>
             </div>
         </div>
@@ -42,64 +42,72 @@
                     <div class="tab-pane fade show active" role="tabpanel" id="profile">
                         <!--end of avatar-->
                         <dl class="row">
-                            <dt class="col-sm-2">
+                            <dt class="col-sm-4">
                                 @Html.DisplayNameFor(model => model.Nombre)
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Nombre)
                             </dd>
-                            <dt class="col-sm-2">
+                            <hr>
+                            <dt class="col-sm-4">
                                 Apellido paterno
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Paterno)
                             </dd>
-                            <dt class="col-sm-2">
+                            <hr>
+                            <dt class="col-sm-4">
                                 Apellido materno
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Materno)
                             </dd>
-                            <dt class="col-sm-2">
+                            <hr>
+                            <dt class="col-sm-4">
                                 @Html.DisplayNameFor(model => model.Titulo)
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Titulo)
                             </dd>
-                            <dt class="col-sm-2">
+                            <hr>
+                            <dt class="col-sm-4">
                                 @Html.DisplayNameFor(model => model.Email)
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Email)
                             </dd>
-                            <dt class="col-sm-2">
+                            <hr>
+                            <dt class="col-sm-4">
                                 @Html.DisplayNameFor(model => model.Password)
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Password)
                             </dd>
-                            <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Rol)
+                            <hr>
+                            <dt class="col-sm-4">
+                                Rol
                             </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Rol)
+                            <dd class="col-sm-8">
+                                @(Global.usuario.Rol)
                             </dd>
-                            <dt class="col-sm-2">
+                            <hr>
+                            <dt class="col-sm-4">
                                 @Html.DisplayNameFor(model => model.Observaciones)
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Observaciones)
                             </dd>
-                            <dt class="col-sm-2">
+                            <hr>
+                            <dt class="col-sm-4">
                                 Estatus
                             </dt>
-                            <dd class="col-sm-10">
+                            <dd class="col-sm-8">
                                 @Html.DisplayFor(model => model.Estatus)
                             </dd>
                         </dl>
 
                         <div>
-                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id_Usuario">Editar</a> |
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id_Usuario">Editar</a>
                             <a class="btn btn-info" asp-action="Index">Regresar</a>
                         </div>
 

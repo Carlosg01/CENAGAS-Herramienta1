@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaCenagas.Models.Usuarios>
+﻿
 @{
     ViewData["Title"] = "Index";
 }
@@ -19,7 +19,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global.usuario.Titulo + " " + Global.usuario.Nombre + " | " + (Global.usuario.Rol != null ? Global.usuario.Rol : "Sin asignación"))
+                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
                 </li>
             </ol>
         </nav>
@@ -41,28 +41,28 @@
             <thead class="thead-dark">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nombre)
+                        Nombre
                     </th>
                     <th>
                         Apellidos
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Titulo)
+                        Titulo
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Email)
+                        Email
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Password)
+                        Contraseña
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Username)
+                        Username
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Rol)
+                        Rol
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Observaciones)
+                        Observaciones
                     </th>
                     <th>
                         Estatus
@@ -73,46 +73,50 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Global.vista_usuarios)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Paterno) @Html.DisplayFor(modelItem => item.Materno)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Titulo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Password)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Username)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rol)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Observaciones)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Estatus)
-                    </td>
-                    <td>
-                        <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.Id_Usuario">Editar</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.Id_Usuario">Detalles</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_Usuario">Eliminar</a>
-                    </td>
-                </tr>
+                    @if (item.user.Registro_Eliminado == 0)
+                    {
+                        <tr>
+                            <td>
+                                @(item.user.Nombre)
+                            </td>
+                            <td>
+                                @(item.user.Paterno + " " + item.user.Materno)
+                            </td>
+                            <td>
+                                @(item.user.Titulo)
+                            </td>
+                            <td>
+                                @(item.user.Email)
+                            </td>
+                            <td>
+                                @(item.user.Password)
+                            </td>
+                            <td>
+                                @(item.user.Username)
+                            </td>
+                            <td>
+                                @(item.Rol)
+                            </td>
+                            <td>
+                                @(item.user.Observaciones)
+                            </td>
+                            <td>
+                                @(item.user.Estatus)
+                            </td>
+                            <td>
+                                <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.user.Id_Usuario">Editar</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.user.Id_Usuario">Detalles</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.user.Id_Usuario">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+
                 }
             </tbody>
         </table>

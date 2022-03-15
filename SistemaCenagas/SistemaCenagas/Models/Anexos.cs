@@ -11,5 +11,6 @@ namespace SistemaCenagas.Models
         [Key]
         public int Id_Anexo { get; set; }
         public string Nombre { get; set; }
+        public int Registro_Eliminado { get; set; }
     }
 }
