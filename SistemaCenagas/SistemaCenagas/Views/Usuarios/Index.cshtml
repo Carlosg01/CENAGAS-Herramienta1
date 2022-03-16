@@ -29,7 +29,7 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h2 class="mb-0">Usuarios de CENAGAS</h2>
+                    <h3 class="mb-0">Usuarios de CENAGAS</h3>
                 </div>
                 <div class="col-4 text-right">
                     <a class="btn btn-primary form-control" asp-action="Create">Nuevo usuario</a>
@@ -37,88 +37,96 @@
             </div>
 
         </div>
-        <table style="display: block; overflow-x: auto; white-space: nowrap;" id="tblData" class="table table-bordered table-responsive-xl">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        Nombre
-                    </th>
-                    <th>
-                        Apellidos
-                    </th>
-                    <th>
-                        Titulo
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Contraseña
-                    </th>
-                    <th>
-                        Username
-                    </th>
-                    <th>
-                        Rol
-                    </th>
-                    <th>
-                        Observaciones
-                    </th>
-                    <th>
-                        Estatus
-                    </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Global.vista_usuarios)
-                {
-                    @if (item.user.Registro_Eliminado == 0)
+        @if (Global.vista_usuarios.Count() > 0)
+        {
+            <table style="display: block; overflow-x: auto; white-space: nowrap;" id="tblData" class="table table-bordered table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Apellidos
+                        </th>
+                        <th>
+                            Titulo
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Contraseña
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Rol
+                        </th>
+                        <th>
+                            Observaciones
+                        </th>
+                        <th>
+                            Estatus
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Global.vista_usuarios)
                     {
-                        <tr>
-                            <td>
-                                @(item.user.Nombre)
-                            </td>
-                            <td>
-                                @(item.user.Paterno + " " + item.user.Materno)
-                            </td>
-                            <td>
-                                @(item.user.Titulo)
-                            </td>
-                            <td>
-                                @(item.user.Email)
-                            </td>
-                            <td>
-                                @(item.user.Password)
-                            </td>
-                            <td>
-                                @(item.user.Username)
-                            </td>
-                            <td>
-                                @(item.Rol)
-                            </td>
-                            <td>
-                                @(item.user.Observaciones)
-                            </td>
-                            <td>
-                                @(item.user.Estatus)
-                            </td>
-                            <td>
-                                <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.user.Id_Usuario">Editar</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.user.Id_Usuario">Detalles</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.user.Id_Usuario">Eliminar</a>
-                            </td>
-                        </tr>
-                    }
+                        @if (item.user.Registro_Eliminado == 0)
+                        {
+                            <tr>
+                                <td>
+                                    @(item.user.Nombre)
+                                </td>
+                                <td>
+                                    @(item.user.Paterno + " " + item.user.Materno)
+                                </td>
+                                <td>
+                                    @(item.user.Titulo)
+                                </td>
+                                <td>
+                                    @(item.user.Email)
+                                </td>
+                                <td>
+                                    @(item.user.Password)
+                                </td>
+                                <td>
+                                    @(item.user.Username)
+                                </td>
+                                <td>
+                                    @(item.Rol)
+                                </td>
+                                <td>
+                                    @(item.user.Observaciones)
+                                </td>
+                                <td>
+                                    @(item.user.Estatus)
+                                </td>
+                                <td>
+                                    <a class="btn btn-info form-control" asp-action="Edit" asp-route-id="@item.user.Id_Usuario">Editar</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.user.Id_Usuario">Detalles</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.user.Id_Usuario">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
 
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <label class="control-label">No hay usuarios registrados</label>
+        }
+
     </div>
 </div>

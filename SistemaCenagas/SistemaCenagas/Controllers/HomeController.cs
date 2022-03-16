@@ -70,6 +70,7 @@ namespace SistemaCenagas.Controllers
 
             //catalogos
             Global.roles = _context.Roles.ToList();
+            Global.anexos = _context.Anexos.ToList();
 
 
             Global.session = "usuario";

@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\assets\**" />
-    <Content Remove="wwwroot\assets\**" />
-    <EmbeddedResource Remove="wwwroot\assets\**" />
-    <None Remove="wwwroot\assets\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Migrations\20220216021249_Initial.cs" />
     <Compile Remove="Migrations\20220216021249_Initial.Designer.cs" />
     <Compile Remove="Migrations\20220216023239_Initial.cs" />
@@ -46,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
   <ItemGroup>

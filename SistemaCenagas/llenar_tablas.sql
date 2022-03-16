@@ -3,7 +3,6 @@ use bd_cenagas
 SET SQL_SAFE_UPDATES = 0
 
 select * from roles
-update roles set registro_eliminado = 0
 insert into roles (nombre) values
 ('Empleado'),
 ('Lider de equipo verificador'),
@@ -22,8 +21,6 @@ insert into usuarios (Username, Email, Password, Id_Rol, Estatus, Nombre, Patern
 ('armandoh', 'armandoh@cenagas.gob.mx', '123', 1, 'Habilitado', 'armando', 'h', 'm', 'Ingeniero', 'N/A')
 insert into usuarios (Username, Email, Password, Id_Rol, Estatus, Nombre, Paterno, Materno, Titulo, Observaciones) values
 ('ahdzt', 'ahdzt.97@gmail.com', '123', 2, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A'),
-update usuarios set registro_eliminado = 0
-
 
 select * from anexos
 insert into anexos (Nombre) values 
@@ -33,12 +30,10 @@ insert into anexos (Nombre) values
 ('Anexo 4. Autorización del inicio de operación del cambio'),
 ('Anexo 5. Solicitud de retiro de cambios temporales'),
 ('Anexo 6. Acta de cierre de la administración del cambio')
-update anexos set registro_eliminado = 0
+
 
 describe residencias
 select * from residencias
 insert into residencias (Nombre) values
 ('Cárdenas'), ('Chihuahua'), ('Ciudad de México'), ('Hermosillo'),('Madero'),('Mendoza'),('Minatitlán'),('Monterrey'),('Reynosa'),
 ('Salamanca'), ('Tlaxcala'),('Torreón'),('Veracruz')
-update residencias set registro_eliminado = 0
-
