@@ -77,6 +77,7 @@ namespace SistemaCenagas.Controllers
             Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == 2).ToList();
             Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == 3).ToList();
             Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == 4).ToList();
+            Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
 
 
             Global.session = "usuario";

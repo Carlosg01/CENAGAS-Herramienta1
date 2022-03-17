@@ -81,5 +81,18 @@ namespace SistemaCenagas
 
                     }).ToList();
         }
+        public static IEnumerable<Global.V_Tareas> VistaTareas(ApplicationDbContext context)
+        {
+            return (from t in context.ADC_Procesos
+                    join a in context.ADC_Actividades on t.Id_Actividad equals a.Id_Actividad
+                    where t.Registro_Eliminado == 0
+                    select new Global.V_Tareas
+                    {
+                        proceso = t,
+                        actividad = a.Actividad
+                    }).ToList();
+        }
+
+
     }
 }

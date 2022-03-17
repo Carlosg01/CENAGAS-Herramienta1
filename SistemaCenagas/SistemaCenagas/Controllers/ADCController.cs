@@ -25,6 +25,17 @@ namespace SistemaCenagas.Controllers
             Global.vista_adc = Consultas.VistaADC(_context);
             return View();
         }
+        public async Task<IActionResult> Tareas(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+
+            return RedirectToAction("Index", "ADC_Procesos");
+        }
 
         // GET: ADC/Details/5
         public async Task<IActionResult> Details(int? id)

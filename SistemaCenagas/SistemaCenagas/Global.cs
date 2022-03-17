@@ -65,6 +65,15 @@ namespace SistemaCenagas
         public static V_Anexo1 anexo1;
         public static IEnumerable<V_Anexo1> vista_anexo1;
 
+        //---------ADC Tareas-------
+        public struct V_Tareas
+        {
+            public ADC_Procesos proceso;
+            public string actividad;
+            public int Id_PropuestaCambio;
+        }
+        public static IEnumerable<V_Tareas> tareas;
+
         //-----------CATALOGOS--------
         public static IEnumerable<Roles> roles { get; set; }
         public static IEnumerable<Anexos> anexos { get; set; }

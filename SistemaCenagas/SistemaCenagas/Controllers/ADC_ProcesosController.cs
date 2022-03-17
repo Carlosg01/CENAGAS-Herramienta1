@@ -22,7 +22,9 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Procesos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ADC_Procesos.ToListAsync());
+            Global.tareas = Consultas.VistaTareas(_context);
+            ViewBag.avance_total = Global.tareas.Sum(t => t.proceso.Avance);
+            return View();
         }
 
         // GET: ADC_Procesos/Details/5

@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="ADC" asp-action="Index">ADC</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Tareas</li>
+
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">Tareas para la administración de cambio</h3>
+                </div>
+            </div>
+
+        </div>
+        <table id="tblData" class="table table-bordered table-responsive-xl">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Actividad
+                    </th>
+                    <th>
+                        Avance
+                    </th>
+                    <th>
+                        Faltante, Comentarios
+                    </th>
+                    <th>
+                        Plan de acción
+                    </th>
+                    <th style="width:10%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @(Global.tareas.ElementAt(0).actividad)
+                    </td>
+                    <td>
+                        @(Global.tareas.ElementAt(0).proceso.Avance)
+                    </td>
+                    <td>
+                        @(Global.tareas.ElementAt(0).proceso.Faltante_Comentarios)
+                    </td>
+                    <td>
+                        @(Global.tareas.ElementAt(0).proceso.Plan_Accion)
+                    </td>
+                    <td style="width:10%;">
+                        <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 
+                        <label style="color:red;">Avance total:</label>
+                    </td>
+                    <td>
+                        <label style="color:red;"><b>@(ViewBag.avance_total)</b></label>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td style="width:10%;">
+                        <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.tareas.ElementAt(0).proceso.Id_ADC)">Normativas</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

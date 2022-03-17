@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
@@ -74,10 +75,27 @@ namespace SistemaCenagas.Controllers
                     Registro_Eliminado = 0
                 };
                 _context.Add(adc);
+
                 await _context.SaveChangesAsync();
 
                 int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
                 Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+
+                foreach (var a in Global.vista_actividadesADC)
+                {
+                    //return Content(JsonConvert.SerializeObject(a));
+                    ADC_Procesos tarea = new ADC_Procesos
+                    {
+                        Id_Actividad = a.Id_Actividad,
+                        Id_ADC = id,
+                        Avance = 0,
+                        Faltante_Comentarios = "N/A",
+                        Plan_Accion = "N/A"
+                    };
+                    _context.Add(tarea);
+                    await _context.SaveChangesAsync();
+                }
+                
 
                 return RedirectToAction("Index", "ADC_Procesos");
             }
