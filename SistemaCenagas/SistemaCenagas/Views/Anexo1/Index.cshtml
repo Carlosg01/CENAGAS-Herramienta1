@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+                <li class="breadcrumb-item active" aria-current="page">Anexo 1</li>
 
             </ol>
         </nav>
@@ -29,68 +29,60 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h3 class="mb-0">Usuarios de CENAGAS</h3>
+                    <h3 class="mb-0">Proyectos de CENAGAS</h3>
                 </div>
                 <div class="col-4 text-right">
-                    <a class="btn btn-primary form-control" asp-action="Create">Nuevo usuario</a>
+                    <a class="btn btn-primary form-control" asp-action="Create">Nuevo proyecto</a>
                 </div>
             </div>
 
         </div>
-        @if (Global.vista_usuarios.Count() > 0)
+        @if (Global.vista_proyectos.Count() > 0)
         {
             <table id="tblData" class="table table-bordered table-responsive-xl">
                 <thead class="thead-dark">
                     <tr>
                         <th>
+                            Clave
+                        </th>
+                        <th>
                             Nombre
                         </th>
                         <th>
-                            Email
+                            Descripción
                         </th>
-                        <th>
-                            Contraseña
-                        </th>
-                        <th>
-                            Rol
-                        </th>
-                        <th>
-                            Estatus
-                        </th>
+                        <th style="width:10%;"></th>
                         <th style="width:10%;"></th>
                         <th style="width:10%;"></th>
                         <th style="width:10%;"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Global.vista_usuarios)
+                    @foreach (var item in Global.vista_proyectos)
                     {
-                        @if (item.user.Registro_Eliminado == 0)
+                        @if (item.Registro_Eliminado == 0)
                         {
                             <tr>
                                 <td>
-                                    @(item.user.Nombre + " " + item.user.Paterno + " " + item.user.Materno)
+                                    @(item.Clave)
                                 </td>
                                 <td>
-                                    @(item.user.Email)
+                                    @(item.Nombre)
                                 </td>
                                 <td>
-                                    @(item.user.Password)
-                                </td>
-                                <td>
-                                    @(item.Rol)
-                                </td>
-                                <td>
-                                    @(item.user.Estatus)
+                                    @(item.Descripcion)
                                 </td>
                                 <td style="width:10%;">
-                                    <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.user.Id_Usuario">Editar</a>
+                                    <a class="btn btn-dark form-control" asp-action="ADC" asp-route-id="@item.Id_Proyecto">ADC</a>
                                 </td>
                                 <td style="width:10%;">
-                                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.user.Id_Usuario">Detalles</a>
+                                    <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.Id_Proyecto">Editar</a>
                                 </td>
                                 <td style="width:10%;">
-                                    <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.user.Id_Usuario">Eliminar</a>
+                                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.Id_Proyecto">Detalles</a>
+                                </td>
+                                <td style="width:10%;">
+                                    <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.Id_Proyecto">Eliminar</a>
                                 </td>
                             </tr>
                         }
@@ -101,7 +93,7 @@
         }
         else
         {
-            <label class="control-label">No hay usuarios registrados</label>
+            <label class="control-label">No hay proyectos registrados</label>
         }
 
     </div>

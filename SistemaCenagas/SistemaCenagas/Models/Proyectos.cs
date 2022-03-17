@@ -18,7 +18,6 @@ namespace SistemaCenagas.Models
         public string Nombre { get; set; }
 
         public string Descripcion { get; set; }
-        public int Id_Lider { get; set; }
         public string Estado_ADC { get; set; }
         public int Registro_Eliminado { get; set; }
     }

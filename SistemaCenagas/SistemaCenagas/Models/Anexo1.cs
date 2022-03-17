@@ -10,13 +10,12 @@ namespace SistemaCenagas.Models
     {
         [Key]
         public int Id_PropuestaCambio { get; set; }
-        public int Id_ProponenteCambio { get; set; }
         public int Id_Proyecto { get; set; }
         public string Tipo_Cambio { get; set; }
         public string Fecha { get; set; }
         public int Id_Residencia { get; set; }
-        public string Sector_Area { get; set; } //Gasoducto
-        public string Planta_Instalacion { get; set; } //Tramo 
+        public string Ut_Gasoducto { get; set; } //Gasoducto
+        public string Ut_Tramo { get; set; } //Tramo 
         public string Proceso { get; set; }
         public string Prestacion_Servicio { get; set; }
         public string Descripcion { get; set; }

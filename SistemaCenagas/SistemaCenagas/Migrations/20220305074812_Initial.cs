@@ -96,29 +96,17 @@ namespace SistemaCenagas.Migrations
                     Nombre = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descripcion = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Id_Lider = table.Column<int>(type: "int", nullable: true),
+                        .Annotation("MySql:CharSet", "utf8mb4"),                    
                     Estado_ADC = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Registro_Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Proyectos", x => x.Id_Proyecto);
-                    table.ForeignKey(
-                        name: "FK_Lider1",
-                        column: x => x.Id_Lider,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id_Usuario",
-                        onDelete: ReferentialAction.SetNull
-                    );
+                    table.PrimaryKey("PK_Proyectos", x => x.Id_Proyecto);                    
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-            migrationBuilder.CreateIndex(
-                name: "Index_Lider1",
-                table: "Proyectos",
-                column: "Id_Lider"
-                );
+            
 
             migrationBuilder.CreateTable(
                 name: "Residencias",
@@ -143,6 +131,9 @@ namespace SistemaCenagas.Migrations
                     Id_ADC = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
+                    Folio = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
+                    Id_ProponenteCambio = table.Column<int>(type: "int", nullable: true),
+                    Id_Lider = table.Column<int>(type: "int", nullable: true),
                     Id_ResponsableADC = table.Column<int>(type: "int", nullable: true),
                     Id_Suplente = table.Column<int>(type: "int", nullable: true),
                     Fecha_Actualizacion = table.Column<string>(type: "longtext", nullable: true),
@@ -156,6 +147,20 @@ namespace SistemaCenagas.Migrations
                         column: x => x.Id_Proyecto,
                         principalTable: "Proyectos",
                         principalColumn: "Id_Proyecto",
+                        onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                        name: "FK_ProponenteCambio1",
+                        column: x => x.Id_ProponenteCambio,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id_Usuario",
+                        onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                        name: "FK_Lider1",
+                        column: x => x.Id_Lider,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id_Usuario",
                         onDelete: ReferentialAction.SetNull
                     );
                     table.ForeignKey(
@@ -179,6 +184,16 @@ namespace SistemaCenagas.Migrations
                 name: "Index_Proyecto1",
                 table: "ADC",
                 column: "Id_Proyecto"
+                );
+            migrationBuilder.CreateIndex(
+                name: "Index_ProponenteCambio",
+                table: "ADC",
+                column: "Id_ProponenteCambio"
+                );
+            migrationBuilder.CreateIndex(
+                name: "Index_Lider1",
+                table: "ADC",
+                column: "Id_Lider"
                 );
             migrationBuilder.CreateIndex(
                 name: "Index_ResponsableADC1",

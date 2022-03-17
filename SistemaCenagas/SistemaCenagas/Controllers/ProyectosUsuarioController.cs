@@ -10,22 +10,35 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ProyectosController : Controller
+    public class ProyectosUsuarioController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProyectosController(ApplicationDbContext context)
+        public ProyectosUsuarioController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Proyectos
+        // GET: ProyectosUsuario
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Proyectos.ToListAsync());
+            Global.vista_proyectos = Consultas.VistaProyectos(_context);
+            return View();
         }
 
-        // GET: Proyectos/Details/5
+        public async Task<IActionResult> ADC(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Global.proyectos = Global.vista_proyectos.Where(p => p.Id_Proyecto == id).FirstOrDefault();
+
+            return RedirectToAction("Create", "Anexo1");
+        }
+
+        // GET: ProyectosUsuario/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,18 +56,18 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // GET: Proyectos/Create
+        // GET: ProyectosUsuario/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Proyectos/Create
+        // POST: ProyectosUsuario/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Proyecto,Clave,Nombre,Descripcion,Id_Lider,Estado_ADC,Registro_Eliminado")] Proyectos proyectos)
+        public async Task<IActionResult> Create([Bind("Id_Proyecto,Clave,Nombre,Descripcion,Estado_ADC,Registro_Eliminado")] Proyectos proyectos)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +78,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // GET: Proyectos/Edit/5
+        // GET: ProyectosUsuario/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,12 +94,12 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // POST: Proyectos/Edit/5
+        // POST: ProyectosUsuario/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Clave,Nombre,Descripcion,Id_Lider,Estado_ADC,Registro_Eliminado")] Proyectos proyectos)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Proyecto,Clave,Nombre,Descripcion,Estado_ADC,Registro_Eliminado")] Proyectos proyectos)
         {
             if (id != proyectos.Id_Proyecto)
             {
@@ -116,7 +129,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // GET: Proyectos/Delete/5
+        // GET: ProyectosUsuario/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +147,7 @@ namespace SistemaCenagas.Controllers
             return View(proyectos);
         }
 
-        // POST: Proyectos/Delete/5
+        // POST: ProyectosUsuario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

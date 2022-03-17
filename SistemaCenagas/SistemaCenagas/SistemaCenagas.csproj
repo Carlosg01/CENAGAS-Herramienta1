@@ -35,6 +35,8 @@
     <Compile Remove="Migrations\20220303210527_Initial.Designer.cs" />
     <Compile Remove="Migrations\20220306000858_Normativas.cs" />
     <Compile Remove="Migrations\20220306000858_Normativas.Designer.cs" />
+    <Compile Remove="Migrations\20220317110347_ADC_Folio.cs" />
+    <Compile Remove="Migrations\20220317110347_ADC_Folio.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

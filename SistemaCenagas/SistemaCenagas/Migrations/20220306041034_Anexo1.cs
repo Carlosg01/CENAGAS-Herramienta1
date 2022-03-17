@@ -12,17 +12,16 @@ namespace SistemaCenagas.Migrations
                 columns: table => new
                 {
                     Id_PropuestaCambio = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Id_ProponenteCambio = table.Column<int>(type: "int", nullable: true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),                    
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
                     Tipo_Cambio = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fecha = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Residencia = table.Column<int>(type: "int", nullable: true),
-                    Sector_Area = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Gasoducto = table.Column<string>(type: "varchar(50)", maxLength:50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Planta_Instalacion = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Tramo = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Proceso = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -55,13 +54,6 @@ namespace SistemaCenagas.Migrations
                         principalColumn: "Id_Residencia",
                         onDelete: ReferentialAction.SetNull
                     );
-                    table.ForeignKey(
-                        name: "FK_ProponenteCambio",
-                        column: x => x.Id_ProponenteCambio,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id_Usuario",
-                        onDelete: ReferentialAction.SetNull
-                    );
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
             migrationBuilder.CreateIndex(
@@ -73,11 +65,6 @@ namespace SistemaCenagas.Migrations
                 name: "Index_Residencia1",
                 table: "Anexo1",
                 column: "Id_Residencia"
-                );
-            migrationBuilder.CreateIndex(
-                name: "Index_ProponenteCambio",
-                table: "Anexo1",
-                column: "Id_ProponenteCambio"
                 );
         }
 

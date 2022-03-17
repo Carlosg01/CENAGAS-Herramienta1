@@ -40,5 +40,46 @@ namespace SistemaCenagas
                         anexo = an.Nombre
                     }).ToList();
         }
+        public static IEnumerable<Proyectos> VistaProyectos(ApplicationDbContext context)
+        {
+            return context.Proyectos.ToList();
+        }
+        public static IEnumerable<Global.V_ADC> VistaADC(ApplicationDbContext context)
+        {
+            return (from a in context.ADC
+                    join p in context.Proyectos on a.Id_Proyecto equals p.Id_Proyecto
+                    join pc in context.Usuarios on a.Id_ProponenteCambio equals pc.Id_Usuario
+                    join l in context.Usuarios on a.Id_Lider equals l.Id_Usuario
+                    join r in context.Usuarios on a.Id_ResponsableADC equals r.Id_Usuario
+                    join s in context.Usuarios on a.Id_Suplente equals s.Id_Usuario
+                    where a.Registro_Eliminado == 0
+                    select new Global.V_ADC
+                    {
+                        adc = a,
+                        proyecto = p.Nombre,
+                        proponente = pc.Titulo + " " + pc.Nombre + " " + pc.Paterno + " " + pc.Materno,
+                        lider = l.Titulo + " " + l.Nombre + " " + l.Paterno + " " + l.Materno,
+                        responsable = r.Titulo + " " + r.Nombre + " " + r.Paterno + " " + r.Materno,
+                        suplente = s.Titulo + " " + s.Nombre + " " + s.Paterno + " " + s.Materno
+                    }).ToList();
+        }
+        public static IEnumerable<Global.V_Anexo1> VistaAnexo1(ApplicationDbContext context)
+        {
+            return (from a in context.Anexo1
+                    join p in context.Proyectos on a.Id_Proyecto equals p.Id_Proyecto
+                    join r in context.Residencias on a.Id_Residencia equals r.Id_Residencia
+                    join g in context.Gasoductos on a.Ut_Gasoducto equals g.Ut_Gasoducto
+                    join t in context.Tramos on a.Ut_Tramo equals t.Ut_Tramo
+                    where a.Registro_Eliminado == 0
+                    select new Global.V_Anexo1
+                    {
+                        anexo1 = a,
+                        proyecto = p.Nombre,
+                        residencia = r.Nombre,
+                        gasoducto = g.Gasoducto,
+                        tramo = t.Tramo
+
+                    }).ToList();
+        }
     }
 }

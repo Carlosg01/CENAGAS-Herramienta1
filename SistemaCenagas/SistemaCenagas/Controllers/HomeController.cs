@@ -71,6 +71,12 @@ namespace SistemaCenagas.Controllers
             //catalogos
             Global.roles = _context.Roles.ToList();
             Global.anexos = _context.Anexos.ToList();
+            Global.residencias = _context.Residencias.ToList();
+            Global.gasoductos = _context.Gasoductos.ToList();
+            Global.tramos = _context.Tramos.ToList();
+            Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == 2).ToList();
+            Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == 3).ToList();
+            Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == 4).ToList();
 
 
             Global.session = "usuario";

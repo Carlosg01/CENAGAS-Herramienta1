@@ -36,10 +36,43 @@ namespace SistemaCenagas
         public static V_Normativas normativas;
         public static IEnumerable<V_Normativas> vista_normativas;
 
+        //---------Proyectos-------
+        public static Proyectos proyectos;
+        public static IEnumerable<Proyectos> vista_proyectos;
+
+        //---------ADC-------
+        public struct V_ADC
+        {
+            public ADC adc;
+            public string proyecto;
+            public string proponente;
+            public string lider;
+            public string responsable;
+            public string suplente;
+        }
+        public static V_ADC adc;
+        public static IEnumerable<V_ADC> vista_adc;
+
+        //---------Anexo 1: Propuesta de cambio-------
+        public struct V_Anexo1
+        {
+            public Anexo1 anexo1;
+            public string proyecto;
+            public string residencia;
+            public string gasoducto;
+            public string tramo;
+        }
+        public static V_Anexo1 anexo1;
+        public static IEnumerable<V_Anexo1> vista_anexo1;
+
         //-----------CATALOGOS--------
         public static IEnumerable<Roles> roles { get; set; }
         public static IEnumerable<Anexos> anexos { get; set; }
-        
-
+        public static IEnumerable<Usuarios> lideres { get; set; }
+        public static IEnumerable<Usuarios> responsablesADC { get; set; }
+        public static IEnumerable<Usuarios> suplentes { get; set; }
+        public static IEnumerable<Residencias> residencias { get; set; }
+        public static IEnumerable<Gasoductos> gasoductos { get; set; }
+        public static IEnumerable<Tramos> tramos { get; set; }
     }
 }
