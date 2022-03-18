@@ -132,25 +132,29 @@
                         Plan de acción
                     </th>
                     <th style="width:15%;"></th>
+                    <th style="width:15%;"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        <a asp-action="Normativas" asp-route-id="@(Global.tareas.ElementAt(0).proceso.Id_Actividad)">
-                            @(Global.tareas.ElementAt(0).actividad)
-                        </a>                        
+                        <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Actividad)">
+                            @(Global.vista_tareas.ElementAt(0).actividad)
+                        </a>
                     </td>
                     <td>
-                        @(Global.tareas.ElementAt(0).proceso.Avance)
+                        @(Global.vista_tareas.ElementAt(0).proceso.Avance) %
                     </td>
                     <td>
-                        @(Global.tareas.ElementAt(0).proceso.Faltante_Comentarios)
+                        @(Global.vista_tareas.ElementAt(0).proceso.Faltante_Comentarios)
                     </td>
                     <td>
-                        @(Global.tareas.ElementAt(0).proceso.Plan_Accion)
+                        @(Global.vista_tareas.ElementAt(0).proceso.Plan_Accion)
                     </td>
-                    <td style="width:10%;">
+                    <td style="width:15%;">
+                        <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Proceso)">Editar</a>
+                    </td>
+                    <td style="width:15%;">
                         <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
                     </td>
                 </tr>
@@ -159,7 +163,7 @@
                         <label style="color:red;">Avance total:</label>
                     </td>
                     <td>
-                        <label style="color:red;"><b>@(ViewBag.avance_total)</b></label>
+                        <label style="color:red;"><b>@(ViewBag.avance_total / Global.vista_tareas.Count()) %</b></label>
                     </td>
                     <td>
                     </td>

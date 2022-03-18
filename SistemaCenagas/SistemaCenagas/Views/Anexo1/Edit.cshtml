@@ -11,9 +11,18 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a asp-controller="ADC" asp-action="Index">ADC</a>
-                </li>
+                @if (Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio)
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADCUsuario" asp-action="Index">ADC</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADCAdmin" asp-action="Index">ADC</a>
+                    </li>
+                }
                 <li class="breadcrumb-item">
                     <a asp-controller="ADC_Procesos" asp-action="Index">Tareas</a>
                 </li>

@@ -1,4 +1,4 @@
-﻿@model SistemaCenagas.Models.ADC_Actividades
+﻿@model SistemaCenagas.Models.ADC_Procesos
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,8 +12,20 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
+                @if (Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio)
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADCUsuario" asp-action="Index">ADC</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADCAdmin" asp-action="Index">ADC</a>
+                    </li>
+                }
                 <li class="breadcrumb-item">
-                    <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
+                    <a asp-controller="ADC_Procesos" asp-action="Index">Tareas</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Editar</li>
             </ol>
@@ -32,7 +44,7 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h3 class="mb-0">Editar actividad</h3>
+                    <h3 class="mb-0">@(Global.tarea.actividad)</h3>
                 </div>
             </div>
         </div>
@@ -43,15 +55,33 @@
                         <!--end of avatar-->
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id_Proceso" />
+                            <input type="hidden" asp-for="Id_ADC" />
                             <input type="hidden" asp-for="Id_Actividad" />
+                            <input type="hidden" asp-for="Avance" />
+
                             <div class="form-group row align-items-center">
-                                <label asp-for="Actividad" class="col-2" style="text-align:right;">Actividad</label>
+                                <label asp-for="Avance" class="col-2" style="text-align:right;">Avance</label>
                                 <div class="col">
-                                    <input type="text" asp-for="Actividad" class="form-control" required />
+                                    <input type="text" asp-for="Avance" class="form-control" disabled />
                                 </div>
-                                <span asp-validation-for="Actividad" class="text-danger"></span>
+                                <span asp-validation-for="Avance" class="text-danger"></span>
                             </div>
-                            
+                            <div class="form-group row align-items-center">
+                                <label asp-for="Faltante_Comentarios" class="col-2" style="text-align:right;">Faltantes y comentarios</label>
+                                <div class="col">
+                                    <textarea type="text" asp-for="Faltante_Comentarios" class="form-control"></textarea>
+                                </div>
+                                <span asp-validation-for="Faltante_Comentarios" class="text-danger"></span>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label asp-for="Plan_Accion" class="col-2" style="text-align:right;">Plan de acción</label>
+                                <div class="col">
+                                    <textarea type="text" asp-for="Plan_Accion" class="form-control"></textarea>
+                                </div>
+                                <span asp-validation-for="Plan_Accion" class="text-danger"></span>
+                            </div>
+
                             <hr>
                             <div class="form-group row align-items-center">
                                 <div class="col-5">

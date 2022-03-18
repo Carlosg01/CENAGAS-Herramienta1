@@ -81,6 +81,6 @@ El proceso de Administración del Cambio es complemento para el arranque o inici
 #actividad 9
 (9, '9.1', 'Dirección de Seguridad Industrial', 'La Dirección de Seguridad Industrial revisa que la documentación seleccionada en el numeral 13 del Anexo 3. Proyecto de la Administración del Cambio, esté cargada en el sitio web indicado y archiva la Administración del Cambio y registra la fecha de cierre de esta en el Anexo 2, Lista de control de Administración del Cambio. Asimismo, cambia el estatus de “En elaboración” por “Concluida”, y difunde la Administración del Cambio al personal de la UTA.', 3);
 
-select * from anexo1
-select * from adc
-select * from adc_procesos
+#select * from anexo1
+#select * from adc
+#select * from adc_procesos

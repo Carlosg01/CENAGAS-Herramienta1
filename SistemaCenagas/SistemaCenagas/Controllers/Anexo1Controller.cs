@@ -82,14 +82,14 @@ namespace SistemaCenagas.Controllers
                 //int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
                 Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == anexo1.Id_PropuestaCambio).FirstOrDefault();
 
-                foreach (var a in Global.vista_actividadesADC)
+                for (int i = 0; i < Global.vista_tareas.Count(); i++)
                 {
                     //return Content(JsonConvert.SerializeObject(a));
                     ADC_Procesos tarea = new ADC_Procesos
                     {
-                        Id_Actividad = a.Id_Actividad,
+                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id_Actividad,
                         Id_ADC = anexo1.Id_PropuestaCambio,
-                        Avance = 0,
+                        Avance = (i == 0) ? (9.0f/12)*100 : 0, //primeros 9 atributos necesarios por primera vez de 12 posibles
                         Faltante_Comentarios = "N/A",
                         Plan_Accion = "N/A"
                     };
@@ -143,10 +143,21 @@ namespace SistemaCenagas.Controllers
                     ADC adc = _context.ADC.Where(a => a.Id_ADC == Global.adc.adc.Id_ADC).FirstOrDefault();
                     adc.Fecha_Actualizacion = DateTime.Now.ToString();
                     Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
-                    //return Content(JsonConvert.SerializeObject(adc));
                     _context.Update(adc);
                     await _context.SaveChangesAsync();
+
+                    ADC_Procesos a = _context.ADC_Procesos.Where(a => a.Id_ADC == adc.Id_ADC).FirstOrDefault();
+
                     //return Content(JsonConvert.SerializeObject(anexo1));
+                    
+                    a.Avance += (anexo1.Resultados_Analisis != null && anexo1.Resultados_Analisis.Length > 0) ? (1.0f / 12 * 100) : 0;
+                    a.Avance += (anexo1.Resultados_Propuesta != null && anexo1.Resultados_Propuesta.Length > 0) ? (1.0f / 12 * 100) : 0;
+                    a.Avance += (anexo1.Estatus != null && anexo1.Estatus.Length > 0) ? (1.0f / 12 * 100) : 0;
+
+                    //return Content(JsonConvert.SerializeObject(a)); 
+
+                    _context.Update(a);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {

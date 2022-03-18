@@ -23,9 +23,9 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Procesos
         public async Task<IActionResult> Index()
         {
-            Global.tareas = Consultas.VistaTareas(_context);
+            Global.vista_tareas = Consultas.VistaTareas(_context);
             Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
-            ViewBag.avance_total = Global.tareas.Sum(t => t.proceso.Avance);
+            ViewBag.avance_total = Global.vista_tareas.Sum(t => t.proceso.Avance);
             return View();
         }
 
@@ -109,6 +109,10 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
+
+            Global.tarea = Global.vista_tareas
+                .Where(t => t.proceso.Id_Actividad == aDC_Procesos.Id_Actividad).FirstOrDefault();
+
             return View(aDC_Procesos);
         }
 
@@ -117,7 +121,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Proceso,Id_Actividad,Id_ADC,Avance,Faltante_Comentarios,Plan_Accion,Registro_Eliminado")] ADC_Procesos aDC_Procesos)
+        public async Task<IActionResult> Edit(int id, ADC_Procesos aDC_Procesos)
         {
             if (id != aDC_Procesos.Id_Proceso)
             {
@@ -129,6 +133,12 @@ namespace SistemaCenagas.Controllers
                 try
                 {
                     _context.Update(aDC_Procesos);
+                    await _context.SaveChangesAsync();
+
+                    ADC adc = _context.ADC.Where(a => a.Id_ADC == Global.adc.adc.Id_ADC).FirstOrDefault();
+                    adc.Fecha_Actualizacion = DateTime.Now.ToString();
+                    Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
+                    _context.Update(adc);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

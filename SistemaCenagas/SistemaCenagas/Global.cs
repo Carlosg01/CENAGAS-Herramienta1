@@ -71,7 +71,8 @@ namespace SistemaCenagas
             public string actividad;
             public int Id_PropuestaCambio;
         }
-        public static IEnumerable<V_Tareas> tareas;
+        public static V_Tareas tarea;
+        public static IEnumerable<V_Tareas> vista_tareas;
 
         //-----------CATALOGOS--------
         public static IEnumerable<Roles> roles { get; set; }

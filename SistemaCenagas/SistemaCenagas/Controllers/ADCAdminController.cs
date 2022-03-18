@@ -130,6 +130,12 @@ namespace SistemaCenagas.Controllers
                     //return Content(JsonConvert.SerializeObject(aDC));
                     _context.Update(aDC);
                     await _context.SaveChangesAsync();
+
+                    ADC adc = _context.ADC.Where(a => a.Id_ADC == Global.adc.adc.Id_ADC).FirstOrDefault();
+                    adc.Fecha_Actualizacion = DateTime.Now.ToString();
+                    Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
+                    _context.Update(adc);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
