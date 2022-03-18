@@ -12,9 +12,12 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="ProyectosAdmin" asp-action="Index">Proyectos</a>
+                    <a asp-controller="ADC" asp-action="Index">ADC</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Editar</li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="ADC_Procesos" asp-action="Index">Tareas</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">@(Global.anexos.Where(a => a.Id_Anexo == 1).FirstOrDefault().Nombre)</li>
             </ol>
         </nav>
 
@@ -31,7 +34,7 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h3 class="mb-0">Editar proyecto</h3>
+                    <h3 class="mb-0">@(Global.proyectos.Nombre)</h3>
                 </div>
             </div>
         </div>
@@ -215,7 +218,8 @@
                                     Resultado de la propuesta
                                 </label>
                                 <div class="col">
-                                    @if (Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio) //Responsable ADC
+                                    @if (Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio &&
+                                        Global.anexo1.anexo1.Resultados_Analisis != null) //Responsable ADC
                                     {
                                         <textarea type="text" asp-for="Resultados_Propuesta" class="form-control" required></textarea>
                                     }

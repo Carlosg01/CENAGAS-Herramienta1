@@ -23,7 +23,6 @@ namespace SistemaCenagas.Controllers
         // GET: Anexo1
         public async Task<IActionResult> Index()
         {
-            Global.vista_anexo1 = Consultas.VistaAnexo1(_context);
             return View();
         }
 
@@ -62,13 +61,15 @@ namespace SistemaCenagas.Controllers
             if (ModelState.IsValid)
             {
                 anexo1.Estatus = "Pendiente";
-                _context.Add(anexo1);                
+                _context.Add(anexo1);
+                await _context.SaveChangesAsync();
 
                 ADC adc = new ADC
-                {                    
+                {
+                    Id_ADC = anexo1.Id_PropuestaCambio,
                     Id_Proyecto = Global.proyectos.Id_Proyecto,
                     Id_ProponenteCambio = Global.session_usuario.user.Id_Usuario,
-                    Id_Lider = 2,
+                    Id_Lider = 1,
                     Id_ResponsableADC = 1,
                     Id_Suplente = 1,
                     Fecha_Actualizacion = anexo1.Fecha,
@@ -78,8 +79,8 @@ namespace SistemaCenagas.Controllers
 
                 await _context.SaveChangesAsync();
 
-                int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
-                Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+                //int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
+                Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == anexo1.Id_PropuestaCambio).FirstOrDefault();
 
                 foreach (var a in Global.vista_actividadesADC)
                 {
@@ -87,7 +88,7 @@ namespace SistemaCenagas.Controllers
                     ADC_Procesos tarea = new ADC_Procesos
                     {
                         Id_Actividad = a.Id_Actividad,
-                        Id_ADC = id,
+                        Id_ADC = anexo1.Id_PropuestaCambio,
                         Avance = 0,
                         Faltante_Comentarios = "N/A",
                         Plan_Accion = "N/A"
@@ -103,18 +104,13 @@ namespace SistemaCenagas.Controllers
         }
 
         // GET: Anexo1/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var anexo1 = await _context.Anexo1.Where(
+                a => a.Id_PropuestaCambio == Global.anexo1.anexo1.Id_PropuestaCambio).FirstOrDefaultAsync();
 
-            var anexo1 = await _context.Anexo1.FindAsync(id);
-            if (anexo1 == null)
-            {
-                return NotFound();
-            }
+            Global.proyectos = Consultas.VistaProyectos(_context).Where(
+                p => p.Id_Proyecto == Global.anexo1.anexo1.Id_Proyecto).FirstOrDefault();
             return View(anexo1);
         }
 

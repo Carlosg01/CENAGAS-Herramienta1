@@ -35,7 +35,71 @@
                     <h3 class="mb-0">Tareas para la administración de cambio</h3>
                 </div>
             </div>
-
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <dl class="row">
+                            <dt class="col-sm-3">
+                                Residencia:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.anexo1.residencia)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Proyecto:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.anexo1.proyecto)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Instalación/Área:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.anexo1.gasoducto)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Tipo de cambio:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.anexo1.anexo1.Tipo_Cambio)
+                            </dd>
+                            <dt class="col-sm-3">
+                                No. de Folio ADC:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.adc.adc.Folio)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Responsable de la ADC:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.adc.responsable)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Suplente:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.adc.suplente)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Líder:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.adc.lider)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Fecha de actualización:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.adc.adc.Fecha_Actualizacion)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
         </div>
         <table id="tblData" class="table table-bordered table-responsive-xl">
             <thead class="thead-dark">
@@ -52,7 +116,7 @@
                     <th>
                         Plan de acción
                     </th>
-                    <th style="width:10%;"></th>
+                    <th style="width:15%;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -70,11 +134,11 @@
                         @(Global.tareas.ElementAt(0).proceso.Plan_Accion)
                     </td>
                     <td style="width:10%;">
-                        <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
+                        <a class="btn btn-dark form-control" asp-action="PropuestaCambio" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
                     </td>
                 </tr>
                 <tr>
-                    <td> 
+                    <td>
                         <label style="color:red;">Avance total:</label>
                     </td>
                     <td>
@@ -84,8 +148,7 @@
                     </td>
                     <td>
                     </td>
-                    <td style="width:10%;">
-                        <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.tareas.ElementAt(0).proceso.Id_ADC)">Normativas</a>
+                    <td style="width:15%;">
                     </td>
                 </tr>
             </tbody>

@@ -14,7 +14,7 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="ProyectosAdmin" asp-action="Index">Proyectos</a>
+                    <a asp-controller="ProyectosUsuario" asp-action="Index">Proyectos</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">@(Global.anexos.Where(a => a.Id_Anexo == 1).FirstOrDefault().Nombre)</li>
 

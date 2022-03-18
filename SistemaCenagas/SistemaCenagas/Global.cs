@@ -63,7 +63,6 @@ namespace SistemaCenagas
             public string tramo;
         }
         public static V_Anexo1 anexo1;
-        public static IEnumerable<V_Anexo1> vista_anexo1;
 
         //---------ADC Tareas-------
         public struct V_Tareas

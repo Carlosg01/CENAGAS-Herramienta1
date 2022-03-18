@@ -59,7 +59,6 @@
                         </th>
                         <th style="width:10%;"></th>
                         <th style="width:10%;"></th>
-                        <th style="width:10%;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,30 +66,30 @@
                     {
                         @if (item.adc_normativas.Registro_Eliminado == 0)
                         {
-                    <tr>
-                        <td>
-                            @(item.adc_normativas.Clave)
-                        </td>
-                        <td>
-                            @(item.adc_normativas.Responsable)
-                        </td>
-                        <td>
-                            @(item.adc_normativas.Descripcion)
-                        </td>
-                        <td>
-                            @(item.anexo)
-                        </td>
+                            <tr>
+                                <td>
+                                    @(item.adc_normativas.Clave)
+                                </td>
+                                <td>
+                                    @(item.adc_normativas.Responsable)
+                                </td>
+                                <td>
+                                    @(item.adc_normativas.Descripcion)
+                                </td>
+                                <td>
+                                    @(item.anexo)
+                                </td>
 
-                        <td style="width:10%;">
-                            <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.adc_normativas.Id_Normativa">Editar</a>
-                        </td>
-                        <td style="width:10%;">
-                            <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.adc_normativas.Id_Normativa">Detalles</a>
-                        </td>
-                        <td style="width:10%;">
-                            <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.adc_normativas.Id_Normativa">Eliminar</a>
-                        </td>
-                    </tr>
+                                <td style="width:10%;">
+                                    <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.adc_normativas.Id_Normativa">Editar</a>
+                                </td>
+                                <td style="width:10%;">
+                                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.adc_normativas.Id_Normativa">Detalles</a>
+                                </td>
+                                <!--td style="width:10%;">
+                                    <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.adc_normativas.Id_Normativa">Eliminar</a>
+                                </td-->
+                            </tr>
                         }
 
                     }

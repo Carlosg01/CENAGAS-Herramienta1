@@ -63,14 +63,14 @@ namespace SistemaCenagas
                         suplente = s.Titulo + " " + s.Nombre + " " + s.Paterno + " " + s.Materno
                     }).ToList();
         }
-        public static IEnumerable<Global.V_Anexo1> VistaAnexo1(ApplicationDbContext context)
+        public static Global.V_Anexo1 VistaAnexo1(ApplicationDbContext context, int? id_adc)
         {
             return (from a in context.Anexo1
                     join p in context.Proyectos on a.Id_Proyecto equals p.Id_Proyecto
                     join r in context.Residencias on a.Id_Residencia equals r.Id_Residencia
                     join g in context.Gasoductos on a.Ut_Gasoducto equals g.Ut_Gasoducto
                     join t in context.Tramos on a.Ut_Tramo equals t.Ut_Tramo
-                    where a.Registro_Eliminado == 0
+                    where a.Registro_Eliminado == 0 && a.Id_PropuestaCambio == id_adc
                     select new Global.V_Anexo1
                     {
                         anexo1 = a,
@@ -79,7 +79,7 @@ namespace SistemaCenagas
                         gasoducto = g.Gasoducto,
                         tramo = t.Tramo
 
-                    }).ToList();
+                    }).FirstOrDefault();
         }
         public static IEnumerable<Global.V_Tareas> VistaTareas(ApplicationDbContext context)
         {

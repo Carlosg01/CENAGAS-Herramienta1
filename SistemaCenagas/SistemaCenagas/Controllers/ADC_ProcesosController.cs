@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
@@ -23,8 +24,23 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Index()
         {
             Global.tareas = Consultas.VistaTareas(_context);
+            Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
             ViewBag.avance_total = Global.tareas.Sum(t => t.proceso.Avance);
             return View();
+        }
+
+        public async Task<IActionResult> PropuestaCambio()
+        {
+
+            //Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
+            //Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+
+            if (Global.anexo1.anexo1 == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Edit", "Anexo1");
         }
 
         // GET: ADC_Procesos/Details/5
