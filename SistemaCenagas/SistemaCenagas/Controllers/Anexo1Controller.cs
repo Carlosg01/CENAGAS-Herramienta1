@@ -47,7 +47,7 @@ namespace SistemaCenagas.Controllers
         // GET: Anexo1/Create
         public IActionResult Create()
         {
-            ViewBag.fecha = DateTime.Now.ToShortDateString();
+            ViewBag.fecha = DateTime.Now.ToString();
             return View();
         }
 
@@ -104,8 +104,12 @@ namespace SistemaCenagas.Controllers
         }
 
         // GET: Anexo1/Edit/5
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             var anexo1 = await _context.Anexo1.Where(
                 a => a.Id_PropuestaCambio == Global.anexo1.anexo1.Id_PropuestaCambio).FirstOrDefaultAsync();
 
@@ -119,19 +123,30 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_PropuestaCambio,Id_Proyecto,Tipo_Cambio,Fecha,Id_Residencia,Sector_Area,Planta_Instalacion,Proceso,Prestacion_Servicio,Descripcion,Resultados_Analisis,Resultados_Propuesta,Estatus,Registro_Eliminado")] Anexo1 anexo1)
+        public async Task<IActionResult> Edit(int id, Anexo1 anexo1)
         {
+            //return Content(""+id);
             if (id != anexo1.Id_PropuestaCambio)
             {
                 return NotFound();
             }
 
+            
+
             if (ModelState.IsValid)
             {
                 try
-                {
-                    _context.Update(anexo1);
+                {   
+                    _context.Update(anexo1);                    
                     await _context.SaveChangesAsync();
+
+                    ADC adc = _context.ADC.Where(a => a.Id_ADC == Global.adc.adc.Id_ADC).FirstOrDefault();
+                    adc.Fecha_Actualizacion = DateTime.Now.ToString();
+                    Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
+                    //return Content(JsonConvert.SerializeObject(adc));
+                    _context.Update(adc);
+                    await _context.SaveChangesAsync();
+                    //return Content(JsonConvert.SerializeObject(anexo1));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -144,7 +159,7 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "ADC_Procesos");
             }
             return View(anexo1);
         }

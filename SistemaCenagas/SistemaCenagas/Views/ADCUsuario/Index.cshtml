@@ -29,7 +29,7 @@
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h3 class="mb-0">Administración de cambios</h3>
+                    <h3 class="mb-0">Mis propuestas de cambio</h3>
                 </div>
             </div>
 
@@ -67,6 +67,7 @@
                                 <td>
                                     @(item.lider)
                                 </td>
+                                
                                 <td style="width:10%;">
                                     <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.adc.Id_ADC">Tareas</a>
                                 </td>
@@ -82,7 +83,7 @@
         }
         else
         {
-            <label class="control-label">No hay proyectos registrados</label>
+            <label class="control-label">No hay ADCs registrados</label>
         }
 
     </div>

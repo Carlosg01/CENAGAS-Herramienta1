@@ -45,8 +45,10 @@
                         <!--end of avatar-->
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id_PropuestaCambio" />
+                            <input type="hidden" asp-for="Id_Proyecto" />
+                            <input type="hidden" asp-for="Fecha" />
                             <input type="hidden" asp-for="Registro_Eliminado" value="0" />
-                            <input type="hidden" asp-for="Fecha" value="@(ViewBag.fecha)" />
 
                             <div class="form-group row align-items-center">
                                 <label asp-for="Tipo_Cambio" class="col-2" style="text-align:right;">Tipo de cambio</label>
@@ -70,7 +72,6 @@
                             <div class="form-group row align-items-center">
                                 <label asp-for="Fecha" class="col-2" style="text-align:right;"></label>
                                 <div class="col">
-                                    <input type="hidden" asp-for="Fecha" />
                                     <input type="text" asp-for="Fecha" class="form-control" disabled />
                                 </div>
                                 <span asp-validation-for="Fecha" class="text-danger"></span>
@@ -92,7 +93,7 @@
                                         <input type="hidden" asp-for="Id_Residencia" />
                                         <input type="text" value="@(Global.anexo1.residencia)" class="form-control" disabled />
                                     }
-                                    
+
                                 </div>
                                 <span asp-validation-for="Id_Residencia" class="text-danger"></span>
                             </div>
@@ -113,7 +114,7 @@
                                         <input type="hidden" asp-for="Ut_Gasoducto" />
                                         <input type="text" value="@(Global.anexo1.gasoducto)" class="form-control" disabled />
                                     }
-                                    
+
                                 </div>
                                 <span asp-validation-for="Ut_Gasoducto" class="text-danger"></span>
                             </div>
@@ -134,7 +135,7 @@
                                         <input type="hidden" asp-for="Ut_Tramo" />
                                         <input type="text" value="@(Global.anexo1.tramo)" class="form-control" disabled />
                                     }
-                                    
+
                                 </div>
                                 <span asp-validation-for="Ut_Tramo" class="text-danger"></span>
                             </div>
@@ -152,7 +153,7 @@
                                         <input type="hidden" asp-for="Proceso" />
                                         <textarea type="text" asp-for="Proceso" class="form-control" disabled></textarea>
                                     }
-                                    
+
                                 </div>
                                 <span asp-validation-for="Proceso" class="text-danger"></span>
                             </div>
@@ -199,12 +200,13 @@
                                     Resultado del análisis de la propuesta
                                 </label>
                                 <div class="col">
-                                    @if (Global.session_usuario.user.Id_Rol == 3) //Responsable ADC
+                                    @if (Global.session_usuario.user.Id_Rol == 3 || Global.session_usuario.user.Id_Rol >= 5) //Responsable ADC
                                     {
                                         <textarea type="text" asp-for="Resultados_Analisis" class="form-control" required></textarea>
                                     }
                                     else
                                     {
+                                        <input type="hidden" asp-for="Resultados_Analisis" />
                                         <textarea type="text" asp-for="Resultados_Analisis" class="form-control" disabled></textarea>
                                     }
                                 </div>
@@ -218,13 +220,14 @@
                                     Resultado de la propuesta
                                 </label>
                                 <div class="col">
-                                    @if (Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio &&
-                                        Global.anexo1.anexo1.Resultados_Analisis != null) //Responsable ADC
+                                    @if ((Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio &&
+                                   Global.anexo1.anexo1.Resultados_Analisis != null) || Global.session_usuario.user.Id_Rol >= 5) //Responsable ADC
                                     {
                                         <textarea type="text" asp-for="Resultados_Propuesta" class="form-control" required></textarea>
                                     }
                                     else
                                     {
+                                        <input type="hidden" asp-for="Resultados_Propuesta" />
                                         <textarea type="text" asp-for="Resultados_Propuesta" class="form-control" disabled></textarea>
                                     }
                                 </div>
@@ -237,7 +240,7 @@
                                     Estatus
                                 </label>
                                 <div class="col">
-                                    @if (Global.session_usuario.user.Id_Rol == 3) //Responsable ADC
+                                    @if (Global.session_usuario.user.Id_Rol == 3 || Global.session_usuario.user.Id_Rol >= 5) //Responsable ADC
                                     {
                                         <select asp-for="Estatus" class="form-control" required>
                                             <option>Pendiente</option>
@@ -248,12 +251,19 @@
                                     }
                                     else
                                     {
+                                        <input type="hidden" asp-for="Estatus" />
                                         <input type="text" asp-for="Estatus" class="form-control" disabled />
                                     }
                                 </div>
                                 <span asp-validation-for="Estatus" class="text-danger"></span>
                             </div>
                             <hr>
+                            <div class="form-group row align-items-center">
+                                <div class="col-5">
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                    <a class="btn btn-danger" asp-controller="ADC_Procesos" asp-action="Index">Cancelar</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

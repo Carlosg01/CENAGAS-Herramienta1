@@ -11,52 +11,36 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ADC_ProcesosController : Controller
+    public class ADCUsuarioController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ADC_ProcesosController(ApplicationDbContext context)
+        public ADCUsuarioController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: ADC_Procesos
+        // GET: ADC
         public async Task<IActionResult> Index()
         {
-            Global.tareas = Consultas.VistaTareas(_context);
-            Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
-            ViewBag.avance_total = Global.tareas.Sum(t => t.proceso.Avance);
+            Global.vista_adc = Consultas.VistaADC(_context)
+                .Where(a => a.adc.Id_ProponenteCambio == Global.session_usuario.user.Id_Usuario).ToList();
+
             return View();
         }
-
-        public async Task<IActionResult> PropuestaCambio()
+        public async Task<IActionResult> Tareas(int? id)
         {
-
-            //Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
-            //Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == id).FirstOrDefault();
-
-            if (Global.anexo1.anexo1 == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return RedirectToAction("Edit", "Anexo1");
+            Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+
+            return RedirectToAction("Index", "ADC_Procesos");
         }
 
-        public async Task<IActionResult> Normativas(int? id)
-        {
-            Global.actividadADC = await _context.ADC_Actividades
-                .FirstOrDefaultAsync(m => m.Id_Actividad == id);
-
-            if (Global.actividadADC == null)
-            {
-                return NotFound();
-            }
-
-            return RedirectToAction("Index", "ADC_Normativas");
-        }
-
-        // GET: ADC_Procesos/Details/5
+        // GET: ADC/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -64,39 +48,39 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Procesos = await _context.ADC_Procesos
-                .FirstOrDefaultAsync(m => m.Id_Proceso == id);
-            if (aDC_Procesos == null)
+            var aDC = await _context.ADC
+                .FirstOrDefaultAsync(m => m.Id_ADC == id);
+            if (aDC == null)
             {
                 return NotFound();
             }
 
-            return View(aDC_Procesos);
+            return View(aDC);
         }
 
-        // GET: ADC_Procesos/Create
+        // GET: ADC/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ADC_Procesos/Create
+        // POST: ADC/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Proceso,Id_Actividad,Id_ADC,Avance,Faltante_Comentarios,Plan_Accion,Registro_Eliminado")] ADC_Procesos aDC_Procesos)
+        public async Task<IActionResult> Create([Bind("Id_ADC,Id_Proyecto,Folio,Id_ProponenteCambio,Id_Lider,Id_ResponsableADC,Id_Suplente,Fecha_Actualizacion,Registro_Eliminado")] ADC aDC)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(aDC_Procesos);
+                _context.Add(aDC);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(aDC_Procesos);
+            return View(aDC);
         }
 
-        // GET: ADC_Procesos/Edit/5
+        // GET: ADC/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -104,22 +88,25 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Procesos = await _context.ADC_Procesos.FindAsync(id);
-            if (aDC_Procesos == null)
+            var aDC = await _context.ADC.FindAsync(id);
+            if (aDC == null)
             {
                 return NotFound();
             }
-            return View(aDC_Procesos);
+
+            Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+
+            return View(aDC);
         }
 
-        // POST: ADC_Procesos/Edit/5
+        // POST: ADC/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Proceso,Id_Actividad,Id_ADC,Avance,Faltante_Comentarios,Plan_Accion,Registro_Eliminado")] ADC_Procesos aDC_Procesos)
+        public async Task<IActionResult> Edit(int id, ADC aDC)
         {
-            if (id != aDC_Procesos.Id_Proceso)
+            if (id != aDC.Id_ADC)
             {
                 return NotFound();
             }
@@ -128,12 +115,13 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    _context.Update(aDC_Procesos);
+                    //return Content(JsonConvert.SerializeObject(aDC));
+                    _context.Update(aDC);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ADC_ProcesosExists(aDC_Procesos.Id_Proceso))
+                    if (!ADCExists(aDC.Id_ADC))
                     {
                         return NotFound();
                     }
@@ -144,10 +132,10 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aDC_Procesos);
+            return View(aDC);
         }
 
-        // GET: ADC_Procesos/Delete/5
+        // GET: ADC/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,30 +143,30 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Procesos = await _context.ADC_Procesos
-                .FirstOrDefaultAsync(m => m.Id_Proceso == id);
-            if (aDC_Procesos == null)
+            var aDC = await _context.ADC
+                .FirstOrDefaultAsync(m => m.Id_ADC == id);
+            if (aDC == null)
             {
                 return NotFound();
             }
 
-            return View(aDC_Procesos);
+            return View(aDC);
         }
 
-        // POST: ADC_Procesos/Delete/5
+        // POST: ADC/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var aDC_Procesos = await _context.ADC_Procesos.FindAsync(id);
-            _context.ADC_Procesos.Remove(aDC_Procesos);
+            var aDC = await _context.ADC.FindAsync(id);
+            _context.ADC.Remove(aDC);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ADC_ProcesosExists(int id)
+        private bool ADCExists(int id)
         {
-            return _context.ADC_Procesos.Any(e => e.Id_Proceso == id);
+            return _context.ADC.Any(e => e.Id_ADC == id);
         }
     }
 }

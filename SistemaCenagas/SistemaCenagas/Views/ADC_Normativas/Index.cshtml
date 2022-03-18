@@ -11,9 +11,22 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
-                </li>
+                @if (Global.session_usuario.user.Id_Rol >= 5)
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADC" asp-action="Index">ADC</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADC_Procesos" asp-action="Index">Tareas</a>
+                    </li>
+                }
+
                 <li class="breadcrumb-item active" aria-current="page">Normativas</li>
 
             </ol>
@@ -34,9 +47,9 @@
                 <div class="media-body ml-3">
                     <h3 class="mb-0">@(Global.actividadADC.Actividad): Normativas</h3>
                 </div>
-                <div class="col-4 text-right">
+                <!--div class="col-4 text-right">
                     <a class="btn btn-primary form-control" asp-action="Create">Nueva normativa</a>
-                </div>
+                </div-->
             </div>
 
         </div>
@@ -79,16 +92,19 @@
                                 <td>
                                     @(item.anexo)
                                 </td>
+                                @if (Global.session_usuario.user.Id_Rol >= 5)
+                                {
+                                    <td style="width:10%;">
+                                        <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.adc_normativas.Id_Normativa">Editar</a>
+                                    </td>
+                                    <td style="width:10%;">
+                                        <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.adc_normativas.Id_Normativa">Detalles</a>
+                                    </td>
+                                    <!--td style="width:10%;">
+                                        <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.adc_normativas.Id_Normativa">Eliminar</a>
+                                    </td-->
+                                }
 
-                                <td style="width:10%;">
-                                    <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.adc_normativas.Id_Normativa">Editar</a>
-                                </td>
-                                <td style="width:10%;">
-                                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.adc_normativas.Id_Normativa">Detalles</a>
-                                </td>
-                                <!--td style="width:10%;">
-                                    <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.adc_normativas.Id_Normativa">Eliminar</a>
-                                </td-->
                             </tr>
                         }
 

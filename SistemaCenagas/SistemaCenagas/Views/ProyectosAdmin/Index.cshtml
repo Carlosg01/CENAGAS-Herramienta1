@@ -54,7 +54,6 @@
                         <th style="width:10%;"></th>
                         <th style="width:10%;"></th>
                         <th style="width:10%;"></th>
-                        <th style="width:10%;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,16 +71,16 @@
                                 <td>
                                     @(item.Descripcion)
                                 </td>
-                                <td style="width:10%;">
+                                <!--td style="width:10%;">
                                     @if (item.Estado_ADC.Equals("Habilitado"))
                                     {
-                                        <a class="btn btn-dark form-control" asp-action="ADC" asp-route-id="@item.Id_Proyecto">ADC</a>
+                                        <a class="btn btn-dark form-control" asp-action="ADC" asp-route-id="item.Id_Proyecto">ADC</a>
                                     }
                                     else
                                     {
                                         <a class="btn btn-block form-control" >ADC</a>
                                     }
-                                </td>
+                                </td-->
                                 <td style="width:10%;">
                                     <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.Id_Proyecto">Editar</a>
                                 </td>

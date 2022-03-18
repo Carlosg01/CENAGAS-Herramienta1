@@ -11,9 +11,18 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a asp-controller="ADC" asp-action="Index">ADC</a>
-                </li>
+                @if (Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio)
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADCUsuario" asp-action="Index">ADC</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADCAdmin" asp-action="Index">ADC</a>
+                    </li>
+                }
                 <li class="breadcrumb-item active" aria-current="page">Tareas</li>
 
             </ol>
@@ -73,6 +82,12 @@
                                 @(Global.adc.adc.Folio)
                             </dd>
                             <dt class="col-sm-3">
+                                Proponente del cambio:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.adc.proponente)
+                            </dd>
+                            <dt class="col-sm-3">
                                 Responsable de la ADC:
                             </dt>
                             <dd class="col-sm-9">
@@ -122,7 +137,9 @@
             <tbody>
                 <tr>
                     <td>
-                        @(Global.tareas.ElementAt(0).actividad)
+                        <a asp-action="Normativas" asp-route-id="@(Global.tareas.ElementAt(0).proceso.Id_Actividad)">
+                            @(Global.tareas.ElementAt(0).actividad)
+                        </a>                        
                     </td>
                     <td>
                         @(Global.tareas.ElementAt(0).proceso.Avance)
@@ -134,7 +151,7 @@
                         @(Global.tareas.ElementAt(0).proceso.Plan_Accion)
                     </td>
                     <td style="width:10%;">
-                        <a class="btn btn-dark form-control" asp-action="PropuestaCambio" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
+                        <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
                     </td>
                 </tr>
                 <tr>

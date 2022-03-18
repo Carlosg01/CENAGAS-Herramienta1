@@ -94,20 +94,23 @@
                                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">Administración de cambios</a>
                                         <div id="submenu-4" class="collapse">
                                             <ul class="nav nav-small flex-column">
-
-                                                <li class="nav-item">
-                                                    <a class="nav-link" asp-controller="ADC" asp-action="Index">Lista de ADC</a>
-                                                </li>
-                                                @if (Global.session_usuario.user.Id_Rol == 2)
+                                                @if (new List<int> { 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
                                                 {
                                                     <li class="nav-item">
-                                                        <a class="nav-link" asp-controller="ProyectosLider" asp-action="Index">Mis proyectos</a>
+                                                        <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista de ADC</a>
                                                     </li>
                                                 }
-                                                @if (Global.session_usuario.user.Id_Rol == 3)
+                                                else
                                                 {
                                                     <li class="nav-item">
-                                                        <a class="nav-link" asp-controller="ProyectosResponsableADC" asp-action="Index">Mis proyectos</a>
+                                                        <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
+                                                    </li>
+                                                }
+
+                                                @if (new List<int> { 2, 3, 4 }.Contains(Global.session_usuario.user.Id_Rol))
+                                                {
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">ADC a cargo</a>
                                                     </li>
                                                 }
 

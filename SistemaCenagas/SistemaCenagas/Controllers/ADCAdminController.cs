@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ADCController : Controller
+    public class ADCAdminController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ADCController(ApplicationDbContext context)
+        public ADCAdminController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,6 +24,20 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Index()
         {
             Global.vista_adc = Consultas.VistaADC(_context);
+
+            if (Global.session_usuario.user.Id_Rol == 2)
+            {
+                Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_Lider == Global.session_usuario.user.Id_Usuario).ToList();
+            }
+            else if(Global.session_usuario.user.Id_Rol == 3)
+            {
+                Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_ResponsableADC == Global.session_usuario.user.Id_Usuario).ToList();
+            }
+            else if (Global.session_usuario.user.Id_Rol == 4)
+            {
+                Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id_Usuario).ToList();
+            }
+
             return View();
         }
         public async Task<IActionResult> Tareas(int? id)
@@ -90,6 +105,9 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
+
+            Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+
             return View(aDC);
         }
 
@@ -98,7 +116,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_ADC,Id_Proyecto,Folio,Id_ProponenteCambio,Id_Lider,Id_ResponsableADC,Id_Suplente,Fecha_Actualizacion,Registro_Eliminado")] ADC aDC)
+        public async Task<IActionResult> Edit(int id, ADC aDC)
         {
             if (id != aDC.Id_ADC)
             {
@@ -109,6 +127,7 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
+                    //return Content(JsonConvert.SerializeObject(aDC));
                     _context.Update(aDC);
                     await _context.SaveChangesAsync();
                 }
