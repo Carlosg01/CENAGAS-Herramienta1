@@ -82,7 +82,7 @@ namespace SistemaCenagas.Controllers
                 //int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
                 Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == anexo1.Id_PropuestaCambio).FirstOrDefault();
 
-                for (int i = 0; i < Global.vista_tareas.Count(); i++)
+                for (int i = 0; i < Global.vista_actividadesADC.Count(); i++)
                 {
                     //return Content(JsonConvert.SerializeObject(a));
                     ADC_Procesos tarea = new ADC_Procesos
@@ -115,6 +115,9 @@ namespace SistemaCenagas.Controllers
 
             Global.proyectos = Consultas.VistaProyectos(_context).Where(
                 p => p.Id_Proyecto == Global.anexo1.anexo1.Id_Proyecto).FirstOrDefault();
+
+            Global.tarea = Consultas.VistaTareas(_context)
+                .Where(t => t.proceso.Id_ADC == id).FirstOrDefault();
             return View(anexo1);
         }
 
@@ -149,11 +152,13 @@ namespace SistemaCenagas.Controllers
                     ADC_Procesos a = _context.ADC_Procesos.Where(a => a.Id_ADC == adc.Id_ADC).FirstOrDefault();
 
                     //return Content(JsonConvert.SerializeObject(anexo1));
-                    
-                    a.Avance += (anexo1.Resultados_Analisis != null && anexo1.Resultados_Analisis.Length > 0) ? (1.0f / 12 * 100) : 0;
-                    a.Avance += (anexo1.Resultados_Propuesta != null && anexo1.Resultados_Propuesta.Length > 0) ? (1.0f / 12 * 100) : 0;
-                    a.Avance += (anexo1.Estatus != null && anexo1.Estatus.Length > 0) ? (1.0f / 12 * 100) : 0;
-
+                    if(Global.tarea.proceso.Id_Actividad == 1)
+                    {
+                        a.Avance = 9.0f / 12 * 100;
+                        a.Avance += (anexo1.Resultados_Analisis != null && anexo1.Resultados_Analisis.Length > 0) ? (1.0f / 12 * 100) : 0;
+                        a.Avance += (anexo1.Resultados_Propuesta != null && anexo1.Resultados_Propuesta.Length > 0) ? (1.0f / 12 * 100) : 0;
+                        a.Avance += (anexo1.Estatus != null && anexo1.Estatus.Length > 0) ? (1.0f / 12 * 100) : 0;
+                    }
                     //return Content(JsonConvert.SerializeObject(a)); 
 
                     _context.Update(a);
