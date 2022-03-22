@@ -41,7 +41,7 @@ namespace SistemaCenagas.Controllers
         public IActionResult Index()
         {
             Global.vista_usuarios = Consultas.VistaUsuarios(_context);
-
+            Global.session = "LogOut";
             return View();
         }
 
@@ -83,7 +83,7 @@ namespace SistemaCenagas.Controllers
             Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
 
 
-            Global.session = "usuario";
+            Global.session = "LogIn";
             return View();
         }
 
