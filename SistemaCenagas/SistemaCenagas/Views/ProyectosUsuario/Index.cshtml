@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Proyectos</li>
+
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">Proyectos de CENAGAS</h3>
+                </div>
+            </div>
+
+        </div>
+        @if (Global.vista_proyectos.Count() > 0)
+        {
+            <table id="tblData" class="table table-bordered table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Clave
+                        </th>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                        <th style="width:10%;"></th>
+                        <th style="width:10%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Global.vista_proyectos)
+                    {
+                        @if (item.Registro_Eliminado == 0)
+                        {
+                            <tr>
+                                <td>
+                                    @(item.Clave)
+                                </td>
+                                <td>
+                                    @(item.Nombre)
+                                </td>
+                                <td>
+                                    @(item.Descripcion)
+                                </td>
+                                <td style="width:10%;">
+                                    @if (item.Estado_ADC.Equals("Habilitado"))
+                                    {
+                                        <a class="btn btn-dark form-control" asp-action="ADC" asp-route-id="@item.Id_Proyecto">ADC</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-block form-control">ADC</a>
+                                    }
+                                </td>
+                                <td style="width:10%;">
+                                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.Id_Proyecto">Detalles</a>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <label class="control-label">No hay proyectos registrados</label>
+        }
+
+    </div>
+</div>
