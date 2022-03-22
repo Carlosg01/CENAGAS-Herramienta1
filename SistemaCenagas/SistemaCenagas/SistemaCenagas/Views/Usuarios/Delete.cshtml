@@ -1,0 +1,121 @@
+﻿@model SistemaCenagas.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Eliminar</li>
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">Eliminar usuario</h3>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <label class="control-label"><b>¿Estás seguro de eliminar este usuario?</b></label>
+                    <hr>
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Nombre)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Nombre)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Apellido paterno
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Paterno)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Apellido materno
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Materno)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Titulo)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Titulo)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Password)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Password)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Rol
+                            </dt>
+                            <dd class="col-sm-8">
+                                @(Global.usuario.Rol)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Observaciones)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Observaciones)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Estatus
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Estatus)
+                            </dd>
+                        </dl>
+                        <hr>
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id_Usuario" />
+                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                            <a class="btn btn-success" asp-action="Index">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

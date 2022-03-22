@@ -1,0 +1,54 @@
+﻿@model SistemaCenagas.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!--div-- class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div-->
+<div class="main-container fullscreen">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-7">
+                <div class="text-center">
+                    <h1 class="h2">Bienvenido al sistema CENAGAS &#x1f44b;</h1>
+                    <p class="lead">Escribe tus credenciales para accesar</p>
+                    <form asp-controller="Home" asp-action="Login">
+                        <div class="form-group">
+                            <input asp-for="Email" type="email" placeholder="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input asp-for="Password" type="password" placeholder="Contraseña" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <div class="text-right">
+                                <small>
+                                    <a asp-controller="Home" asp-action="ForgotPassword">Recuperar tu password</a>
+                                </small>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input type="submit" value="Ingresar" class="btn btn-primary" />
+                            <!--br />
+                            <div class="text-right">
+                                <small>
+                                    <a>¿No tienes cuenta?</a>
+                                    <a asp-controller="Home" asp-action="CreateAccount">Crear cuenta</a>
+                                </small>
+                            </div-->
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

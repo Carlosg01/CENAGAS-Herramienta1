@@ -1,0 +1,47 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="breadcrumb-bar navbar bg-white sticky-top">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Inicio</li>
+        </ol>
+    </nav>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+            </li>
+        </ol>
+    </nav>
+
+</div>
+
+<div class="main-container">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-11 col-xl-9">
+                <section class="py-4 py-lg-5">
+                    <div class="mb-3 d-flex">
+                        <!--img alt="Pipeline" src="assets/img/logo-color.svg" class="avatar avatar-lg mr-1" /-->
+                        <img alt="Pipeline" src="https://globalenergy.mx/wp-content/uploads/2019/08/Gih55_Qq_400x400.png" width="100" class="avatar avatar-lg mr-1" />
+                    </div>
+
+                    <h1 class="display-4 mb-3 text-center"> Gestión de Proyectos CENAGAS</h1>
+
+
+                    <p class="lead text-center">
+                        Procedimiento de Administración de Cambios Temporales o Definitivos.<br>
+                        Clasificación de Nivel de Riesgo<br />"Alto, Medio, Bajo".
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

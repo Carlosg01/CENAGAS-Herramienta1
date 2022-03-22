@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="ADC_Normativas" asp-action="Index">Normativas</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Eliminar</li>
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">Eliminar normativa</h3>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <label class="control-label"><b>¿Estás seguro de eliminar esta normativa?</b></label>
+                    <hr>
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                Actividad
+                            </dt>
+                            <dd class="col-sm-8">
+                                @(Global.normativas.actividad)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Clave
+                            </dt>
+                            <dd class="col-sm-8">
+                                @(Global.normativas.adc_normativas.Clave)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Responsable
+                            </dt>
+                            <dd class="col-sm-8">
+                                @(Global.normativas.adc_normativas.Responsable)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Descripción
+                            </dt>
+                            <dd class="col-sm-8">
+                                @(Global.normativas.adc_normativas.Descripcion)
+                            </dd>
+                            <hr>
+                            <dt class="col-sm-4">
+                                Anexo
+                            </dt>
+                            <dd class="col-sm-8">
+                                @(Global.normativas.anexo)
+                            </dd>
+                            <hr>
+
+                        </dl>
+                        <hr>
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="@(Global.normativas.adc_normativas.Id_Normativa)" />
+                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                            <a class="btn btn-success" asp-action="Index">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
