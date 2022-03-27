@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
@@ -30,7 +31,8 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Index()
         {
             Global.vista_usuarios = Consultas.VistaUsuarios(_context);
-            return View();
+            
+            return View(Global.usuario.user);
         }
 
         // GET: Usuarios/Details/5
@@ -56,9 +58,11 @@ namespace SistemaCenagas.Controllers
         }
 
         // GET: Usuarios/Create
+        [HttpGet]
         public IActionResult Create()
-        {   
-            return View();
+        {
+            Usuarios u = new Usuarios();
+            return PartialView(u);
         }
 
         // POST: Usuarios/Create
@@ -68,30 +72,29 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Usuarios usuario)
         {
-            if (ModelState.IsValid && usuario.Password.Equals(usuario.Confirmar_Password))
+            
+            if (ModelState.IsValid)
             {
                 usuario.Email = usuario.Username + "@cenagas.gob.mx";
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            Global.usuario.user = usuario;
             return View(usuario);
         }
 
         // GET: Usuarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var usuario = _context.Usuarios.Find(id);
             if (usuario == null)
             {
                 return NotFound();
             }
-            return View(usuario);
+            Global.usuario.user = usuario;
+            return PartialView(usuario);
         }
 
         // POST: Usuarios/Edit/5

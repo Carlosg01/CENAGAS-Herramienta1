@@ -1,4 +1,4 @@
-﻿
+﻿@model SistemaCenagas.Models.Usuarios
 @{
     ViewData["Title"] = "Index";
 }
@@ -25,18 +25,34 @@
         </nav>
 
     </div>
-    <div class="container">
-        <div class="page-header mb-4">
-            <div class="media">
-                <div class="media-body ml-3">
-                    <h3 class="mb-0">Usuarios de CENAGAS</h3>
-                </div>
-                <div class="col-4 text-right">
-                    <a class="btn btn-primary form-control" asp-action="Create">Nuevo usuario</a>
-                </div>
-            </div>
 
+    <div id="PlaceHolderHere"></div>
+
+    <div class="container" data-filter-list="dropzone-previews">
+        <div class="page-header mb-4">
+            <div class="row content-list-head">
+                <div class="col-auto">
+                    <h3>Usuarios</h3>
+
+                    <button class="btn btn-round" data-title="Nuevo Usuario"
+                            data-toggle="modal" data-target="#crear-usuario-modal" data-url="@Url.Action("Create")">
+                        <i class="material-icons">add</i>
+                    </button>
+                </div>
+
+                <form class="col-md-auto">
+                    <div class="input-group input-group-round">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="material-icons">filter_list</i>
+                            </span>
+                        </div>
+                        <input type="search" class="form-control filter-list-input" placeholder="Buscar registro" aria-label="Filter Tasks">
+                    </div>
+                </form>
+            </div>
         </div>
+
         @if (Global.vista_usuarios.Count() > 0)
         {
             <table id="tblData" class="table table-bordered table-responsive-xl">
@@ -49,54 +65,58 @@
                             Email
                         </th>
                         <th>
-                            Contraseña
-                        </th>
-                        <th>
                             Rol
                         </th>
                         <th>
                             Estatus
                         </th>
-                        <th style="width:10%;"></th>
-                        <th style="width:10%;"></th>
-                        <th style="width:10%;"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="dropzone-previews">
                     @foreach (var item in Global.vista_usuarios)
                     {
                         @if (item.user.Registro_Eliminado == 0)
                         {
                             <tr>
-                                <td>
+                                <td data-filter-by="text">
                                     @(item.user.Nombre + " " + item.user.Paterno + " " + item.user.Materno)
                                 </td>
-                                <td>
+                                <td data-filter-by="text">
                                     @(item.user.Email)
                                 </td>
-                                <td>
-                                    @(item.user.Password)
-                                </td>
-                                <td>
+                                <td data-filter-by="">
                                     @(item.Rol)
                                 </td>
-                                <td>
+                                <td data-filter-by="">
                                     @(item.user.Estatus)
                                 </td>
-                                <td style="width:10%;">
-                                    <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.user.Id_Usuario">Editar</a>
+                                <td>
+                                    <button class="btn btn-round" data-title="Nuevo Usuario"
+                                            data-toggle="modal" data-target="#crear-usuario-modal" data-url="@Url.Action($"Edit/{item.user.Id_Usuario}")">
+                                        <i class="material-icons">edit</i>
+                                    </button>
                                 </td>
-                                <td style="width:10%;">
-                                    <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.user.Id_Usuario">Detalles</a>
+                                <td>
+                                    <button class="btn btn-round" data-title="Nuevo Usuario"
+                                            data-toggle="modal" data-target="#crear-usuario-modal" data-url="@Url.Action($"Edit/{item.user.Id_Usuario}")">
+                                        <i class="material-icons">details</i>
+                                    </button>
                                 </td>
-                                <td style="width:10%;">
-                                    <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.user.Id_Usuario">Eliminar</a>
+                                <td>
+                                    <button class="btn btn-round" data-title="Nuevo Usuario"
+                                            data-toggle="modal" data-target="#crear-usuario-modal" data-url="@Url.Action($"Edit/{item.user.Id_Usuario}")">
+                                        <i class="material-icons">delete</i>
+                                    </button>
                                 </td>
                             </tr>
                         }
 
                     }
                 </tbody>
+
             </table>
         }
         else

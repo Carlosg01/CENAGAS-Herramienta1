@@ -1,0 +1,49 @@
+﻿@model SistemaCenagas.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!--div-- class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div-->
+<div class="login-form">
+    <form asp-controller="Home" asp-action="Login">
+        <img src="~/assets/img/cenagas-logo.png" class="mx-auto d-block" style="width:60%;" />
+        <br>
+        <h5 class="text-center">Acceso al sistema</h5>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <span class="material-icons">email</span>
+                    </span>
+                </div>
+                <input type="text" asp-for="Email" class="form-control" placeholder="Email" required="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Contraseña" required="required">
+            </div>
+        </div>
+        <div class="clearfix">
+            <a asp-controller="Home" asp-action="ForgotPassword" class="float-right">Olvidaste tu contraseña?</a>
+        </div>
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary login-btn btn-block">Ingresar</button>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

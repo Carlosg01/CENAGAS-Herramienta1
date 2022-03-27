@@ -13,7 +13,6 @@ namespace SistemaCenagas.Models
         public string Fecha_Registro { get; set; }
         public string Tipo_ADC { get; set; }
         public string Residencia { get; set; }
-        public string Fecha_Registro { get; set; }
 
 
     }

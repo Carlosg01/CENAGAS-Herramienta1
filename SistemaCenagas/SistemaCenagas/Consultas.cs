@@ -18,6 +18,7 @@ namespace SistemaCenagas
                                                  select new Global.V_Usuarios
                                                  {
                                                      user = u,
+                                                     nombre_completo = u.Nombre + " " + u.Paterno + " " + u.Materno,
                                                      Rol = r.Nombre
                                                  }).ToList();
             return vu;

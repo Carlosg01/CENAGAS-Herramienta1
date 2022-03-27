@@ -15,6 +15,7 @@ namespace SistemaCenagas
         public struct V_Usuarios
         {
             public Usuarios user;
+            public string nombre_completo;
             public string Rol;
         }
         public static V_Usuarios usuario;
