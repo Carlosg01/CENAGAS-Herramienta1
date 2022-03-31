@@ -24,7 +24,7 @@ namespace SistemaCenagas.Models
         public string Password { get; set; }
 
         [MaxLength(200)]
-        [Compare("Password", ErrorMessage = "La confirmación de contraseña no coincide")]
+        //[Compare("Password", ErrorMessage = "La confirmación de contraseña no coincide")]
         public string Confirmar_Password { get; set; }
 
         [MaxLength(200)]

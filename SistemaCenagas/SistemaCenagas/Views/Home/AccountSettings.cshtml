@@ -16,13 +16,18 @@ For more information on enabling MVC for empty projects, visit https://go.micros
         </ol>
     </nav>
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">
-                @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
-            </li>
-        </ol>
-    </nav>
+    <div class="dropdown">
+        <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+            <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+
+        </div>
+    </div>
 
 </div>
 <div class="container">
@@ -100,12 +105,12 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                 <div class="form-group row">
                                     <label asp-for="Observaciones" class="col-3"></label>
                                     <div class="col">
-                                        <textarea asp-for="Observaciones" placeholder="Observaciones personales" class="form-control" rows="4"></textarea>
+                                        <textarea asp-for="Observaciones" id="Confirmar_Password" placeholder="Observaciones personales" class="form-control" rows="4"></textarea>
                                         <small>Esto se mostrará en tu perfil público.</small>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                    <button type="submit" id="submit_usuario" class="btn btn-primary">Salvar</button>
                                 </div>
                             </form>
                         </div>

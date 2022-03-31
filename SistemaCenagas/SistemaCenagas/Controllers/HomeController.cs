@@ -35,13 +35,17 @@ namespace SistemaCenagas.Controllers
         {
             _context = context;
             EMAIL_ADDRESS = "aihm.mytests@gmail.com";
-            EMAIL_PASSWORD = "test#12345";  
+            EMAIL_PASSWORD = "test#12345";
+            
         }
 
         public IActionResult Index()
         {
             Global.vista_usuarios = Consultas.VistaUsuarios(_context);
             Global.session = "LogOut";
+
+            //return Content(JsonConvert.SerializeObject(_context.Roles.ToList()));
+
             return View();
         }
 
@@ -52,13 +56,19 @@ namespace SistemaCenagas.Controllers
             Usuarios us = _context.Usuarios.Where(u => u.Email == user.Email && 
                     u.Password == user.Password && u.Estatus != null).FirstOrDefault();
 
-            if(us != null && us.Estatus.Equals("Habilitado"))
+            if (us != null && us.Estatus.Equals("Habilitado"))
             {
-                
-                Global.session_usuario = new Global.V_Usuarios { user = us, Rol = _context.Roles.Where(
-                    r => r.Id_Rol == us.Id_Rol).FirstOrDefault().Nombre };
+                //return Content(JsonConvert.SerializeObject(us));
+                Global.session_usuario = new Global.V_Usuarios { 
+                    user = us,
+                    Rol = _context.Roles.Where(
+                    r => r.Id_Rol == us.Id_Rol).FirstOrDefault().Nombre 
+                };
                 return RedirectToAction(nameof(Dashboard));
-            }            
+            }
+            Global.ERROR_MSJ = "El correo o contraseña son incorrectos!";
+            //return Content(ViewBag.error ? "True" : "False");
+
             return RedirectToAction(nameof(Index));
         }
 

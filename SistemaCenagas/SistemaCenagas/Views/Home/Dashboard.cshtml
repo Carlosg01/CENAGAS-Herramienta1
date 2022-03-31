@@ -12,13 +12,18 @@
         </ol>
     </nav>
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">
-                @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
-            </li>
-        </ol>
-    </nav>
+    <div class="dropdown">
+        <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+            <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+
+        </div>
+    </div>
 
 </div>
 

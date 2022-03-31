@@ -10,6 +10,7 @@ namespace SistemaCenagas
     public static class Global
     {        
         public static string session { get; set; }
+        public static string ERROR_MSJ { get; set; }
 
         //---------USUARIOS-------
         public struct V_Usuarios
@@ -38,8 +39,15 @@ namespace SistemaCenagas
         public static IEnumerable<V_Normativas> vista_normativas;
 
         //---------Proyectos-------
-        public static Proyectos proyectos;
+        public struct V_MiembrosProyecto
+        {
+            public Proyecto_Miembros pm;
+            public string nombre_miembro;
+            public string email;
+        }        
         public static IEnumerable<Proyectos> vista_proyectos;
+        public static Proyectos proyectos;
+        public static IEnumerable<V_MiembrosProyecto> miembrosProyecto;
 
         //---------ADC-------
         public struct V_ADC
@@ -74,6 +82,19 @@ namespace SistemaCenagas
         }
         public static V_Tareas tarea;
         public static IEnumerable<V_Tareas> vista_tareas;
+
+        //-------Vista resumen ADC--------
+        public struct V_Resumen
+        {
+            public int id_adc;
+            public string residencia;
+            public string proyecto;
+            public float avance_ADC;
+            public float avance_Pre;
+            public float avance_Fisico;
+        }
+
+        public static IEnumerable<V_Resumen> resumenADC;
 
         //-----------CATALOGOS--------
         public static IEnumerable<Roles> roles { get; set; }

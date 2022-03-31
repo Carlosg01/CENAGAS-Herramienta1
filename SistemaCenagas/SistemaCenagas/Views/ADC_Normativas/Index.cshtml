@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                @if (Global.session_usuario.user.Id_Rol >= 5)
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADC" asp-action="Index">ADC</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="ADC_Procesos" asp-action="Index">Tareas</a>
+                    </li>
+                }
+
+                <li class="breadcrumb-item active" aria-current="page">Normativas</li>
+
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+                <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">@(Global.actividadADC.Actividad): Normativas</h3>
+                </div>
+                <!--div class="col-4 text-right">
+                    <a class="btn btn-primary form-control" asp-action="Create">Nueva normativa</a>
+                </div-->
+            </div>
+
+        </div>
+        @if (Global.vista_normativas.Count() > 0)
+        {
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Clave
+                        </th>
+                        <th>
+                            Responsable
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            Anexo
+                        </th>
+                        <th style="width:10%;"></th>
+                        <th style="width:10%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Global.vista_normativas)
+                    {
+                        @if (item.adc_normativas.Registro_Eliminado == 0)
+                        {
+                            <tr>
+                                <td>
+                                    @(item.adc_normativas.Clave)
+                                </td>
+                                <td>
+                                    @(item.adc_normativas.Responsable)
+                                </td>
+                                <td>
+                                    @(item.adc_normativas.Descripcion)
+                                </td>
+                                <td>
+                                    @(item.anexo)
+                                </td>
+                                @if (Global.session_usuario.user.Id_Rol >= 5)
+                                {
+                                    <td style="width:10%;">
+                                        <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@item.adc_normativas.Id_Normativa">Editar</a>
+                                    </td>
+                                    <td style="width:10%;">
+                                        <a class="btn btn-primary form-control" asp-action="Details" asp-route-id="@item.adc_normativas.Id_Normativa">Detalles</a>
+                                    </td>
+                                    <!--td style="width:10%;">
+                                        <a class="btn btn-danger form-control" asp-action="Delete" asp-route-id="@item.adc_normativas.Id_Normativa">Eliminar</a>
+                                    </td-->
+                                }
+
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <label class="control-label">No hay normativas registradas para esta actividad</label>
+        }
+
+    </div>
+</div>

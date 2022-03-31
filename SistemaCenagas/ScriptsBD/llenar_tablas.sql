@@ -1,7 +1,8 @@
-use cenagas;
+use bd_cenagas2;
 
 SET SQL_SAFE_UPDATES = 0;
 
+#select * from roles
 insert into roles (nombre) values
 ('Empleado'),
 ('Lider de equipo verificador'),
@@ -10,15 +11,18 @@ insert into roles (nombre) values
 ('Superadmin'),
 ('Administrador');
 
+#select * from usuarios where Id_Usuario = 6
+#delete from usuarios where Id_Usuario = 6
+#update usuarios set Estatus = 'Habilitado' where Id_Usuario = 1
 insert into usuarios (Username, Email, Password, Id_Rol, Estatus) values
 ('admin', 'admin@cenagas.gob.mx', '123', 5, 'Habilitado');
 insert into usuarios (Username, Email, Password, Id_Rol, Estatus, Nombre, Paterno, Materno, Titulo, Observaciones) values
 ('carlosg', 'carlosg@cenagas.gob.mx', '123', 2, 'Habilitado', 'carlos', 'g', 'g', 'Ingeniero', 'N/A'),
 ('luish', 'luish@cenagas.gob.mx', '123', 3, 'Habilitado', 'luis', 'h', 'm', 'Ingeniero', 'N/A'),
 ('armandoh', 'armandoh@cenagas.gob.mx', '123', 1, 'Habilitado', 'armando', 'h', 'm', 'Ingeniero', 'N/A'),
-('ahdzt', 'ahdzt.97@gmail.com', '123', 2, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A'),
-('carlosgg', 'carlosg@csipa.com.mx', '123', 2, 'Habilitado', 'carlos', 'g', 'g', 'Ingeniero', 'N/A');
+('ahdzt', 'ahdzt.97@gmail.com', '123', 2, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A');
 
+#select * from anexos
 insert into anexos (Nombre) values 
 ('Anexo 1. Propuesta y análisis de cambios'),
 ('Anexo 2. Lista de control de administración del cambio'),
@@ -27,10 +31,13 @@ insert into anexos (Nombre) values
 ('Anexo 5. Solicitud de retiro de cambios temporales'),
 ('Anexo 6. Acta de cierre de la administración del cambio');
 
+#describe residencias
+#select * from residencias
 insert into residencias (Nombre) values
 ('Cárdenas'),('Chihuahua'),('Ciudad de México'),('Hermosillo'),('Madero'),('Mendoza'),('Minatitlán'),('Monterrey'),('Reynosa'),
 ('Salamanca'), ('Tlaxcala'),('Torreón'),('Veracruz');
 
+#select * from adc_actividades
 insert into adc_actividades (actividad) values
 ('Solicitud de cambio'),
 ('Análisis de la propuesta de cambio'),
@@ -74,3 +81,7 @@ El proceso de Administración del Cambio es complemento para el arranque o inici
 (8, '8.2', 'Líder de Equipo Verificador', 'El Líder del Equipo Verificador, notifica al Responsable de la Administración del Cambio la conclusión de la Administración del Cambio para la elaboración del Anexo 6. Acta de Cierre de la Administración del Cambio.', 3),
 #actividad 9
 (9, '9.1', 'Dirección de Seguridad Industrial', 'La Dirección de Seguridad Industrial revisa que la documentación seleccionada en el numeral 13 del Anexo 3. Proyecto de la Administración del Cambio, esté cargada en el sitio web indicado y archiva la Administración del Cambio y registra la fecha de cierre de esta en el Anexo 2, Lista de control de Administración del Cambio. Asimismo, cambia el estatus de “En elaboración” por “Concluida”, y difunde la Administración del Cambio al personal de la UTA.', 3);
+
+#select * from anexo1
+#select * from adc
+#select * from adc_procesos

@@ -1,4 +1,4 @@
-#use cenagas
+#use db_a846a2_bdatos
 #describe instalaciones
 #select * from instalaciones
 #update instalaciones set registro_eliminado = 0

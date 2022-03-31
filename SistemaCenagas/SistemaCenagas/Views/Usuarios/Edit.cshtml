@@ -4,90 +4,132 @@
     ViewData["Title"] = "Edit";
 }
 
-<form asp-controller="Usuarios" asp-action="Edit" class="modal fade" id="editar-usuario-modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<script type="text/javascript">
+    const password = document.getElementById("Password");
+    const confirm_password = document.getElementById("Confirmar_Password");
+    const submit_usuario = document.getElementById("submit_usuario");
+
+    confirm_password.addEventListener("keyup", (e) => {
+        const value = e.currentTarget.value;
+        submit_usuario.disabled = true;
+        if (value === password.value) {
+            submit_usuario.disabled = false;
+        }
+    });
+</script>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editarUsuario-modal">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Editar usuario</h5>
-                <a class="btn btn-round" asp-action="Index">
+                <a asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
             </div>
+            <!--end of modal head-->
             <div class="modal-body">
-                <input type="hidden" asp-for="Id_Usuario" />
-                <input type="hidden" asp-for="Registro_Eliminado" value="0" />
 
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Nombre(s)</label>
-                    <input type="text" asp-for="Nombre" class="form-control col" required />
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Apellido paterno</label>
-                    <input type="text" asp-for="Paterno" class="form-control col" required />
-                    <span asp-validation-for="Paterno" class="text-danger"></span>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Apellido materno</label>
-                    <input type="text" asp-for="Materno" class="form-control col" required />
-                    <span asp-validation-for="Materno" class="text-danger"></span>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Titulo</label>
-                    <select type="text" asp-for="Titulo" class="form-control col" required>
-                        <option>Ingeniero</option>
-                        <option>Licenciado</option>
-                    </select>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Username (dominio <b>cenagas.gob.mx</b>)</label>
-                    <input asp-for="Username" class="form-control col" onkeypress="return soloLetras(event)" required />
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Contraseña</label>
-                    <input type="password" asp-for="Password" value="@(Global.usuario.user.Password)" class="form-control col" required />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Confirmar contraseña</label>
-                    <input type="password" asp-for="Confirmar_Password" value="@(Global.usuario.user.Confirmar_Password)" class="form-control col" required />
-                    <div class="alert alert-warning text-small" role="alert">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id_Usuario" />
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Nombre" class="col-2" style="text-align:right;">Nombre(s)</label>
+                        <div class="col">
+                            <input type="text" asp-for="Nombre" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Paterno" class="col-2" style="text-align:right;">Apellido paterno</label>
+                        <div class="col">
+                            <input type="text" asp-for="Paterno" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Paterno" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Materno" class="col-2" style="text-align:right;">Apellido materno</label>
+                        <div class="col">
+                            <input type="text" asp-for="Materno" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Materno" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Titulo" class="col-2" style="text-align:right;">Titulo</label>
+                        <div class="col">
+                            <select asp-for="Titulo" class="form-control">
+                                <option></option>
+                                <option>Ingeniero</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Titulo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Username" class="col-2" style="text-align:right;">Username (dominio <b>cenagas.gob.mx</b>)</label>
+                        <div class="col">
+                            <input asp-for="Username" class="form-control" onkeypress="return soloLetras(event)" required />
+                        </div>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Password" class="col-2" style="text-align:right;">Contraseña</label>
+                        <div class="col">
+                            <input type="password" asp-for="Password" value="@(Global.usuario.user.Password)" class="form-control" required />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Confirmar_Password" class="col-2" style="text-align:right;">Confirmar contraseña</label>
+                        <div class="col">
+                            <input type="password" asp-for="Confirmar_Password" value="@(Global.usuario.user.Password)" class="form-control" required />
+                        </div>
                         <span asp-validation-for="Confirmar_Password" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Rol</label>
-                    <select type="text" asp-for="Id_Rol" class="form-control col" required>
-                        @foreach (var rol in Global.roles)
-                        {
-                            <option value="@(rol.Id_Rol)">@(rol.Nombre)</option>
-                        }
-                    </select>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Observaciones</label>
-                    <textarea type="text" asp-for="Observaciones" class="form-control col" required></textarea>
-                    <span asp-validation-for="Observaciones" class="text-danger"></span>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-4">Estatus</label>
-                    <select type="text" asp-for="Estatus" class="form-control col" required>
-                        <option>Habilitado</option>
-                        <option>Deshabilitado</option>
-                    </select>
-                </div>
-                <hr>
-            </div>
-            <!--end of modal body-->
-            <div class="modal-footer">
-                <button role="button" class="btn btn-success" type="submit">
-                    Guardar
-                </button>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Id_Rol" class="col-2" style="text-align:right;">Rol</label>
+                        <div class="col">
+                            <select asp-for="Id_Rol" class="form-control" required>
+                                <option></option>
+                                @foreach (var rol in Global.roles)
+                                {
+                                    <option value="@(rol.Id_Rol)">@(rol.Nombre)</option>
+                                }
+                            </select>
+                        </div>
+                        <span asp-validation-for="Id_Rol" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Observaciones" class="col-2" style="text-align:right;">Observaciones</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="Observaciones" class="form-control"></textarea>
+                        </div>
+                        <span asp-validation-for="Observaciones" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Estatus" class="col-2" style="text-align:right;">Estatus</label>
+                        <div class="col">
+                            <select asp-for="Estatus" class="form-control" required>
+                                <option></option>
+                                <option>Habilitado</option>
+                                <option>Deshabilitado</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Estatus" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button role="button" class="btn btn-success" type="submit">
+                            Guardar
+                        </button>
+                        <a class="btn btn-dark" asp-action="Index">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
-</form>
+</div>
 
 
 @section Scripts {

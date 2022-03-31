@@ -15,6 +15,7 @@ namespace SistemaCenagas
         {
             IEnumerable<Global.V_Usuarios> vu = (from u in context.Usuarios
                                                  join r in context.Roles on u.Id_Rol equals r.Id_Rol
+                                                 where u.Id_Rol != 5
                                                  select new Global.V_Usuarios
                                                  {
                                                      user = u,
@@ -43,7 +44,7 @@ namespace SistemaCenagas
         }
         public static IEnumerable<Proyectos> VistaProyectos(ApplicationDbContext context)
         {
-            return context.Proyectos.ToList();
+            return context.Proyectos.Where(p => p.Registro_Eliminado == 0).ToList();
         }
         public static IEnumerable<Global.V_ADC> VistaADC(ApplicationDbContext context)
         {
@@ -92,6 +93,49 @@ namespace SistemaCenagas
                         proceso = t,
                         actividad = a.Actividad
                     }).ToList();
+        }
+
+        public static IEnumerable<Global.V_MiembrosProyecto> VistaMiembrosProyecto(ApplicationDbContext context, int idProyecto)
+        {
+            return (from m in context.Proyecto_Miembros
+                    join u in context.Usuarios on m.Id_Usuario equals u.Id_Usuario
+                    where m.Id_Proyecto == idProyecto
+                    select new Global.V_MiembrosProyecto
+                    {
+                        pm = m,
+                        nombre_miembro = u.Nombre + " " + u.Paterno,
+                        email = u.Email
+                    }).ToList();
+        }
+        
+        public static IEnumerable<Global.V_Resumen> VistaResumenADC(ApplicationDbContext context)
+        {
+            IEnumerable<Global.V_Resumen> resumen = (from a1 in context.Anexo1
+                                                     join adc in context.ADC on a1.Id_PropuestaCambio equals adc.Id_ADC
+                                                     join r in context.Residencias on a1.Id_Residencia equals r.Id_Residencia
+                                                     join p in context.Proyectos on a1.Id_Proyecto equals p.Id_Proyecto
+                                                     join proc in context.ADC_Procesos on adc.Id_ADC equals proc.Id_ADC
+                                                     where adc.Registro_Eliminado == 0
+                                                     
+                                                     select new Global.V_Resumen
+                                                     {
+                                                         id_adc = adc.Id_ADC,
+                                                         residencia = r.Nombre,
+                                                         proyecto = p.Nombre,
+                                                         avance_ADC = proc.Avance
+                                                     }).ToList();
+
+
+            return resumen
+                .GroupBy(r => r.id_adc)
+                .Select(s => new Global.V_Resumen
+                {
+                    residencia = s.First().residencia,
+                    proyecto = s.First().proyecto,
+                    avance_ADC = s.Sum(a => a.avance_ADC)/ s.Count(),
+                    avance_Pre = 0,
+                    avance_Fisico = 0
+                }).ToList();
         }
 
 

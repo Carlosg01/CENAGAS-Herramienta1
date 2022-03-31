@@ -31,13 +31,12 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Index()
         {
             Global.vista_usuarios = Consultas.VistaUsuarios(_context);
-            
-            return View(Global.usuario.user);
+            return View();
         }
 
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
-        {
+        {   
             if (id == null)
             {
                 return NotFound();
@@ -54,15 +53,13 @@ namespace SistemaCenagas.Controllers
                     r => r.Id_Rol == usuario.Id_Rol).FirstOrDefault().Nombre
             };
 
-            return View(usuario);
+            return PartialView(usuario);
         }
 
         // GET: Usuarios/Create
-        [HttpGet]
         public IActionResult Create()
-        {
-            Usuarios u = new Usuarios();
-            return PartialView(u);
+        {   
+            return PartialView();
         }
 
         // POST: Usuarios/Create
@@ -72,7 +69,6 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Usuarios usuario)
         {
-            
             if (ModelState.IsValid)
             {
                 usuario.Email = usuario.Username + "@cenagas.gob.mx";
@@ -80,20 +76,25 @@ namespace SistemaCenagas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            Global.usuario.user = usuario;
-            return View(usuario);
+            return PartialView(usuario);
         }
 
         // GET: Usuarios/Edit/5
-        [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            var usuario = _context.Usuarios.Find(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
                 return NotFound();
             }
-            Global.usuario.user = usuario;
+
+            Global.usuario = Consultas.VistaUsuarios(_context).Where(u => u.user.Id_Usuario == id).FirstOrDefault();
+
             return PartialView(usuario);
         }
 
@@ -114,6 +115,9 @@ namespace SistemaCenagas.Controllers
                 try
                 {
                     usuario.Email = usuario.Username + "@cenagas.gob.mx";
+
+                    //return Content(JsonConvert.SerializeObject(usuario));
+
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
@@ -139,7 +143,7 @@ namespace SistemaCenagas.Controllers
 
             };*/
 
-            return View(usuario);
+            return PartialView(usuario);
         }
 
         // GET: Usuarios/Delete/5
@@ -162,7 +166,7 @@ namespace SistemaCenagas.Controllers
                     r => r.Id_Rol == usuario.Id_Rol).FirstOrDefault().Nombre
             };
 
-            return View(usuario);
+            return PartialView(usuario);
         }
 
         // POST: Usuarios/Delete/5
