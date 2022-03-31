@@ -4,6 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
+<script type="text/javascript">
+    
+</script>
 
 <div class="main-container">
 
@@ -70,7 +73,8 @@
                             <div class="form-group row align-items-center">
                                 <label asp-for="Id_Residencia" class="col-2" style="text-align:right;">Residencia</label>
                                 <div class="col">
-                                    <select asp-for="Id_Residencia" class="form-control" required>
+                                    <select id="Residencia" asp-for="Id_Residencia" class="form-control" required>
+                                        <option value="-1">--- Selecciona una opción ---</option>
                                         @foreach (var item in Global.residencias)
                                         {
                                             <option value="@(item.Id_Residencia)">@(item.Nombre)</option>
@@ -82,11 +86,8 @@
                             <div class="form-group row align-items-center">
                                 <label asp-for="Ut_Gasoducto" class="col-2" style="text-align:right;">Sector/Área</label>
                                 <div class="col">
-                                    <select asp-for="Ut_Gasoducto" class="form-control" required>
-                                        @foreach (var item in Global.gasoductos)
-                                        {
-                                            <option value="@(item.Ut_Gasoducto)">@(item.Gasoducto)</option>
-                                        }
+                                    <select id="Gasoducto" asp-for="Ut_Gasoducto" class="form-control" required>
+                                        <option>--- Selecciona una opción ---</option>
                                     </select>
                                 </div>
                                 <span asp-validation-for="Ut_Gasoducto" class="text-danger"></span>
@@ -94,11 +95,8 @@
                             <div class="form-group row align-items-center">
                                 <label asp-for="Ut_Tramo" class="col-2" style="text-align:right;">Planta o instalación</label>
                                 <div class="col">
-                                    <select asp-for="Ut_Tramo" class="form-control" required>
-                                        @foreach (var item in Global.tramos)
-                                        {
-                                            <option value="@(item.Ut_Tramo)">@(item.Tramo)</option>
-                                        }
+                                    <select id="Tramo" asp-for="Ut_Tramo" class="form-control" required>
+                                        <option>--- Selecciona una opción ---</option>
                                     </select>
                                 </div>
                                 <span asp-validation-for="Ut_Tramo" class="text-danger"></span>
@@ -144,7 +142,6 @@
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

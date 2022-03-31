@@ -1,4 +1,4 @@
-use bd_cenagas2;
+use cenagas;
 
 SET SQL_SAFE_UPDATES = 0;
 

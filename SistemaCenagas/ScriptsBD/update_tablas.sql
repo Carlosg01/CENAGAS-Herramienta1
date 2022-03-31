@@ -1,4 +1,4 @@
-use bd_cenagas2;
+use cenagas;
 update roles set registro_eliminado = 0;
 update usuarios set registro_eliminado = 0;
 update anexos set registro_eliminado = 0;

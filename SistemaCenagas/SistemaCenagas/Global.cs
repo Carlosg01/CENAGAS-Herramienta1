@@ -11,6 +11,9 @@ namespace SistemaCenagas
     {        
         public static string session { get; set; }
         public static string ERROR_MSJ { get; set; }
+        public static string SUCCESS_MSJ { get; set; }
+        public static string panelTareas { get; set; }
+        public static string panelArchivos { get; set; }
 
         //---------USUARIOS-------
         public struct V_Usuarios
@@ -68,6 +71,7 @@ namespace SistemaCenagas
             public Anexo1 anexo1;
             public string proyecto;
             public string residencia;
+            public string instalacion;
             public string gasoducto;
             public string tramo;
         }
@@ -83,6 +87,9 @@ namespace SistemaCenagas
         public static V_Tareas tarea;
         public static IEnumerable<V_Tareas> vista_tareas;
 
+        //--------ADC Archivos----------
+        public static IEnumerable<ADC_Archivos> vista_archivos;
+
         //-------Vista resumen ADC--------
         public struct V_Resumen
         {
@@ -95,6 +102,16 @@ namespace SistemaCenagas
         }
 
         public static IEnumerable<V_Resumen> resumenADC;
+
+        //------------Vista---------
+        public struct V_Cascada
+        {
+            public Residencias residencia;
+            public Gasoductos gasoducto;
+            public Tramos tramo;
+        }
+
+        public static IEnumerable<V_Cascada> vista_cascada;
 
         //-----------CATALOGOS--------
         public static IEnumerable<Roles> roles { get; set; }

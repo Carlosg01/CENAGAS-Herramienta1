@@ -82,8 +82,6 @@ namespace SistemaCenagas.Controllers
             Global.roles = _context.Roles.ToList();
             Global.anexos = _context.Anexos.ToList();
             Global.residencias = _context.Residencias.ToList();
-            Global.gasoductos = _context.Gasoductos.ToList();
-            Global.tramos = _context.Tramos.ToList();
             Global.lideres = _context.Usuarios
                 .Where(u => u.Id_Rol == 2 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
             Global.responsablesADC = _context.Usuarios
@@ -91,8 +89,7 @@ namespace SistemaCenagas.Controllers
             Global.suplentes = _context.Usuarios
                 .Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
             Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
-
-
+            
             Global.session = "LogIn";
             return View();
         }

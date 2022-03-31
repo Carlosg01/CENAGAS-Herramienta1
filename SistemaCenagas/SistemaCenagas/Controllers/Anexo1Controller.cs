@@ -22,7 +22,7 @@ namespace SistemaCenagas.Controllers
 
         // GET: Anexo1
         public async Task<IActionResult> Index()
-        {
+        {   
             return View();
         }
 
@@ -47,6 +47,7 @@ namespace SistemaCenagas.Controllers
         // GET: Anexo1/Create
         public IActionResult Create()
         {
+
             ViewBag.fecha = DateTime.Now.ToString();
             return View();
         }
@@ -212,6 +213,28 @@ namespace SistemaCenagas.Controllers
         private bool Anexo1Exists(int id)
         {
             return _context.Anexo1.Any(e => e.Id_PropuestaCambio == id);
+        }
+
+        [HttpPost]
+        public JsonResult getGasoductos(int id_residencia)
+        {
+            string residencia = Global.residencias.Where(r => r.Id_Residencia == id_residencia)
+                .FirstOrDefault().Nombre;
+
+            Global.gasoductos = Consultas.getGasoductos(_context, residencia);
+            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
+            
+            return Json(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"));            
+        }
+
+        [HttpPost]
+        public JsonResult getTramos(string ut_gasoducto)
+        {
+
+            Global.tramos = Consultas.getTramos(_context, ut_gasoducto);
+            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
+
+            return Json(new SelectList(Global.tramos, "Ut_Tramo", "Tramo"));
         }
     }
 }

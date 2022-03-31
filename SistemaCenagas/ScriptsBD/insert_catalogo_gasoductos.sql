@@ -1,4 +1,4 @@
-#use bd_cenagas2
+#use cenagas
 #describe gasoductos
 #select * from gasoductos
 #update gasoductos set registro_eliminado = 0

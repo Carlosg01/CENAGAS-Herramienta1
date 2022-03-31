@@ -18,6 +18,9 @@ namespace SistemaCenagas.Controllers
         public ADC_ProcesosController(ApplicationDbContext context)
         {
             _context = context;
+            Global.panelTareas = "show active";
+            Global.panelArchivos = "";
+
         }
 
         // GET: ADC_Procesos
@@ -27,6 +30,9 @@ namespace SistemaCenagas.Controllers
                 .Where(t => t.proceso.Id_ADC == Global.adc.adc.Id_ADC).ToList();
             Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
             ViewBag.avance_total = Global.vista_tareas.Sum(t => t.proceso.Avance);
+
+            Global.vista_archivos = Consultas.VistaArchivosADC(_context, Global.adc.adc.Id_ADC);
+
             return View();
         }
 

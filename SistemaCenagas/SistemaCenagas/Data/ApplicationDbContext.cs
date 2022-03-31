@@ -21,6 +21,7 @@ namespace SistemaCenagas.Data
         public DbSet<SistemaCenagas.Models.ADC> ADC { get; set; }
         public DbSet<SistemaCenagas.Models.ADC_Actividades> ADC_Actividades { get; set; }
         public DbSet<SistemaCenagas.Models.ADC_Procesos> ADC_Procesos { get; set; }
+        public DbSet<SistemaCenagas.Models.ADC_Archivos> ADC_Archivos { get; set; }
         public DbSet<SistemaCenagas.Models.ADC_Normativas> ADC_Normativas { get; set; }
         public DbSet<SistemaCenagas.Models.Anexo1> Anexo1 { get; set; }
         public DbSet<SistemaCenagas.Models.Proyecto_Miembros> Proyecto_Miembros { get; set; }

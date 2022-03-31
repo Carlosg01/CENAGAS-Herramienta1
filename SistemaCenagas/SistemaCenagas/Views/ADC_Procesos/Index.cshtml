@@ -50,6 +50,7 @@
                 </div>
             </div>
         </div>
+
         <div class="card">
             <div class="card-body">
                 <div class="tab-content">
@@ -72,7 +73,7 @@
                                 Instalación/Área:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.anexo1.gasoducto)
+                                @(Global.anexo1.instalacion)
                             </dd>
                             <dt class="col-sm-3">
                                 Tipo de cambio:
@@ -121,64 +122,176 @@
                 </div>
             </div>
         </div>
-        <table id="tblData" class="table table-bordered table-responsive-xl">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        Actividad
-                    </th>
-                    <th>
-                        Avance
-                    </th>
-                    <th>
-                        Faltante, Comentarios
-                    </th>
-                    <th>
-                        Plan de acción
-                    </th>
-                    <th style="width:15%;"></th>
-                    <th style="width:15%;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Actividad)">
-                            @(Global.vista_tareas.ElementAt(0).actividad)
-                        </a>
-                    </td>
-                    <td>
-                        @(Global.vista_tareas.ElementAt(0).proceso.Avance) %
-                    </td>
-                    <td>
-                        @(Global.vista_tareas.ElementAt(0).proceso.Faltante_Comentarios)
-                    </td>
-                    <td>
-                        @(Global.vista_tareas.ElementAt(0).proceso.Plan_Accion)
-                    </td>
-                    <td style="width:15%;">
-                        <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Proceso)">Editar</a>
-                    </td>
-                    <td style="width:15%;">
-                        <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label style="color:red;">Avance total:</label>
-                    </td>
-                    <td>
-                        <label style="color:red;"><b>@(ViewBag.avance_total / Global.vista_tareas.Count()) %</b></label>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td style="width:15%;">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link @(Global.panelTareas.Length>0 ? "active" : "")" id="project-add-details-tab" data-toggle="tab" href="#project-add-details" role="tab" aria-controls="project-add-details" aria-selected="true">Tareas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(Global.panelArchivos.Length>0 ? "active" : "")" id="project-add-members-tab" data-toggle="tab" href="#project-add-members" role="tab" aria-controls="project-add-members" aria-selected="false">Archivos</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade @(Global.panelTareas)" id="project-add-details" role="tabpanel">
+                <table id="tblData" class="table table-bordered table-responsive-xl">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                Actividad
+                            </th>
+                            <th>
+                                Avance
+                            </th>
+                            <th>
+                                Faltante, Comentarios
+                            </th>
+                            <th>
+                                Plan de acción
+                            </th>
+                            <th style="width:15%;"></th>
+                            <th style="width:15%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(0).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(0).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(0).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(0).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <a class="btn btn-dark form-control" asp-action="Edit" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Proceso)">Editar</a>
+                            </td>
+                            <td style="width:15%;">
+                                <a class="btn btn-dark form-control" asp-controller="Anexo1" asp-action="Edit" asp-route-id="@(Global.adc.adc.Id_ADC)">Anexo 1</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:red;">Avance total:</label>
+                            </td>
+                            <td>
+                                <label style="color:red;"><b>@(ViewBag.avance_total / Global.vista_tareas.Count()) %</b></label>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td style="width:15%;">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade @(Global.panelArchivos)" id="project-add-members" role="tabpanel">
+                <div class="content-list">
+                    <div class="row content-list-head">
+                        <div class="col-auto">
+                            <h3>Archivos</h3>
+                        </div>
+                        <form class="col-md-auto">
+                            <div class="input-group input-group-round">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="material-icons">filter_list</i>
+                                    </span>
+                                </div>
+                                <input type="search" class="form-control filter-list-input" placeholder="Filter files" aria-label="Filter Tasks">
+                            </div>
+                        </form>
+                    </div>
+                    <!--end of content list head-->
+                    <div class="content-list-body row">
+                        <div class="col">
+
+                            @model SistemaCenagas.Models.SubirArchivo
+
+                            <form asp-controller="ADCAdmin" asp-action="FileUpload" enctype="multipart/form-data">
+
+                                <div class="form-group row align-items-center">
+                                    <label class="col-2" style="text-align:right;">Seleccionar archivo:</label>
+                                    <div class="col">
+                                        <input type="hidden" asp-for="Id_ADC" value="@(Global.adc.adc.Id_ADC)" />
+                                        <input type="file" asp-for="Archivo" class="form-control" required />
+                                    </div>
+                                </div>
+                                @if (Global.SUCCESS_MSJ != null)
+                                {
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        @(Global.SUCCESS_MSJ)
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    Global.SUCCESS_MSJ = null;
+
+
+                                }
+                                <div class="modal-footer">
+                                    <button type="submit" role="button" class="btn btn-success">
+                                        Subir
+                                    </button>
+                                </div>
+                            </form>
+
+
+
+                            <ul class="list-group list-group-activity dropzone-previews flex-column-reverse">
+
+                                @foreach (var item in Global.vista_archivos)
+                                {
+                                    <li class="list-group-item">
+                                        <div class="media align-items-center">
+                                            <ul class="avatars">
+                                                <li>
+                                                    <div class="avatar bg-primary">
+                                                        <i class="material-icons">insert_drive_file</i>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <img alt="Peggy Brown" src="assets/img/user.jpeg" class="avatar" data-title="Peggy Brown" data-toggle="tooltip" data-filter-by="data-title" />
+                                                </li>
+                                            </ul>
+                                            <div class="media-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <a href="#" data-filter-by="text"> @(item.Nombre) </a>
+                                                    <br>
+                                                    <span class="text-small" data-filter-by="text">Archivo cargado</span>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <button class="btn-options" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item"
+                                                           asp-controller="ADCAdmin" asp-action="DownloadFile" asp-route-idFile="@(item.Id)">Download</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item text-danger"
+                                                           asp-controller="ADCAdmin" asp-action="DeleteFile" asp-route-idFile="@(item.Id)">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>

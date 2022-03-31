@@ -267,6 +267,42 @@ namespace SistemaCenagas.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "ADC_Archivos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_ADC = table.Column<int>(type: "int", nullable: true),
+                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Extension = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Size = table.Column<float>(type: "float", nullable: true),
+                    Ubicacion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Registro_Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ADC_Archivos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ADC_Archivos_IdADC",
+                        column: x => x.Id_ADC,
+                        principalTable: "ADC",
+                        principalColumn: "Id_ADC",
+                        onDelete: ReferentialAction.SetNull
+                    );
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "Index_ADC_Archivos_IdADC",
+                table: "ADC_Archivos",
+                column: "Id_ADC"
+                );
+
+            migrationBuilder.CreateTable(
                 name: "ADC_Procesos",
                 columns: table => new
                 {

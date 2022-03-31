@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -174,7 +176,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            return View(aDC);
+            return PartialView(aDC);
         }
 
         // POST: ADC/Delete/5
@@ -183,7 +185,9 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var aDC = await _context.ADC.FindAsync(id);
-            _context.ADC.Remove(aDC);
+
+            aDC.Registro_Eliminado = 1;
+            _context.ADC.Update(aDC);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -192,5 +196,109 @@ namespace SistemaCenagas.Controllers
         {
             return _context.ADC.Any(e => e.Id_ADC == id);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> FileUpload(SubirArchivo uploadFile)
+        {
+            //return Content("Filename: " + uploadFile.Archivo.FileName);
+            await UploadFile(uploadFile);
+            Global.SUCCESS_MSJ = "El archivo se subió correctamente!";
+            Global.panelTareas = "";
+            Global.panelArchivos = "show active";
+            return RedirectToAction("Index", "ADC_Procesos");
+        }
+        // Upload file on server
+        public async Task<bool> UploadFile(SubirArchivo upload)
+        {
+            string path = "";
+            bool iscopied = false;
+            try
+            {
+                if (upload.Archivo.Length > 0)
+                {
+
+                    ADC_Archivos archivo = new ADC_Archivos
+                    {
+                        Id_ADC = upload.Id_ADC,
+                        Clave = string.Format("[ADC-{0}]_[FILENAME-{1}]{2}", upload.Id_ADC, upload.Archivo.FileName, Path.GetExtension(upload.Archivo.FileName)),
+                        Nombre = upload.Archivo.FileName,
+                        Extension = Path.GetExtension(upload.Archivo.FileName),
+                        Size = ( upload.Archivo.Length / 1000000),
+                        Ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "UploadFiles"))
+                    };
+
+                    _context.ADC_Archivos.Add(archivo);
+                    await _context.SaveChangesAsync();
+
+
+                    //string filename = "ADC-" + Global.adc.adc.Id_ADC.ToString() + "_" + upload.Archivo.FileName + Path.GetExtension(upload.Archivo.FileName);
+                    path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "UploadFiles"));
+                    using (var filestream = new FileStream(Path.Combine(archivo.Ubicacion, archivo.Clave), FileMode.Create))
+                    {
+                        await upload.Archivo.CopyToAsync(filestream);
+                    }
+                    iscopied = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return iscopied;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DownloadFile(int idFile)
+        {
+
+            ADC_Archivos archivo = _context.ADC_Archivos.Find(idFile);
+
+            var path = archivo.Ubicacion + "\\" + archivo.Clave;
+           
+            var memoria = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memoria);
+            }
+            memoria.Position = 0;
+            var ext = archivo.Extension.ToLowerInvariant();
+
+            Global.panelTareas = "";
+            Global.panelArchivos = "show active";
+
+            return File(memoria, GetMimeTypes()[ext], archivo.Nombre);            
+            //return RedirectToAction("Index", "ADC_Procesos");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteFile(int? idFile)
+        {
+            ADC_Archivos archivo = _context.ADC_Archivos.Find(idFile);
+            _context.ADC_Archivos.Remove(archivo);
+            await _context.SaveChangesAsync();
+            Global.panelTareas = "";
+            Global.panelArchivos = "show active";
+            return RedirectToAction("Index", "ADC_Procesos");
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".txt", "text/plain" },
+                {".pdf", "application/pdf" },
+                {".doc", "application/vnd.ms-word" },
+                {".docx", "application/vnd.ms-word" },
+                {".xls", "application/vnd.ms-excel" },
+                {".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                {".png", "image/png" },
+                {".jpg", "image/jpg" },
+                {".jpeg", "image/jpeg" },
+                {".gif", "image/gif" },
+                {".csv", "image/csv" }
+
+            };
+        }
+
     }
 }

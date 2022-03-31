@@ -72,12 +72,15 @@ namespace SistemaCenagas
                     join r in context.Residencias on a.Id_Residencia equals r.Id_Residencia
                     join g in context.Gasoductos on a.Ut_Gasoducto equals g.Ut_Gasoducto
                     join t in context.Tramos on a.Ut_Tramo equals t.Ut_Tramo
-                    where a.Registro_Eliminado == 0 && a.Id_PropuestaCambio == id_adc
+                    join i in context.Instalaciones on t.Ut_Tramo equals i.Ut_Tramo
+                    where a.Registro_Eliminado == 0 && a.Id_PropuestaCambio == id_adc && 
+                          i.Ut_Tramo.Equals(a.Ut_Tramo) && i.Residencia.Equals(t.Residencia)
                     select new Global.V_Anexo1
                     {
                         anexo1 = a,
                         proyecto = p.Nombre,
                         residencia = r.Nombre,
+                        instalacion = i.Instalacion,
                         gasoducto = g.Gasoducto,
                         tramo = t.Tramo
 
@@ -136,6 +139,33 @@ namespace SistemaCenagas
                     avance_Pre = 0,
                     avance_Fisico = 0
                 }).ToList();
+        }
+
+        public static IEnumerable<ADC_Archivos> VistaArchivosADC(ApplicationDbContext context, int Id_ADC)
+        {
+            return context.ADC_Archivos.Where(a => a.Registro_Eliminado == 0 && a.Id_ADC == Id_ADC).ToList();
+        }
+
+        
+        public static IEnumerable<Gasoductos> getGasoductos(ApplicationDbContext context, string residencia)
+        {
+            return (from g in context.Gasoductos
+                    join t in context.Tramos on g.Ut_Gasoducto equals t.Ut_Gasoducto
+                    where t.Residencia.Equals(residencia)
+                    select new Gasoductos { 
+                        Ut_Gasoducto = g.Ut_Gasoducto,
+                        Gasoducto = g.Gasoducto
+                    }).Distinct().ToList();
+        }
+        public static IEnumerable<Tramos> getTramos(ApplicationDbContext context, string ut_gasoducto)
+        {
+            return (from g in context.Gasoductos
+                    join t in context.Tramos on g.Ut_Gasoducto equals t.Ut_Gasoducto
+                    where t.Ut_Gasoducto.Equals(ut_gasoducto)
+                    select new Tramos { 
+                        Ut_Tramo = t.Ut_Tramo,
+                        Tramo = t.Tramo
+                    }).Distinct().ToList();
         }
 
 
