@@ -108,15 +108,60 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC = await _context.ADC.FindAsync(id);
-            if (aDC == null)
+            /*Global.vista_usuarios = Consultas.VistaUsuarios(_context)
+                .Where(u => u.user.Id_Rol <= 4 && u.user.Registro_Eliminado == 0).ToList();
+            Model_EquipoVerificadorADC model = new Model_EquipoVerificadorADC();
+            model.miembros = new List<string>();
+            model.idMiembro = new List<int>();
+            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+            {
+                model.miembros.Add("false");
+                model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id_Usuario);
+            }*/
+
+            Global.adc.adc = await _context.ADC.FindAsync(id);
+
+            Global.equipoVerificador = Consultas.VistaEquipoVerificadorADC(_context, Global.adc.adc.Id_ADC);
+
+            
+
+            Model_EquipoVerificadorADC model = new Model_EquipoVerificadorADC();
+            model.adc = Global.adc.adc;
+            model.miembros = new List<string>();
+            model.idMiembro = new List<int>();
+
+            Global.vista_usuarios = Consultas.VistaUsuarios(_context)
+                .Where(u => u.user.Id_Rol <= 4 && u.user.Registro_Eliminado == 0).ToList();
+
+            
+
+            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+            {
+                model.miembros.Add("false");
+                model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id_Usuario);
+
+                for (int j = 0; j < Global.equipoVerificador.Count(); j++)
+                {
+                    if (Global.vista_usuarios.ElementAt(i).user.Id_Usuario == Global.equipoVerificador.ElementAt(j).ev.Id_Usuario &&
+                        Global.equipoVerificador.ElementAt(j).ev.Estatus.Equals("Agregado"))
+                    {
+                        model.miembros[i] = "true";
+                        break;
+                    }
+                }
+            }
+
+            model.adc = await _context.ADC.FindAsync(id);
+            if (model.adc == null)
             {
                 return NotFound();
             }
 
             Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
 
-            return PartialView(aDC);
+            
+
+            return PartialView(model);
         }
 
         // POST: ADC/Edit/5
@@ -124,9 +169,9 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ADC aDC)
+        public async Task<IActionResult> Edit(int id, Model_EquipoVerificadorADC model)
         {
-            if (id != aDC.Id_ADC)
+            if (id != model.adc.Id_ADC)
             {
                 return NotFound();
             }
@@ -135,9 +180,41 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    //return Content(JsonConvert.SerializeObject(aDC));
-                    _context.Update(aDC);
+                    model.adc.Registro_Eliminado = 0;
+                    _context.Update(model.adc);
                     await _context.SaveChangesAsync();
+
+                    for (int i = 0; i < model.miembros.Count(); i++)
+                    {
+                        ADC_EquipoVerificador p = _context.ADC_EquipoVerificador
+                            .Where(p => p.Id_ADC == model.adc.Id_ADC &&
+                                        p.Id_Usuario == model.idMiembro[i]).FirstOrDefault();
+
+
+                        if (p != null)
+                        {
+                            p.Id_ADC = model.adc.Id_ADC;
+                            p.Id_Usuario = model.idMiembro[i];
+                            p.Estatus = (model.miembros[i].Equals("true") ? "Agregado" : "Eliminado");
+                            _context.Update(p);
+                            //return Content(JsonConvert.SerializeObject(p));
+
+                        }
+                        else if (model.miembros[i].Equals("true"))
+                        {
+                            ADC_EquipoVerificador pm = new ADC_EquipoVerificador
+                            {
+                                Id_ADC = model.adc.Id_ADC,
+                                Id_Usuario = model.idMiembro[i],
+                                Estatus = "Agregado"
+                            };
+                            _context.Add(pm);
+                            //return Content(JsonConvert.SerializeObject(pm));
+                        }
+                        await _context.SaveChangesAsync();
+                    }
+
+
 
                     ADC adc = _context.ADC.Where(a => a.Id_ADC == Global.adc.adc.Id_ADC).FirstOrDefault();
                     adc.Fecha_Actualizacion = DateTime.Now.ToString();
@@ -147,7 +224,7 @@ namespace SistemaCenagas.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ADCExists(aDC.Id_ADC))
+                    if (!ADCExists(model.adc.Id_ADC))
                     {
                         return NotFound();
                     }
@@ -158,7 +235,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return PartialView(aDC);
+            return PartialView(model);
         }
 
         // GET: ADC/Delete/5
