@@ -49,7 +49,7 @@ namespace SistemaCenagas.Controllers
         {
 
             ViewBag.fecha = DateTime.Now.ToString();
-            return View();
+            return PartialView();
         }
 
         // POST: Anexo1/Create
@@ -101,7 +101,7 @@ namespace SistemaCenagas.Controllers
 
                 return RedirectToAction("Index", "ADC_Procesos");
             }
-            return View(anexo1);
+            return PartialView(anexo1);
         }
 
         // GET: Anexo1/Edit/5
@@ -119,7 +119,7 @@ namespace SistemaCenagas.Controllers
 
             Global.tarea = Consultas.VistaTareas(_context)
                 .Where(t => t.proceso.Id_ADC == id).FirstOrDefault();
-            return View(anexo1);
+            return PartialView(anexo1);
         }
 
         // POST: Anexo1/Edit/5
@@ -178,7 +178,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction("Index", "ADC_Procesos");
             }
-            return View(anexo1);
+            return PartialView(anexo1);
         }
 
         // GET: Anexo1/Delete/5

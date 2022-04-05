@@ -69,6 +69,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Usuarios usuario)
         {
+            //return Content(JsonConvert.SerializeObject(usuario));
             if (ModelState.IsValid)
             {
                 usuario.Email = usuario.Username + "@cenagas.gob.mx";

@@ -4,102 +4,74 @@
     ViewData["Title"] = "Edit";
 }
 
-<div class="main-container">
-
-    <div class="navbar bg-white breadcrumb-bar">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a asp-controller="ADC_Normativas" asp-action="Index">Normativas</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Editar</li>
-            </ol>
-        </nav>
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">
-                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
-                </li>
-            </ol>
-        </nav>
-
-    </div>
-    <div class="container">
-        <div class="page-header mb-4">
-            <div class="media">
-                <div class="media-body ml-3">
-                    <h3 class="mb-0">Editar normativa</h3>
-                </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="editarNormativa-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar normativa</h5>
+                <a asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
-                        <!--end of avatar-->
-                        <form asp-action="Edit">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Id_Normativa" />
-                            <input type="hidden" asp-for="Id_Actividad" />
-                            <input type="hidden" asp-for="Clave"/>
-                            <input type="hidden" asp-for="Registro_Eliminado" value="0" />
-                            <div class="form-group row align-items-center">
-                                <label asp-for="Clave" class="col-2" style="text-align:right;">Nombre de la actividad</label>
-                                <div class="col">
-                                    <input type="text" disabled asp-for="Clave" class="form-control" required />
-                                </div>
-                                <span asp-validation-for="Clave" class="text-danger"></span>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label asp-for="Responsable" class="col-2" style="text-align:right;">Responsable</label>
-                                <div class="col">
-                                    <select asp-for="Responsable" class="form-control" required>
-                                        <option>Proponente del cambio</option>
-                                        <option>Director ejecutivo y/o residente</option>
-                                        <option>Responsable de la administración del cambio</option>
-                                        <option>Lider del equipo verificador</option>
-                                        <option>Equipo verificador</option>
-                                    </select>
-                                </div>
-                                <span asp-validation-for="Responsable" class="text-danger"></span>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label asp-for="Descripcion" class="col-2" style="text-align:right;">Descripción</label>
-                                <div class="col">
-                                    <textarea type="text" asp-for="Descripcion" class="form-control" required></textarea>
-                                </div>
-                                <span asp-validation-for="Descripcion" class="text-danger"></span>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label asp-for="Id_Anexo" class="col-2" style="text-align:right;">Anexo</label>
-                                <div class="col">
-                                    <select asp-for="Id_Anexo" class="form-control" required>
-                                        @foreach (var a in Global.anexos)
-                                        {
-                                            <option value="@(a.Id_Anexo)">@(a.Nombre)</option>
-                                        }
-                                    </select>
-                                </div>
-                                <span asp-validation-for="Id_Anexo" class="text-danger"></span>
-                            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
 
-                            <hr>
-                            <div class="form-group row align-items-center">
-                                <div class="col-5">
-                                    <input type="submit" value="Guardar" class="btn btn-primary" />
-                                    <a class="btn btn-danger" asp-action="Index">Cancelar</a>
-                                </div>
-                            </div>
-                        </form>
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id_Normativa" />
+                    <input type="hidden" asp-for="Id_Actividad" />
+                    <input type="hidden" asp-for="Clave" />
+                    <input type="hidden" asp-for="Registro_Eliminado" value="0" />
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Clave" class="col-2" style="text-align:right;">Nombre de la actividad</label>
+                        <div class="col">
+                            <input type="text" disabled asp-for="Clave" class="form-control" required />
+                        </div>
+                        <span asp-validation-for="Clave" class="text-danger"></span>
                     </div>
-                </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Responsable" class="col-2" style="text-align:right;">Responsable</label>
+                        <div class="col">
+                            <select asp-for="Responsable" class="form-control" required>
+                                <option>Proponente del cambio</option>
+                                <option>Director ejecutivo y/o residente</option>
+                                <option>Responsable de la administración del cambio</option>
+                                <option>Lider del equipo verificador</option>
+                                <option>Equipo verificador</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Responsable" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Descripcion" class="col-2" style="text-align:right;">Descripción</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="Descripcion" class="form-control" required></textarea>
+                        </div>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Id_Anexo" class="col-2" style="text-align:right;">Anexo</label>
+                        <div class="col">
+                            <select asp-for="Id_Anexo" class="form-control" required>
+                                @foreach (var a in Global.anexos)
+                                {
+                                    <option value="@(a.Id_Anexo)">@(a.Nombre)</option>
+                                }
+                            </select>
+                        </div>
+                        <span asp-validation-for="Id_Anexo" class="text-danger"></span>
+                    </div>
+                    <hr>
+                    <div class="modal-footer">
+                        <button role="button" class="btn btn-success" type="submit">
+                            Guardar
+                        </button>
+                        <a class="btn btn-dark" asp-action="Index">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

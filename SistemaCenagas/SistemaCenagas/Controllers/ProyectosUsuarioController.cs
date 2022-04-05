@@ -58,7 +58,7 @@ namespace SistemaCenagas.Controllers
             model_ProyectoMiembro.miembros = new List<string>();
             model_ProyectoMiembro.idMiembro = new List<int>();
 
-            return View(model_ProyectoMiembro);
+            return PartialView(model_ProyectoMiembro);
         }
 
         // GET: ProyectosUsuario/Create
@@ -96,7 +96,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-            return View(proyectos);
+            return PartialView(proyectos);
         }
 
         // POST: ProyectosUsuario/Edit/5
@@ -131,7 +131,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(proyectos);
+            return PartialView(proyectos);
         }
 
         // GET: ProyectosUsuario/Delete/5

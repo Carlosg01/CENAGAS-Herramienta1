@@ -43,10 +43,6 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                 <li class="nav-item">
                     <a class="nav-link" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">Notificaciones</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" id="integrations-tab" data-toggle="tab" href="#integrations" role="tab" aria-controls="integrations" aria-selected="false">Integraciones</a>
-                </li>
             </ul>
         </div>
         <div class="col-xl-8 col-lg-9">
@@ -54,20 +50,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane fade show active" role="tabpanel" id="profile">
-                            <div class="media mb-4">
-                                <img alt="Image" src="assets/img/avatar-male-4.jpg" class="avatar avatar-lg" />
-                                <div class="media-body ml-3">
-                                    <div class="custom-file custom-file-naked d-block mb-1">
-                                        <input type="file" class="custom-file-input d-none" id="avatar-file">
-                                        <label class="custom-file-label position-relative" for="avatar-file">
-                                            <span class="btn btn-primary">
-                                                Subir foto
-                                            </span>
-                                        </label>
-                                    </div>
-                                    <small>Para obtener mejores resultados, use una imagen de al menos 256 px por 256 px en formato .jpg o .png</small>
-                                </div>
-                            </div>
+                            
                             <!--end of avatar-->
                             <form asp-controller="Home" asp-action="UpdateAccountSettings">
                                 <div class="form-group row align-items-center">
@@ -324,93 +307,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
 
                             </form>
                         </div>
-                        <div class="tab-pane fade" role="tabpanel" id="integrations">
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <div class="media align-items-center">
-                                                <img alt="Image" src="assets/img/logo-integration-slack.svg" />
-                                                <div class="media-body ml-2">
-                                                    <span class="h6 mb-0 d-block">Slack</span>
-                                                    <span class="text-small text-muted">Permisos: Lectura, Escritura, Ambos</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-sm btn-danger">
-                                                Revocar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <div class="media align-items-center">
-                                                <img alt="Image" src="assets/img/logo-integration-dropbox.svg" />
-                                                <div class="media-body ml-2">
-                                                    <span class="h6 mb-0 d-block">Dropbox</span>
-                                                    <span class="text-small text-muted">Permisos: Lectura, Escritura, Ambos</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-sm btn-danger">
-                                                Revocar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <div class="media align-items-center">
-                                                <img alt="Image" src="assets/img/logo-integration-drive.svg" />
-                                                <div class="media-body ml-2">
-                                                    <span class="h6 mb-0 d-block">Google Drive</span>
-                                                    <span class="text-small text-muted">Permisos: Lectura, Escritura, Ambos</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-sm btn-danger">
-                                                Revocar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <div class="media align-items-center">
-                                                <img alt="Image" src="assets/img/logo-integration-trello.svg" />
-                                                <div class="media-body ml-2">
-                                                    <span class="h6 mb-0 d-block">Trello</span>
-                                                    <span class="text-small text-muted">Permisos: Lectura, Escritura, Ambos</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-sm btn-danger">
-                                                Revocar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                        
                     </div>
                 </div>
             </div>

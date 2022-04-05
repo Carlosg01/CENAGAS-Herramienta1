@@ -96,7 +96,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-            return View(aDC_Actividades);
+            return PartialView(aDC_Actividades);
         }
 
         // POST: ADC_Actividades/Edit/5
@@ -131,7 +131,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aDC_Actividades);
+            return PartialView(aDC_Actividades);
         }
 
         // GET: ADC_Actividades/Delete/5

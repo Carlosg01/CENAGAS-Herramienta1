@@ -1,79 +1,39 @@
-﻿@model SistemaCenagas.Models.Proyectos
+﻿@model SistemaCenagas.Models.ADC
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<div class="main-container">
-
-    <div class="navbar bg-white breadcrumb-bar">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a asp-controller="ProyectosAdmin" asp-action="Index">Proyectos</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Eliminar</li>
-            </ol>
-        </nav>
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">
-                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
-                </li>
-            </ol>
-        </nav>
-
-    </div>
-    <div class="container">
-        <div class="page-header mb-4">
-            <div class="media">
-                <div class="media-body ml-3">
-                    <h3 class="mb-0">Eliminar proyecto</h3>
-                </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="eliminarADCUsuario-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar ADC</h5>
+                <a asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="tab-content">
-                    <label class="control-label"><b>¿Estás seguro de eliminar este proyecto?</b></label>
-                    <hr>
-                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
-                        <!--end of avatar-->
-                        <dl class="row">
-                            <dt class="col-sm-4">
-                                @Html.DisplayNameFor(model => model.Clave)
-                            </dt>
-                            <dd class="col-sm-8">
-                                @Html.DisplayFor(model => model.Clave)
-                            </dd>
-                            <hr>
-                            <dt class="col-sm-4">
-                                @Html.DisplayNameFor(model => model.Nombre)
-                            </dt>
-                            <dd class="col-sm-8">
-                                @Html.DisplayFor(model => model.Nombre)
-                            </dd>
-                            <hr>
-                            <dt class="col-sm-4">
-                                @Html.DisplayNameFor(model => model.Descripcion)
-                            </dt>
-                            <dd class="col-sm-8">
-                                @Html.DisplayFor(model => model.Descripcion)
-                            </dd>
-                            <hr>
-                        </dl>
-                        <hr>
-                        <form asp-action="Delete">
-                            <input type="hidden" asp-for="Id_Proyecto" />
-                            <input type="submit" value="Eliminar" class="btn btn-danger" />
-                            <a class="btn btn-success" asp-action="Index">Cancelar</a>
-                        </form>
+            <!--end of modal head-->
+            <div class="modal-body">
+
+                <form asp-action="Delete">
+                    <div class="card card-note">
+                        <div class="card-body">
+                            <p>¿Estás seguro de eliminar este ADC?</p>
+                        </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <input type="hidden" asp-for="Id_ADC" />
+                        <button role="button" class="btn btn-danger" type="submit">
+                            Eliminar
+                        </button>
+                        <a class="btn btn-dark" asp-action="Index">
+                            Cancelar
+                        </a>
+                    </div>
+
+                </form>
+
             </div>
         </div>
     </div>

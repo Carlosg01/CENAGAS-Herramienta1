@@ -84,7 +84,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-            return View(aDC_Normativas);
+            return PartialView(aDC_Normativas);
         }
 
         // POST: ADC_Normativas/Edit/5
@@ -119,7 +119,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aDC_Normativas);
+            return PartialView(aDC_Normativas);
         }
 
         // GET: ADC_Normativas/Delete/5

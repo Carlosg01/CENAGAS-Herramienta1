@@ -71,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @foreach (var item in Global.vista_usuarios)
                     {
                         @if (item.user.Registro_Eliminado == 0)
@@ -91,21 +91,21 @@
                                 </td>
                                 <td>
                                     <button class="btn btn-round" title="Editar"
-                                       data-toggle="modal" data-target="#editarUsuario-modal" data-url="@Url.Action($"Edit/{item.user.Id_Usuario}")">
+                                            data-toggle="modal" data-target="#editarUsuario-modal" data-url="@Url.Action($"Edit/{item.user.Id_Usuario}")">
                                         <span data-title="" class="material-icons">edit</span>
                                     </button>
                                 </td>
                                 <td>
                                     <button class="btn btn-round" title="Detalles"
-                                       data-toggle="modal" data-target="#detallesUsuario-modal" data-url="@Url.Action($"Details/{item.user.Id_Usuario}")">
+                                            data-toggle="modal" data-target="#detallesUsuario-modal" data-url="@Url.Action($"Details/{item.user.Id_Usuario}")">
                                         <span data-title="" class="material-icons">assignment</span>
                                     </button>
                                 </td>
                                 <td>
                                     <button class="btn btn-round" title="Eliminar"
-                                       data-toggle="modal" data-target="#eliminarUsuario-modal" data-url="@Url.Action($"Delete/{item.user.Id_Usuario}")">
+                                            data-toggle="modal" data-target="#eliminarUsuario-modal" data-url="@Url.Action($"Delete/{item.user.Id_Usuario}")">
                                         <span data-title="" class="material-icons">delete</span>
-                                    </button>                                    
+                                    </button>
                                 </td>
                             </tr>
                         }
@@ -117,7 +117,12 @@
         }
         else
         {
-            <label class="control-label">No hay usuarios disponibles</label>
+            <div class="card card-note">
+
+                <div class="card-body">
+                    <p>No hay usuarios disponibles</p>
+                </div>
+            </div>
         }
 
     </div>

@@ -150,7 +150,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            return View(aDC);
+            return PartialView(aDC);
         }
 
         // POST: ADC/Delete/5
@@ -159,7 +159,8 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var aDC = await _context.ADC.FindAsync(id);
-            _context.ADC.Remove(aDC);
+            aDC.Registro_Eliminado = 1;
+            _context.ADC.Update(aDC);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -116,7 +116,7 @@ namespace SistemaCenagas.Controllers
 
             Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
 
-            return View(aDC);
+            return PartialView(aDC);
         }
 
         // POST: ADC/Edit/5
@@ -158,7 +158,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aDC);
+            return PartialView(aDC);
         }
 
         // GET: ADC/Delete/5
