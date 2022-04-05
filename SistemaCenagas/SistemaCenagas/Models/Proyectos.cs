@@ -10,13 +10,8 @@ namespace SistemaCenagas.Models
     {
         [Key]
         public int Id_Proyecto { get; set; }
-
-        [MaxLength(20)]
         public string Clave { get; set; }
-
-        [MaxLength(300)]
         public string Nombre { get; set; }
-
         public string Descripcion { get; set; }
         public string Estado_ADC { get; set; }
         public int Registro_Eliminado { get; set; }

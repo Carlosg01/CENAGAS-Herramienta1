@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace SistemaCenagas.Models
 {
-    public class Residencias
+    public class Anexo3
     {
         [Key]
+        public int Id_Anexo3 { get; set; }
+        public int Id_ADC { get; set; }
+        public string Tipo_Cambio { get; set; }
         public int Id_Residencia { get; set; }
-        public string Nombre { get; set; }
-        public int Registro_Eliminado { get; set; }
+        public int Id_Lider { get; set; }
+
     }
 }

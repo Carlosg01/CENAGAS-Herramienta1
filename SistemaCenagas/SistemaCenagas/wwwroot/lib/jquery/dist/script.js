@@ -1,4 +1,7 @@
 ﻿
+
+
+
 var placeholderElement = $("#PlaceHolderHere");
 $('button[data-toggle="modal"]').click(function (event) {
     //alert("ALERT 1");
@@ -12,6 +15,7 @@ $('button[data-toggle="modal"]').click(function (event) {
         //alert("ALERT 3");
     });
 });
+
 
 
 

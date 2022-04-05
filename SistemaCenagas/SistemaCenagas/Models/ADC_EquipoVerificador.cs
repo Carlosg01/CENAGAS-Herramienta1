@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace SistemaCenagas.Models
 {
-    public class Residencias
+    public class ADC_EquipoVerificador
     {
         [Key]
-        public int Id_Residencia { get; set; }
-        public string Nombre { get; set; }
-        public int Registro_Eliminado { get; set; }
+        public int Id { get; set; }
+        public int Id_ADC { get; set; }
+        public int Id_Usuario { get; set; }
+        public string Estatus { get; set; }
     }
 }
