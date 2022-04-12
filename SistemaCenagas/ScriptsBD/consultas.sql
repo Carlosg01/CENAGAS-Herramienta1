@@ -20,9 +20,4 @@ select * from roles;
 select * from adc_actividades;
 select * from adc_normativas;
 
-
-
-
-
-
-
+select * from adc_equipoverificador

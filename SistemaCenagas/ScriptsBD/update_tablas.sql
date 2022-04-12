@@ -1,6 +1,9 @@
 use cenagas;
 update roles set registro_eliminado = 0;
 update usuarios set registro_eliminado = 0;
+update usuarios set Notificacion_Proyecto = 'false';
+update usuarios set Notificacion_Tarea = 'false';
+update usuarios set Notificacion_ADC = 'false';
 update anexos set registro_eliminado = 0;
 update residencias set registro_eliminado = 0;
 update gasoductos set registro_eliminado = 0;

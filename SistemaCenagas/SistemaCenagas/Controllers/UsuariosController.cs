@@ -115,8 +115,23 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    usuario.Email = usuario.Username + "@cenagas.gob.mx";
+                    usuario.Email = usuario.Username + (usuario.Username.Equals("ahdzt.97") ? "@gmail.com" : "@cenagas.gob.mx");
 
+                    if (usuario.Id_Rol == 2)
+                    {
+                        Global.lideres = _context.Usuarios
+                            .Where(u => u.Id_Rol == 2 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+                    }
+                    if (usuario.Id_Rol == 3)
+                    {
+                        Global.responsablesADC = _context.Usuarios
+                            .Where(u => u.Id_Rol == 3 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+                    }
+                    if (usuario.Id_Rol == 4)
+                    {
+                        Global.suplentes = _context.Usuarios
+                            .Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+                    }
                     //return Content(JsonConvert.SerializeObject(usuario));
 
                     _context.Update(usuario);

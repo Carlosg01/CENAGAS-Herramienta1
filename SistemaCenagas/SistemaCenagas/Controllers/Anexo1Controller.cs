@@ -76,6 +76,48 @@ namespace SistemaCenagas.Controllers
                     Fecha_Actualizacion = anexo1.Fecha,
                     Registro_Eliminado = 0
                 };
+
+                Proyectos proyecto = _context.Proyectos.Find(adc.Id_Proyecto);
+                Usuarios user = _context.Usuarios.Find(adc.Id_ProponenteCambio);
+
+                //Notificacion por email a proponente de cambio
+                try
+                {                       
+                    //verificar si el usuario tiene activo las notificaciones de proyecto
+                    if (user.Notificacion_ADC.Equals("true"))
+                    {
+                        string emailText = $"<h1>Proyecto: <b>{proyecto.Nombre}</b></h1>" +
+                        $"<p>Haz realizado una solicitud de cambio para el proyecto <b>{proyecto.Nombre}</b></p>" +
+                        "<p>Inicia sesión en tu cuenta y revisa tu lista de propuestas de cambio para ver los detalles.</p>";
+
+                        ServicioEmail.SendEmailNotification(user, "Proponente de cambio", emailText);
+                    }
+
+                }
+                catch (Exception ex){}
+
+                //Notificacion por email a los administradores
+                IEnumerable<Usuarios> administradores = _context.Usuarios.Where(a => a.Id_Rol >= 5).ToList();
+                foreach (var admin in administradores)
+                {
+                    try
+                    {
+                        if (admin.Notificacion_ADC.Equals("true"))
+                        {
+                            string emailText = $"<h1>Proyecto: <b>{proyecto.Nombre}</b></h1>" +
+                            $"<p>Se ha realizado una nueva solicitud de cambio para el proyecto <b>{proyecto.Nombre}</b> por el siguiente usuario:</p><hr>" +
+                            $"<p>Nombre: {user.Nombre} {user.Paterno} {user.Materno}</p><hr>" +
+                            $"<p>Nombre de usuario: {user.Username}</p><hr>" +
+                            $"<p>Email: {user.Email}</p><hr><hr>" +
+                            "<p>Inicia sesión en tu cuenta y revisa tu lista de propuestas de cambio para ver los detalles.</p>";
+
+                            ServicioEmail.SendEmailNotification(admin, "Nueva solicitud de cambio", emailText);
+                        }
+                    }
+                    catch (Exception ex) { }
+                    
+                }
+
                 _context.Add(adc);
 
                 await _context.SaveChangesAsync();

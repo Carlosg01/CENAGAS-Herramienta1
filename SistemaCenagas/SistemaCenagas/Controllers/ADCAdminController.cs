@@ -119,10 +119,9 @@ namespace SistemaCenagas.Controllers
                 model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id_Usuario);
             }*/
 
-            Global.adc.adc = await _context.ADC.FindAsync(id);
+            /*Global.adc.adc = await _context.ADC.FindAsync(id);
 
             Global.equipoVerificador = Consultas.VistaEquipoVerificadorADC(_context, Global.adc.adc.Id_ADC);
-
             
 
             Model_EquipoVerificadorADC model = new Model_EquipoVerificadorADC();
@@ -149,19 +148,18 @@ namespace SistemaCenagas.Controllers
                         break;
                     }
                 }
-            }
+            }*/
 
-            model.adc = await _context.ADC.FindAsync(id);
-            if (model.adc == null)
+            //Global.adc.adc = await _context.ADC.FindAsync(id);
+
+            Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+
+            if (Global.adc.adc == null)
             {
                 return NotFound();
             }
 
-            Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
-
-            
-
-            return PartialView(model);
+            return PartialView(Global.adc.adc);
         }
 
         // POST: ADC/Edit/5
@@ -169,9 +167,9 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Model_EquipoVerificadorADC model)
+        public async Task<IActionResult> Edit(int id, ADC model)
         {
-            if (id != model.adc.Id_ADC)
+            if (id != model.Id_ADC)
             {
                 return NotFound();
             }
@@ -180,11 +178,73 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    model.adc.Registro_Eliminado = 0;
-                    _context.Update(model.adc);
+                    Usuarios user;
+                    Proyectos proyecto = _context.Proyectos.Find(model.Id_Proyecto);
+
+                    if(model.Id_Lider != 1)
+                    {
+                        //Notificacion por email a proponente de cambio
+                        try
+                        {
+                            user = _context.Usuarios.Find(model.Id_Lider);
+                            //verificar si el usuario tiene activo las notificaciones de proyecto
+                            if (user.Notificacion_ADC.Equals("true"))
+                            {
+                                string emailText = $"<h1>Proyecto: <b>{proyecto.Nombre}</b></h1>" +
+                                $"<p>Se te ha asignado el rol de <b>Lider de ADC</b> para el proyecto <b>{proyecto.Nombre}</b> por parte del administrador</p>" +
+                                "<p>Inicia sesión en tu cuenta y revisa tu lista de ADC a cargo para ver los detalles.</p>";
+
+                                ServicioEmail.SendEmailNotification(user, "Líder de ADC", emailText);
+                            }
+
+                        }
+                        catch (Exception ex) { }
+                    }
+                    if (model.Id_ResponsableADC != 1)
+                    {
+                        //Notificacion por email a proponente de cambio
+                        try
+                        {
+                            user = _context.Usuarios.Find(model.Id_ResponsableADC);
+                            //verificar si el usuario tiene activo las notificaciones de proyecto
+                            if (user.Notificacion_ADC.Equals("true"))
+                            {
+                                string emailText = $"<h1>Proyecto: <b>{proyecto.Nombre}</b></h1>" +
+                                $"<p>Se te ha asignado el rol de <b>Responsable de ADC</b> para el proyecto <b>{proyecto.Nombre}</b> por parte del líder del ADC</p>" +
+                                "<p>Inicia sesión en tu cuenta y revisa tu lista de ADC a cargo para ver los detalles.</p>";
+
+                                ServicioEmail.SendEmailNotification(user, "Responsable de ADC", emailText);
+                            }
+
+                        }
+                        catch (Exception ex) { }
+                    }
+                    if (model.Id_Lider != 1)
+                    {
+                        //Notificacion por email a proponente de cambio
+                        try
+                        {
+                            user = _context.Usuarios.Find(model.Id_Suplente);
+                            //verificar si el usuario tiene activo las notificaciones de proyecto
+                            if (user.Notificacion_ADC.Equals("true"))
+                            {
+                                string emailText = $"<h1>Proyecto: <b>{proyecto.Nombre}</b></h1>" +
+                                $"<p>Se te ha asignado el rol de <b>Suplente de ADC</b> para el proyecto <b>{proyecto.Nombre}</b> por parte del líder del ADC</p>" +
+                                "<p>Inicia sesión en tu cuenta y revisa tu lista de ADC a cargo para ver los detalles.</p>";
+
+                                ServicioEmail.SendEmailNotification(user, "Suplente de ADC", emailText);
+                            }
+
+                        }
+                        catch (Exception ex) { }
+                    }
+
+
+                    model.Registro_Eliminado = 0;
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
 
-                    for (int i = 0; i < model.miembros.Count(); i++)
+                    /*for (int i = 0; i < model.miembros.Count(); i++)
                     {
                         ADC_EquipoVerificador p = _context.ADC_EquipoVerificador
                             .Where(p => p.Id_ADC == model.adc.Id_ADC &&
@@ -212,7 +272,7 @@ namespace SistemaCenagas.Controllers
                             //return Content(JsonConvert.SerializeObject(pm));
                         }
                         await _context.SaveChangesAsync();
-                    }
+                    }*/
 
 
 
@@ -224,7 +284,7 @@ namespace SistemaCenagas.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ADCExists(model.adc.Id_ADC))
+                    if (!ADCExists(model.Id_ADC))
                     {
                         return NotFound();
                     }

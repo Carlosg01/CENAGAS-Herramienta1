@@ -16,6 +16,34 @@
             submit_usuario.disabled = false;
         }
     });
+
+    function soloLetras(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toLowerCase();
+        letras = " áéíóúabcdefghijklmnñopqrstuvwxyz0123456789";
+        especiales = [8, 46, 95];
+
+        tecla_especial = false
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if (letras.indexOf(tecla) == -1 && !tecla_especial)
+            return false;
+    }
+
+    function limpia() {
+        var val = document.getElementById("miInput").value;
+        var tam = val.length;
+        for (i = 0; i < tam; i++) {
+            if (!isNaN(val[i]))
+                document.getElementById("miInput").value = '';
+        }
+    }
+
 </script>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarUsuario-modal">
@@ -33,6 +61,10 @@
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id_Usuario" />
+                    <input type="hidden" asp-for="Notificacion_Tarea" />
+                    <input type="hidden" asp-for="Notificacion_Proyecto" />
+                    <input type="hidden" asp-for="Notificacion_ADC" />
+                    <input type="hidden" asp-for="Registro_Eliminado" />
                     <div class="form-group row align-items-center">
                         <label asp-for="Nombre" class="col-2" style="text-align:right;">Nombre(s)</label>
                         <div class="col">

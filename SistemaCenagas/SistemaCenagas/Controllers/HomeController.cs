@@ -29,13 +29,14 @@ namespace SistemaCenagas.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private string EMAIL_ADDRESS, EMAIL_PASSWORD;
+        //private string EMAIL_ADDRESS, EMAIL_PASSWORD;
 
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
-            EMAIL_ADDRESS = "aihm.mytests@gmail.com";
-            EMAIL_PASSWORD = "test#12345";
+            ServicioEmail.EMAIL_ADDRESS = "aihm.mytests@gmail.com";
+            ServicioEmail.EMAIL_PASSWORD = "test#12345";
+            ServicioEmail.EMAIL_SERVER = "localhost:43366";
             
         }
 
@@ -79,8 +80,7 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction(nameof(Index));
 
             //catalogos
-            Global.roles = _context.Roles.ToList();
-            Global.anexos = _context.Anexos.ToList();
+            Global.roles = _context.Roles.Where(r => r.Id_Rol != 5).ToList();            
             Global.residencias = _context.Residencias.ToList();
             Global.lideres = _context.Usuarios
                 .Where(u => u.Id_Rol == 2 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
@@ -88,6 +88,8 @@ namespace SistemaCenagas.Controllers
                 .Where(u => u.Id_Rol == 3 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
             Global.suplentes = _context.Usuarios
                 .Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+
+            Global.anexos = _context.Anexos.ToList();
             Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
             
             Global.session = "LogIn";
@@ -126,7 +128,7 @@ namespace SistemaCenagas.Controllers
                     string emailText = "<h1>Bienvenido al sistema cenagas</h1>" +
                     "<p>Por favor confirma tu email haciendo clic en el siguiente enlace. </p>";
 
-                    SendEmail(user, "CreateAccountConfirm", "Confirma tu email para acceder", emailText);
+                    ServicioEmail.SendEmailResetPassword(user, "CreateAccountConfirm", "Confirma tu email para acceder", emailText);
 
                     return View();
                 }                    
@@ -151,7 +153,7 @@ namespace SistemaCenagas.Controllers
             string emailText = "<h1>Olvidaste tu contraseña</h1>" +
             "<p>Por favor has clic en el siguiente enlace para resetear tu contraseña. </p>";
 
-            SendEmail(user, "ResetPassword", "Verificacion para cambio de contraseña", emailText);
+            ServicioEmail.SendEmailResetPassword(user, "ResetPassword", "Verificacion para cambio de contraseña", emailText);
 
             return View();
         }
@@ -196,48 +198,6 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return View();
-        }
-
-        public string SendEmail(Usuarios user, string action, string subject, string bodyText)
-        {
-            string url = $"https://localhost:44330/Home/{action}?" + 
-                ((action.Equals("CreateAccountConfirm")) ? $"idUser={user.Id_Usuario}" : $"email={user.Email}");
-            string emailText = bodyText + $"<a href='{url}'>Clic aquí</a>";
-            string fromAddress = EMAIL_ADDRESS;
-            string password = EMAIL_PASSWORD;
-            string toAddress = user.Email;
-
-
-            try
-            {
-                using (var client = new SmtpClient())
-                {
-                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-                    client.Connect("smtp.gmail.com", 465, MailKit.Security.SecureSocketOptions.Auto);
-                    client.Authenticate(fromAddress, password);
-
-                    var body = new BodyBuilder
-                    {
-                        HtmlBody = emailText//$"<p>Body test</p>",
-                        //TextBody = emailText
-                    };
-                    var message = new MimeMessage
-                    {
-                        Body = body.ToMessageBody()
-                    };
-                    message.From.Add(new MailboxAddress("Sistema Cenagas", fromAddress));
-                    message.To.Add(new MailboxAddress("", toAddress));
-                    message.Subject = "Confirma tu email para acceder";
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
-                return "Envio exitoso! :)";
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-
         }
 
         public IActionResult LogOut()
@@ -291,7 +251,23 @@ namespace SistemaCenagas.Controllers
 
             return RedirectToAction(nameof(AccountSettings));
         }
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Notificaciones(Usuarios user)
+        {
+            /*actualiza notificaciones de usuarios*/
+            user.Id_Usuario = Global.session_usuario.user.Id_Usuario;
+            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id_Usuario);
+            consultaUsuario.Notificacion_Tarea = user.Notificacion_Tarea;
+            consultaUsuario.Notificacion_Proyecto = user.Notificacion_Proyecto;
+            consultaUsuario.Notificacion_ADC = user.Notificacion_ADC;
+            _context.Update(consultaUsuario);
+            await _context.SaveChangesAsync();
+            Global.session_usuario.user = consultaUsuario;
+
+            return RedirectToAction(nameof(AccountSettings));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

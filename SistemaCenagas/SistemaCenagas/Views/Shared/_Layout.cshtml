@@ -49,21 +49,18 @@
                         </li>
 
 
-                        @if (Global.session_usuario.user.Id_Rol <= 4)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">Proyectos</a>
-                                <div id="submenu-2" class="collapse">
-                                    <ul class="nav nav-small flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">Proyectos</a>
+                            <div id="submenu-2" class="collapse">
+                                <ul class="nav nav-small flex-column">
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Lista de proyectos</a>
-                                        </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Lista de proyectos</a>
+                                    </li>
 
-                                    </ul>
-                                </div>
-                            </li>
-                        }
+                                </ul>
+                            </div>
+                        </li>
 
 
                         <li class="nav-item">
@@ -81,12 +78,9 @@
                                                         <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista de ADC</a>
                                                     </li>
                                                 }
-                                                else
-                                                {
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
-                                                    </li>
-                                                }
+                                                <li class="nav-item">
+                                                    <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
+                                                </li>
 
                                                 @if (new List<int> { 2, 3, 4 }.Contains(Global.session_usuario.user.Id_Rol))
                                                 {
@@ -169,6 +163,7 @@
 
     <script>
         $("#example").DataTable();
+
     </script>
 
     <script type="text/javascript" src="~/lib/jquery/dist/script.js"></script>

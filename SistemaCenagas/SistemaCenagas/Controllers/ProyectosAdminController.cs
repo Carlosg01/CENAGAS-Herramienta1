@@ -100,6 +100,28 @@ namespace SistemaCenagas.Controllers
                             Id_Usuario = _proyecto.idMiembro[i],
                             Estatus = "Agregado"
                         };
+
+                        //Notificacion por email a miembro
+                        try
+                        {  
+                            Usuarios user = _context.Usuarios.Find(pm.Id_Usuario);
+
+                            //verificar si el usuario tiene activo las notificaciones de proyecto
+                            if(user.Notificacion_Proyecto.Equals("true"))
+                            {
+                                string emailText = $"<h1>Proyecto: <b>{p.Nombre}</b></h1>" +
+                                "<p>Fuiste asignado al siguiente proyecto por parte de la administración de CENAGAS.</p>" +
+                                "<p>Inicia sesión en tu cuenta y revisa la lista de proyectos para ver los detalles.</p>";
+
+                                ServicioEmail.SendEmailNotification(user, "Asignación a proyecto", emailText);
+                            }
+                            
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
+
                         _context.Add(pm);
                         await _context.SaveChangesAsync();
                     }
@@ -200,6 +222,28 @@ namespace SistemaCenagas.Controllers
                                 Estatus = "Agregado"
                             };
                             _context.Add(pm);
+                            
+                            //Notificacion por email a miembro
+                            try
+                            {
+                                Usuarios user = _context.Usuarios.Find(pm.Id_Usuario);
+
+                                //verificar si el usuario tiene activo las notificaciones de proyecto
+                                if (user.Notificacion_Proyecto.Equals("true"))
+                                {
+                                    string emailText = $"<h1>Proyecto: <b>{proyectos.proyecto.Nombre}</b></h1>" +
+                                    "<p>Fuiste asignado al siguiente proyecto por parte de la administración de CENAGAS.</p>" +
+                                    "<p>Inicia sesión en tu cuenta y revisa la lista de proyectos para ver los detalles.</p>";
+
+                                    ServicioEmail.SendEmailNotification(user, "Asignación a proyecto", emailText);
+                                }
+                                    
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+
                             //return Content(JsonConvert.SerializeObject(pm));
                         }
                         await _context.SaveChangesAsync();

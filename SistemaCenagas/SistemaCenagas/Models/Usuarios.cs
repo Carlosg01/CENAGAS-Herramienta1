@@ -25,6 +25,9 @@ namespace SistemaCenagas.Models
         public string Titulo { get; set; }
         public string Observaciones { get; set; }
         public string Image_Url { get; set; }
+        public string Notificacion_Proyecto { get; set; }
+        public string Notificacion_Tarea { get; set; }
+        public string Notificacion_ADC { get; set; }
         public int Registro_Eliminado { get; set; }
     }
 }

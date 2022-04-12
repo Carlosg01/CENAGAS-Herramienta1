@@ -141,6 +141,9 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>
+                                ID
+                            </th>
+                            <th>
                                 Actividad
                             </th>
                             <th>
@@ -157,7 +160,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!--SOLICITUD DE CAMBIO-->
                         <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(0).proceso.Id_Actividad)
+                            </td>
                             <td>
                                 <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Actividad)">
                                     @(Global.vista_tareas.ElementAt(0).actividad)
@@ -177,7 +184,7 @@
                                         data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(0).proceso.Id_Proceso}")">
                                     <span class="material-icons">edit</span>
                                 </button>
-                                
+
                             </td>
                             <td style="width:15%;">
                                 <button class="btn btn-dark" title="Detalles"
@@ -186,7 +193,44 @@
                                 </button>
                             </td>
                         </tr>
+                        <!--ANALISIS DE LA PROPUESTA DE CAMBIO>
                         <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(1).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(1).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(1).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(1).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(1).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(1).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(1).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-dark" title="Detalles"
+                                        data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                                    <span>Anexo 3</span>
+                                </button>
+                            </td>
+                        </tr-->                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                            </td>
                             <td>
                                 <label style="color:red;">Avance total:</label>
                             </td>
@@ -199,8 +243,10 @@
                             </td>
                             <td style="width:15%;">
                             </td>
+                            <td style="width:15%;">
+                            </td>
                         </tr>
-                    </tbody>
+                    </tfoot>
                 </table>
             </div>
 
@@ -286,10 +332,10 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <a class="dropdown-item"
-                                                           asp-controller="ADCAdmin" asp-action="DownloadFile" asp-route-idFile="@(item.Id)">Download</a>
+                                                           asp-controller="ADCAdmin" asp-action="DownloadFile" asp-route-idFile="@(item.Id)">Descargar</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item text-danger"
-                                                           asp-controller="ADCAdmin" asp-action="DeleteFile" asp-route-idFile="@(item.Id)">Delete</a>
+                                                           asp-controller="ADCAdmin" asp-action="DeleteFile" asp-route-idFile="@(item.Id)">Eliminar</a>
                                                     </div>
                                                 </div>
                                             </div>

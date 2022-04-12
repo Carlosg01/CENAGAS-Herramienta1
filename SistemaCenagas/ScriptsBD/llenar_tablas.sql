@@ -15,12 +15,17 @@ insert into roles (nombre) values
 #delete from usuarios where Id_Usuario = 6
 #update usuarios set Estatus = 'Habilitado' where Id_Usuario = 1
 insert into usuarios (Username, Email, Password, Id_Rol, Estatus) values
-('admin', 'admin@cenagas.gob.mx', '123', 5, 'Habilitado');
+('superadmin', 'superadmin@cenagas.gob.mx', '123', 5, 'Habilitado'),
+('admin', 'admin@cenagas.gob.mx', '123', 6, 'Habilitado');
 insert into usuarios (Username, Email, Password, Id_Rol, Estatus, Nombre, Paterno, Materno, Titulo, Observaciones) values
+('ahdzt.97', 'ahdzt.97@gmail.com', '123', 2, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A'),
 ('carlosg', 'carlosg@cenagas.gob.mx', '123', 2, 'Habilitado', 'carlos', 'g', 'g', 'Ingeniero', 'N/A'),
-('luish', 'luish@cenagas.gob.mx', '123', 3, 'Habilitado', 'luis', 'h', 'm', 'Ingeniero', 'N/A'),
-('armandoh', 'armandoh@cenagas.gob.mx', '123', 1, 'Habilitado', 'armando', 'h', 'm', 'Ingeniero', 'N/A'),
-('ahdzt', 'ahdzt.97@gmail.com', '123', 2, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A');
+('cesarm', 'cesarm@cenagas.gob.mx', '123', 3, 'Habilitado', 'Cesar Jaciel', 'Suro', 'Manjarrez', 'Ingeniero', 'N/A'),
+('efraint', 'efraint@cenagas.gob.mx', '123', 4, 'Habilitado', 'Efraín', 'Torres', 'Torres', 'Ingeniero', 'N/A'),
+('titoh', 'titoh@cenagas.gob.mx', '123', 2, 'Habilitado', 'Tito Ulices', 'Saldierna', 'Hernández', 'Ingeniero', 'N/A'),
+('josem', 'josem@cenagas.gob.mx', '123', 1, 'Habilitado', 'José Guadalupe', 'Moya', 'Mcclaugherty', 'Ingeniero', 'N/A');
+#('luish', 'luish@cenagas.gob.mx', '123', 3, 'Habilitado', 'luis', 'h', 'm', 'Ingeniero', 'N/A'),
+#('armandoh', 'armandoh@cenagas.gob.mx', '123', 1, 'Habilitado', 'armando', 'h', 'm', 'Ingeniero', 'N/A'),
 
 #select * from anexos
 insert into anexos (Nombre) values 

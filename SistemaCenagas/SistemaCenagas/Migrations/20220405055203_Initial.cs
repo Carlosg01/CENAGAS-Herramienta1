@@ -65,6 +65,12 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image_Url = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Notificacion_Proyecto = table.Column<string>(type: "varchar(10)", maxLength:10, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Notificacion_Tarea = table.Column<string>(type: "varchar(10)", maxLength:10, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Notificacion_ADC = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Registro_Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

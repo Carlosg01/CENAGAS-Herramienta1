@@ -1,4 +1,4 @@
-﻿@model SistemaCenagas.Models.Model_EquipoVerificadorADC
+﻿@model SistemaCenagas.Models.ADC
 
 @{
     ViewData["Title"] = "Edit";
@@ -18,146 +18,100 @@
 
                 <form asp-action="Edit">
 
-                    <ul class="nav nav-tabs nav-fill" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="project-add-details-tab" data-toggle="tab" href="#project-add-details" role="tab" aria-controls="project-add-details" aria-selected="true">Detalles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="project-add-members-tab" data-toggle="tab" href="#project-add-members" role="tab" aria-controls="project-add-members" aria-selected="false">Equipo verificador</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="project-add-details" role="tabpanel">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="adc.Id_ADC" />
-                            <input type="hidden" asp-for="adc.Id_Proyecto" />
-                            <input type="hidden" asp-for="adc.Id_ProponenteCambio" />
-                            <input type="hidden" asp-for="adc.Folio" />
-                            <input type="hidden" asp-for="adc.Fecha_Actualizacion" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id_ADC" />
+                    <input type="hidden" asp-for="Id_Proyecto" />
+                    <input type="hidden" asp-for="Id_ProponenteCambio" />
+                    <input type="hidden" asp-for="Folio" />
+                    <input type="hidden" asp-for="Fecha_Actualizacion" />
 
 
-                            <div class="form-group row align-items-center">
-                                <label class="col-2" style="text-align:right;">Proyecto</label>
-                                <div class="col">
-                                    <input type="text" value="@(Global.adc.proyecto)" class="form-control" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-2" style="text-align:right;">No. de Folio del ADC</label>
-                                <div class="col">
-                                    <input type="text" value="@(Global.adc.adc.Folio)" class="form-control" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-2" style="text-align:right;">Proponente del cambio</label>
-                                <div class="col">
-                                    <input type="text" value="@(Global.adc.proponente)" class="form-control" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-2" style="text-align:right;">Fecha de actualización</label>
-                                <div class="col">
-                                    <input type="text" value="@(Global.adc.adc.Fecha_Actualizacion)" class="form-control" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label asp-for="adc.Id_Lider" class="col-2" style="text-align:right;">Líder</label>
-                                <div class="col">
-                                    @if (Global.session_usuario.user.Id_Rol >= 5) //Administradores
-                                    {
-                                        <select asp-for="adc.Id_Lider" class="form-control" required>
-                                            @foreach (var item in Global.lideres)
-                                            {
-                                                <option value="@(item.Id_Usuario)">
-                                                    @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
-                                                </option>
-                                            }
-                                        </select>
-                                    }
-                                    else
-                                    {
-                                        <input type="hidden" asp-for="adc.Id_Lider" />
-                                        <input type="text" value="@(Global.adc.lider)" class="form-control" disabled />
-                                    }
-
-                                </div>
-                                <span asp-validation-for="adc.Id_Lider" class="text-danger"></span>
-                            </div>
-
-
-                            @if (Global.session_usuario.user.Id_Rol <= 4) //responsable del ADC
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Proyecto</label>
+                        <div class="col">
+                            <input type="text" value="@(Global.adc.proyecto)" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">No. de Folio del ADC</label>
+                        <div class="col">
+                            <input type="text" value="@(Global.adc.adc.Folio)" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Proponente del cambio</label>
+                        <div class="col">
+                            <input type="text" value="@(Global.adc.proponente)" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Fecha de actualización</label>
+                        <div class="col">
+                            <input type="text" value="@(Global.adc.adc.Fecha_Actualizacion)" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Id_Lider" class="col-2" style="text-align:right;">Líder</label>
+                        <div class="col">
+                            @if (Global.session_usuario.user.Id_Rol >= 5) //Administradores
                             {
-                                <div class="form-group row align-items-center">
-                                    <label asp-for="adc.Id_ResponsableADC" class="col-2" style="text-align:right;">Responsable del ADC</label>
-                                    <div class="col">
-                                        <select asp-for="adc.Id_ResponsableADC" class="form-control" required>
-                                            @foreach (var item in Global.responsablesADC)
-                                            {
-                                                <option value="@(item.Id_Usuario)">
-                                                    @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
-                                                </option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <span asp-validation-for="adc.Id_ResponsableADC" class="text-danger"></span>
-                                </div>
-                                <div class="form-group row align-items-center">
-                                    <label asp-for="adc.Id_Suplente" class="col-2" style="text-align:right;">Suplente</label>
-                                    <div class="col">
-                                        <select asp-for="adc.Id_Suplente" class="form-control" required>
-                                            <option value="1">--- Selecciona una opción ---</option>
-                                            @foreach (var item in Global.suplentes)
-                                            {
-                                                <option value="@(item.Id_Usuario)">
-                                                    @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
-                                                </option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <span asp-validation-for="adc.Id_Suplente" class="text-danger"></span>
-                                </div>
+                                <select asp-for="Id_Lider" class="form-control" required>
+                                    @foreach (var item in Global.lideres)
+                                    {
+                                        <option value="@(item.Id_Usuario)">
+                                            @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
+                                        </option>
+                                    }
+                                </select>
                             }
                             else
                             {
-                                <input type="hidden" asp-for="adc.Id_ResponsableADC" />
-                                <input type="hidden" asp-for="adc.Id_Suplente" />
+                                <input type="hidden" asp-for="Id_Lider" />
+                                <input type="text" value="@(Global.adc.lider)" class="form-control" disabled />
                             }
-                        </div>
 
-                        <div class="tab-pane fade" id="project-add-members" role="tabpanel">
-                            <div class="users-manage" data-filter-list="form-group-users">
-                                <div class="input-group input-group-round">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">filter_list</i>
-                                        </span>
-                                    </div>
-                                    <input type="search" class="form-control filter-list-input" placeholder="Buscar usuarios" aria-label="Filter Members">
-                                </div>
-                                <div class="form-group-users">
-                                    @for (int i = 0; i < Global.vista_usuarios.Count(); i++)
-                                    {
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="hidden" asp-for="idMiembro[i]" value="@(Global.vista_usuarios.ElementAt(i).user.Id_Usuario)" />
-                                            <input asp-for="miembros[i]" type="checkbox" class="custom-control-input" id="project-user-@(Global.vista_usuarios.ElementAt(i).user.Id_Usuario)">
-                                            <label class="custom-control-label" for="project-user-@(Global.vista_usuarios.ElementAt(i).user.Id_Usuario)">
-                                                <span class="d-flex align-items-center">
-                                                    <img alt="Claire Connors" src="~/assets/img/user.jpeg" class="avatar mr-2" />
-                                                    <span class="h6 mb-0" data-filter-by="text">
-                                                        @(Global.vista_usuarios.ElementAt(i).user.Email)
-                                                    </span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    }
-                                </div>
-                                <br>
-                                <hr>
-                            </div>
                         </div>
+                        <span asp-validation-for="Id_Lider" class="text-danger"></span>
                     </div>
+
+
+                    @if (Global.session_usuario.user.Id_Rol <= 4) //responsable del ADC
+                    {
+                        <div class="form-group row align-items-center">
+                            <label asp-for="Id_ResponsableADC" class="col-2" style="text-align:right;">Responsable del ADC</label>
+                            <div class="col">
+                                <select asp-for="Id_ResponsableADC" class="form-control" required>
+                                    @foreach (var item in Global.responsablesADC)
+                                    {
+                                        <option value="@(item.Id_Usuario)">
+                                            @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for="Id_ResponsableADC" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label asp-for="Id_Suplente" class="col-2" style="text-align:right;">Suplente</label>
+                            <div class="col">
+                                <select asp-for="Id_Suplente" class="form-control" required>
+                                    <option value="1">--- Selecciona una opción ---</option>
+                                    @foreach (var item in Global.suplentes)
+                                    {
+                                        <option value="@(item.Id_Usuario)">
+                                            @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for="Id_Suplente" class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Id_ResponsableADC" />
+                        <input type="hidden" asp-for="Id_Suplente" />
+                    }
 
                     <div class="modal-footer">
                         <button role="button" class="btn btn-success" type="submit">
