@@ -36,8 +36,10 @@ namespace SistemaCenagas.Controllers
             _context = context;
             ServicioEmail.EMAIL_ADDRESS = "aihm.mytests@gmail.com";
             ServicioEmail.EMAIL_PASSWORD = "test#12345";
-            ServicioEmail.EMAIL_SERVER = "localhost:43366";
-            
+            ServicioEmail.EMAIL_SERVER = "https://localhost:43366";
+            ServicioEmail.EMAIL_SERVER = "http://armandohdz-001-site1.btempurl.com/";
+
+
         }
 
         public IActionResult Index()

@@ -1,0 +1,16 @@
+drop table adc_procesos;
+drop table adc_normativas;
+drop TABLE adc_actividades;
+drop TABLE adc_archivos;
+DROP TABLE anexo1;
+drop TABLE adc;
+DROP TABLE anexos;
+DROP TABLE gasoductos;
+DROP TABLE instalaciones;
+DROP TABLE residencias;
+DROP TABLE tramos;
+DROP TABLE proyecto_miembros;
+DROP TABLE proyectos;
+DROP TABLE usuarios;
+DROP TABLE roles;
+DROP TABLE __efmigrationshistory;

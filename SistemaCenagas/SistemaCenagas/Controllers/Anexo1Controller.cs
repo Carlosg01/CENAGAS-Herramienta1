@@ -65,10 +65,18 @@ namespace SistemaCenagas.Controllers
                 _context.Add(anexo1);
                 await _context.SaveChangesAsync();
 
+                string x = anexo1.Tipo_Cambio.ToUpper()[0].ToString();
+                string xx = "NV";
+                string xxx = (anexo1.Id_PropuestaCambio % 10 == 0) ? "0" + anexo1.Id_PropuestaCambio.ToString() : "00" + anexo1.Id_PropuestaCambio.ToString();
+                string xxxx = DateTime.Now.Year.ToString();
+
+                string stringFolio = $"{x}-{xx}-{xxx}-{xxxx}";
+
                 ADC adc = new ADC
                 {
                     Id_ADC = anexo1.Id_PropuestaCambio,
                     Id_Proyecto = Global.proyectos.Id_Proyecto,
+                    Folio = stringFolio,
                     Id_ProponenteCambio = Global.session_usuario.user.Id_Usuario,
                     Id_Lider = 1,
                     Id_ResponsableADC = 1,
@@ -161,6 +169,10 @@ namespace SistemaCenagas.Controllers
 
             Global.tarea = Consultas.VistaTareas(_context)
                 .Where(t => t.proceso.Id_ADC == id).FirstOrDefault();
+
+            //ViewBag.
+
+
             return PartialView(anexo1);
         }
 
@@ -177,18 +189,28 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            
+
+            //return Content(JsonConvert.SerializeObject(anexo1));
 
             if (ModelState.IsValid)
             {
                 try
-                {   
+                {
+                    string x = anexo1.Tipo_Cambio.ToUpper()[0].ToString();
+                    string xx = "MO";
+                    string xxx = (anexo1.Id_PropuestaCambio % 10 == 0) ? "0" + anexo1.Id_PropuestaCambio.ToString() : "00" + anexo1.Id_PropuestaCambio.ToString();
+                    string xxxx = DateTime.Now.Year.ToString();
+
+                    string stringFolio = $"{x}-{xx}-{xxx}-{xxxx}";
+
                     _context.Update(anexo1);                    
                     await _context.SaveChangesAsync();
 
                     ADC adc = _context.ADC.Where(a => a.Id_ADC == Global.adc.adc.Id_ADC).FirstOrDefault();
                     adc.Fecha_Actualizacion = DateTime.Now.ToString();
+                    adc.Folio = stringFolio;
                     Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
+                    Global.adc.adc.Folio = adc.Folio;
                     _context.Update(adc);
                     await _context.SaveChangesAsync();
 

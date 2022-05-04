@@ -95,7 +95,12 @@ namespace SistemaCenagas
         public static IEnumerable<V_Tareas> vista_tareas;
 
         //--------ADC Archivos----------
-        public static IEnumerable<ADC_Archivos> vista_archivos;
+        public struct V_Archivos
+        {
+            public ADC_Archivos archivo;
+            public string usuario;
+        }
+        public static IEnumerable<V_Archivos> vista_archivos;
 
         //-------Vista resumen ADC--------
         public struct V_Resumen

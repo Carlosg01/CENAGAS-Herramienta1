@@ -9,6 +9,7 @@ namespace SistemaCenagas.Models
     public class SubirArchivo
     {
         public int Id_ADC { get; set; }
+        public int Id_Usuario { get; set; }
         public IFormFile Archivo { get; set; }
     }
 }

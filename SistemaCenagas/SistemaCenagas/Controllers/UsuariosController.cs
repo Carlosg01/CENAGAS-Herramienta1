@@ -34,6 +34,12 @@ namespace SistemaCenagas.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Eliminados()
+        {
+            Global.vista_usuarios = Consultas.VistaUsuarios(_context).Where(u => u.user.Registro_Eliminado == 1);
+            return View();
+        }
+
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {   
@@ -195,6 +201,40 @@ namespace SistemaCenagas.Controllers
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(m => m.Id_Usuario == id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            Global.usuario = new Global.V_Usuarios
+            {
+                Rol = _context.Roles.Where(
+                    r => r.Id_Rol == usuario.Id_Rol).FirstOrDefault().Nombre
+            };
+
+            return PartialView(usuario);
+        }
+
+        // POST: Usuarios/Delete/5
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreConfirmed(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            usuario.Registro_Eliminado = 0;
+            _context.Usuarios.Update(usuario);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Eliminados));
         }
 
         private bool UsuarioExists(int id)

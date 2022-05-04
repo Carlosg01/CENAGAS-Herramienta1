@@ -17,8 +17,7 @@ namespace SistemaCenagas
 
         public static string SendEmailResetPassword(Usuarios user, string action, string subject, string bodyText)
         {
-            string url = $"https://{EMAIL_SERVER}/Home/{action}?" +
-                ((action.Equals("CreateAccountConfirm")) ? $"idUser={user.Id_Usuario}" : $"email={user.Email}");
+            string url = $"{EMAIL_SERVER}/Home/{action}?email={user.Email}";
             string emailText = bodyText + $"<a href='{url}'>Clic aquí</a>";
             string fromAddress = EMAIL_ADDRESS;
             string password = EMAIL_PASSWORD;

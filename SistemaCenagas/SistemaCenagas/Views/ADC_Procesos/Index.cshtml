@@ -275,6 +275,8 @@
 
                             <form asp-controller="ADCAdmin" asp-action="FileUpload" enctype="multipart/form-data">
 
+                                <input type="hidden" asp-for="Id_Usuario" value="@(Global.session_usuario.user.Id_Usuario)" />
+
                                 <div class="form-group row align-items-center">
                                     <label class="col-2" style="text-align:right;">Seleccionar archivo:</label>
                                     <div class="col">
@@ -317,12 +319,12 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <img alt="Peggy Brown" src="assets/img/user.jpeg" class="avatar" data-title="Peggy Brown" data-toggle="tooltip" data-filter-by="data-title" />
+                                                    <img alt="@(item.usuario)" src="assets/img/user.jpeg" class="avatar" data-title="@(item.usuario)" data-toggle="tooltip" data-filter-by="data-title" />
                                                 </li>
                                             </ul>
                                             <div class="media-body d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <a href="#" data-filter-by="text"> @(item.Nombre) </a>
+                                                    <a href="#" data-filter-by="text"> @(item.archivo.Nombre) </a>
                                                     <br>
                                                     <span class="text-small" data-filter-by="text">Archivo cargado</span>
                                                 </div>
@@ -332,10 +334,10 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <a class="dropdown-item"
-                                                           asp-controller="ADCAdmin" asp-action="DownloadFile" asp-route-idFile="@(item.Id)">Descargar</a>
+                                                           asp-controller="ADCAdmin" asp-action="DownloadFile" asp-route-idFile="@(item.archivo.Id)">Descargar</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item text-danger"
-                                                           asp-controller="ADCAdmin" asp-action="DeleteFile" asp-route-idFile="@(item.Id)">Eliminar</a>
+                                                           asp-controller="ADCAdmin" asp-action="DeleteFile" asp-route-idFile="@(item.archivo.Id)">Eliminar</a>
                                                     </div>
                                                 </div>
                                             </div>

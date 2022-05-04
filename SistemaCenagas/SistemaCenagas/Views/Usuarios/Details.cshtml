@@ -9,9 +9,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Detalles de usuario</h5>
-                <a asp-action="Index" class="close btn btn-round">
-                    <i class="material-icons">close</i>
-                </a>
+                @if (Model.Registro_Eliminado == 0)
+                {
+                    <a asp-action="Index" class="close btn btn-round">
+                        <i class="material-icons">close</i>
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Eliminados" class="close btn btn-round">
+                        <i class="material-icons">close</i>
+                    </a>
+                }
+
             </div>
             <!--end of modal head-->
             <div class="modal-body">
@@ -72,9 +82,19 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-dark" asp-action="Index">
-                            Regresar
-                        </a>
+                        @if (Model.Registro_Eliminado == 0)
+                        {
+                            <a class="btn btn-dark" asp-action="Index">
+                                Regresar
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-dark" asp-action="Eliminados">
+                                Regresar
+                            </a>
+                        }
+
                     </div>
 
                 </form>

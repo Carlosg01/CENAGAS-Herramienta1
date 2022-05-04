@@ -20,4 +20,17 @@ select * from roles;
 select * from adc_actividades;
 select * from adc_normativas;
 
-select * from adc_equipoverificador
+select * from adc_equipoverificador;
+
+
+update anexo1 set id_residencia = 13
+where id_propuestacambio = 1;
+
+update usuarios set id_rol = 2
+where id_usuario = 4;
+
+
+
+
+
+

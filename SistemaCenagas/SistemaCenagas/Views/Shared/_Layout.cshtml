@@ -111,16 +111,41 @@
                         <hr>
                         <div class="d-none d-lg-block w-100">
                             <span class="text-small text-muted">Acciones de administrador</span>
-                            <ul class="nav nav-small flex-column mt-2">
+
+                            <ul class="navbar-nav d-lg-block">
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5">Usuarios</a>
+                                    <div id="submenu-5" class="collapse">
+                                        <ul class="nav nav-small flex-column">
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" asp-controller="Usuarios" asp-action="Index">Lista de usuarios</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" asp-controller="Usuarios" asp-action="Eliminados">Eliminados</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
                                 </li>
                             </ul>
-                            <ul class="nav nav-small flex-column mt-2">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Index">Proyectos</a>
-                                </li>
 
+                            <ul class="navbar-nav d-lg-block">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6">Proyectos</a>
+                                    <div id="submenu-6" class="collapse">
+                                        <ul class="nav nav-small flex-column">
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Index">Lista de proyectos</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Eliminados">Eliminados</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </li>
                             </ul>
                             <ul class="nav nav-small flex-column mt-2">
                                 <li class="nav-item">
@@ -135,6 +160,8 @@
 
                             </ul>
                         </div>
+
+
                     }
 
                 </div>

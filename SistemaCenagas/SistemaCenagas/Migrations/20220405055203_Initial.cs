@@ -324,6 +324,7 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_ADC = table.Column<int>(type: "int", nullable: true),
+                    Id_Usuario = table.Column<int>(type: "int", nullable: true),
                     Clave = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Nombre = table.Column<string>(type: "longtext", nullable: true)
@@ -345,12 +346,24 @@ namespace SistemaCenagas.Migrations
                       principalColumn: "Id_ADC",
                       onDelete: ReferentialAction.SetNull
                     );
+                    table.ForeignKey(
+                      name: "FK_Usuario_ADCArchivos",
+                      column: x => x.Id_Usuario,
+                      principalTable: "Usuarios",
+                      principalColumn: "Id_Usuario",
+                      onDelete: ReferentialAction.SetNull
+                    );
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
             migrationBuilder.CreateIndex(
                name: "Index_ADC_ADCArchivos",
                table: "ADC_Archivos",
                column: "Id_ADC"
+               );
+            migrationBuilder.CreateIndex(
+               name: "Index_Usuario_ADCArchivos",
+               table: "ADC_Archivos",
+               column: "Id_Usuario"
                );
 
             migrationBuilder.CreateTable(
@@ -471,8 +484,8 @@ namespace SistemaCenagas.Migrations
                     table.ForeignKey(
                        name: "FK_Residencia_Anexo1",
                        column: x => x.Id_Residencia,
-                       principalTable: "Usuarios",
-                       principalColumn: "Id_Usuario",
+                       principalTable: "Residencias",
+                       principalColumn: "Id_Residencia",
                        onDelete: ReferentialAction.SetNull
                    );
                 })

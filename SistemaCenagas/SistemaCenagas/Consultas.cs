@@ -44,7 +44,7 @@ namespace SistemaCenagas
         }
         public static IEnumerable<Proyectos> VistaProyectos(ApplicationDbContext context)
         {
-            return context.Proyectos.Where(p => p.Registro_Eliminado == 0).ToList();
+            return context.Proyectos.ToList();
         }
         public static IEnumerable<Global.V_ADC> VistaADC(ApplicationDbContext context)
         {
@@ -154,9 +154,17 @@ namespace SistemaCenagas
                 }).ToList();
         }
 
-        public static IEnumerable<ADC_Archivos> VistaArchivosADC(ApplicationDbContext context, int Id_ADC)
+        public static IEnumerable<Global.V_Archivos> VistaArchivosADC(ApplicationDbContext context, int Id_ADC)
         {
-            return context.ADC_Archivos.Where(a => a.Registro_Eliminado == 0 && a.Id_ADC == Id_ADC).ToList();
+            return (from a in context.ADC_Archivos
+                    join u in context.Usuarios on a.Id_Usuario equals u.Id_Usuario
+                    select new Global.V_Archivos
+                    {
+                        archivo = a,
+                        usuario = $"{u.Nombre} {u.Paterno}"
+                    }).ToList();
+                
+                //context.ADC_Archivos.Where(a => a.Registro_Eliminado == 0 && a.Id_ADC == Id_ADC).ToList();
         }
 
         

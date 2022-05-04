@@ -27,6 +27,12 @@ namespace SistemaCenagas.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Eliminados()
+        {
+            Global.vista_proyectos = Consultas.VistaProyectos(_context).Where(p => p.Registro_Eliminado == 1);
+            return View();
+        }
+
         // GET: ProyectosAdmin/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -296,6 +302,37 @@ namespace SistemaCenagas.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var proyectos = await _context.Proyectos
+                .FirstOrDefaultAsync(m => m.Id_Proyecto == id);
+            if (proyectos == null)
+            {
+                return NotFound();
+            }
+            Global.proyectos = Global.vista_proyectos.Where(p => p.Id_Proyecto == id).FirstOrDefault();
+
+            return PartialView(proyectos);
+        }
+
+        // POST: ProyectosAdmin/Delete/5
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreConfirmed(int id)
+        {
+            var proyectos = await _context.Proyectos.FindAsync(id);
+            proyectos.Registro_Eliminado = 0;
+            _context.Proyectos.Update(proyectos);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Eliminados));
+        }
+
 
         private bool ProyectosExists(int id)
         {

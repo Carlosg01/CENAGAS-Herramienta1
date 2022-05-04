@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.PowerBI.Api;
 using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
+using SistemaCenagas.PowerBI_Models;
 
 namespace SistemaCenagas.Controllers
 {
@@ -43,9 +46,39 @@ namespace SistemaCenagas.Controllers
             return View();
         }
 
+
+        private static HttpClient client = new HttpClient();
+            
+
+        public async Task<HttpResponseMessage> HttpPostAsync(string url, string data)
+        {
+            HttpContent content = new StringContent(data);
+            HttpResponseMessage response = await client.PostAsync(url, content);
+            response.EnsureSuccessStatusCode();
+            return response;
+        }
+
         public async Task<IActionResult> Resumen()
         {
             Global.resumenADC = Consultas.VistaResumenADC(_context);
+
+            //var x = new PowerBIClient
+
+            var datos_PowerBi = new ResumenADC
+            {
+                adc = 50,// Global.resumenADC.ElementAt(0).avance_ADC,
+                pre_arranque = Global.resumenADC.ElementAt(0).avance_Pre,
+                avance_fisico = Global.resumenADC.ElementAt(0).avance_Fisico
+            };
+
+
+            var DatosJson = JsonConvert.SerializeObject(datos_PowerBi);
+
+            string PowerBI_URL = "https://api.powerbi.com/beta/d52c1142-6ef6-4eae-93c5-8a072d168eab/datasets/6baee643-f067-4d38-88c7-ed78f7d0ec91/rows?noSignUpCheck=1&cmpid=pbi-glob-head-snn-signin&key=tyy6IhkMHMeDUuGktl%2BAFvl0ZcW6EjjTNgM0aE8%2FVIsgQgjGQnDoMKdWvYJc46sykctlnjb8sPjuvDtFOXF8ww%3D%3D";
+            var PostToPowerBI = HttpPostAsync(PowerBI_URL, "[" + DatosJson + "]");
+
+            
+
             return View();
         }
         public async Task<IActionResult> Tareas(int? id)
@@ -357,6 +390,7 @@ namespace SistemaCenagas.Controllers
                     ADC_Archivos archivo = new ADC_Archivos
                     {
                         Id_ADC = upload.Id_ADC,
+                        Id_Usuario = upload.Id_Usuario,
                         Clave = string.Format("[ADC-{0}]_[FILENAME-{1}]{2}", upload.Id_ADC, upload.Archivo.FileName, Path.GetExtension(upload.Archivo.FileName)),
                         Nombre = upload.Archivo.FileName,
                         Extension = Path.GetExtension(upload.Archivo.FileName),

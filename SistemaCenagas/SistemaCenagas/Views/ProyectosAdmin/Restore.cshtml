@@ -1,0 +1,40 @@
+﻿@model SistemaCenagas.Models.Proyectos
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="restaurarProyecto-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Restaurar proyecto</h5>
+                <a asp-action="Eliminados" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+
+                <form asp-action="Restore">
+                    <div class="card card-note">
+                        <div class="card-body">
+                            <p>Esta a punto de restaurar el proyecto <b>@(Model.Nombre)</b>. ¿Desea continuar?</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" asp-for="Id_Proyecto" />
+                        <button role="button" class="btn btn-success" type="submit">
+                            Restaurar
+                        </button>
+                        <a class="btn btn-dark" asp-action="Eliminados">
+                            Cancelar
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
