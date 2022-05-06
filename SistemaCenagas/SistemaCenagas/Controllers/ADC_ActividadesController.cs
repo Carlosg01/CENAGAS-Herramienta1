@@ -22,6 +22,10 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Actividades
         public async Task<IActionResult> Index()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Global.vista_actividadesADC = Consultas.VistaActividadesADC(_context);
             return View();
         }

@@ -30,6 +30,11 @@ namespace SistemaCenagas.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Global.vista_usuarios = Consultas.VistaUsuarios(_context);
             return View();
         }

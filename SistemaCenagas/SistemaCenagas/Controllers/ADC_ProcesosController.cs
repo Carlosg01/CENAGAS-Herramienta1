@@ -26,6 +26,11 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Procesos
         public async Task<IActionResult> Index()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Global.vista_tareas = Consultas.VistaTareas(_context)
                 .Where(t => t.proceso.Id_ADC == Global.adc.adc.Id_ADC).ToList();
             Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);

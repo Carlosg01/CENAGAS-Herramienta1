@@ -23,6 +23,10 @@ namespace SistemaCenagas.Controllers
         // GET: ProyectosAdmin
         public async Task<IActionResult> Index()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Global.vista_proyectos = Consultas.VistaProyectos(_context);
             return View();
         }

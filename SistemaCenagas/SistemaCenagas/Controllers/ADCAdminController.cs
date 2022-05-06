@@ -28,6 +28,11 @@ namespace SistemaCenagas.Controllers
         // GET: ADC
         public async Task<IActionResult> Index()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Global.vista_adc = Consultas.VistaADC(_context);
 
             if (Global.session_usuario.user.Id_Rol == 2)
@@ -60,10 +65,15 @@ namespace SistemaCenagas.Controllers
 
         public async Task<IActionResult> Resumen()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Global.resumenADC = Consultas.VistaResumenADC(_context);
 
             //var x = new PowerBIClient
-
+            /*
             var datos_PowerBi = new ResumenADC
             {
                 adc = 50,// Global.resumenADC.ElementAt(0).avance_ADC,
@@ -76,7 +86,7 @@ namespace SistemaCenagas.Controllers
 
             string PowerBI_URL = "https://api.powerbi.com/beta/d52c1142-6ef6-4eae-93c5-8a072d168eab/datasets/6baee643-f067-4d38-88c7-ed78f7d0ec91/rows?noSignUpCheck=1&cmpid=pbi-glob-head-snn-signin&key=tyy6IhkMHMeDUuGktl%2BAFvl0ZcW6EjjTNgM0aE8%2FVIsgQgjGQnDoMKdWvYJc46sykctlnjb8sPjuvDtFOXF8ww%3D%3D";
             var PostToPowerBI = HttpPostAsync(PowerBI_URL, "[" + DatosJson + "]");
-
+            */
             
 
             return View();

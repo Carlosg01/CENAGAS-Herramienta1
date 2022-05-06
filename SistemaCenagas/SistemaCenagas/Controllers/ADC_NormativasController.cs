@@ -22,6 +22,10 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Normativas
         public async Task<IActionResult> Index()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Global.vista_normativas = Consultas.VistaNormativasADC(_context);
             return View();
         }

@@ -23,6 +23,11 @@ namespace SistemaCenagas.Controllers
         // GET: ADC
         public async Task<IActionResult> Index()
         {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Global.vista_adc = Consultas.VistaADC(_context)
                 .Where(a => a.adc.Id_ProponenteCambio == Global.session_usuario.user.Id_Usuario).ToList();
 

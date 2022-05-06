@@ -22,7 +22,11 @@ namespace SistemaCenagas.Controllers
 
         // GET: Anexo1
         public async Task<IActionResult> Index()
-        {   
+        {
+            if (!Global.session.Equals("LogIn"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
