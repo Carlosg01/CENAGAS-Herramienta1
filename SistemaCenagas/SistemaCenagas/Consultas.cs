@@ -49,6 +49,8 @@ namespace SistemaCenagas
         public static IEnumerable<Global.V_ADC> VistaADC(ApplicationDbContext context)
         {
             return (from a in context.ADC
+                    join a1 in context.Anexo1 on a.Id_ADC equals a1.Id_PropuestaCambio
+                    join res in context.Residencias on a1.Id_Residencia equals res.Id_Residencia
                     join p in context.Proyectos on a.Id_Proyecto equals p.Id_Proyecto
                     join pc in context.Usuarios on a.Id_ProponenteCambio equals pc.Id_Usuario
                     join l in context.Usuarios on a.Id_Lider equals l.Id_Usuario
@@ -58,6 +60,8 @@ namespace SistemaCenagas
                     select new Global.V_ADC
                     {
                         adc = a,
+                        anexo1 = a1,
+                        residencia = res.Nombre,
                         id_proyecto = p.Id_Proyecto,
                         proyecto = p.Nombre,
                         proponente = pc.Titulo + " " + pc.Nombre + " " + pc.Paterno + " " + pc.Materno,

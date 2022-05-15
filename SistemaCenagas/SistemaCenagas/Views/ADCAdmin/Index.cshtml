@@ -1,4 +1,4 @@
-﻿
+﻿@model BusquedaReporte
 @{
     ViewData["Title"] = "Index";
 }
@@ -54,6 +54,55 @@
                 </div>
             </div>
         </div>
+
+        <!--div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <form asp-action="Buscar">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Buscar por:</label>
+                                <div class="col">
+                                    <select id="ADCBuscar" asp-for="Id_Busqueda" class="form-control" required>
+                                        <option value="0">--- Selecciona una opción ---</option>
+                                        <option value="1">Todas</option>
+                                        <option value="1">Por proyecto</option>
+                                        <option value="4">Por ADC Terminado</option>
+                                        <option value="5">Por ADC Pendiente</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Filtro:</label>
+                                <div class="col">
+
+                                    <select id="Filtrar" asp-for="Id_Filtro" class="form-control" required>
+                                        @if (Global.busqueda != null && Global.busqueda.Id_Busqueda == 1)
+                                        {
+                                            foreach (var x in Global.vista_proyectos)
+                                            {
+                                                <option value="@(x.Id_Proyecto)">@(x.Nombre)</option>
+
+                                            }
+                                        }
+                                    </select>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="submit" role="button" class="btn btn-success">
+                                    Aplicar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div-->
 
         @if (Global.vista_adc != null && Global.vista_adc.Count() > 0)
         {

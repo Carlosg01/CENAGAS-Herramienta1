@@ -50,6 +50,7 @@ namespace SistemaCenagas.Controllers
 
             Global.resumenADC = Consultas.VistaResumenADC(_context);
 
+
             return View();
         }
 
@@ -481,6 +482,56 @@ namespace SistemaCenagas.Controllers
                 {".csv", "image/csv" }
 
             };
+        }
+
+        [HttpPost]
+        public JsonResult getFiltro(int idBusqueda)
+        {
+            Global.TipoBusqueda = idBusqueda;
+            Global.vista_proyectos = Consultas.VistaProyectos(_context);
+            return Json(new SelectList(Global.vista_proyectos, "Id_Proyecto", "Nombre"));
+            //return Json(new SelectList(Global.gasoductos, "Id_Residencia", "Nombre"));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Buscar(BusquedaReporte model)
+        {
+            Global.busqueda = model;
+            Global.resumenADC = Consultas.VistaResumenADC(_context);
+
+            if (model.Id_Busqueda == 1)
+                Global.vista_adc = Consultas.VistaADC(_context).Where(a => a.id_proyecto == model.Id_Filtro);
+
+            
+            else if (model.Id_Busqueda == 4)
+            {
+
+                Global.vista_adc = (from adc_ in Consultas.VistaADC(_context)
+                                    join resumen in Global.resumenADC on adc_.adc.Id_ADC equals resumen.id_adc
+                                    where resumen.avance_ADC >= 100
+                                    select adc_);
+
+
+                //Global.vista_adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == model.Id_Filtro);
+            }
+            else if (model.Id_Busqueda == 5)
+            {
+
+                Global.vista_adc = (from adc_ in Consultas.VistaADC(_context)
+                                    join resumen in Global.resumenADC on adc_.adc.Id_ADC equals resumen.id_adc
+                                    where resumen.avance_ADC < 100
+                                    select adc_);
+
+
+                //Global.vista_adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == model.Id_Filtro);
+            }
+            else if(model.Id_Busqueda == 6)
+            {
+                Global.vista_adc = Consultas.VistaADC(_context);
+            }
+            
+            return RedirectToAction(nameof(Index));
         }
 
     }

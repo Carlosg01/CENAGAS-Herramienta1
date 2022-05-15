@@ -14,6 +14,8 @@ namespace SistemaCenagas
         public static string SUCCESS_MSJ { get; set; }
         public static string panelTareas { get; set; }
         public static string panelArchivos { get; set; }
+        public static int TipoBusqueda { get; set; }
+        public static BusquedaReporte busqueda { get; set; }
 
         //---------USUARIOS-------
         public struct V_Usuarios
@@ -56,6 +58,8 @@ namespace SistemaCenagas
         public struct V_ADC
         {
             public ADC adc;
+            public Anexo1 anexo1;
+            public string residencia;
             public int id_proyecto;
             public string proyecto;
             public string proponente;
@@ -139,6 +143,8 @@ namespace SistemaCenagas
         public static IEnumerable<Residencias> residencias { get; set; }
         public static IEnumerable<Gasoductos> gasoductos { get; set; }
         public static IEnumerable<Tramos> tramos { get; set; }
+        public static IEnumerable<ADC> adcs { get; set; }
+
 
     }
 }

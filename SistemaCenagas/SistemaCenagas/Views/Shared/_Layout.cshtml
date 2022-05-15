@@ -120,7 +120,7 @@
                                     <ul class="nav nav-small flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-controller="Usuarios" asp-action="Index">Consultas</a>
+                                            <a class="nav-link" asp-controller="Reportes" asp-action="Index">Reportes ADC</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="ReporteAnexos" asp-action="Index">Anexos</a>
@@ -137,7 +137,7 @@
                             </li>
                         }
                     </ul>
-                    
+
 
                 </div>
 
@@ -165,6 +165,53 @@
 
     <script>
         $("#example").DataTable();
+
+    </script>
+    <script>
+        function buscar(controller, buscar) {
+            $("#Filtrar").empty();
+
+            if ($(buscar).val() != "0" && $(buscar).val() != "4" && $(buscar).val() != "5" && $(buscar).val() != "6") {
+
+                $("#Filtrar").prop("disabled", false);
+                $("#Filtrar").prop("required", true);
+
+                $.ajax({
+                    type: "Post",
+                    url: "/" + controller +"/getFiltro",
+                    data: { "idBusqueda": $(buscar).val() },
+                    success: function (response) {
+                        var items = "<option>--- Selecciona una opción ---</option>";
+                        $(response).each(function () {
+                            items += "<option value='" + this.value + "'>" + this.text + "</option>";
+                        })
+                        $("#Filtrar").html(items);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+
+                });
+            }
+            else {
+                $("#Filtrar").prop("disabled", true);
+                $("#Filtrar").prop("required", false);
+            }
+        }
+
+        $("#ReportesBuscar").change(function () {
+            //alert("BUSCAR");
+            
+            buscar('Reportes', '#ReportesBuscar');
+        });
+        $("#ADCBuscar").change(function () {
+            //alert("BUSCAR");
+
+            buscar('ADCAdmin', '#ADCBuscar');
+        });
 
     </script>
 
