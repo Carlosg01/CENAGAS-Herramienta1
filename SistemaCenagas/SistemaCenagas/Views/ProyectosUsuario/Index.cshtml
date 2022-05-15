@@ -79,10 +79,11 @@
                                 <td>
                                     @if (item.Estado_ADC.Equals("Habilitado"))
                                     {
-                                        <button class="btn btn-dark" title="Detalles"
+                                        <a class="btn btn-dark form-control" asp-action="ADCs" asp-route-id="@item.Id_Proyecto">ADCs</a>
+                                        <!--button class="btn btn-dark" title="Detalles"
                                                 data-toggle="modal" data-target="#nuevoADC-modal" data-url="@Url.Action($"ADC/{item.Id_Proyecto}")">
                                             <span>ADC</span>
-                                        </button>
+                                        </button-->
                                     }
                                     else
                                     {

@@ -30,7 +30,7 @@ namespace SistemaCenagas.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ADC(int? id)
+        public async Task<IActionResult> ADCs(int? id)
         {
             if (id == null)
             {
@@ -39,7 +39,8 @@ namespace SistemaCenagas.Controllers
 
             Global.proyectos = Global.vista_proyectos.Where(p => p.Id_Proyecto == id).FirstOrDefault();
 
-            return RedirectToAction("Create", "Anexo1");
+            return RedirectToAction("Index", "ADCProyecto");
+            //return RedirectToAction("Create", "Anexo1");
         }
 
         // GET: ProyectosUsuario/Details/5

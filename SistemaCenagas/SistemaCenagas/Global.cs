@@ -56,6 +56,7 @@ namespace SistemaCenagas
         public struct V_ADC
         {
             public ADC adc;
+            public int id_proyecto;
             public string proyecto;
             public string proponente;
             public string lider;
@@ -70,7 +71,10 @@ namespace SistemaCenagas
         }
         public static V_ADC adc;
         public static IEnumerable<V_ADC> vista_adc;
+        public static IEnumerable<V_ADC> vista_adc_propuestas;
+        public static IEnumerable<V_ADC> vista_adc_cargo;
         public static IEnumerable<V_EquipoVerificadorADC> equipoVerificador;
+
 
         //---------Anexo 1: Propuesta de cambio-------
         public struct V_Anexo1
@@ -107,6 +111,7 @@ namespace SistemaCenagas
         {
             public int id_adc;
             public string residencia;
+            public int id_proyecto;
             public string proyecto;
             public float avance_ADC;
             public float avance_Pre;
@@ -134,5 +139,6 @@ namespace SistemaCenagas
         public static IEnumerable<Residencias> residencias { get; set; }
         public static IEnumerable<Gasoductos> gasoductos { get; set; }
         public static IEnumerable<Tramos> tramos { get; set; }
+
     }
 }

@@ -58,6 +58,7 @@ namespace SistemaCenagas
                     select new Global.V_ADC
                     {
                         adc = a,
+                        id_proyecto = p.Id_Proyecto,
                         proyecto = p.Nombre,
                         proponente = pc.Titulo + " " + pc.Nombre + " " + pc.Paterno + " " + pc.Materno,
                         lider = l.Titulo + " " + l.Nombre + " " + l.Paterno + " " + l.Materno,
@@ -137,6 +138,7 @@ namespace SistemaCenagas
                                                      {
                                                          id_adc = adc.Id_ADC,
                                                          residencia = r.Nombre,
+                                                         id_proyecto = p.Id_Proyecto,
                                                          proyecto = p.Nombre,
                                                          avance_ADC = proc.Avance
                                                      }).ToList();
@@ -146,7 +148,9 @@ namespace SistemaCenagas
                 .GroupBy(r => r.id_adc)
                 .Select(s => new Global.V_Resumen
                 {
+                    id_adc = s.First().id_adc,
                     residencia = s.First().residencia,
+                    id_proyecto = s.First().id_proyecto,
                     proyecto = s.First().proyecto,
                     avance_ADC = s.Sum(a => a.avance_ADC)/ s.Count(),
                     avance_Pre = 0,
@@ -165,9 +169,7 @@ namespace SistemaCenagas
                     }).ToList();
                 
                 //context.ADC_Archivos.Where(a => a.Registro_Eliminado == 0 && a.Id_ADC == Id_ADC).ToList();
-        }
-
-        
+        }        
         public static IEnumerable<Gasoductos> getGasoductos(ApplicationDbContext context, string residencia)
         {
             return (from g in context.Gasoductos
@@ -188,6 +190,8 @@ namespace SistemaCenagas
                         Tramo = t.Tramo
                     }).Distinct().ToList();
         }
+
+        
 
 
     }

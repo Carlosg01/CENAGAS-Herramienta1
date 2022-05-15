@@ -11,11 +11,11 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ADCUsuarioController : Controller
+    public class ADCProyectoController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ADCUsuarioController(ApplicationDbContext context)
+        public ADCProyectoController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -28,12 +28,44 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.vista_adc = Consultas.VistaADC(_context)
+            Global.vista_adc = Consultas.VistaADC(_context).Where(a => a.id_proyecto == Global.proyectos.Id_Proyecto);
+
+            //Vista adc propuestas
+            Global.vista_adc_propuestas = Global.vista_adc
                 .Where(a => a.adc.Id_ProponenteCambio == Global.session_usuario.user.Id_Usuario).ToList();
+
+            //Vista adc a cargo
+            if (Global.session_usuario.user.Id_Rol == 2)
+            {
+                Global.vista_adc_cargo = Global.vista_adc
+                    .Where(a => a.adc.Id_Lider == Global.session_usuario.user.Id_Usuario).ToList();
+            }
+            else if(Global.session_usuario.user.Id_Rol == 3)
+            {
+                Global.vista_adc_cargo = Global.vista_adc
+                    .Where(a => a.adc.Id_ResponsableADC == Global.session_usuario.user.Id_Usuario).ToList();
+            }
+            else if (Global.session_usuario.user.Id_Rol == 4)
+            {
+                Global.vista_adc_cargo = Global.vista_adc
+                    .Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id_Usuario).ToList();
+            }
 
             Global.resumenADC = Consultas.VistaResumenADC(_context);
 
             return View();
+        }
+        public async Task<IActionResult> ADC(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id_Proyecto == id).FirstOrDefault();
+
+            //return RedirectToAction("Index", "ADCProyecto");
+            return RedirectToAction("Create", "Anexo1");
         }
         public async Task<IActionResult> Tareas(int? id)
         {

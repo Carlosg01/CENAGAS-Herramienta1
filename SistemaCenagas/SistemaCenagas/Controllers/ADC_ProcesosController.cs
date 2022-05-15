@@ -9,6 +9,16 @@ using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 
+
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using System.IO;
+using Microsoft.Office.Interop.Excel;
+using iTextSharp.tool.xml.css.parser.state;
+using System.Text;
+using SelectPdf;
+
 namespace SistemaCenagas.Controllers
 {
     public class ADC_ProcesosController : Controller
@@ -185,6 +195,27 @@ namespace SistemaCenagas.Controllers
             }
 
             return View(aDC_Procesos);
+        }
+
+        //REPORTES
+        public async Task<IActionResult> ReporteAnexo1(int? id)
+        {
+
+            string ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
+            //return Ok(ubicacion + "\\Anexo2.xlsx");
+
+            string html = System.IO.File.ReadAllText(ubicacion + "\\Formato_Anexo2_2.html");
+
+            HtmlToPdf htmlToPdf = new HtmlToPdf();
+            SelectPdf. PdfDocument doc = htmlToPdf.ConvertHtmlString(html);
+            //doc.
+            
+            byte[] pdf = doc.Save();
+            doc.Close();
+
+            return File(pdf, "applicaction/pdf", "TEST.pdf");
+
+            //return Ok("REPORTE ANEXO2");
         }
 
         // POST: ADC_Procesos/Delete/5

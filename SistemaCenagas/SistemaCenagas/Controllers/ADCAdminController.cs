@@ -48,6 +48,8 @@ namespace SistemaCenagas.Controllers
                 Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id_Usuario).ToList();
             }
 
+            Global.resumenADC = Consultas.VistaResumenADC(_context);
+
             return View();
         }
 
