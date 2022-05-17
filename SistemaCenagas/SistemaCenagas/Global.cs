@@ -114,6 +114,8 @@ namespace SistemaCenagas
         public struct V_Resumen
         {
             public int id_adc;
+            public string folio_adc;
+            public int id_residencia;
             public string residencia;
             public int id_proyecto;
             public string proyecto;

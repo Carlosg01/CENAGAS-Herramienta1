@@ -50,10 +50,13 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>
-                            Proyecto
+                            Id ADC
                         </th>
                         <th>
                             Folio ADC
+                        </th>
+                        <th>
+                            Proyecto
                         </th>
                         <th>
                             Lider
@@ -70,10 +73,13 @@
                     {
                     <tr>
                         <td>
-                            @(item.proyecto)
+                            @(item.adc.Id_ADC)
                         </td>
                         <td>
                             @(item.adc.Folio)
+                        </td>
+                        <td>
+                            @(item.proyecto)
                         </td>
                         <td>
                             @(item.lider)

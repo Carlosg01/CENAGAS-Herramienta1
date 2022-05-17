@@ -110,10 +110,13 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>
-                            Proyecto
+                            Id ADC
                         </th>
                         <th>
                             Folio ADC
+                        </th>
+                        <th>
+                            Proyecto
                         </th>
                         <th>
                             Lider
@@ -136,42 +139,45 @@
                 <tbody>
                     @foreach (var item in Global.vista_adc)
                     {
-                        <tr>
-                            <td>
-                                @(item.proyecto)
-                            </td>
-                            <td>
-                                @(item.adc.Folio)
-                            </td>
-                            <td>
-                                @(item.lider)
-                            </td>
-                            <td>
-                                @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id_ADC).FirstOrDefault().avance_ADC)%
-                            </td>
+                    <tr>
+                        <td>
+                            @(item.adc.Id_ADC)
+                        </td>
+                        <td>
+                            @(item.adc.Folio)
+                        </td>
+                        <td>
+                            @(item.proyecto)
+                        </td>
+                        <td>
+                            @(item.lider)
+                        </td>
+                        <td>
+                            @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id_ADC).FirstOrDefault().avance_ADC)%
+                        </td>
 
-                            @if (new List<int> { 2, 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
-                            {
-                                <td style="width:10%; ">
-                                    <button class="btn btn-dark" title="Detalles"
-                                            data-toggle="modal" data-target="#administrarADC-modal" data-url="@Url.Action($"Edit/{item.adc.Id_ADC}")">
-                                        <span>Administrar</span>
-                                    </button>
-                                </td>
-                            }
-                            <td style="width:10%;">
-                                <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.adc.Id_ADC">Tareas</a>
+                        @if (new List<int> { 2, 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                        {
+                            <td style="width:10%; ">
+                                <button class="btn btn-dark" title="Detalles"
+                                        data-toggle="modal" data-target="#administrarADC-modal" data-url="@Url.Action($"Edit/{item.adc.Id_ADC}")">
+                                    <span>Administrar</span>
+                                </button>
                             </td>
-                            @if (new List<int> { 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
-                            {
-                                <td style="width:10%;">
-                                    <button class="btn btn-round" title="Eliminar"
-                                            data-toggle="modal" data-target="#eliminarADC-modal" data-url="@Url.Action($"Delete/{item.adc.Id_ADC}")">
-                                        <span data-title="" class="material-icons">delete</span>
-                                    </button>
-                                </td>
-                            }
-                        </tr>
+                        }
+                        <td style="width:10%;">
+                            <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.adc.Id_ADC">Tareas</a>
+                        </td>
+                        @if (new List<int> { 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                        {
+                            <td style="width:10%;">
+                                <button class="btn btn-round" title="Eliminar"
+                                        data-toggle="modal" data-target="#eliminarADC-modal" data-url="@Url.Action($"Delete/{item.adc.Id_ADC}")">
+                                    <span data-title="" class="material-icons">delete</span>
+                                </button>
+                            </td>
+                        }
+                    </tr>
                     }
                 </tbody>
             </table>

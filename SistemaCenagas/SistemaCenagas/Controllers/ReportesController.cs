@@ -18,6 +18,7 @@ namespace SistemaCenagas.Controllers
         public ReportesController(ApplicationDbContext context)
         {
             _context = context;
+            //Global.busqueda = null;
         }
 
         // GET: ADC
@@ -30,6 +31,8 @@ namespace SistemaCenagas.Controllers
 
             if (Global.busqueda != null)
                 return View(Global.busqueda);
+            else
+                Global.vista_adc = Consultas.VistaADC(_context);
 
             return View();
         }
@@ -96,9 +99,11 @@ namespace SistemaCenagas.Controllers
 
                 //Global.vista_adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == model.Id_Filtro);
             }
+            else if (model.Id_Busqueda == 6)
+            {
+                Global.resumenADC = Consultas.VistaResumenADC(_context);//.Where(a => a.avance_ADC < 100);
+            }
 
-
-            Global.resumenADC = Consultas.VistaResumenADC(_context);
             return RedirectToAction(nameof(Index));
         }
     }

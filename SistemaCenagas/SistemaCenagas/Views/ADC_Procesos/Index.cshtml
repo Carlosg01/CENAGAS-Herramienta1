@@ -194,43 +194,17 @@
                                 </button>
                             </td>
                             <td style="width:15%;">
-                                <a class="btn btn-round form-control" title="Descargar reporte" asp-action="ReporteAnexo1" asp-route-id="@(Global.adc.adc.Id_ADC)"> 
+                                <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)"> 
                                     <span class="material-icons">get_app</span>
                                 </a>
                             </td>
                         </tr>
                         <!--ANALISIS DE LA PROPUESTA DE CAMBIO>
                         <tr>
-                            <td>
-                                @(Global.vista_tareas.ElementAt(1).proceso.Id_Actividad)
-                            </td>
-                            <td>
-                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(1).proceso.Id_Actividad)">
-                                    @(Global.vista_tareas.ElementAt(1).actividad)
-                                </a>
-                            </td>
-                            <td>
-                                @(Global.vista_tareas.ElementAt(1).proceso.Avance) %
-                            </td>
-                            <td>
-                                @(Global.vista_tareas.ElementAt(1).proceso.Faltante_Comentarios)
-                            </td>
-                            <td>
-                                @(Global.vista_tareas.ElementAt(1).proceso.Plan_Accion)
-                            </td>
-                            <td style="width:15%;">
-                                <button class="btn btn-round" title="Detalles"
-                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(1).proceso.Id_Proceso}")">
-                                    <span class="material-icons">edit</span>
-                                </button>
+                            
 
-                            </td>
-                            <td style="width:15%;">
-                                <button class="btn btn-dark" title="Detalles"
-                                        data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
-                                    <span>Anexo 3</span>
-                                </button>
-                            </td>
+
+                            
                         </tr-->                        
                     </tbody>
                     <tfoot>

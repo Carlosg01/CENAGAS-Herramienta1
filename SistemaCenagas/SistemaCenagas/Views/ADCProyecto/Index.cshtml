@@ -164,6 +164,9 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th>
+                                    Id ADC
+                                </th>
+                                <th>
                                     Folio ADC
                                 </th>
                                 <th>
@@ -180,6 +183,9 @@
                             @foreach (var item in Global.vista_adc_propuestas)
                             {
                                 <tr>
+                                    <td>
+                                        @(item.adc.Id_ADC)
+                                    </td>
                                     <td>
                                         @(item.adc.Folio)
                                     </td>

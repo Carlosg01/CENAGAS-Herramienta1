@@ -68,7 +68,7 @@
                                 <label class="col-2" style="text-align:right;">Filtro:</label>
                                 <div class="col">
 
-                                    <select id="Filtrar" asp-for="Id_Filtro" class="form-control" required>
+                                    <select id="ReportesFiltrar" asp-for="Id_Filtro" class="form-control" required>
                                         @if (Global.busqueda != null && Global.busqueda.Id_Busqueda == 1)
                                         {
                                             foreach (var x in Global.vista_proyectos)

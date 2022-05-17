@@ -168,13 +168,13 @@
 
     </script>
     <script>
-        function buscar(controller, buscar) {
-            $("#Filtrar").empty();
+        function buscar(controller, buscar, filtrar) {
+            $(filtrar).empty();
 
             if ($(buscar).val() != "0" && $(buscar).val() != "4" && $(buscar).val() != "5" && $(buscar).val() != "6") {
 
-                $("#Filtrar").prop("disabled", false);
-                $("#Filtrar").prop("required", true);
+                $(filtrar).prop("disabled", false);
+                $(filtrar).prop("required", true);
 
                 $.ajax({
                     type: "Post",
@@ -185,7 +185,7 @@
                         $(response).each(function () {
                             items += "<option value='" + this.value + "'>" + this.text + "</option>";
                         })
-                        $("#Filtrar").html(items);
+                        $(filtrar).html(items);
                     },
                     failure: function (response) {
                         alert(response.responseText);
@@ -197,15 +197,20 @@
                 });
             }
             else {
-                $("#Filtrar").prop("disabled", true);
-                $("#Filtrar").prop("required", false);
+                $(filtrar).prop("disabled", true);
+                $(filtrar).prop("required", false);
             }
         }
 
         $("#ReportesBuscar").change(function () {
             //alert("BUSCAR");
             
-            buscar('Reportes', '#ReportesBuscar');
+            buscar('Reportes', '#ReportesBuscar', "#ReportesFiltrar");
+        });
+        $("#ResumenBuscar").change(function () {
+            //alert("BUSCAR");
+
+            buscar('ADCAdmin', '#ResumenBuscar', '#ResumenFiltrar');
         });
         $("#ADCBuscar").change(function () {
             //alert("BUSCAR");

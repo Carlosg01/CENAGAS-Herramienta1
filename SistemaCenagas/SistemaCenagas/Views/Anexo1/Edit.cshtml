@@ -184,7 +184,7 @@
                         <div class="col">
                             @if (Global.session_usuario.user.Id_Rol == 3 || Global.session_usuario.user.Id_Rol >= 5) //Responsable ADC
                             {
-                                <textarea type="text" asp-for="Resultados_Analisis" class="form-control" required></textarea>
+                                <textarea type="text" asp-for="Resultados_Analisis" class="form-control"></textarea>
                             }
                             else
                             {
@@ -205,7 +205,7 @@
                             @if ((Global.session_usuario.user.Id_Usuario == Global.adc.adc.Id_ProponenteCambio &&
                          Global.anexo1.anexo1.Resultados_Analisis != null) || Global.session_usuario.user.Id_Rol >= 5) //Responsable ADC
                             {
-                                <textarea type="text" asp-for="Resultados_Propuesta" class="form-control" required></textarea>
+                                <textarea type="text" asp-for="Resultados_Propuesta" class="form-control"></textarea>
                             }
                             else
                             {

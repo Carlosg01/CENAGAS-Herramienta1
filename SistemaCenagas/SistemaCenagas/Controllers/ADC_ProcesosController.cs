@@ -18,6 +18,7 @@ using Microsoft.Office.Interop.Excel;
 using iTextSharp.tool.xml.css.parser.state;
 using System.Text;
 using SelectPdf;
+using SistemaCenagas.Reportes;
 
 namespace SistemaCenagas.Controllers
 {
@@ -232,6 +233,13 @@ namespace SistemaCenagas.Controllers
         private bool ADC_ProcesosExists(int id)
         {
             return _context.ADC_Procesos.Any(e => e.Id_Proceso == id);
+        }
+
+        public async Task<IActionResult> Anexo1_Descargar(int idADC)
+        {
+            ReporteAnexos reporte = new ReporteAnexos(_context);
+            byte[] pdf = reporte.Anexo1_PDF(Global.proyectos, idADC);
+            return File(pdf, "application/pdf", $"Anexo 1 - {Global.proyectos.Nombre}.pdf");
         }
     }
 }
