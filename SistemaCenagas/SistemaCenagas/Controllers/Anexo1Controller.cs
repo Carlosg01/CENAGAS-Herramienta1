@@ -144,9 +144,12 @@ namespace SistemaCenagas.Controllers
                     {
                         Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id_Actividad,
                         Id_ADC = anexo1.Id_PropuestaCambio,
-                        Avance = (i == 0) ? (9.0f/12)*100 : 0, //primeros 9 atributos necesarios por primera vez de 12 posibles
+                        Avance = 0,//(i == 0) ? (9.0f/12)*100 : 0, //primeros 9 atributos necesarios por primera vez de 12 posibles
                         Faltante_Comentarios = "N/A",
-                        Plan_Accion = "N/A"
+                        Plan_Accion = "N/A",
+                        Terminado = "false",
+                        Confirmado = "false"
+
                     };
                     _context.Add(tarea);
                     await _context.SaveChangesAsync();
@@ -223,10 +226,13 @@ namespace SistemaCenagas.Controllers
                     //return Content(JsonConvert.SerializeObject(anexo1));
                     if(Global.tarea.proceso.Id_Actividad == 1)
                     {
+                        a.Avance = anexo1.Estatus.Equals("Aceptado") || anexo1.Estatus.Equals("Rechazado") ? 100 : 0;
+                        /*
                         a.Avance = 9.0f / 12 * 100;
                         a.Avance += (anexo1.Resultados_Analisis != null && anexo1.Resultados_Analisis.Length > 0) ? (1.0f / 12 * 100) : 0;
                         a.Avance += (anexo1.Resultados_Propuesta != null && anexo1.Resultados_Propuesta.Length > 0) ? (1.0f / 12 * 100) : 0;
                         a.Avance += (anexo1.Estatus != null && anexo1.Estatus.Length > 0) ? (1.0f / 12 * 100) : 0;
+                        */
                     }
                     //return Content(JsonConvert.SerializeObject(a)); 
 

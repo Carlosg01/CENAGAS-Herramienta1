@@ -241,5 +241,12 @@ namespace SistemaCenagas.Controllers
             byte[] pdf = reporte.Anexo1_PDF(Global.proyectos, idADC);
             return File(pdf, "application/pdf", $"Anexo 1 - {Global.proyectos.Nombre}.pdf");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Terminado(string check)
+        {
+            return Ok(check);
+        }
     }
 }

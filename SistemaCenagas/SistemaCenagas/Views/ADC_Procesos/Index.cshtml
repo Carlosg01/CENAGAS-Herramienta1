@@ -155,34 +155,40 @@
                             <th>
                                 Plan de acción
                             </th>
-                            <th style="width:15%;"></th>
-                            <th style="width:15%;"></th>
-                            <th style="width:15%;"></th>
+                            <th></th>
+                            <th></th>
+                            <th>Terminado</th>
+                            <th>Confirmado</th>
+                            <th></th>
                         </tr>
                     </thead>
+
+                    
+
                     <tbody>
                         <!--SOLICITUD DE CAMBIO-->
+                        @{ int index = 0;}
                         <tr>
                             <td>
-                                @(Global.vista_tareas.ElementAt(0).proceso.Id_Actividad)
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
                             </td>
                             <td>
-                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(0).proceso.Id_Actividad)">
-                                    @(Global.vista_tareas.ElementAt(0).actividad)
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
                                 </a>
                             </td>
                             <td>
-                                @(Global.vista_tareas.ElementAt(0).proceso.Avance) %
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
                             </td>
                             <td>
-                                @(Global.vista_tareas.ElementAt(0).proceso.Faltante_Comentarios)
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
                             </td>
                             <td>
-                                @(Global.vista_tareas.ElementAt(0).proceso.Plan_Accion)
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
                             </td>
                             <td style="width:15%;">
                                 <button class="btn btn-round" title="Detalles"
-                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(0).proceso.Id_Proceso}")">
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
                                     <span class="material-icons">edit</span>
                                 </button>
 
@@ -193,38 +199,522 @@
                                     <span>Anexo 1</span>
                                 </button>
                             </td>
-                            <td style="width:15%;">
-                                <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)"> 
-                                    <span class="material-icons">get_app</span>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
+
+                        <!--ANALISIS DE LA PROPUESTA DE CAMBIO-->
+                        @{ index = 1;}
+                        <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
                                 </a>
                             </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
                         </tr>
-                        <!--ANALISIS DE LA PROPUESTA DE CAMBIO>
+
+                        <!--Evaluación del Análisis de Riesgo de Proceso correspondiente a la Administración del Cambio-->
+                        @{ index = 2;}
                         <tr>
-                            
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
+
+                        <!--Evaluación Preliminar de Riesgos-->
+                        @{ index = 3;}
+                        <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
+
+                        <!--Resultado del análisis técnico-económico-->
+                        @{ index = 4;}
+                        <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
+
+                        <!--Revisión de seguridad Pre-Arranque-->
+                        @{ index = 5;}
+                        <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
+
+                        <!--Autorización para el inicio de operación-->
+                        @{ index = 6;}
+                        <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
+
+                        <!--Cierre de la Administración del Cambio-->
+                        @{ index = 7;}
+                        <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
+
+                        <!--Control de cambios de centro de trabajo-->
+                        @{ index = 8;}
+                        <tr>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)
+                            </td>
+                            <td>
+                                <a asp-action="Normativas" asp-route-id="@(Global.vista_tareas.ElementAt(index).proceso.Id_Actividad)">
+                                    @(Global.vista_tareas.ElementAt(index).actividad)
+                                </a>
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Avance) %
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Faltante_Comentarios)
+                            </td>
+                            <td>
+                                @(Global.vista_tareas.ElementAt(index).proceso.Plan_Accion)
+                            </td>
+                            <td style="width:15%;">
+                                <button class="btn btn-round" disabled title="Detalles"
+                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{Global.vista_tareas.ElementAt(index).proceso.Id_Proceso}")">
+                                    <span class="material-icons">edit</span>
+                                </button>
+
+                            </td>
+                            <td style="width:15%;">
+                                <!--button class="btn btn-dark" title="Detalles"
+                    data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id_ADC}", "Anexo1")">
+                <span>Anexo 1</span>
+            </button-->
+                            </td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true")?"Si":"No")</td>
+                            <td>@(Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true") ? "Si" : "No")</td>
+                            <td>
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if ((Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("true") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false")) ||
+Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("true"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: darkorange; border-radius: 50%; display: inline-block;"></span>
+                                }
+                                @if (Global.vista_tareas.ElementAt(index).proceso.Terminado.Equals("false") && Global.vista_tareas.ElementAt(index).proceso.Confirmado.Equals("false"))
+                                {
+                                    <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                }
+
+                            </td>
+
+                            <!--td style="width:15%;">
+            <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.adc.adc.Id_ADC)">
+                <span class="material-icons">get_app</span>
+            </a>
+        </td-->
+                        </tr>
 
 
-                            
-                        </tr-->                        
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td>
-                            </td>
+                            <td></td>
                             <td>
                                 <label style="color:red;">Avance total:</label>
                             </td>
                             <td>
                                 <label style="color:red;"><b>@(ViewBag.avance_total / Global.vista_tareas.Count()) %</b></label>
                             </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td style="width:15%;">
-                            </td>
-                            <td style="width:15%;">
-                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>

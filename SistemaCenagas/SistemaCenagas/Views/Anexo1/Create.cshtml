@@ -31,6 +31,7 @@
                             <select asp-for="Tipo_Cambio" class="form-control" required>
                                 <option>Temporal</option>
                                 <option>Permanente</option>
+                                <option>Pre arranque</option>
                             </select>
                         </div>
                         <span asp-validation-for="Tipo_Cambio" class="text-danger"></span>
@@ -43,7 +44,7 @@
                         <span asp-validation-for="Fecha" class="text-danger"></span>
                     </div>
                     <div class="form-group row align-items-center">
-                        <label asp-for="Id_Residencia" class="col-2" style="text-align:right;">Residencia</label>
+                        <label asp-for="Id_Residencia" class="col-2" style="text-align:right;">Ducto</label>
                         <div class="col">
                             <select id="Residencia" asp-for="Id_Residencia" class="form-control" required>
                                 <option value="-1">--- Selecciona una opción ---</option>
@@ -56,7 +57,7 @@
                         <span asp-validation-for="Id_Residencia" class="text-danger"></span>
                     </div>
                     <div class="form-group row align-items-center">
-                        <label asp-for="Ut_Gasoducto" class="col-2" style="text-align:right;">Sector/Área</label>
+                        <label asp-for="Ut_Gasoducto" class="col-2" style="text-align:right;">Tramo</label>
                         <div class="col">
                             <select id="Gasoducto" asp-for="Ut_Gasoducto" class="form-control" required>
                                 <option>--- Selecciona una opción ---</option>
@@ -65,7 +66,7 @@
                         <span asp-validation-for="Ut_Gasoducto" class="text-danger"></span>
                     </div>
                     <div class="form-group row align-items-center">
-                        <label asp-for="Ut_Tramo" class="col-2" style="text-align:right;">Planta o instalación</label>
+                        <label asp-for="Ut_Tramo" class="col-2" style="text-align:right;">Instalación</label>
                         <div class="col">
                             <select id="Tramo" asp-for="Ut_Tramo" class="form-control" required>
                                 <option>--- Selecciona una opción ---</option>

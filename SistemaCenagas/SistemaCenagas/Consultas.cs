@@ -95,7 +95,7 @@ namespace SistemaCenagas
         {
             return (from t in context.ADC_Procesos
                     join a in context.ADC_Actividades on t.Id_Actividad equals a.Id_Actividad
-                    where t.Registro_Eliminado == 0 && a.Id_Actividad == 1
+                    where t.Registro_Eliminado == 0// && a.Id_Actividad == 1
                     select new Global.V_Tareas
                     {
                         proceso = t,
@@ -136,7 +136,7 @@ namespace SistemaCenagas
                                                      join r in context.Residencias on a1.Id_Residencia equals r.Id_Residencia
                                                      join p in context.Proyectos on a1.Id_Proyecto equals p.Id_Proyecto
                                                      join proc in context.ADC_Procesos on adc.Id_ADC equals proc.Id_ADC
-                                                     where adc.Registro_Eliminado == 0 && proc.Id_Actividad == 1
+                                                     where adc.Registro_Eliminado == 0 //&& proc.Id_Actividad == 1
                                                      
                                                      select new Global.V_Resumen
                                                      {
@@ -198,9 +198,6 @@ namespace SistemaCenagas
                         Tramo = t.Tramo
                     }).Distinct().ToList();
         }
-
-        
-
 
     }
 }

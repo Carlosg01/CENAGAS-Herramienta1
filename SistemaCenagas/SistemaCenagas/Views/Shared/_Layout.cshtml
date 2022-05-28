@@ -218,6 +218,18 @@
             buscar('ADCAdmin', '#ADCBuscar');
         });
 
+        $("#terminado_1").change(function () {
+
+            var check = this.checked ? "Si" : "No";
+            alert(check);
+            $.ajax({
+                type: "Post",
+                url: "/ADC_Procesos/Terminado",
+                data: { "check": check }
+            });
+            
+        });
+
     </script>
 
     <script type="text/javascript" src="~/lib/jquery/dist/script.js"></script>
