@@ -14,34 +14,49 @@ namespace SistemaCenagas.Data
         {
         }
 
-        //TABLAS
-        public DbSet<SistemaCenagas.Models.Roles> Roles { get; set; }
-        public DbSet<SistemaCenagas.Models.Usuarios> Usuarios { get; set; }
-        public DbSet<SistemaCenagas.Models.Residencias> Residencias { get; set; }
+        #region TABLAS INICIALES
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Residencias> Residencias { get; set; }
+        public DbSet<Proyectos> Proyectos { get; set; }
+        public DbSet<Proyecto_Miembros> Proyecto_Miembros { get; set; }
 
-        public DbSet<SistemaCenagas.Models.Proyectos> Proyectos { get; set; }
-        public DbSet<SistemaCenagas.Models.Proyecto_Miembros> Proyecto_Miembros { get; set; }
+        #endregion
 
-        public DbSet<SistemaCenagas.Models.ADC> ADC { get; set; }
-        public DbSet<SistemaCenagas.Models.ADC_Actividades> ADC_Actividades { get; set; }
-        public DbSet<SistemaCenagas.Models.ADC_Procesos> ADC_Procesos { get; set; }
-        public DbSet<SistemaCenagas.Models.ADC_Archivos> ADC_Archivos { get; set; }
-        public DbSet<SistemaCenagas.Models.ADC_Normativas> ADC_Normativas { get; set; }
-        public DbSet<SistemaCenagas.Models.ADC_EquipoVerificador> ADC_EquipoVerificador { get; set; }
-
-        public DbSet<SistemaCenagas.Models.Anexo1> Anexo1 { get; set; }
-        
         
 
+        #region CATALOGOS
+        public DbSet<Instalaciones> Instalaciones { get; set; }
+        public DbSet<Gasoductos> Gasoductos { get; set; }
+        public DbSet<Tramos> Tramos { get; set; }
+        public DbSet<Anexos> Anexos { get; set; }
 
-        //CATALOGOS
-        public DbSet<SistemaCenagas.Models.Instalaciones> Instalaciones { get; set; }
-        public DbSet<SistemaCenagas.Models.Gasoductos> Gasoductos { get; set; }
-        public DbSet<SistemaCenagas.Models.Tramos> Tramos { get; set; }
-        public DbSet<SistemaCenagas.Models.Anexos> Anexos { get; set; }
+        #endregion
 
+        #region ADMINISTRACION DE CAMBIO
+        public DbSet<ADC> ADC { get; set; }
+        public DbSet<ADC_Actividades> ADC_Actividades { get; set; }
+        public DbSet<ADC_Procesos> ADC_Procesos { get; set; }
+        public DbSet<ADC_Archivos> ADC_Archivos { get; set; }
+        public DbSet<ADC_Normativas> ADC_Normativas { get; set; }
+        public DbSet<ADC_Equipo_Verificador> ADC_Equipo_Verificador { get; set; }
+        public DbSet<ADC_Equipo_Verificador_Integrantes> ADC_Equipo_Verificador_Integrantes { get; set; }
 
+        #endregion
 
+        #region ANEXOS
+        public DbSet<Anexo2> Anexo2 { get; set; }
+        public DbSet<Anexo1> Anexo1 { get; set; }
+        public DbSet<Anexo3> Anexo3 { get; set; }
+        public DbSet<Anexo3_Documentacion> Anexo3_Documentacion { get; set; }
+        public DbSet<Anexo4> Anexo4 { get; set; }
+        public DbSet<Anexo5> Anexo5 { get; set; }
+        public DbSet<Anexo6> Anexo6 { get; set; }
+        public DbSet<Anexo6_Documentacion> Anexo6_Documentacion { get; set; }
+
+        #endregion
+
+        
 
     }
 }

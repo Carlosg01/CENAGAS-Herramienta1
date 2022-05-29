@@ -116,19 +116,6 @@ namespace SistemaCenagas
                     }).ToList();
         }
 
-        public static IEnumerable<Global.V_EquipoVerificadorADC> VistaEquipoVerificadorADC(ApplicationDbContext context, int idADC)
-        {
-            return (from ev_ in context.ADC_EquipoVerificador
-                    join u in context.Usuarios on ev_.Id_Usuario equals u.Id_Usuario
-                    where ev_.Id_ADC == idADC
-                    select new Global.V_EquipoVerificadorADC
-                    {
-                        ev = ev_,
-                        nombre_miembro = u.Nombre + " " + u.Paterno,
-                        email = u.Email
-                    }).ToList();
-        }
-        
         public static IEnumerable<Global.V_Resumen> VistaResumenADC(ApplicationDbContext context)
         {
             IEnumerable<Global.V_Resumen> resumen = (from a1 in context.Anexo1

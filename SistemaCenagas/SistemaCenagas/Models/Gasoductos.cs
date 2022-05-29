@@ -9,7 +9,7 @@ namespace SistemaCenagas.Models
     public class Gasoductos
     {
         [Key]
-        public int Id_Instalacion { get; set; }
+        public int Id_Gasoducto { get; set; }
         public string Ut_Gasoducto { get; set; }
         public string Gasoducto { get; set; }
         public string Sistema { get; set; }

@@ -410,8 +410,9 @@ namespace SistemaCenagas.Controllers
                     ADC_Archivos archivo = new ADC_Archivos
                     {
                         Id_ADC = upload.Id_ADC,
+                        Actividad = "1",//upload.Actividad,
                         Id_Usuario = upload.Id_Usuario,
-                        Clave = string.Format("[ADC-{0}]_[FILENAME-{1}]{2}", upload.Id_ADC, upload.Archivo.FileName, Path.GetExtension(upload.Archivo.FileName)),
+                        Clave = string.Format("[ADC{0}-{1}]_[FILENAME-{2}]{3}", upload.Id_ADC, upload.Actividad, upload.Archivo.FileName, Path.GetExtension(upload.Archivo.FileName)),
                         Nombre = upload.Archivo.FileName,
                         Extension = Path.GetExtension(upload.Archivo.FileName),
                         Size = ( upload.Archivo.Length / 1000000),

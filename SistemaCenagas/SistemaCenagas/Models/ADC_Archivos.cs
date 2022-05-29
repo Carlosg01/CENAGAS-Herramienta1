@@ -11,6 +11,8 @@ namespace SistemaCenagas.Models
         [Key]
         public int Id { get; set; }
         public int Id_ADC { get; set; }
+        public int Id_Proceso { get; set; }
+        public string Actividad { get; set; }
         public int Id_Usuario { get; set; }
         public string Clave { get; set; }
         public string Nombre { get; set; }

@@ -24,5 +24,9 @@ namespace SistemaCenagas.Models
         public string Estatus { get; set; }
         public int Registro_Eliminado { get; set; }
 
+        //
+        public string EstatusADC { get; set; }
+        public string PresentoARP { get; set; }
+        public int Id_Anexo2 { get; set; }
     }
 }

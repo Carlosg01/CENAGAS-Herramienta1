@@ -67,17 +67,10 @@ namespace SistemaCenagas
             public string responsable;
             public string suplente;
         }
-        public struct V_EquipoVerificadorADC
-        {
-            public ADC_EquipoVerificador ev;
-            public string nombre_miembro;
-            public string email;
-        }
         public static V_ADC adc;
         public static IEnumerable<V_ADC> vista_adc;
         public static IEnumerable<V_ADC> vista_adc_propuestas;
         public static IEnumerable<V_ADC> vista_adc_cargo;
-        public static IEnumerable<V_EquipoVerificadorADC> equipoVerificador;
 
 
         //---------Anexo 1: Propuesta de cambio-------
