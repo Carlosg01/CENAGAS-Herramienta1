@@ -17,6 +17,8 @@ namespace SistemaCenagas
         public static int TipoBusqueda { get; set; }
         public static BusquedaReporte busqueda { get; set; }
 
+        public static ADC_Procesos proceso { get; set; }
+
         //---------USUARIOS-------
         public struct V_Usuarios
         {

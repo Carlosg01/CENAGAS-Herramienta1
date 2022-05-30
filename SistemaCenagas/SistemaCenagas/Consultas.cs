@@ -153,10 +153,11 @@ namespace SistemaCenagas
                 }).ToList();
         }
 
-        public static IEnumerable<Global.V_Archivos> VistaArchivosADC(ApplicationDbContext context, int Id_ADC)
+        public static IEnumerable<Global.V_Archivos> VistaArchivosADC(ApplicationDbContext context, int Id_Proceso)
         {
             return (from a in context.ADC_Archivos
                     join u in context.Usuarios on a.Id_Usuario equals u.Id_Usuario
+                    where a.Id_Proceso == Id_Proceso
                     select new Global.V_Archivos
                     {
                         archivo = a,

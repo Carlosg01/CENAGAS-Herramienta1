@@ -65,7 +65,16 @@ namespace SistemaCenagas.Controllers
         {
             if (ModelState.IsValid)
             {
+                Anexo2 anexo2 = new Anexo2
+                {
+                    Id_Proyecto = Global.proyectos.Id_Proyecto
+                };
+
+                _context.Add(anexo2);
+                await _context.SaveChangesAsync();
+
                 anexo1.Estatus = "Pendiente";
+                anexo1.Id_Anexo2 = anexo2.Id_Anexo2;
                 _context.Add(anexo1);
                 await _context.SaveChangesAsync();
 

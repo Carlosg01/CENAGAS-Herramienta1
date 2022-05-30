@@ -725,7 +725,13 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Estatus = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Registro_Eliminado = table.Column<int>(type: "int", nullable: true)
+                    Registro_Eliminado = table.Column<int>(type: "int", nullable: true),
+
+                    EstatusADC = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PresentoARP = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_Anexo2 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -744,6 +750,13 @@ namespace SistemaCenagas.Migrations
                        principalColumn: "Id_Residencia",
                        onDelete: ReferentialAction.SetNull
                    );
+                    table.ForeignKey(
+                       name: "FK_Anexo2__Anexo1",
+                       column: x => x.Id_Anexo2,
+                       principalTable: "Anexo2",
+                       principalColumn: "Id_Anexo2",
+                       onDelete: ReferentialAction.SetNull
+                   );
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
             migrationBuilder.CreateIndex(
@@ -755,6 +768,11 @@ namespace SistemaCenagas.Migrations
               name: "Index_Residencia_Anexo1",
               table: "Anexo1",
               column: "Id_Residencia"
+              );
+            migrationBuilder.CreateIndex(
+              name: "Index_Anexo2__Anexo1",
+              table: "Anexo1",
+              column: "Id_Anexo2"
               );
             #endregion
 
