@@ -53,6 +53,11 @@ namespace SistemaCenagas.Controllers
             return File(pdf, "application/pdf", $"Anexo 2 - {Global.proyectos.Nombre}.pdf");
         }
 
+        public async Task<IActionResult> Anexo3(int? idProyecto)
+        {
+            return RedirectToAction("Index", "ReporteProyectoAnexo3");
+        }
+
 
     }
 }

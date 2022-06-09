@@ -41,4 +41,20 @@
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220531132909_LastTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220531132909_LastTest.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220606011429_Tablas.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220606011429_Tablas.Designer.cs" />
+  </ItemGroup>
+
 </Project>

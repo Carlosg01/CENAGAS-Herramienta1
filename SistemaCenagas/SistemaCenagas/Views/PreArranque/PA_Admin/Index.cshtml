@@ -1,0 +1,187 @@
+﻿@model BusquedaReporte
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Pre arranque</li>
+
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+                <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="PlaceHolderHere"></div>
+
+    <div class="container">
+
+        <div class="page-header mb-4">
+            <div class="row content-list-head">
+                <div class="col-auto">
+                    <h2 class="mb-0">Pre arranque</h2>
+
+                </div>
+            </div>
+        </div>
+
+        <!--div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <form asp-action="Buscar">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Buscar por:</label>
+                                <div class="col">
+                                    <select id="ADCBuscar" asp-for="Id_Busqueda" class="form-control" required>
+                                        <option value="0">--- Selecciona una opción ---</option>
+                                        <option value="1">Todas</option>
+                                        <option value="1">Por proyecto</option>
+                                        <option value="4">Por ADC Terminado</option>
+                                        <option value="5">Por ADC Pendiente</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Filtro:</label>
+                                <div class="col">
+
+                                    <select id="Filtrar" asp-for="Id_Filtro" class="form-control" required>
+                                        @if (Global.busqueda != null && Global.busqueda.Id_Busqueda == 1)
+                                        {
+                                            foreach (var x in Global.vista_proyectos)
+                                            {
+                                                <option value="@(x.Id_Proyecto)">@(x.Nombre)</option>
+
+                                            }
+                                        }
+                                    </select>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="submit" role="button" class="btn btn-success">
+                                    Aplicar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div-->
+
+        @if (Global.vista_adc != null && Global.vista_adc.Count() > 0)
+        {
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Id ADC
+                        </th>
+                        <th>
+                            Folio ADC
+                        </th>
+                        <th>
+                            Proyecto
+                        </th>
+                        <th>
+                            Lider
+                        </th>
+                        <th>
+                            Avance ADC
+                        </th>
+                        @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                        {
+                            <th style="width:10%;"></th>
+                        }
+                        <th style="width:10%;"></th>
+                        @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                        {
+                            <th style="width:10%;"></th>
+                        }
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Global.vista_adc)
+                    {
+                    <tr>
+                        <td>
+                            @(item.adc.Id_ADC)
+                        </td>
+                        <td>
+                            @(item.adc.Folio)
+                        </td>
+                        <td>
+                            @(item.proyecto)
+                        </td>
+                        <td>
+                            @(item.lider)
+                        </td>
+                        <td>
+                            @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id_ADC).FirstOrDefault().avance_ADC)%
+                        </td>
+
+                        @if (new List<int> {1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                        {
+                            <td style="width:10%; ">
+                                <button class="btn btn-dark" title="Detalles"
+                                        data-toggle="modal" data-target="#administrarADC-modal" data-url="@Url.Action($"Edit/{item.adc.Id_ADC}")">
+                                    <span>Administrar</span>
+                                </button>
+                            </td>
+                        }
+                        <td style="width:10%;">
+                            <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.adc.Id_ADC">Tareas</a>
+                        </td>
+                        @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                        {
+                            <td style="width:10%;">
+                                <button class="btn btn-round" title="Eliminar"
+                                        data-toggle="modal" data-target="#eliminarADC-modal" data-url="@Url.Action($"Delete/{item.adc.Id_ADC}")">
+                                    <span data-title="" class="material-icons">delete</span>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="card card-note">
+
+                <div class="card-body">
+                    <p>No hay ADCs registrados</p>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+

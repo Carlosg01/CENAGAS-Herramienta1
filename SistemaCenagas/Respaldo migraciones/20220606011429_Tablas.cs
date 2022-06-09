@@ -443,6 +443,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Confirmado = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Activo = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Registro_Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -1097,6 +1099,25 @@ namespace SistemaCenagas.Migrations
                );
             #endregion
 
+            #region Anexo3_CatalogoTipoDocumentacion
+
+            migrationBuilder.CreateTable(
+                name: "Anexo3_CatalogoTipoDocumentacion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TipoDocumentacion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Anexo3_Documentacion", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            #endregion
+
             #region Anexo3_Documentacion
 
             migrationBuilder.CreateTable(
@@ -1106,8 +1127,7 @@ namespace SistemaCenagas.Migrations
                     Id_Anexo3_Documentacion = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
-                    Tipo = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_Tipo = table.Column<int>(type: "int", nullable: true),
                     Check = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Responsable = table.Column<int>(type: "int", nullable: true)
@@ -1120,6 +1140,13 @@ namespace SistemaCenagas.Migrations
                       column: x => x.Id_Anexo3,
                       principalTable: "Anexo3",
                       principalColumn: "Id_Anexo3",
+                      onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                      name: "FK_Anexo3_Documentacion__Id_Tipo",
+                      column: x => x.Id_Tipo,
+                      principalTable: "Anexo3_CatalogoTipoDocumentacion",
+                      principalColumn: "Id",
                       onDelete: ReferentialAction.SetNull
                     );
                     table.ForeignKey(
@@ -1136,6 +1163,11 @@ namespace SistemaCenagas.Migrations
                name: "Index_Anexo3_Documentacion__Anexo3",
                table: "Anexo3_Documentacion",
                column: "Id_Anexo3"
+               );
+            migrationBuilder.CreateIndex(
+               name: "Index_Anexo3_Documentacion__Id_Tipo",
+               table: "Anexo3_Documentacion",
+               column: "Id_Tipo"
                );
             migrationBuilder.CreateIndex(
                name: "Index_Anexo6__Id_Responsable",
@@ -1213,6 +1245,9 @@ namespace SistemaCenagas.Migrations
 
             migrationBuilder.DropTable(
                 name: "Anexo3");
+
+            migrationBuilder.DropTable(
+                name: "Anexo3_CatalogoTipoDocumentacion");
 
             migrationBuilder.DropTable(
                 name: "Anexo3_Documentacion");

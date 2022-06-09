@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
-                @if (Global.session_usuario.user.Id_Rol >= 5)
+                @if (Global.session_usuario.user.Id_Rol >= 1)
                 {
                     <li class="breadcrumb-item">
                         <a asp-controller="ADC_Actividades" asp-action="Index">Actividades ADC</a>
@@ -98,7 +98,7 @@
                                 <td>
                                     @(item.anexo)
                                 </td>
-                                @if (Global.session_usuario.user.Id_Rol >= 5)
+                                @if (Global.session_usuario.user.Id_Rol <= 2)
                                 {
                                     <td style="width:10%;">
                                         <button class="btn btn-round" title="Editar"

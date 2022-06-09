@@ -48,6 +48,7 @@ namespace SistemaCenagas.Data
         public DbSet<Anexo2> Anexo2 { get; set; }
         public DbSet<Anexo1> Anexo1 { get; set; }
         public DbSet<Anexo3> Anexo3 { get; set; }
+        public DbSet<Anexo3_CatalogoTipoDocumentacion> Anexo3_CatalogoTipoDocumentacion { get; set; }
         public DbSet<Anexo3_Documentacion> Anexo3_Documentacion { get; set; }
         public DbSet<Anexo4> Anexo4 { get; set; }
         public DbSet<Anexo5> Anexo5 { get; set; }

@@ -17,6 +17,7 @@ namespace SistemaCenagas.Models
         public string Plan_Accion { get; set; }
         public string Terminado { get; set; }
         public string Confirmado { get; set; }
+        public string Activo { get; set; }
         public int Registro_Eliminado { get; set; }
     }
 }

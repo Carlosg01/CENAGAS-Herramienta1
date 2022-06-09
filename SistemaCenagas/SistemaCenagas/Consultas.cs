@@ -15,7 +15,7 @@ namespace SistemaCenagas
         {
             IEnumerable<Global.V_Usuarios> vu = (from u in context.Usuarios
                                                  join r in context.Roles on u.Id_Rol equals r.Id_Rol
-                                                 where u.Id_Rol != 5
+                                                 where u.Id_Rol > 1
                                                  select new Global.V_Usuarios
                                                  {
                                                      user = u,
@@ -70,6 +70,16 @@ namespace SistemaCenagas
                         suplente = s.Titulo + " " + s.Nombre + " " + s.Paterno + " " + s.Materno
                     }).ToList();
         }
+
+        public static IEnumerable<Global.V_ADC> VistaADC_EV(ApplicationDbContext context)
+        {
+            return (from v in Global.vista_adc
+                    join ev in context.ADC_Equipo_Verificador on v.adc.Id_ADC equals ev.Id_ADC
+                    join evi in context.ADC_Equipo_Verificador_Integrantes on ev.Id_Equipo_Verificador equals evi.Id_Equipo_Verificador
+                    select v
+                    ).ToList();
+                    
+        }
         public static Global.V_Anexo1 VistaAnexo1(ApplicationDbContext context, int? id_adc)
         {
             return (from a in context.Anexo1
@@ -91,6 +101,15 @@ namespace SistemaCenagas
 
                     }).FirstOrDefault();
         }
+
+        /*
+        public static Global.V_Anexo3 VistaAnexo3(ApplicationDbContext context, int? id_anexo1)
+        {
+            return (from a3 in context.Anexo3.)
+
+        }
+        */
+
         public static IEnumerable<Global.V_Tareas> VistaTareas(ApplicationDbContext context)
         {
             return (from t in context.ADC_Procesos
@@ -99,7 +118,7 @@ namespace SistemaCenagas
                     select new Global.V_Tareas
                     {
                         proceso = t,
-                        actividad = a.Actividad
+                        actividad = a
                     }).ToList();
         }
 
@@ -113,6 +132,20 @@ namespace SistemaCenagas
                         pm = m,
                         nombre_miembro = u.Nombre + " " + u.Paterno,
                         email = u.Email
+                    }).ToList();
+        }
+
+        public static IEnumerable<Global.V_EquipoVerificador> VistaEquipoVerificador(ApplicationDbContext context, int idEV)
+        {
+            return (from integrantes in context.ADC_Equipo_Verificador_Integrantes
+                    join equipo in context.ADC_Equipo_Verificador on integrantes.Id_Equipo_Verificador equals equipo.Id_Equipo_Verificador
+                    join usuarios in context.Usuarios on integrantes.Id_Usuario equals usuarios.Id_Usuario
+                    where integrantes.Id_Equipo_Verificador == idEV
+                    select new Global.V_EquipoVerificador
+                    {
+                        integrante = integrantes,
+                        nombre = $"{usuarios.Nombre} {usuarios.Paterno}",
+                        email = usuarios.Email
                     }).ToList();
         }
 

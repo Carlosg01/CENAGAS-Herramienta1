@@ -36,17 +36,21 @@ namespace SistemaCenagas.Controllers
 
             Global.vista_adc = Consultas.VistaADC(_context);
 
-            if (Global.session_usuario.user.Id_Rol == 2)
+            if (Global.session_usuario.user.Id_Rol == 5)
             {
                 Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_Lider == Global.session_usuario.user.Id_Usuario).ToList();
             }
-            else if(Global.session_usuario.user.Id_Rol == 3)
+            else if(Global.session_usuario.user.Id_Rol == 4)
             {
                 Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_ResponsableADC == Global.session_usuario.user.Id_Usuario).ToList();
             }
             else if (Global.session_usuario.user.Id_Rol == 4)
             {
                 Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id_Usuario).ToList();
+            }
+            else if (Global.session_usuario.user.Id_Rol == 6)
+            {
+                Global.vista_adc = Consultas.VistaADC_EV(_context);
             }
 
             Global.resumenADC = Consultas.VistaResumenADC(_context);
@@ -109,6 +113,7 @@ namespace SistemaCenagas.Controllers
             }
 
             Global.adc = Global.vista_adc.Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+            Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id_Proyecto == Global.adc.adc.Id_Proyecto).FirstOrDefault();
 
             return RedirectToAction("Index", "ADC_Procesos");
         }

@@ -12,7 +12,6 @@ namespace SistemaCenagas.Models
         public int Id_Anexo3 { get; set; }
         public string Fecha_Registro { get; set; }
         public string Tipo_ADC { get; set; }
-        
         public int Id_Anexo1 { get; set; }
         /*
         public string Residencia { get; set; }
@@ -25,7 +24,7 @@ namespace SistemaCenagas.Models
         public string Instrumento { get; set; }
         public string Componente_o_Dispositivo { get; set; }
         public string Valvula { get; set; }
-        public string Accesorio_Ducto { get; set; }
+        public string Accesorio_o_Ducto { get; set; }
         public string Estacion_Compresion { get; set; }
         public string Estacion_Medicion_y_Regulacion { get; set; }
         public string Trampa_Envios_y_Recibo_Diablos { get; set; }

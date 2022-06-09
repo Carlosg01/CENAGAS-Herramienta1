@@ -181,6 +181,9 @@ namespace SistemaCenagas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Activo")
+                        .HasColumnType("longtext");
+
                     b.Property<float>("Avance")
                         .HasColumnType("float");
 
@@ -289,7 +292,7 @@ namespace SistemaCenagas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Accesorio_Ducto")
+                    b.Property<string>("Accesorio_o_Ducto")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Componente_o_Dispositivo")
@@ -369,6 +372,20 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("Anexo3");
                 });
 
+            modelBuilder.Entity("SistemaCenagas.Models.Anexo3_CatalogoTipoDocumentacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("TipoDocumentacion")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Anexo3_CatalogoTipoDocumentacion");
+                });
+
             modelBuilder.Entity("SistemaCenagas.Models.Anexo3_Documentacion", b =>
                 {
                     b.Property<int>("Id_Anexo3_Documentacion")
@@ -384,8 +401,8 @@ namespace SistemaCenagas.Migrations
                     b.Property<int>("Id_Responsable")
                         .HasColumnType("int");
 
-                    b.Property<string>("Tipo")
-                        .HasColumnType("longtext");
+                    b.Property<int>("Id_Tipo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id_Anexo3_Documentacion");
 

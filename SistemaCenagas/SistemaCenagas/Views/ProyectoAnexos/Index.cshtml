@@ -90,6 +90,19 @@
                             </a>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            @(Global.anexos.ElementAt(2).Id_Anexo)
+                        </td>
+                        <td>
+                            @(Global.anexos.ElementAt(2).Nombre)
+                        </td>
+                        <td style="width:10%;">
+                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo3" asp-route-idProyecto="@(Global.proyectos.Id_Proyecto)">
+                                <span class="material-icons">get_app</span>
+                            </a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         }

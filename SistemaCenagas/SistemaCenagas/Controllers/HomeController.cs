@@ -44,6 +44,9 @@ namespace SistemaCenagas.Controllers
 
         public IActionResult Index()
         {
+            var r = _context.Roles.ToList();
+            var u = _context.Usuarios.ToList();
+            
             Global.vista_usuarios = Consultas.VistaUsuarios(_context);
             Global.session = "LogOut";
 
@@ -82,14 +85,12 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction(nameof(Index));
 
             //catalogos
-            Global.roles = _context.Roles.Where(r => r.Id_Rol != 5).ToList();            
+            Global.roles = _context.Roles.Where(r => r.Id_Rol != 1).ToList();            
             Global.residencias = _context.Residencias.ToList();
-            Global.lideres = _context.Usuarios
-                .Where(u => u.Id_Rol == 2 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
-            Global.responsablesADC = _context.Usuarios
-                .Where(u => u.Id_Rol == 3 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
-            Global.suplentes = _context.Usuarios
-                .Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+            Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == 5 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+            Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+            Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+            Global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == 6 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
 
             Global.anexos = _context.Anexos.ToList();
             Global.vista_actividadesADC = _context.ADC_Actividades.ToList();

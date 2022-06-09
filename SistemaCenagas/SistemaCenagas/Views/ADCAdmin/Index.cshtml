@@ -39,18 +39,8 @@
         <div class="page-header mb-4">
             <div class="row content-list-head">
                 <div class="col-auto">
-                    @if (Global.session_usuario.user.Id_Rol >= 5)
-                    {
-                        <h2 class="mb-0">Administración de cambios</h2>
-                    }
-                    else if (Global.session_usuario.user.Id_Rol == 2)
-                    {
-                        <h2 class="mb-0">Administración de cambios liderados</h2>
-                    }
-                    else if (Global.session_usuario.user.Id_Rol == 3)
-                    {
-                        <h1 class="mb-0">Responsabilidades de cambio</h1>
-                    }
+                    <h2 class="mb-0">Administración de cambios</h2>
+
                 </div>
             </div>
         </div>
@@ -124,12 +114,12 @@
                         <th>
                             Avance ADC
                         </th>
-                        @if (new List<int> { 2, 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                        @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
                         {
                             <th style="width:10%;"></th>
                         }
                         <th style="width:10%;"></th>
-                        @if (new List<int> { 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                        @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
                         {
                             <th style="width:10%;"></th>
                         }
@@ -156,7 +146,7 @@
                             @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id_ADC).FirstOrDefault().avance_ADC)%
                         </td>
 
-                        @if (new List<int> { 2, 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                        @if (new List<int> {1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
                         {
                             <td style="width:10%; ">
                                 <button class="btn btn-dark" title="Detalles"
@@ -168,7 +158,7 @@
                         <td style="width:10%;">
                             <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.adc.Id_ADC">Tareas</a>
                         </td>
-                        @if (new List<int> { 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                        @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
                         {
                             <td style="width:10%;">
                                 <button class="btn btn-round" title="Eliminar"

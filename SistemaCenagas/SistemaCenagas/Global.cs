@@ -87,11 +87,30 @@ namespace SistemaCenagas
         }
         public static V_Anexo1 anexo1;
 
+        //---------Anexo 3: Propuesta de cambio-------
+        public struct V_Anexo3
+        {
+            public Anexo3 anexo3;
+            public string folio;
+            public string residencia;
+            public string tipoCambio1;
+            public string tipoCambio2;
+        }
+        public static V_Anexo3 anexo3;
+
+        //--------Equipo verificador
+        public struct V_EquipoVerificador
+        {
+            public ADC_Equipo_Verificador_Integrantes integrante;
+            public string nombre;
+            public string email;
+        }
+
         //---------ADC Tareas-------
         public struct V_Tareas
         {
             public ADC_Procesos proceso;
-            public string actividad;
+            public ADC_Actividades actividad;
             public int Id_PropuestaCambio;
         }
         public static V_Tareas tarea;
@@ -137,10 +156,12 @@ namespace SistemaCenagas
         public static IEnumerable<Usuarios> lideres { get; set; }
         public static IEnumerable<Usuarios> responsablesADC { get; set; }
         public static IEnumerable<Usuarios> suplentes { get; set; }
+        public static IEnumerable<Usuarios> equipo_verificador { get; set; }
         public static IEnumerable<Residencias> residencias { get; set; }
         public static IEnumerable<Gasoductos> gasoductos { get; set; }
         public static IEnumerable<Tramos> tramos { get; set; }
         public static IEnumerable<ADC> adcs { get; set; }
+        public static IEnumerable<Anexo3_CatalogoTipoDocumentacion> anexo3_CatalogoTipoDocumentacion { get; set; }
 
 
     }

@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet">
+      <meta name="author" content="armandohdz" />
+    <style type="text/css">
+      html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
+      a.comment-indicator:hover + div.comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em }
+      a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em }
+      div.comment { display:none }
+      table { border-collapse:collapse; page-break-after:always }
+      .gridlines td { border:1px dotted black }
+      .gridlines th { border:1px dotted black }
+      .b { text-align:center }
+      .e { text-align:center }
+      .f { text-align:right }
+      .inlineStr { text-align:left }
+      .n { text-align:right }
+      .s { text-align:left }
+      td.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style1 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style1 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style2 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style2 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style3 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style3 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style4 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style4 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style5 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style5 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style6 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style6 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style7 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style7 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style8 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style8 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style9 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style9 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style10 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style10 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style11 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style11 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style12 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style12 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style13 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style13 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style14 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style14 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style15 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style15 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style16 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      th.style16 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      td.style17 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style17 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style18 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style18 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      table.sheet0 col.col0 { width:74.5555547pt }
+      table.sheet0 col.col1 { width:74.5555547pt }
+      table.sheet0 col.col2 { width:74.5555547pt }
+      table.sheet0 col.col3 { width:74.5555547pt }
+      table.sheet0 col.col4 { width:74.5555547pt }
+      table.sheet0 col.col5 { width:74.5555547pt }
+      table.sheet0 col.col6 { width:74.5555547pt }
+      table.sheet0 col.col7 { width:74.5555547pt }
+      table.sheet0 col.col8 { width:74.5555547pt }
+      table.sheet0 col.col9 { width:74.5555547pt }
+      table.sheet0 col.col10 { width:74.5555547pt }
+      table.sheet0 col.col11 { width:74.5555547pt }
+      table.sheet0 col.col12 { width:42pt }
+      table.sheet0 col.col13 { width:42pt }
+      table.sheet0 col.col14 { width:42pt }
+      table.sheet0 col.col15 { width:42pt }
+      table.sheet0 tr { height:15pt }
+      table.sheet0 tr.row0 { height:15pt }
+      table.sheet0 tr.row1 { height:15pt }
+      table.sheet0 tr.row2 { height:15pt }
+      table.sheet0 tr.row3 { height:15pt }
+      table.sheet0 tr.row4 { height:15pt }
+      table.sheet0 tr.row5 { height:15pt }
+      table.sheet0 tr.row7 { height:15.75pt }
+      table.sheet0 tr.row27 { height:15pt }
+      table.sheet0 tr.row43 { height:15pt }
+      table.sheet0 tr.row44 { height:15pt }
+      table.sheet0 tr.row55 { height:15.75pt }
+      table.sheet0 tr.row56 { height:15.75pt }
+      table.sheet0 tr.row57 { height:15.75pt }
+      table.sheet0 tr.row58 { height:15pt }
+      table.sheet0 tr.row64 { height:15.75pt }
+      table.sheet0 tr.row65 { height:15.75pt }
+      table.sheet0 tr.row72 { height:15pt }
+      table.sheet0 tr.row75 { height:15pt }
+      table.sheet0 tr.row78 { height:15pt }
+      table.sheet0 tr.row81 { height:15pt }
+      table.sheet0 tr.row84 { height:15pt }
+      table.sheet0 tr.row93 { height:15pt }
+      table.sheet0 tr.row94 { height:15pt }
+      table.sheet0 tr.row95 { height:15pt }
+      table.sheet0 tr.row96 { height:15pt }
+      table.sheet0 tr.row97 { height:15pt }
+      table.sheet0 tr.row98 { height:15.75pt }
+      table.sheet0 tr.row100 { height:15pt }
+      table.sheet0 tr.row101 { height:15pt }
+      table.sheet0 tr.row102 { height:15pt }
+      table.sheet0 tr.row103 { height:15pt }
+      table.sheet0 tr.row104 { height:15pt }
+      table.sheet0 tr.row105 { height:15.75pt }
+    </style>
+  </head>
+
+  <body>
+    <style>
+    @page { margin-left: 0.7in; margin-right: 0.7in; margin-top: 0.75in; margin-bottom: 0.75in; }
+    body { margin-left: 0.7in; margin-right: 0.7in; margin-top: 0.75in; margin-bottom: 0.75in; }
+    </style>
+    <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
+        <col class="col0">
+        <col class="col1">
+        <col class="col2">
+        <col class="col3">
+        <col class="col4">
+        <col class="col5">
+        <col class="col6">
+        <col class="col7">
+        <col class="col8">
+        <col class="col9">
+        <col class="col10">
+        <col class="col11">
+        <tbody>
+          <tr class="row0">
+            <td class="column0 style6 null style6" colspan="3" rowspan="6"></td>
+            <td class="column3 style7 s style15" colspan="9" rowspan="6">
+              UNIDAD DE TRANSPORTE Y ALMACENAMIENTO<br />
+              PROCEDIMIENTO DE ADMINISTRACIÓN DE CAMBIOS TEMPORALES O DEFINITIVOS<br />
+              PROYECTO DE LA ADMINISTRACIÓN DEL CAMBIO</td>
+          </tr>
+          <tr class="row1">
+          </tr>
+          <tr class="row2">
+          </tr>
+          <tr class="row3">
+          </tr>
+          <tr class="row4">
+          </tr>
+          <tr class="row5">
+          </tr>
+          <tr class="row6">
+            <td class="column0 style16 null style16" colspan="9"></td>
+            <td class="column9 style16 s style16" colspan="3">#CLAVE</td>
+          </tr>
+          <tr class="row7">
+            <td class="column0 style3 s style3" colspan="12">13. Documentación que se debe presentar para esta Administración del Cambio el Equipo Verificador</td>
+          </tr>
+          <tr class="row8">
+            <td class="column0 style18 s style18" colspan="3" rowspan="2">Tipo de documentación</td>
+            <td class="column3 style2 s style2" colspan="3" rowspan="2">Nombre del responsable del equipo verificador para el cumplimiento</td>
+            <td class="column6 style18 s style18" colspan="3" rowspan="2">Tipo de documentación</td>
+            <td class="column9 style2 s style2" colspan="3" rowspan="2">Nombre del responsable del equipo verificador para el cumplimiento</td>
+          </tr>
+          <tr class="row9">
+          </tr>
+          <tr class="row10">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Análisis del riesgo del proceso</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO1</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO1</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Diagramas de flujo de procesos</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO16</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO16</td>
+          </tr>
+          <tr class="row11">
+          </tr>
+          <tr class="row12">
+          </tr>
+          <tr class="row13">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Análisis del riesgo del Ducto</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO2</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO2</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Diagramas de tubería e instrumentación (DTI)</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO17</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO17</td>
+          </tr>
+          <tr class="row14">
+          </tr>
+          <tr class="row15">
+          </tr>
+          <tr class="row16">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Requerimientos Normativos</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO3</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO3</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Planos de construcción</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO18</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO18</td>
+          </tr>
+          <tr class="row17">
+          </tr>
+          <tr class="row18">
+          </tr>
+          <tr class="row19">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Requerimientos gubernamentales</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO4</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO4</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Planos de diseño</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO19</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO19</td>
+          </tr>
+          <tr class="row20">
+          </tr>
+          <tr class="row21">
+          </tr>
+          <tr class="row22">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Dictamen de diseño emitido por una unidad verificadora</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO5</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO5</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Planos de clasificación eléctrica</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO20</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO20</td>
+          </tr>
+          <tr class="row23">
+          </tr>
+          <tr class="row24">
+            <td class="column12 style17 null style17" colspan="3" rowspan="2"></td>
+            <td class="column15 style17 null style17" rowspan="2"></td>
+          </tr>
+          <tr class="row25">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Dictamen de pre-arranque emitido por una unidad verificadora</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO6</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO6</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Diagramas eléctricos</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO21</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO21</td>
+          </tr>
+          <tr class="row26">
+          </tr>
+          <tr class="row27">
+          </tr>
+          <tr class="row28">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Dictamen de verificacion de instalaciones eléctricas por una unidad verificadora</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO7</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO7</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Manual de operación de conformidad con numeral 10.14 de la NOM-007-ASEA-2016</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO22</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO22</td>
+          </tr>
+          <tr class="row29">
+          </tr>
+          <tr class="row30">
+          </tr>
+          <tr class="row31">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Revisión de seguridad de pre-arranque</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO8</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO8</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Procedimiento de operación y mantenimiento</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO23</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO23</td>
+          </tr>
+          <tr class="row32">
+          </tr>
+          <tr class="row33">
+          </tr>
+          <tr class="row34">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Inspecciones y pruebas por un tercero calificado</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO9</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO9</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Actualización de capacitación y entrenamiento del personal</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO24</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO24</td>
+          </tr>
+          <tr class="row35">
+          </tr>
+          <tr class="row36">
+          </tr>
+          <tr class="row37">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Pruebas de hermeticidad</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO10</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO10</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Materiales de construcción</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO25</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO25</td>
+          </tr>
+          <tr class="row38">
+          </tr>
+          <tr class="row39">
+          </tr>
+          <tr class="row40">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Pruebas destructivas y no destructivas</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO11</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO11</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Especificaciones de tubería, accesorios, válvulas y conexiones</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO26</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO26</td>
+          </tr>
+          <tr class="row41">
+          </tr>
+          <tr class="row42">
+          </tr>
+          <tr class="row43">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Certificados de los equipos e instrumentos</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO12</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO12</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Inventario de sustancias peligrosas</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO27</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO27</td>
+          </tr>
+          <tr class="row44">
+          </tr>
+          <tr class="row45">
+          </tr>
+          <tr class="row46">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Certificados de los equipos patrón</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO13</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO13</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Reportes de integridad mecánica</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO28</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO28</td>
+          </tr>
+          <tr class="row47">
+          </tr>
+          <tr class="row48">
+          </tr>
+          <tr class="row49">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Ingeniería de detalle</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO14</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO14</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Evaluación de desempeño de seguridad de contratistas</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO29</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO29</td>
+          </tr>
+          <tr class="row50">
+          </tr>
+          <tr class="row51">
+          </tr>
+          <tr class="row52">
+            <td class="column0 style5 s style5" colspan="2" rowspan="3">Tecnología de proceso</td>
+            <td class="column2 style4 s style4" rowspan="3">#TIPO15</td>
+            <td class="column3 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO15</td>
+            <td class="column6 style5 s style5" colspan="2" rowspan="3">Estructura organizacional</td>
+            <td class="column8 style4 s style4" rowspan="3">#TIPO30</td>
+            <td class="column9 style4 s style4" colspan="3" rowspan="3">#RESPONSABLE_TIPO30</td>
+          </tr>
+          <tr class="row53">
+          </tr>
+          <tr class="row54">
+          </tr>
+          <tr class="row55">
+            <td class="column0 style3 s style3" colspan="12">Otro (Especificar): <span style="color:#000000; font-family:'Calibri'; font-size:12pt">#OTRO_ESPECIFICAR</span></td>
+          </tr>
+          <tr class="row56">
+            <td class="column0 style3 s style3" colspan="12">14. Autorización de la ejecución del proyecto de cambio</td>
+          </tr>
+          <tr class="row57">
+            <td class="column0 style2 s style2" colspan="5">Responsable de la administración del cambio</td>
+            <td class="column5 style1 null style1" colspan="2" rowspan="16"></td>
+            <td class="column7 style2 s style2" colspan="5">Director de seguridad industrial</td>
+          </tr>
+          <tr class="row58">
+            <td class="column0 style1 s style1" colspan="5" rowspan="6">#RESPONSABLE_ADC</td>
+            <td class="column7 style1 s style1" colspan="5" rowspan="6">#DIRECTOR_SEGURIDAD</td>
+          </tr>
+          <tr class="row59">
+          </tr>
+          <tr class="row60">
+          </tr>
+          <tr class="row61">
+          </tr>
+          <tr class="row62">
+          </tr>
+          <tr class="row63">
+          </tr>
+          <tr class="row64">
+            <td class="column0 style1 s style1" colspan="5">(Nombre y firma)</td>
+            <td class="column7 style1 s style1" colspan="5">(Nombre y Firma)</td>
+          </tr>
+          <tr class="row65">
+            <td class="column0 style2 s style2" colspan="5">Director ejecutivo de operación</td>
+            <td class="column7 style2 s style2" colspan="5">Director ejecutivo de mantenimiento y seguridad</td>
+          </tr>
+          <tr class="row66">
+            <td class="column0 style1 s style1" colspan="5" rowspan="6">#DIRECTOR_EJECUTIVO</td>
+            <td class="column7 style1 s style1" colspan="5" rowspan="6">#DIRECTOR_EJECUTIVO</td>
+          </tr>
+          <tr class="row67">
+          </tr>
+          <tr class="row68">
+          </tr>
+          <tr class="row69">
+          </tr>
+          <tr class="row70">
+          </tr>
+          <tr class="row71">
+          </tr>
+          <tr class="row72">
+            <td class="column0 style1 s style1" colspan="5">(Nombre y Firma)</td>
+            <td class="column7 style1 s style1" colspan="5">(Nombre y Firma)</td>
+          </tr>
+          
+        </tbody>
+    </table>
+  </body>
+</html>

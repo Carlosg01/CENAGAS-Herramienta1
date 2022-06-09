@@ -11,7 +11,7 @@ namespace SistemaCenagas.Models
         [Key]
         public int Id_Anexo3_Documentacion { get; set; }
         public int Id_Anexo3 { get; set; }
-        public string Tipo { get; set; }
+        public int Id_Tipo { get; set; }
         public string Check { get; set; }
         public int Id_Responsable { get; set; }
     }

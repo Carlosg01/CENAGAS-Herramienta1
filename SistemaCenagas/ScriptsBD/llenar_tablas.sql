@@ -5,26 +5,27 @@ SET SQL_SAFE_UPDATES = 0;
 
 #select * from roles
 insert into roles (nombre) values
-('Empleado'),
-('Lider de equipo verificador'),
+('Super administrador'),
+('Director ejecutivo'),
+('Director de seguridad industrial'),
 ('Responsable de la administración de cambio'),
-('Suplente'),
-('Superadmin'),
-('Administrador');
+('Lider de equipo verificador'),
+('Equipo verificador'),
+('Empleado');
 
 #select * from usuarios where Id_Usuario = 6
 #delete from usuarios where Id_Usuario = 6
 #update usuarios set Estatus = 'Habilitado' where Id_Usuario = 1
 insert into usuarios (Username, Email, Password, Id_Rol, Estatus) values
-('superadmin', 'superadmin@cenagas.gob.mx', '123', 5, 'Habilitado'),
-('admin', 'admin@cenagas.gob.mx', '123', 6, 'Habilitado');
+('superadmin', 'superadmin@cenagas.gob.mx', '123', 1, 'Habilitado'),
+('admin', 'admin@cenagas.gob.mx', '123', 2, 'Habilitado');
 insert into usuarios (Username, Email, Password, Id_Rol, Estatus, Nombre, Paterno, Materno, Titulo, Observaciones) values
-('ahdzt.97', 'ahdzt.97@gmail.com', '123', 2, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A'),
-('carlosg', 'carlosg@cenagas.gob.mx', '123', 2, 'Habilitado', 'carlos', 'g', 'g', 'Ingeniero', 'N/A'),
-('cesarm', 'cesarm@cenagas.gob.mx', '123', 3, 'Habilitado', 'Cesar Jaciel', 'Suro', 'Manjarrez', 'Ingeniero', 'N/A'),
-('efraint', 'efraint@cenagas.gob.mx', '123', 4, 'Habilitado', 'Efraín', 'Torres', 'Torres', 'Ingeniero', 'N/A'),
-('titoh', 'titoh@cenagas.gob.mx', '123', 2, 'Habilitado', 'Tito Ulices', 'Saldierna', 'Hernández', 'Ingeniero', 'N/A'),
-('josem', 'josem@cenagas.gob.mx', '123', 1, 'Habilitado', 'José Guadalupe', 'Moya', 'Mcclaugherty', 'Ingeniero', 'N/A');
+('ahdzt.97', 'ahdzt.97@gmail.com', '123', 3, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A'),
+('carlosg', 'carlosg@cenagas.gob.mx', '123', 4, 'Habilitado', 'carlos', 'g', 'g', 'Ingeniero', 'N/A'),
+('cesarm', 'cesarm@cenagas.gob.mx', '123', 5, 'Habilitado', 'Cesar Jaciel', 'Suro', 'Manjarrez', 'Ingeniero', 'N/A'),
+('efraint', 'efraint@cenagas.gob.mx', '123', 6, 'Habilitado', 'Efraín', 'Torres', 'Torres', 'Ingeniero', 'N/A'),
+('titoh', 'titoh@cenagas.gob.mx', '123', 6, 'Habilitado', 'Tito Ulices', 'Saldierna', 'Hernández', 'Ingeniero', 'N/A'),
+('josem', 'josem@cenagas.gob.mx', '123', 7, 'Habilitado', 'José Guadalupe', 'Moya', 'Mcclaugherty', 'Ingeniero', 'N/A');
 #('luish', 'luish@cenagas.gob.mx', '123', 3, 'Habilitado', 'luis', 'h', 'm', 'Ingeniero', 'N/A'),
 #('armandoh', 'armandoh@cenagas.gob.mx', '123', 1, 'Habilitado', 'armando', 'h', 'm', 'Ingeniero', 'N/A'),
 
@@ -40,7 +41,7 @@ insert into anexos (Nombre) values
 #describe residencias
 #select * from residencias
 insert into residencias (Nombre) values
-('Cárdenas'),('Chihuahua'),('Ciudad de México'),('Hermosillo'),('Madero'),('Mendoza'),('Minatitlán'),('Monterrey'),('Reynosa'),
+('Cárdenas'),('Chihuahua'),('Ciudad de México'),('Hermosillo'),('Madero'),('Mendoza'),('Minatitlán'),('Monterrey'),('Patzcuaro'),('Reynosa'),
 ('Salamanca'), ('Tlaxcala'),('Torreón'),('Veracruz');
 
 #select * from adc_actividades
@@ -88,6 +89,36 @@ El proceso de Administración del Cambio es complemento para el arranque o inici
 #actividad 9
 (9, '9.1', 'Dirección de Seguridad Industrial', 'La Dirección de Seguridad Industrial revisa que la documentación seleccionada en el numeral 13 del Anexo 3. Proyecto de la Administración del Cambio, esté cargada en el sitio web indicado y archiva la Administración del Cambio y registra la fecha de cierre de esta en el Anexo 2, Lista de control de Administración del Cambio. Asimismo, cambia el estatus de “En elaboración” por “Concluida”, y difunde la Administración del Cambio al personal de la UTA.', 3);
 
-#select * from anexo1
-#select * from adc
-#select * from adc_procesos
+
+insert into Anexo3_CatalogoTipoDocumentacion (TipoDocumentacion) values 
+('Análisis de riesgo de proceso'),
+('Análisis de riesgo del ducto'),
+('Requerimientos normativos'),
+('Requerimientos gubernamentales'),
+('Dictamen de diseño emitido por una unidad verificadora'),
+('Dictamen de pre-arranque emitido por una unidad verificadora'),
+('Dictamen de verificación de instalaciones eléctricas por una unidad verificadora'),
+('Revisión de seguridad de pre-arranque'),
+('Inspecciones y pruebas por un tercero calificado'),
+('Pruebas de hermeticidad'),
+('Pruebas destructivas y no destructivas'),
+('Certificados de los equipos e instrumentos'),
+('Certificados de los equipos patrón'),
+('Ingeniería de detalle'),
+('Tecnología de proceso'),
+
+('Diagramas de flujo de proceso'),
+('Diagramas de tubería e instrumentación (DTI)'),
+('Planos de construcción'),
+('Planos de diseño'),
+('Planos de clasificación eléctrica'),
+('Diagramas eléctricos'),
+('Manual de operación de conformidad con numeral 10.14 de la NOM-007-ASEA-2016'),
+('Procedimientos de operación y mantenimiento'),
+('Actualización de capacitación y entrenamiento del personal'),
+('Materiales de construcción'),
+('Especificaciones de tubería, accesorios, válvulas y conexiones'),
+('Inventario de sustancias peligrosas'),
+('Reportes de integridad mecánica'),
+('Evaluación de desempeño de seguridad de contratistas'),
+('Estructura organizacional');

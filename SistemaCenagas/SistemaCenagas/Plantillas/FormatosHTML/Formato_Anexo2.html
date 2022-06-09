@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet">
+      <meta name="author" content="armandohdz" />
+    <style type="text/css">
+      html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
+      a.comment-indicator:hover + div.comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em }
+      a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em }
+      div.comment { display:none }
+      table { border-collapse:collapse; page-break-after:always }
+      .gridlines td { border:1px dotted black }
+      .gridlines th { border:1px dotted black }
+      .b { text-align:center }
+      .e { text-align:center }
+      .f { text-align:right }
+      .inlineStr { text-align:left }
+      .n { text-align:right }
+      .s { text-align:left }
+      td.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style1 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      th.style1 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      td.style2 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style2 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style3 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style3 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style4 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:16pt; background-color:white }
+      th.style4 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:16pt; background-color:white }
+      td.style5 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style5 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style6 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style6 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style7 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style7 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style8 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style8 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style9 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style9 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style10 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style10 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style11 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style11 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style12 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style12 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style13 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style13 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style14 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      th.style14 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; color:#FFFFFF; font-family:'Calibri'; font-size:9pt; background-color:#297165 }
+      td.style15 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:9pt; background-color:white }
+      th.style15 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:9pt; background-color:white }
+      td.style16 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:9pt; background-color:white }
+      th.style16 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:9pt; background-color:white }
+      td.style17 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:9pt; background-color:white }
+      th.style17 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:9pt; background-color:white }
+      table.sheet0 col.col0 { width:74.5555547pt }
+      table.sheet0 col.col1 { width:60.32222153pt }
+      table.sheet0 col.col2 { width:60.32222153pt }
+      table.sheet0 col.col3 { width:74.5555547pt }
+      table.sheet0 col.col4 { width:121.9999986pt }
+      table.sheet0 col.col5 { width:74.5555547pt }
+      table.sheet0 col.col6 { width:74.5555547pt }
+      table.sheet0 col.col7 { width:74.5555547pt }
+      table.sheet0 col.col8 { width:74.5555547pt }
+      table.sheet0 col.col9 { width:74.5555547pt }
+      table.sheet0 col.col10 { width:74.5555547pt }
+      table.sheet0 col.col11 { width:52.18888829pt }
+      table.sheet0 tr { height:15pt }
+      table.sheet0 tr.row0 { height:15pt }
+      table.sheet0 tr.row1 { height:15pt }
+      table.sheet0 tr.row2 { height:15pt }
+      table.sheet0 tr.row3 { height:15pt }
+      table.sheet0 tr.row4 { height:15pt }
+      table.sheet0 tr.row5 { height:15pt }
+      table.sheet0 tr.row27 { height:15pt }
+      table.sheet0 tr.row57 { height:15pt }
+    </style>
+  </head>
+
+  <body>
+<style>
+@page { margin-left: 0.7in; margin-right: 0.7in; margin-top: 0.75in; margin-bottom: 0.75in; }
+body { margin-left: 0.7in; margin-right: 0.7in; margin-top: 0.75in; margin-bottom: 0.75in; }
+</style>
+    <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
+        <col class="col0">
+        <col class="col1">
+        <col class="col2">
+        <col class="col3">
+        <col class="col4">
+        <col class="col5">
+        <col class="col6">
+        <col class="col7">
+        <col class="col8">
+        <col class="col9">
+        <col class="col10">
+        <col class="col11">
+        <tbody>
+          <tr class="row0">
+            <td class="column0 style6 null style6" colspan="3" rowspan="3"></td>
+            <td class="column3 style5 s style5" colspan="6" rowspan="3">
+              <br>
+              UNIDAD DE TRANSPORTE Y ALMACENAMIENTO<br />
+              PROCEDIMIENTO DE ADMINISTRACIÓN DE CAMBIOS TEMPORALES O DEFINITIVOS<br />
+              LISTA DE CONTROL DE ADMINISTRACIÓN DEL CAMBIO<br><br></td>
+            <td class="column9 style2 s style3" colspan="3">Clave: #CLAVE</td>
+          </tr>
+          <tr class="row2">
+            <td class="column9 style2 s style2" colspan="3">Revisión: #REVISION</td>
+          </tr>
+          <tr class="row4">
+            <td class="column9 style4 null style4" colspan="3"></td>
+          </tr>
+          <tr class="row6">
+            <td class="column0 style1 null style1" colspan="12"></td>
+          </tr>
+          <tr class="row7">
+            <td class="column0 style7 s style7">No. Folio</td>
+            <td class="column1 style8 s style9" colspan="2">Indicar tipo de cambio</td>
+            <td class="column3 style10 s style10">Lugar donde esta aplicando el cambio</td>
+            <td class="column4 style10 s style10">Descripción</td>
+            <td class="column5 style10 s style10">¿Cambio aceptado o rechazado?</td>
+            <td class="column6 style10 s style10">Fecha de registro</td>
+            <td class="column7 style10 s style10">Fecha de cierre</td>
+            <td class="column8 style10 s style10">Responsable de la administración del cambio</td>
+            <td class="column9 style10 s style10">Nombre del líder del equipo verificador</td>
+            <td class="column10 style10 s style10">Estatus de la administración del cambio</td>
+            <td class="column11 style10 s style10">Presentó el ARP</td>
+          </tr>
+          #REGISTROS
+          <tr class="row13">
+            <td class="column0 style16 s style16"></td>
+            <td class="column1 style16 s style16"></td>
+            <td class="column2 style16 s style16"></td>
+            <td class="column3 style16 s style16"></td>
+            <td class="column4 style16 s style16"></td>
+            <td class="column5 style16 s style16"></td>
+            <td class="column6 style16 s style16"></td>
+            <td class="column7 style16 s style16"></td>
+            <td class="column8 style16 s style16"></td>
+            <td class="column9 style16 s style16"></td>
+            <td class="column10 style16 s style16"></td>
+            <td class="column11 style16 s style16"></td>
+          </tr>
+        </tbody>
+    </table>
+  </body>
+</html>

@@ -11,3 +11,9 @@ update tramos set registro_eliminado = 0;
 update instalaciones set registro_eliminado = 0;
 update adc_actividades set registro_eliminado = 0;
 update adc_normativas set registro_eliminado = 0;
+update adc_procesos set terminado = 'false';
+update adc_procesos set confirmado = 'false';
+update adc_procesos set activo = 'false';
+
+update anexo3_documentacion as a3 set a3.Check = 'false';
+

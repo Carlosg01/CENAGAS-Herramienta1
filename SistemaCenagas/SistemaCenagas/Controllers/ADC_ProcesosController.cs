@@ -46,6 +46,7 @@ namespace SistemaCenagas.Controllers
                 .Where(t => t.proceso.Id_ADC == Global.adc.adc.Id_ADC).ToList();
             Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
             ViewBag.avance_total = Global.vista_tareas.Sum(t => t.proceso.Avance);
+            ViewBag.anexo3_action = _context.Anexo3.Where(a => a.Id_Anexo1 == Global.adc.adc.Id_ADC).ToList().Count == 0 ? "create" : "edit";
 
             return View();
         }
@@ -93,6 +94,21 @@ namespace SistemaCenagas.Controllers
             }
 
             return View(aDC_Procesos);
+        }
+
+        public async Task<IActionResult> CrearAnexo3(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id_Proyecto == id).FirstOrDefault();
+
+            Global.anexo1 = Consultas.VistaAnexo1(_context, id);
+
+            //return RedirectToAction("Index", "ADCProyecto");
+            return RedirectToAction("Create", "Anexo3");
         }
 
         // GET: ADC_Procesos/Create
@@ -153,6 +169,7 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
+                    aDC_Procesos.Avance = aDC_Procesos.Terminado.Equals("true") && aDC_Procesos.Confirmado.Equals("true") ? 100 : aDC_Procesos.Avance;
                     _context.Update(aDC_Procesos);
                     await _context.SaveChangesAsync();
 
