@@ -1,0 +1,125 @@
+﻿@model SistemaCenagas.Models.Proyecto_Miembro_Model
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="detallesProyecto-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles de proyecto</h5>
+                @if (Model.proyecto.Eliminado == 0)
+                {
+                    <a asp-action="Index" class="close btn btn-round">
+                        <i class="material-icons">close</i>
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Eliminados" class="close btn btn-round">
+                        <i class="material-icons">close</i>
+                    </a>
+                }
+
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+
+                <form asp-action="Edit">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="project-add-details-tab" data-toggle="tab" href="#project-add-details" role="tab" aria-controls="project-add-details" aria-selected="true">Detalles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="project-add-members-tab" data-toggle="tab" href="#project-add-members" role="tab" aria-controls="project-add-members" aria-selected="false">Miembros</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="project-add-details" role="tabpanel">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="proyecto.Id" />
+                            <input type="hidden" asp-for="proyecto.Clave" />
+                            <input type="hidden" asp-for="proyecto.Eliminado" />
+
+                            <div class="form-group row align-items-center">
+                                <label asp-for="proyecto.Clave" class="col-2" style="text-align:right;">Clave</label>
+                                <div class="col">
+                                    <input type="text" asp-for="proyecto.Clave" class="form-control" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label asp-for="proyecto.Nombre" class="col-2" style="text-align:right;"></label>
+                                <div class="col">
+                                    <input type="text" asp-for="proyecto.Nombre" class="form-control" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label asp-for="proyecto.Descripcion" class="col-2" style="text-align:right;"></label>
+                                <div class="col">
+                                    <textarea type="text" asp-for="proyecto.Descripcion" class="form-control" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label asp-for="proyecto.Estado_ADC" class="col-2" style="text-align:right;">Administración de cambios</label>
+                                <div class="col">
+                                    <input type="text" asp-for="proyecto.Estado_ADC" class="form-control" disabled />
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="tab-pane fade" id="project-add-members" role="tabpanel">
+                            <div class="users-manage" data-filter-list="form-group-users">
+                                <div class="input-group input-group-round">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">filter_list</i>
+                                        </span>
+                                    </div>
+                                    <input type="search" class="form-control filter-list-input" placeholder="Buscar usuarios" aria-label="Filter Members">
+                                </div>
+                                <div class="form-group-users">
+
+                                    @for (int i = 0; i < Global.miembrosProyecto.Count(); i++)
+                                    {
+
+                                        <div class="custom-control custom-checkbox">
+                                            <label class="custom-control-label" for="project-user-@(Global.miembrosProyecto.ElementAt(i).pm.Id_Usuario)">
+                                                <span class="d-flex align-items-center">
+                                                    <img alt="Claire Connors" src="~/assets/img/user.jpeg" class="avatar mr-2" />
+                                                    <span class="h6 mb-0" data-filter-by="text">
+                                                        @(Global.miembrosProyecto.ElementAt(i).email)
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <br>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @if (Model.proyecto.Eliminado == 0)
+                        {
+                            <a class="btn btn-dark" asp-action="Index">
+                                Regresar
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-dark" asp-action="Eliminados">
+                                Regresar
+                            </a>
+                        }
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

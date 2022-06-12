@@ -44,16 +44,39 @@ namespace SistemaCenagas.Data
 
         #endregion
 
+        #region PRE ARRANQUE
+        public DbSet<PreArranque> PreArranque { get; set; }
+        public DbSet<PreArranque_Actividades> PreArranque_Actividades { get; set; }
+        public DbSet<PreArranque_Procesos> PreArranque_Procesos { get; set; }
+        public DbSet<PreArranque_Archivos> PreArranque_Archivos { get; set; }
+        public DbSet<PreArranque_Normativas> PreArranque_Normativas { get; set; }
+        public DbSet<PreArranque_Equipo_Verificador> PreArranque_Equipo_Verificador { get; set; }
+        public DbSet<PreArranque_Equipo_Verificador_Integrantes> PreArranque_Equipo_Verificador_Integrantes { get; set; }
+
+        #endregion
+
         #region ANEXOS
-        public DbSet<Anexo2> Anexo2 { get; set; }
-        public DbSet<Anexo1> Anexo1 { get; set; }
-        public DbSet<Anexo3> Anexo3 { get; set; }
-        public DbSet<Anexo3_CatalogoTipoDocumentacion> Anexo3_CatalogoTipoDocumentacion { get; set; }
-        public DbSet<Anexo3_Documentacion> Anexo3_Documentacion { get; set; }
-        public DbSet<Anexo4> Anexo4 { get; set; }
-        public DbSet<Anexo5> Anexo5 { get; set; }
-        public DbSet<Anexo6> Anexo6 { get; set; }
-        public DbSet<Anexo6_Documentacion> Anexo6_Documentacion { get; set; }
+        public DbSet<ADC_Anexo2> ADC_Anexo2 { get; set; }
+        public DbSet<ADC_Anexo1> ADC_Anexo1 { get; set; }
+        public DbSet<ADC_Anexo3> ADC_Anexo3 { get; set; }
+        public DbSet<ADC_Anexo3_CatalogoTipoDocumentacion> ADC_Anexo3_CatalogoTipoDocumentacion { get; set; }
+        public DbSet<ADC_Anexo3_Documentacion> ADC_Anexo3_Documentacion { get; set; }
+        public DbSet<ADC_Anexo4> ADC_Anexo4 { get; set; }
+        public DbSet<ADC_Anexo5> ADC_Anexo5 { get; set; }
+        public DbSet<ADC_Anexo6> ADC_Anexo6 { get; set; }
+        public DbSet<ADC_Anexo6_Documentacion> ADC_Anexo6_Documentacion { get; set; }
+
+
+        public DbSet<PreArranque_Anexo2> preArranque_Anexo2 { get; set; }
+        public DbSet<PreArranque_Anexo2_Seccion2> PreArranque_Anexo2_Seccion2 { get; set; }
+        public DbSet<PreArranque_Anexo2_Seccion2_ElementosRevision> PreArranque_Anexo2_Seccion2_ElementosRevision { get; set; }
+        public DbSet<PreArranque_Anexo2_Seccion3> PreArranque_Anexo2_Seccion3 { get; set; }
+
+
+        public DbSet<PreArranque_Anexo1> PreArranque_Anexo1 { get; set; }
+        public DbSet<PreArranque_Anexo1_Actividades> PreArranque_Anexo1_Actividades { get; set; }
+        public DbSet<PreArranque_Anexo1_Actividades_Acciones> PreArranque_Anexo1_Actividades_Acciones { get; set; }
+
 
         #endregion
 

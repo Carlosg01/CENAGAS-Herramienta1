@@ -68,7 +68,7 @@ namespace SistemaCenagas.Controllers
                 Global.session_usuario = new Global.V_Usuarios { 
                     user = us,
                     Rol = _context.Roles.Where(
-                    r => r.Id_Rol == us.Id_Rol).FirstOrDefault().Nombre 
+                    r => r.Id == us.Id_Rol).FirstOrDefault().Nombre 
                 };
                 return RedirectToAction(nameof(Dashboard));
             }
@@ -85,12 +85,12 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction(nameof(Index));
 
             //catalogos
-            Global.roles = _context.Roles.Where(r => r.Id_Rol != 1).ToList();            
+            Global.roles = _context.Roles.Where(r => r.Id != 1).ToList();            
             Global.residencias = _context.Residencias.ToList();
-            Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == 5 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
-            Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
-            Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
-            Global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == 6 && u.Id_Usuario != Global.session_usuario.user.Id_Usuario).ToList();
+            Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == 5 && u.Id != Global.session_usuario.user.Id).ToList();
+            Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id != Global.session_usuario.user.Id).ToList();
+            Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id != Global.session_usuario.user.Id).ToList();
+            Global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == 6 && u.Id != Global.session_usuario.user.Id).ToList();
 
             Global.anexos = _context.Anexos.ToList();
             Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
@@ -220,8 +220,8 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> UpdateAccountSettings(Usuarios user)
         {
             /*actualiza tabla de usuarios*/
-            user.Id_Usuario = Global.session_usuario.user.Id_Usuario;
-            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id_Usuario);
+            user.Id = Global.session_usuario.user.Id;
+            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id);
             consultaUsuario.Nombre = user.Nombre;
             consultaUsuario.Paterno = user.Paterno;
             consultaUsuario.Materno = user.Materno;
@@ -244,8 +244,8 @@ namespace SistemaCenagas.Controllers
             {
                 
                 /*actualiza tabla de usuarios*/
-                user.Id_Usuario = Global.session_usuario.user.Id_Usuario;
-                Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id_Usuario);
+                user.Id = Global.session_usuario.user.Id;
+                Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id);
                 consultaUsuario.Password = user.Nueva_Password;
                 _context.Update(consultaUsuario);
                 await _context.SaveChangesAsync();
@@ -260,8 +260,8 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Notificaciones(Usuarios user)
         {
             /*actualiza notificaciones de usuarios*/
-            user.Id_Usuario = Global.session_usuario.user.Id_Usuario;
-            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id_Usuario);
+            user.Id = Global.session_usuario.user.Id;
+            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id);
             consultaUsuario.Notificacion_Tarea = user.Notificacion_Tarea;
             consultaUsuario.Notificacion_Proyecto = user.Notificacion_Proyecto;
             consultaUsuario.Notificacion_ADC = user.Notificacion_ADC;
@@ -280,7 +280,7 @@ namespace SistemaCenagas.Controllers
 
         private bool UsuarioExists(int id)
         {
-            return _context.Usuarios.Any(e => e.Id_Usuario == id);
+            return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SistemaCenagas.Models
 {
     public class BusquedaReporte
     {
-        public int Id_Busqueda { get; set; }
+        public int Id { get; set; }
         public string Busqueda { get; set; }
         public int Id_Filtro { get; set; }
         public string Filtro { get; set; }

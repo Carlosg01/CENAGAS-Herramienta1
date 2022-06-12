@@ -5,6 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Reporte\ReporteAnexos\Create.cshtml" />
+    <Content Remove="Views\Reporte\ReporteAnexos\Delete.cshtml" />
+    <Content Remove="Views\Reporte\ReporteAnexos\Details.cshtml" />
+    <Content Remove="Views\Reporte\ReporteAnexos\Edit.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo1\Create.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo1\Delete.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo1\Details.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo1\Edit.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo3\Create.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo3\Delete.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo3\Details.cshtml" />
+    <Content Remove="Views\Reporte\ReporteProyectoAnexo3\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.3" />
     <PackageReference Include="MailKit" Version="3.1.1" />

@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editarProceso-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@(Global.tarea.actividad): Archivos</h5>
+                <a asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+
+            <div class="content-list">
+                <!--end of content list head-->
+                <div class="content-list-body row">
+                    <div class="col">
+
+                        @model SistemaCenagas.Models.ADCModel_SubirArchivo
+
+                        <form asp-action="FileUpload" enctype="multipart/form-data">
+
+                            <input type="hidden" asp-for="Id_Usuario" value="@(Global.session_usuario.user.Id)" />
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Seleccionar archivo:</label>
+                                <div class="col">
+                                    <input type="hidden" asp-for="Id_ADC" value="@(Global.adc.adc.Id)" />
+                                    <input type="hidden" asp-for="Id_Proceso" value="@(Global.proceso.Id)" />
+                                    <input type="hidden" asp-for="Actividad" value="@(Global.tarea.actividad)" />
+                                    <input type="file" asp-for="Archivo" class="form-control" required />
+                                </div>
+                            </div>
+                            @if (Global.SUCCESS_MSJ != null)
+                            {
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    @(Global.SUCCESS_MSJ)
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                Global.SUCCESS_MSJ = null;
+
+
+                            }
+                            <div class="modal-footer">
+                                <button type="submit" role="button" class="btn btn-success">
+                                    Subir
+                                </button>
+                            </div>
+                        </form>
+
+
+
+                        <ul class="list-group list-group-activity dropzone-previews flex-column-reverse">
+
+                            @foreach (var item in Global.vista_archivos)
+                            {
+                                <li class="list-group-item">
+                                    <div class="media align-items-center">
+                                        <ul class="avatars">
+                                            <li>
+                                                <div class="avatar bg-primary">
+                                                    <i class="material-icons">insert_drive_file</i>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <img alt="@(item.usuario)" src="assets/img/user.jpeg" class="avatar" data-title="@(item.usuario)" data-toggle="tooltip" data-filter-by="data-title" />
+                                            </li>
+                                        </ul>
+                                        <div class="media-body d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <a href="#" data-filter-by="text"> @(item.archivo.Nombre) </a>
+                                                <br>
+                                                <span class="text-small" data-filter-by="text">Archivo cargado</span>
+                                            </div>
+                                            <div>
+                                                <a class="text-success" asp-action="DownloadFile" asp-route-idFile="@(item.archivo.Id)">Descargar</a>
+                                            </div>
+                                            <div>
+                                                <a class="text-danger" asp-action="DeleteFile" asp-route-idFile="@(item.archivo.Id)">Eliminar</a>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

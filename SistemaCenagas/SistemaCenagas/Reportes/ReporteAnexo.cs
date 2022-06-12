@@ -60,7 +60,7 @@ namespace SistemaCenagas.Reportes
         public byte[] Anexo1_PDF(Proyectos proyecto, int idADC)
         {
             var anexo1 = Consultas.VistaAnexo1(context, idADC);
-            var adc = Consultas.VistaADC(context).Where(a => a.adc.Id_ADC == idADC).FirstOrDefault();
+            var adc = Consultas.VistaADC(context).Where(a => a.adc.Id == idADC).FirstOrDefault();
             html_anexo1 = html_anexo1.Replace("#CLAVE", proyecto.Clave + "-F01");
             html_anexo1 = html_anexo1.Replace("#TEMPORAL", anexo1.anexo1.Tipo_Cambio.Equals("Temporal") ? "X" : "");
             html_anexo1 = html_anexo1.Replace("#PERMANENTE", anexo1.anexo1.Tipo_Cambio.Equals("Permanente") ? "X" : "");
@@ -109,13 +109,13 @@ namespace SistemaCenagas.Reportes
             Global.resumenADC = Consultas.VistaResumenADC(context).Where(r => r.id_proyecto == IdProyecto);
 
             IEnumerable<Anexo2_Registro> registros = (from p in context.Proyectos
-                                               join adc in context.ADC on p.Id_Proyecto equals adc.Id_Proyecto
-                                               join a1 in context.Anexo1 on adc.Id_ADC equals a1.Id_PropuestaCambio
-                                               join res in context.Usuarios on adc.Id_ResponsableADC equals res.Id_Usuario
-                                               join lider in context.Usuarios on adc.Id_Lider equals lider.Id_Usuario
-                                               join r in context.Residencias on a1.Id_Residencia equals r.Id_Residencia
+                                               join adc in context.ADC on p.Id equals adc.Id_Proyecto
+                                               join a1 in context.ADC_Anexo1 on adc.Id equals a1.Id
+                                               join res in context.Usuarios on adc.Id_ResponsableADC equals res.Id
+                                                      join lider in context.Usuarios on adc.Id_LiderEquipoVerificador equals lider.Id
+                                                      join r in context.Residencias on a1.Id_Residencia equals r.Id
                                                //join resumen in Global.resumenADC on p.Id_Proyecto equals resumen.id_proyecto
-                                               where p.Id_Proyecto == IdProyecto
+                                               where p.Id == IdProyecto
                                                select new Anexo2_Registro
                                                {
                                                    NoFolio = adc.Folio,
@@ -158,7 +158,7 @@ namespace SistemaCenagas.Reportes
         }
         public byte[] Anexo2_PDF(Proyectos proyecto)
         {
-            Anexo2_AgregarRegistros(proyecto.Id_Proyecto);
+            Anexo2_AgregarRegistros(proyecto.Id);
 
             html_anexo2 = html_anexo2.Replace("#CLAVE", proyecto.Clave + "-F02");
             html_anexo2 = html_anexo2.Replace("#REVISION", "1");
@@ -180,16 +180,16 @@ namespace SistemaCenagas.Reportes
 
         public byte[] Anexo3_PDF(int id)
         {
-            var anexo3 = context.Anexo3.Find(id);
+            var anexo3 = context.ADC_Anexo3.Find(id);
             var anexo1 = Consultas.VistaAnexo1(context, anexo3.Id_Anexo1);
-            var adc = Consultas.VistaADC(context).Where(a => a.adc.Id_ADC == anexo3.Id_Anexo1).FirstOrDefault();
-            var proyecto = Consultas.VistaProyectos(context).Where(p => p.Id_Proyecto == adc.adc.Id_Proyecto).FirstOrDefault();
+            var adc = Consultas.VistaADC(context).Where(a => a.adc.Id == anexo3.Id_Anexo1).FirstOrDefault();
+            var proyecto = Consultas.VistaProyectos(context).Where(p => p.Id == adc.adc.Id_Proyecto).FirstOrDefault();
             var EV = context.ADC_Equipo_Verificador.Where(a => a.Id_ADC == anexo3.Id_Anexo1).FirstOrDefault();//OrderBy(a => a.Id_Equipo_Verificador).LastOrDefault();
-            var integrantesEV = context.ADC_Equipo_Verificador_Integrantes.Where(a => a.Id_Equipo_Verificador == EV.Id_Equipo_Verificador);
+            var integrantesEV = context.ADC_Equipo_Verificador_Integrantes.Where(a => a.Id_Equipo_Verificador_ADC == EV.Id);
 
             IEnumerable<Usuarios> usuarios = (from u in context.Usuarios
-                            join ev in context.ADC_Equipo_Verificador_Integrantes on u.Id_Usuario equals ev.Id_Usuario
-                            where ev.Id_Equipo_Verificador == EV.Id_Equipo_Verificador
+                            join ev in context.ADC_Equipo_Verificador_Integrantes on u.Id equals ev.Id_Usuario
+                            where ev.Id_Equipo_Verificador_ADC == EV.Id
                             select u).ToList();
 
             string NOMBRES = "";

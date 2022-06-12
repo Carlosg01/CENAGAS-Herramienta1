@@ -60,7 +60,7 @@ namespace SistemaCenagas
         public struct V_ADC
         {
             public ADC adc;
-            public Anexo1 anexo1;
+            public ADC_Anexo1 anexo1;
             public string residencia;
             public int id_proyecto;
             public string proyecto;
@@ -78,7 +78,7 @@ namespace SistemaCenagas
         //---------Anexo 1: Propuesta de cambio-------
         public struct V_Anexo1
         {
-            public Anexo1 anexo1;
+            public ADC_Anexo1 anexo1;
             public string proyecto;
             public string residencia;
             public string instalacion;
@@ -90,7 +90,7 @@ namespace SistemaCenagas
         //---------Anexo 3: Propuesta de cambio-------
         public struct V_Anexo3
         {
-            public Anexo3 anexo3;
+            public ADC_Anexo3 anexo3;
             public string folio;
             public string residencia;
             public string tipoCambio1;
@@ -161,7 +161,7 @@ namespace SistemaCenagas
         public static IEnumerable<Gasoductos> gasoductos { get; set; }
         public static IEnumerable<Tramos> tramos { get; set; }
         public static IEnumerable<ADC> adcs { get; set; }
-        public static IEnumerable<Anexo3_CatalogoTipoDocumentacion> anexo3_CatalogoTipoDocumentacion { get; set; }
+        public static IEnumerable<ADC_Anexo3_CatalogoTipoDocumentacion> anexo3_CatalogoTipoDocumentacion { get; set; }
 
 
     }

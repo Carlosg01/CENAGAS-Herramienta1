@@ -61,7 +61,7 @@
 
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id_Usuario" />
+                    <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="Notificacion_Tarea" />
                     <input type="hidden" asp-for="Notificacion_Proyecto" />
                     <input type="hidden" asp-for="Notificacion_ADC" />
@@ -125,7 +125,7 @@
                                 <option></option>
                                 @foreach (var rol in Global.roles)
                                 {
-                                    <option value="@(rol.Id_Rol)">@(rol.Nombre)</option>
+                                    <option value="@(rol.Id)">@(rol.Nombre)</option>
                                 }
                             </select>
                         </div>
