@@ -36,20 +36,21 @@ namespace SistemaCenagas.Controllers
 
             Global.vista_adc = Consultas.VistaADC(_context);
 
-            if (Global.session_usuario.user.Id_Rol == 5)
+            if (Global.session_usuario.user.Id_Rol == Global.LIDER_EQUIPO_VERIFICADOR)
             {
                 Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_LiderEquipoVerificador == Global.session_usuario.user.Id).ToList();
             }
-            else if(Global.session_usuario.user.Id_Rol == 4)
+            else if(Global.session_usuario.user.Id_Rol == Global.RESPONSABLE_ADC)
             {
                 Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_ResponsableADC == Global.session_usuario.user.Id).ToList();
             }
-            else if (Global.session_usuario.user.Id_Rol == 4)
+            else if (Global.session_usuario.user.Id_Rol == Global.SUPLENTE)
             {
                 Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id).ToList();
             }
-            else if (Global.session_usuario.user.Id_Rol == 6)
+            else if (Global.session_usuario.user.Id_Rol == Global.EQUIPO_VERIFICADOR)
             {
+                Global.vista_adc = null;
                 Global.vista_adc = Consultas.VistaADC_EV(_context);
             }
 
@@ -239,7 +240,7 @@ namespace SistemaCenagas.Controllers
                     Usuarios user;
                     Proyectos proyecto = _context.Proyectos.Find(model.Id_Proyecto);
 
-                    if(model.Id_LiderEquipoVerificador != 1)
+                    if(model.Id_LiderEquipoVerificador != Global.ADMINISTRADOR)
                     {
                         //Notificacion por email a proponente de cambio
                         try
@@ -258,7 +259,7 @@ namespace SistemaCenagas.Controllers
                         }
                         catch (Exception ex) { }
                     }
-                    if (model.Id_ResponsableADC != 1)
+                    if (model.Id_ResponsableADC != Global.ADMINISTRADOR)
                     {
                         //Notificacion por email a proponente de cambio
                         try
@@ -277,7 +278,7 @@ namespace SistemaCenagas.Controllers
                         }
                         catch (Exception ex) { }
                     }
-                    if (model.Id_LiderEquipoVerificador != 1)
+                    if (model.Id_LiderEquipoVerificador != Global.ADMINISTRADOR)
                     {
                         //Notificacion por email a proponente de cambio
                         try

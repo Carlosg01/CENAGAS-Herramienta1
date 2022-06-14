@@ -18,7 +18,7 @@ namespace SistemaCenagas.Models
         public string Estatus { get; set; }
         public string Confirmar_Password { get; set; }
         public string Nueva_Password { get; set; }
-        public string Puesto { get; set; }
+        public int Id_Puesto { get; set; }
         public string Nombre { get; set; }
         public string Paterno { get; set; }
         public string Materno { get; set; }
@@ -28,6 +28,6 @@ namespace SistemaCenagas.Models
         public string Notificacion_Proyecto { get; set; }
         public string Notificacion_Tarea { get; set; }
         public string Notificacion_ADC { get; set; }
-        public int Registro_Eliminado { get; set; }
+        public int Eliminado { get; set; }
     }
 }

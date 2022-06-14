@@ -41,7 +41,7 @@ namespace SistemaCenagas.Controllers
 
         public async Task<IActionResult> Eliminados()
         {
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context).Where(u => u.user.Registro_Eliminado == 1);
+            Global.vista_usuarios = Consultas.VistaUsuarios(_context).Where(u => u.user.Eliminado == 1);
             return View();
         }
 
@@ -202,7 +202,7 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
-            usuario.Registro_Eliminado = 1; 
+            usuario.Eliminado = 1; 
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -236,7 +236,7 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> RestoreConfirmed(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
-            usuario.Registro_Eliminado = 0;
+            usuario.Eliminado = 0;
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Eliminados));

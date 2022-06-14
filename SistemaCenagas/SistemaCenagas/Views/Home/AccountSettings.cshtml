@@ -132,7 +132,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                         <label class="custom-control-label" for="notify-1">Solicitudes de ADC</label>
                                     </div>
                                 </div>
-                                @if(Global.session_usuario.user.Id_Rol < 7)
+                                @if(new List<int>() { Global.ADMINISTRADOR, Global.SUPERADMIN, Global.RESPONSABLE_ADC, Global.SUPLENTE, Global.LIDER_EQUIPO_VERIFICADOR }.Contains(Global.session_usuario.user.Id_Rol))
                                 {
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox custom-checkbox-switch">

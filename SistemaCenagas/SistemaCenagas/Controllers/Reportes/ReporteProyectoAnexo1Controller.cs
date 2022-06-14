@@ -36,17 +36,17 @@ namespace SistemaCenagas.Controllers
                 .Where(a => a.adc.Id_ProponenteCambio == Global.session_usuario.user.Id).ToList();
 
             //Vista adc a cargo
-            if (Global.session_usuario.user.Id_Rol == 2)
+            if (Global.session_usuario.user.Id_Rol == Global.LIDER_EQUIPO_VERIFICADOR)
             {
                 Global.vista_adc_cargo = Global.vista_adc
                     .Where(a => a.adc.Id_LiderEquipoVerificador == Global.session_usuario.user.Id).ToList();
             }
-            else if(Global.session_usuario.user.Id_Rol == 3)
+            else if(Global.session_usuario.user.Id_Rol == Global.RESPONSABLE_ADC)
             {
                 Global.vista_adc_cargo = Global.vista_adc
                     .Where(a => a.adc.Id_ResponsableADC == Global.session_usuario.user.Id).ToList();
             }
-            else if (Global.session_usuario.user.Id_Rol == 4)
+            else if (Global.session_usuario.user.Id_Rol == Global.SUPLENTE)
             {
                 Global.vista_adc_cargo = Global.vista_adc
                     .Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id).ToList();

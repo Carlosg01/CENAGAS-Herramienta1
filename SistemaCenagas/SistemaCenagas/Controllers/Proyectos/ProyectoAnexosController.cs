@@ -37,7 +37,7 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.anexos = _context.Anexos.Where(a => a.Id <= 3).ToList();
+            Global.anexos = _context.ADC_Anexos.Where(a => a.Id <= 3).ToList();
             return View();
         }
 

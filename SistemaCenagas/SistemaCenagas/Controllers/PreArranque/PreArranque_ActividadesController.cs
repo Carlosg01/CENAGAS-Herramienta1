@@ -26,7 +26,7 @@ namespace SistemaCenagas.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            Global.vista_actividadesADC = Consultas.VistaActividadesADC(_context);
+            Global.vista_actividadesPreArranque = Consultas.PreArranqueVistaActividades(_context);
             return View();
         }
 
@@ -37,14 +37,14 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            Global.actividadADC = await _context.ADC_Actividades
+            Global.actividadPreArranque = await _context.PreArranque_Actividades
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (Global.actividadADC == null)
+            if (Global.actividadPreArranque == null)
             {
                 return NotFound();
             }
 
-            return RedirectToAction("Index", "ADC_Normativas");
+            return RedirectToAction("Index", "PreArranque_Normativas");
         }
 
         // GET: ADC_Actividades/Details/5
@@ -55,14 +55,14 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Actividades = await _context.ADC_Actividades
+            var prearranque_actividades = await _context.PreArranque_Actividades
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (aDC_Actividades == null)
+            if (prearranque_actividades == null)
             {
                 return NotFound();
             }
 
-            return View(aDC_Actividades);
+            return View(prearranque_actividades);
         }
 
         // GET: ADC_Actividades/Create
@@ -76,15 +76,15 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Actividad,Actividad,Registro_Eliminado")] ADC_Actividades aDC_Actividades)
+        public async Task<IActionResult> Create(PreArranque_Actividades prearranque_Actividades)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(aDC_Actividades);
+                _context.Add(prearranque_Actividades);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(aDC_Actividades);
+            return View(prearranque_Actividades);
         }
 
         // GET: ADC_Actividades/Edit/5
@@ -95,12 +95,12 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Actividades = await _context.ADC_Actividades.FindAsync(id);
-            if (aDC_Actividades == null)
+            var prearranque_Actividades = await _context.PreArranque_Actividades.FindAsync(id);
+            if (prearranque_Actividades == null)
             {
                 return NotFound();
             }
-            return PartialView(aDC_Actividades);
+            return PartialView(prearranque_Actividades);
         }
 
         // POST: ADC_Actividades/Edit/5
@@ -108,9 +108,9 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Actividad,Actividad,Registro_Eliminado")] ADC_Actividades aDC_Actividades)
+        public async Task<IActionResult> Edit(int id, PreArranque_Actividades prearranque_Actividades)
         {
-            if (id != aDC_Actividades.Id)
+            if (id != prearranque_Actividades.Id)
             {
                 return NotFound();
             }
@@ -119,12 +119,12 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    _context.Update(aDC_Actividades);
+                    _context.Update(prearranque_Actividades);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ADC_ActividadesExists(aDC_Actividades.Id))
+                    if (!ADC_ActividadesExists(prearranque_Actividades.Id))
                     {
                         return NotFound();
                     }
@@ -135,7 +135,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return PartialView(aDC_Actividades);
+            return PartialView(prearranque_Actividades);
         }
 
         // GET: ADC_Actividades/Delete/5
@@ -146,14 +146,14 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Actividades = await _context.ADC_Actividades
+            var prearranque_Actividades = await _context.PreArranque_Actividades
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (aDC_Actividades == null)
+            if (prearranque_Actividades == null)
             {
                 return NotFound();
             }
 
-            return View(aDC_Actividades);
+            return View(prearranque_Actividades);
         }
 
         // POST: ADC_Actividades/Delete/5
@@ -161,16 +161,16 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var aDC_Actividades = await _context.ADC_Actividades.FindAsync(id);
-            aDC_Actividades.Eliminado = 1;
-            _context.ADC_Actividades.Update(aDC_Actividades);
+            var prearranque_Actividades = await _context.PreArranque_Actividades.FindAsync(id);
+            prearranque_Actividades.Eliminado = 1;
+            _context.Update(prearranque_Actividades);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ADC_ActividadesExists(int id)
         {
-            return _context.ADC_Actividades.Any(e => e.Id == id);
+            return _context.PreArranque_Actividades.Any(e => e.Id == id);
         }
     }
 }

@@ -34,26 +34,26 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.vista_adc = Consultas.VistaADC(_context);
+            Global.vista_prearranque = Consultas.PreArranqueVista(_context);
 
-            if (Global.session_usuario.user.Id_Rol == 5)
+            if (Global.session_usuario.user.Id_Rol == Global.LIDER_EQUIPO_VERIFICADOR)
             {
-                Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_LiderEquipoVerificador == Global.session_usuario.user.Id).ToList();
+                Global.vista_prearranque = Global.vista_prearranque.Where(a => a.prearranque.Id_LiderEquipoVerificador == Global.session_usuario.user.Id).ToList();
             }
-            else if(Global.session_usuario.user.Id_Rol == 4)
+            else if(Global.session_usuario.user.Id_Rol == Global.RESPONSABLE_ADC)
             {
-                Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_ResponsableADC == Global.session_usuario.user.Id).ToList();
+                Global.vista_prearranque = Global.vista_prearranque.Where(a => a.prearranque.Id_Responsable == Global.session_usuario.user.Id).ToList();
             }
-            else if (Global.session_usuario.user.Id_Rol == 4)
+            else if (Global.session_usuario.user.Id_Rol == Global.SUPLENTE)
             {
-                Global.vista_adc = Global.vista_adc.Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id).ToList();
+                Global.vista_prearranque = Global.vista_prearranque.Where(a => a.prearranque.Id_Suplente == Global.session_usuario.user.Id).ToList();
             }
-            else if (Global.session_usuario.user.Id_Rol == 6)
+            else if (Global.session_usuario.user.Id_Rol == Global.EQUIPO_VERIFICADOR)
             {
-                Global.vista_adc = Consultas.VistaADC_EV(_context);
+                Global.vista_prearranque = Consultas.PreArranqueVista_EV(_context);
             }
 
-            Global.resumenADC = Consultas.VistaResumenADC(_context);
+            //Global.resumenADC = Consultas.VistaResumenADC(_context);
 
 
             return View();
@@ -77,8 +77,6 @@ namespace SistemaCenagas.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            
 
             if (Global.busqueda != null)
                 return View(Global.busqueda);
@@ -112,10 +110,10 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            Global.adc = Global.vista_adc.Where(a => a.adc.Id == id).FirstOrDefault();
-            Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id == Global.adc.adc.Id_Proyecto).FirstOrDefault();
+            Global.prearranque = Global.vista_prearranque.Where(a => a.prearranque.Id == id).FirstOrDefault();
+            Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id == Global.prearranque.prearranque.Id_Proyecto).FirstOrDefault();
 
-            return RedirectToAction("Index", "ADC_Procesos");
+            return RedirectToAction("Index", "PreArranque_Procesos");
         }
 
         // GET: ADC/Details/5

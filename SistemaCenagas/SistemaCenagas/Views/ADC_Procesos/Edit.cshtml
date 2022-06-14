@@ -1,0 +1,90 @@
+﻿@model SistemaCenagas.Models.ADC_Procesos
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo1-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@(Global.tarea.actividad.Actividad)</h5>
+                <a asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Id_ADC" />
+                    <input type="hidden" asp-for="Id_Actividad" />
+                    <input type="hidden" asp-for="Avance" />
+                    <input type="hidden" asp-for="Activo" />
+
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Avance" class="col-2" style="text-align:right;">Avance</label>
+                        <div class="col">
+                            <input type="text" asp-for="Avance" class="form-control" disabled />
+                        </div>
+                        <span asp-validation-for="Avance" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Faltante_Comentarios" class="col-2" style="text-align:right;">Faltantes y comentarios</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="Faltante_Comentarios" class="form-control"></textarea>
+                        </div>
+                        <span asp-validation-for="Faltante_Comentarios" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Plan_Accion" class="col-2" style="text-align:right;">Plan de acción</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="Plan_Accion" class="form-control"></textarea>
+                        </div>
+                        <span asp-validation-for="Plan_Accion" class="text-danger"></span>
+                    </div>
+                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                    {
+                        <div class="form-group row align-items-center">
+                            <label class="col-2" style="text-align:right;">Terminado</label>
+                            <div class="col">
+                                <input type="checkbox" asp-for="Terminado" class="">
+                            </div>
+
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label class="col-2" style="text-align:right;">Confirmado</label>
+                            <div class="col">
+                                <input type="checkbox" asp-for="Confirmado" class="">
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Terminado" />
+                        <input type="hidden" asp-for="Confirmado" />
+
+                    }
+                    <input type="hidden" asp-for="Activo" />
+                    <div class="modal-footer">
+                        <button role="button" class="btn btn-success" type="submit">
+                            Guardar
+                        </button>
+                        <a class="btn btn-dark" asp-action="Index">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

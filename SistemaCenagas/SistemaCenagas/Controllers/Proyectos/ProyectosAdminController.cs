@@ -64,7 +64,7 @@ namespace SistemaCenagas.Controllers
         public IActionResult Create()
         {
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol > 2 && u.user.Registro_Eliminado == 0).ToList();
+                .Where(u => u.user.Id_Rol > 2 && u.user.Eliminado == 0).ToList();
             ViewBag.clave = "PRO-CEN-UTA-022";
             Proyecto_Miembro_Model model_ProyectoMiembro = new Proyecto_Miembro_Model();
             model_ProyectoMiembro.miembros = new List<string>();
@@ -164,7 +164,7 @@ namespace SistemaCenagas.Controllers
             model_ProyectoMiembro.idMiembro = new List<int>();
 
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol > 2 && u.user.Registro_Eliminado == 0).ToList();
+                .Where(u => u.user.Id_Rol > 2 && u.user.Eliminado == 0).ToList();
             for (int i = 0; i < Global.vista_usuarios.Count(); i++)
             {
                 model_ProyectoMiembro.miembros.Add("false");
@@ -213,7 +213,7 @@ namespace SistemaCenagas.Controllers
                             .Where(p => p.Id_Proyecto == proyectos.proyecto.Id &&
                                         p.Id_Usuario == proyectos.idMiembro[i]).FirstOrDefault();
 
-
+                        
                         if (p != null)
                         {
                             p.Id_Proyecto = proyectos.proyecto.Id;

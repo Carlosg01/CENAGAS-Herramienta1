@@ -5,8 +5,8 @@ delete from instalaciones;
 
 delete from adc_equipo_verificador;
 delete from adc_equipo_verificador_integrantes;
-delete from anexo3;
+delete from adc_anexo3;
 delete from adc_archivos;
 delete from adc_procesos;
-delete from anexo1;
+delete from adc_anexo1;
 delete from adc;

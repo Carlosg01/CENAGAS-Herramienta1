@@ -39,7 +39,20 @@ namespace SistemaCenagas.Controllers
 
             Global.proyectos = Global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
 
-            return RedirectToAction("Index", "ADCProyecto");
+            return RedirectToAction("Index", "ADC_Proyecto");
+            //return RedirectToAction("Create", "Anexo1");
+        }
+
+        public async Task<IActionResult> PreArranques(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Global.proyectos = Global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
+
+            return RedirectToAction("Index", "PreArranque_Proyecto");
             //return RedirectToAction("Create", "Anexo1");
         }
 

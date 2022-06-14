@@ -37,16 +37,26 @@ namespace SistemaCenagas.Controllers
             ServicioEmail.EMAIL_ADDRESS = "aihm.mytests@gmail.com";
             ServicioEmail.EMAIL_PASSWORD = "test#12345";
             ServicioEmail.EMAIL_SERVER = "https://localhost:43366";
-            ServicioEmail.EMAIL_SERVER = "http://armandohdz-001-site1.btempurl.com/";
+            ServicioEmail.EMAIL_SERVER = "http://cenagas-001-site1.htempurl.com/";
 
+            
 
         }
 
         public IActionResult Index()
         {
-            var r = _context.Roles.ToList();
+            IEnumerable<Roles> r = _context.Roles.ToList();
             var u = _context.Usuarios.ToList();
-            
+
+            Global.ADMINISTRADOR = _context.Roles.Where(x => x.Nombre.Equals("Administrador")).FirstOrDefault().Id;
+            Global.SUPERADMIN = _context.Roles.Where(x => x.Nombre.Equals("Superadmin")).FirstOrDefault().Id;
+            Global.RESPONSABLE_ADC = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la administración de cambio")).FirstOrDefault().Id;
+            Global.RESPONSABLE_PREARRANQUE = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la revisión de seguridad del pre-arranque")).FirstOrDefault().Id;
+            Global.SUPLENTE = _context.Roles.Where(x => x.Nombre.Equals("Suplente")).FirstOrDefault().Id;
+            Global.LIDER_EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Lider de equipo verificador")).FirstOrDefault().Id;
+            Global.EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Equipo verificador")).FirstOrDefault().Id;
+            Global.EMPLEADO = _context.Roles.Where(x => x.Nombre.Equals("Empleado")).FirstOrDefault().Id;
+
             Global.vista_usuarios = Consultas.VistaUsuarios(_context);
             Global.session = "LogOut";
 
@@ -86,14 +96,16 @@ namespace SistemaCenagas.Controllers
 
             //catalogos
             Global.roles = _context.Roles.Where(r => r.Id != 1).ToList();            
+            Global.puestos = _context.Puestos.ToList();            
             Global.residencias = _context.Residencias.ToList();
-            Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == 5 && u.Id != Global.session_usuario.user.Id).ToList();
-            Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id != Global.session_usuario.user.Id).ToList();
-            Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == 4 && u.Id != Global.session_usuario.user.Id).ToList();
-            Global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == 6 && u.Id != Global.session_usuario.user.Id).ToList();
+            Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == Global.LIDER_EQUIPO_VERIFICADOR && u.Id != Global.session_usuario.user.Id).ToList();
+            Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == Global.RESPONSABLE_ADC && u.Id != Global.session_usuario.user.Id).ToList();
+            Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == Global.SUPLENTE && u.Id != Global.session_usuario.user.Id).ToList();
+            Global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == Global.EQUIPO_VERIFICADOR && u.Id != Global.session_usuario.user.Id).ToList();
 
-            Global.anexos = _context.Anexos.ToList();
+            Global.anexos = _context.ADC_Anexos.ToList();
             Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
+            Global.vista_actividadesPreArranque = _context.PreArranque_Actividades.ToList();
             
             Global.session = "LogIn";
             return View();

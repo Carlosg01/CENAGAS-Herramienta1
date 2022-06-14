@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaCenagas.Models
 {
-    public class Anexos
+    public class ADC_Anexos
     {
         [Key]
         public int Id { get; set; }

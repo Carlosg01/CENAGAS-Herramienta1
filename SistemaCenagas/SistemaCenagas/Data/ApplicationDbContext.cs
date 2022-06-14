@@ -16,6 +16,7 @@ namespace SistemaCenagas.Data
 
         #region TABLAS INICIALES
         public DbSet<Roles> Roles { get; set; }
+        public DbSet<Puestos> Puestos { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Residencias> Residencias { get; set; }
         public DbSet<Proyectos> Proyectos { get; set; }
@@ -29,7 +30,7 @@ namespace SistemaCenagas.Data
         public DbSet<Instalaciones> Instalaciones { get; set; }
         public DbSet<Gasoductos> Gasoductos { get; set; }
         public DbSet<Tramos> Tramos { get; set; }
-        public DbSet<Anexos> Anexos { get; set; }
+        public DbSet<ADC_Anexos> ADC_Anexos { get; set; }
 
         #endregion
 
@@ -67,7 +68,7 @@ namespace SistemaCenagas.Data
         public DbSet<ADC_Anexo6_Documentacion> ADC_Anexo6_Documentacion { get; set; }
 
 
-        public DbSet<PreArranque_Anexo2> preArranque_Anexo2 { get; set; }
+        public DbSet<PreArranque_Anexo2> PreArranque_Anexo2 { get; set; }
         public DbSet<PreArranque_Anexo2_Seccion2> PreArranque_Anexo2_Seccion2 { get; set; }
         public DbSet<PreArranque_Anexo2_Seccion2_ElementosRevision> PreArranque_Anexo2_Seccion2_ElementosRevision { get; set; }
         public DbSet<PreArranque_Anexo2_Seccion3> PreArranque_Anexo2_Seccion3 { get; set; }

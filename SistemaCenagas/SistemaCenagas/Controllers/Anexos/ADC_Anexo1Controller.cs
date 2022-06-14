@@ -95,6 +95,7 @@ namespace SistemaCenagas.Controllers
                     Id_ResponsableADC = 1,
                     Id_Suplente = 1,
                     Fecha_Actualizacion = anexo1.Fecha,
+                    PreArranque = "No",
                     Eliminado = 0
                 };
 

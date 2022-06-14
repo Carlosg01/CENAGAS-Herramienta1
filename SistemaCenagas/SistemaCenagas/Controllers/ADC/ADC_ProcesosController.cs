@@ -62,7 +62,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction("Edit", "Anexo1");
+            return RedirectToAction("Edit", "ADC_Anexo1");
         }
 
         public async Task<IActionResult> Normativas(int? id)
@@ -108,7 +108,7 @@ namespace SistemaCenagas.Controllers
             Global.anexo1 = Consultas.VistaAnexo1(_context, id);
 
             //return RedirectToAction("Index", "ADCProyecto");
-            return RedirectToAction("Create", "Anexo3");
+            return RedirectToAction("Create", "ADC_Anexo3");
         }
 
         // GET: ADC_Procesos/Create

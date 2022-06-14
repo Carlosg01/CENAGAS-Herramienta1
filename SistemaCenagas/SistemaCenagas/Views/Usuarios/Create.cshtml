@@ -60,7 +60,7 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <input type="hidden" asp-for="Registro_Eliminado" value="0" />
+                    <input type="hidden" asp-for="Eliminado" value="0" />
                     <div class="form-group row align-items-center">
                         <label asp-for="Nombre" class="col-2" style="text-align:right;">Nombre(s)</label>
                         <div class="col">
@@ -116,6 +116,19 @@
                         <span asp-validation-for="Confirmar_Password" class="text-danger"></span>
                     </div>
                     <span id="alert_password"></span>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Id_Puesto" class="col-2" style="text-align:right;">Puesto</label>
+                        <div class="col">
+                            <select asp-for="Id_Puesto" class="form-control" required>
+                                <option></option>
+                                @foreach (var puesto in Global.puestos)
+                                {
+                                    <option value="@(puesto.Id)">@(puesto.Nombre)</option>
+                                }
+                            </select>
+                        </div>
+                        <span asp-validation-for="Id_Puesto" class="text-danger"></span>
+                    </div>
                     <div class="form-group row align-items-center">
                         <label asp-for="Id_Rol" class="col-2" style="text-align:right;">Rol</label>
                         <div class="col">

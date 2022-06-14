@@ -26,7 +26,7 @@ namespace SistemaCenagas.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            Global.vista_normativas = Consultas.VistaNormativasADC(_context);
+            Global.vista_normativas_prearranque = Consultas.PreArranqueVistaNormativas(_context);
             return View();
         }
 
@@ -38,10 +38,10 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            Global.normativas = Global.vista_normativas.Where(
-                n => n.adc_normativas.Id == id).FirstOrDefault();
+            Global.normativasPreArranque = Global.vista_normativas_prearranque.Where(
+                n => n.prearranque_normativas.Id == id).FirstOrDefault();
 
-            if (Global.normativas.adc_normativas == null)
+            if (Global.normativasPreArranque.prearranque_normativas == null)
             {
                 return NotFound();
             }
@@ -83,12 +83,12 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Normativas = await _context.ADC_Normativas.FindAsync(id);
-            if (aDC_Normativas == null)
+            var prearranque_Normativas = await _context.PreArranque_Normativas.FindAsync(id);
+            if (prearranque_Normativas == null)
             {
                 return NotFound();
             }
-            return PartialView(aDC_Normativas);
+            return PartialView(prearranque_Normativas);
         }
 
         // POST: ADC_Normativas/Edit/5
@@ -96,9 +96,9 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Normativa,Id_Actividad,Clave,Responsable,Descripcion,Id_Anexo,Registro_Eliminado")] ADC_Normativas aDC_Normativas)
+        public async Task<IActionResult> Edit(int id, PreArranque_Normativas prearranque_Normativas)
         {
-            if (id != aDC_Normativas.Id)
+            if (id != prearranque_Normativas.Id)
             {
                 return NotFound();
             }
@@ -107,12 +107,12 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    _context.Update(aDC_Normativas);
+                    _context.Update(prearranque_Normativas);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ADC_NormativasExists(aDC_Normativas.Id))
+                    if (!ADC_NormativasExists(prearranque_Normativas.Id))
                     {
                         return NotFound();
                     }
@@ -123,7 +123,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return PartialView(aDC_Normativas);
+            return PartialView(prearranque_Normativas);
         }
 
         // GET: ADC_Normativas/Delete/5

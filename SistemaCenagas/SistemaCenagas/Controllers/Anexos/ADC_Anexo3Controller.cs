@@ -43,7 +43,7 @@ namespace SistemaCenagas.Controllers
             ViewBag.liderEV = Global.adc.lider;
 
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == 6 && u.user.Registro_Eliminado == 0).ToList();
+                .Where(u => u.user.Id_Rol == Global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
             ViewBag.clave = "PRO-CEN-UTA-022";
             /*
             Model_ProyectoMiembro model_ProyectoMiembro = new Model_ProyectoMiembro();
@@ -94,7 +94,7 @@ namespace SistemaCenagas.Controllers
                     {
                         ADC_Equipo_Verificador_Integrantes integrante = new ADC_Equipo_Verificador_Integrantes
                         {
-                            Id = ev.Id,
+                            Id_Equipo_Verificador_ADC = ev.Id,
                             Id_Usuario = anexo3_model.idMiembro[i],
                             Estatus = "Agregado"
                         };
@@ -154,28 +154,35 @@ namespace SistemaCenagas.Controllers
 
             var equipoVerificador = Consultas.VistaEquipoVerificador(_context, idEV);
 
+
             ADC_Anexo3Model_EquipoVerificador model = new ADC_Anexo3Model_EquipoVerificador();
             model.anexo3 = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == id).OrderBy(a => a.Id).LastOrDefault();
             model.miembros = new List<string>();
             model.idMiembro = new List<int>();
 
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == 6 && u.user.Registro_Eliminado == 0).ToList();
-            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
-            {
-                model.miembros.Add("false");
-                model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id);
+                .Where(u => u.user.Id_Rol == Global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
 
-                for (int j = 0; j < equipoVerificador.Count(); j++)
+            if(equipoVerificador != null)
+            {
+                for (int i = 0; i < Global.vista_usuarios.Count(); i++)
                 {
-                    if (Global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
-                        equipoVerificador.ElementAt(j).integrante.Estatus.Equals("Agregado"))
+                    model.miembros.Add("false");
+                    model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id);
+
+                    for (int j = 0; j < equipoVerificador.Count(); j++)
                     {
-                        model.miembros[i] = "true";
-                        break;
+                        if (Global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
+                            equipoVerificador.ElementAt(j).integrante.Estatus.Equals("Agregado"))
+                        {
+                            model.miembros[i] = "true";
+                            break;
+                        }
                     }
                 }
             }
+
+            
             return PartialView(model);
         }
 
@@ -200,37 +207,63 @@ namespace SistemaCenagas.Controllers
                     _context.Update(model.anexo3);
                     await _context.SaveChangesAsync();
 
-                    int idEV = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == id).FirstOrDefault().Id;
+                    //int idEV = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == id).FirstOrDefault().Id;
+                    var EV = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == id).FirstOrDefault();
 
-                    for (int i = 0; i < model.miembros.Count(); i++)
+                    //var equipoVerificador = Consultas.VistaEquipoVerificador(_context, idEV);
+
+                    if(Consultas.VistaEquipoVerificador(_context, EV.Id).Count() > 0)
                     {
-                        ADC_Equipo_Verificador_Integrantes integrante = _context.ADC_Equipo_Verificador_Integrantes
-                            .Where(e => e.Id == idEV && e.Id_Usuario == model.idMiembro[i]).FirstOrDefault();
-
-
-                        if (integrante != null)
+                        for (int i = 0; i < model.miembros.Count(); i++)
                         {
-                            //p.Id_Proyecto = proyectos.proyecto.Id_Proyecto;
-                            //p.Id_Usuario = proyectos.idMiembro[i];
-                            integrante.Estatus = (model.miembros[i].Equals("true") ? "Agregado" : "Eliminado");
-                            _context.Update(integrante);
-                            //return Content(JsonConvert.SerializeObject(p));
+                            ADC_Equipo_Verificador_Integrantes integrante = _context.ADC_Equipo_Verificador_Integrantes
+                                .Where(e => e.Id_Equipo_Verificador_ADC == EV.Id && e.Id_Usuario == model.idMiembro[i]).FirstOrDefault();
 
-                        }
-                        else if (model.miembros[i].Equals("true"))
-                        {
-                            integrante = new ADC_Equipo_Verificador_Integrantes
+
+                            if (integrante != null)
                             {
-                                Id = idEV,
-                                Id_Usuario = model.idMiembro[i],
-                                Estatus = "Agregado"
-                            };
-                            _context.Add(integrante);
+                                //p.Id_Proyecto = proyectos.proyecto.Id_Proyecto;
+                                //p.Id_Usuario = proyectos.idMiembro[i];
+                                integrante.Estatus = (model.miembros[i].Equals("true") ? "Agregado" : "Eliminado");
+                                _context.Update(integrante);
+                                //return Content(JsonConvert.SerializeObject(p));
 
-                            //return Content(JsonConvert.SerializeObject(pm));
+                            }
+                            else if (model.miembros[i].Equals("true"))
+                            {
+                                integrante = new ADC_Equipo_Verificador_Integrantes
+                                {
+                                    Id_Equipo_Verificador_ADC = EV.Id,
+                                    Id_Usuario = model.idMiembro[i],
+                                    Estatus = "Agregado"
+                                };
+                                _context.Add(integrante);
+
+                                //return Content(JsonConvert.SerializeObject(pm));
+                            }
+                            await _context.SaveChangesAsync();
                         }
-                        await _context.SaveChangesAsync();
+
                     }
+                    else
+                    {
+                        for (int i = 0; i < model.miembros.Count(); i++)
+                        {
+                            if (model.miembros[i].Equals("true"))
+                            {
+                                ADC_Equipo_Verificador_Integrantes integrante = new ADC_Equipo_Verificador_Integrantes
+                                {
+                                    Id_Equipo_Verificador_ADC = EV.Id,
+                                    Id_Usuario = model.idMiembro[i],
+                                    Estatus = "Agregado"
+                                };
+
+                                _context.Add(integrante);
+                                await _context.SaveChangesAsync();
+                            }
+                        }
+                    }
+
 
                     ADC_Procesos a = _context.ADC_Procesos.Where(a => a.Id_ADC == model.anexo3.Id_Anexo1 && a.Id_Actividad == 2).FirstOrDefault();
                     a.Avance = 100;
@@ -278,7 +311,7 @@ namespace SistemaCenagas.Controllers
             model.idMiembro = new List<int>();
 
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == 6 && u.user.Registro_Eliminado == 0).ToList();
+                .Where(u => u.user.Id_Rol == 6 && u.user.Eliminado == 0).ToList();
             for (int i = 0; i < Global.vista_usuarios.Count(); i++)
             {
                 model.miembros.Add("false");
@@ -364,7 +397,7 @@ namespace SistemaCenagas.Controllers
             model.idMiembro = new List<int>();
 
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == 6 && u.user.Registro_Eliminado == 0).ToList();
+                .Where(u => u.user.Id_Rol == 6 && u.user.Eliminado == 0).ToList();
             for (int i = 0; i < Global.vista_usuarios.Count(); i++)
             {
                 model.miembros.Add("false");
@@ -460,7 +493,7 @@ namespace SistemaCenagas.Controllers
             model.idMiembro = new List<int>();
 
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == 6 && u.user.Registro_Eliminado == 0).ToList();
+                .Where(u => u.user.Id_Rol == 6 && u.user.Eliminado == 0).ToList();
             for (int i = 0; i < Global.vista_usuarios.Count(); i++)
             {
                 model.miembros.Add("false");

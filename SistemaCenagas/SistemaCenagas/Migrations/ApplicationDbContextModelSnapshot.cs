@@ -645,6 +645,9 @@ namespace SistemaCenagas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Con_ADC")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("Eliminado")
                         .HasColumnType("int");
 

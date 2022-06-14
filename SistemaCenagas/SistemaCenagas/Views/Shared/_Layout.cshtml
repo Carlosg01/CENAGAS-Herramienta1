@@ -60,7 +60,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Solicitud de cambio</a>
                                     </li>
-                                    @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Index">Gestión</a>
@@ -77,54 +77,79 @@
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">ADC</a>
                             <div id="submenu-4" class="collapse">
                                 <ul class="nav nav-small flex-column">
-                                    @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista</a>
+                                            <a class="nav-link" asp-controller="ADC_Admin" asp-action="Index">Lista</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="ADC_Actividades" asp-action="Index">Actividades</a>
                                         </li>
                                     }
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
+                                        <a class="nav-link" asp-controller="ADC_Usuario" asp-action="Index">Mis propuestas</a>
                                     </li>
 
-                                    @if (new List<int> { 3, 4, 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if ((new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR, Global.EMPLEADO }.Contains(Global.session_usuario.user.Id_Rol)) == false)
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Asignados</a>
+                                            <a class="nav-link" asp-controller="ADC_Admin" asp-action="Index">Asignados</a>
                                         </li>
                                     }
 
                                 </ul>
                             </div>
                         </li>
-                        <!--li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">Pre arranque</a>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">Pre-Arranque</a>
                             <div id="submenu-8" class="collapse">
                                 <ul class="nav nav-small flex-column">
-                                    @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista</a>
+                                            <a class="nav-link" asp-controller="PreArranque_Admin" asp-action="Index">Lista</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="PreArranque_Actividades" asp-action="Index">Actividades</a>
                                         </li>
                                     }
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
-                                    </li>
-
-                                    @if (new List<int> { 3, 4, 5, 6 }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if ((new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR, Global.EMPLEADO }.Contains(Global.session_usuario.user.Id_Rol)) == false)
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Asignados</a>
+                                            <a class="nav-link" asp-controller="PreArranque_Admin" asp-action="Index">Asignados</a>
                                         </li>
                                     }
 
                                 </ul>
                             </div>
-                        </li-->
-                        @if (new List<int> { 1, 2 }.Contains(Global.session_usuario.user.Id_Rol))
+                        </li>
+
+                        <!--li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">Pre arranque</a>
+        <div id="submenu-8" class="collapse">
+            <ul class="nav nav-small flex-column">
+                @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista</a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
+                </li>
+
+                @if ((new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR, Global.EMPLEADO }.Contains(Global.session_usuario.user.Id_Rol)) == false)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Asignados</a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </li-->
+                        @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5">Usuarios</a>
@@ -157,7 +182,7 @@
                                                         <a class="nav-link" asp-controller="ReporteAnexos" asp-action="Index">Anexos</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" asp-controller="ADCAdmin" asp-action="Resumen">Resumen</a>
+                                                        <a class="nav-link" asp-controller="ADC_Admin" asp-action="Resumen">Resumen</a>
                                                     </li>
 
                                                 </ul>
@@ -198,6 +223,8 @@
         $("#example").DataTable({
             scrollX: true,
         });
+
+        
 
     </script>
     <script>

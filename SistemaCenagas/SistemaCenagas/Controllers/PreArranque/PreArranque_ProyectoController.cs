@@ -28,34 +28,30 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.vista_adc = Consultas.VistaADC(_context).Where(a => a.id_proyecto == Global.proyectos.Id);
-
-            //Vista adc propuestas
-            Global.vista_adc_propuestas = Global.vista_adc
-                .Where(a => a.adc.Id_ProponenteCambio == Global.session_usuario.user.Id).ToList();
+            Global.vista_prearranque = Consultas.PreArranqueVista(_context).Where(a => a.id_proyecto == Global.proyectos.Id);
 
             //Vista adc a cargo
-            if (Global.session_usuario.user.Id_Rol == 5)
+            if (Global.session_usuario.user.Id_Rol == Global.ADMINISTRADOR)
             {
-                Global.vista_adc_cargo = Global.vista_adc
-                    .Where(a => a.adc.Id_LiderEquipoVerificador == Global.session_usuario.user.Id).ToList();
+                Global.vista_prearranque_cargo = Global.vista_prearranque
+                    .Where(a => a.prearranque.Id_LiderEquipoVerificador == Global.session_usuario.user.Id).ToList();
             }
-            else if(Global.session_usuario.user.Id_Rol == 4)
+            else if(Global.session_usuario.user.Id_Rol == Global.RESPONSABLE_ADC || Global.session_usuario.user.Id_Rol == Global.RESPONSABLE_PREARRANQUE)
             {
-                Global.vista_adc_cargo = Global.vista_adc
-                    .Where(a => a.adc.Id_ResponsableADC == Global.session_usuario.user.Id).ToList();
+                Global.vista_prearranque_cargo = Global.vista_prearranque
+                    .Where(a => a.prearranque.Id_Responsable == Global.session_usuario.user.Id).ToList();
             }
-            else if (Global.session_usuario.user.Id_Rol == 4)
+            else if (Global.session_usuario.user.Id_Rol == Global.SUPLENTE)
             {
-                Global.vista_adc_cargo = Global.vista_adc
-                    .Where(a => a.adc.Id_Suplente == Global.session_usuario.user.Id).ToList();
+                Global.vista_prearranque_cargo = Global.vista_prearranque
+                    .Where(a => a.prearranque.Id_Suplente == Global.session_usuario.user.Id).ToList();
             }
 
-            Global.resumenADC = Consultas.VistaResumenADC(_context);
+            //Global.resumenADC = Consultas.VistaResumenADC(_context);
 
             return View();
         }
-        public async Task<IActionResult> ADC(int? id)
+        public async Task<IActionResult> PreArranque(int? id)
         {
             if (id == null)
             {
@@ -65,7 +61,7 @@ namespace SistemaCenagas.Controllers
             Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id == id).FirstOrDefault();
 
             //return RedirectToAction("Index", "ADCProyecto");
-            return RedirectToAction("Create", "Anexo1");
+            return RedirectToAction("Create", "PreArranque_Anexo2");
         }
         public async Task<IActionResult> Tareas(int? id)
         {
@@ -74,9 +70,9 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            Global.adc = Global.vista_adc.Where(a => a.adc.Id == id).FirstOrDefault();
+            Global.prearranque = Global.vista_prearranque.Where(a => a.prearranque.Id == id).FirstOrDefault();
 
-            return RedirectToAction("Index", "ADC_Procesos");
+            return RedirectToAction("Index", "PreArranque_Procesos");
         }
 
         // GET: ADC/Details/5

@@ -9,7 +9,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Detalles de usuario</h5>
-                @if (Model.Registro_Eliminado == 0)
+                @if (Model.Eliminado == 0)
                 {
                     <a asp-action="Index" class="close btn btn-round">
                         <i class="material-icons">close</i>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        @if (Model.Registro_Eliminado == 0)
+                        @if (Model.Eliminado == 0)
                         {
                             <a class="btn btn-dark" asp-action="Index">
                                 Regresar

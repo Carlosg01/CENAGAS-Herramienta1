@@ -19,6 +19,7 @@ namespace SistemaCenagas.Models
         public int Id_LiderEquipoVerificador { get; set; }
         //-------------------------------
         public string Fecha_Actualizacion { get; set; }
+        public string PreArranque { get; set; }
         public int Eliminado { get; set; }
 
     }

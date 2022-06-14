@@ -42,18 +42,18 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.vista_tareas = Consultas.VistaTareas(_context)
-                .Where(t => t.proceso.Id_ADC == Global.adc.adc.Id).ToList();
-            Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id);
-            ViewBag.avance_total = Global.vista_tareas.Sum(t => t.proceso.Avance);
-            ViewBag.anexo3_action = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == Global.adc.adc.Id).ToList().Count == 0 ? "create" : "edit";
+            Global.vista_tareas_prearranque = Consultas.PreArranqueVistaTareas(_context)
+                .Where(t => t.proceso.Id_PreArranque == Global.prearranque.prearranque.Id).ToList();
+
+            Global.anexo2_prearranque = Consultas.PreArranqueVistaAnexo2(_context, Global.prearranque.prearranque.Id);
+            ViewBag.avance_total = Global.vista_tareas_prearranque.Sum(t => t.proceso.Avance);
+            //ViewBag.anexo3_action = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == Global.adc.adc.Id).ToList().Count == 0 ? "create" : "edit";
 
             return View();
         }
 
         public async Task<IActionResult> PropuestaCambio()
         {
-
             //Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
             //Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == id).FirstOrDefault();
 
@@ -67,15 +67,15 @@ namespace SistemaCenagas.Controllers
 
         public async Task<IActionResult> Normativas(int? id)
         {
-            Global.actividadADC = await _context.ADC_Actividades
+            Global.actividadPreArranque = await _context.PreArranque_Actividades
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Global.actividadADC == null)
+            if (Global.actividadPreArranque == null)
             {
                 return NotFound();
             }
 
-            return RedirectToAction("Index", "ADC_Normativas");
+            return RedirectToAction("Index", "PreArranque_Normativas");
         }
 
         // GET: ADC_Procesos/Details/5
@@ -86,14 +86,14 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Procesos = await _context.ADC_Procesos
+            var prearranque_Procesos = await _context.PreArranque_Procesos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (aDC_Procesos == null)
+            if (prearranque_Procesos == null)
             {
                 return NotFound();
             }
 
-            return View(aDC_Procesos);
+            return View(prearranque_Procesos);
         }
 
         public async Task<IActionResult> CrearAnexo3(int? id)
@@ -141,16 +141,16 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var aDC_Procesos = await _context.ADC_Procesos.FindAsync(id);
-            if (aDC_Procesos == null)
+            var prearranque_Procesos = await _context.PreArranque_Procesos.FindAsync(id);
+            if (prearranque_Procesos == null)
             {
                 return NotFound();
             }
 
-            Global.tarea = Global.vista_tareas
-                .Where(t => t.proceso.Id_Actividad == aDC_Procesos.Id_Actividad).FirstOrDefault();
+            Global.tarea_prearranque = Global.vista_tareas_prearranque
+                .Where(t => t.proceso.Id_Actividad == prearranque_Procesos.Id_Actividad).FirstOrDefault();
 
-            return View(aDC_Procesos);
+            return View(prearranque_Procesos);
         }
 
         // POST: ADC_Procesos/Edit/5
@@ -158,9 +158,9 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ADC_Procesos aDC_Procesos)
+        public async Task<IActionResult> Edit(int id, PreArranque_Procesos prearranque_Procesos)
         {
-            if (id != aDC_Procesos.Id)
+            if (id != prearranque_Procesos.Id)
             {
                 return NotFound();
             }
@@ -169,19 +169,19 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    aDC_Procesos.Avance = aDC_Procesos.Terminado.Equals("true") && aDC_Procesos.Confirmado.Equals("true") ? 100 : aDC_Procesos.Avance;
-                    _context.Update(aDC_Procesos);
+                    prearranque_Procesos.Avance = prearranque_Procesos.Terminado.Equals("true") && prearranque_Procesos.Confirmado.Equals("true") ? 100 : prearranque_Procesos.Avance;
+                    _context.Update(prearranque_Procesos);
                     await _context.SaveChangesAsync();
 
-                    ADC adc = _context.ADC.Where(a => a.Id == Global.adc.adc.Id).FirstOrDefault();
-                    adc.Fecha_Actualizacion = DateTime.Now.ToString();
-                    Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
-                    _context.Update(adc);
+                    PreArranque pre = _context.PreArranque.Where(a => a.Id == Global.prearranque.prearranque.Id).FirstOrDefault();
+                    pre.Fecha_Actualizacion = DateTime.Now.ToString();
+                    Global.prearranque.prearranque.Fecha_Actualizacion = pre.Fecha_Actualizacion;
+                    _context.Update(pre);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ADC_ProcesosExists(aDC_Procesos.Id))
+                    if (!ADC_ProcesosExists(prearranque_Procesos.Id))
                     {
                         return NotFound();
                     }
@@ -192,7 +192,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aDC_Procesos);
+            return View(prearranque_Procesos);
         }
 
         // GET: ADC_Procesos/Delete/5
@@ -269,25 +269,25 @@ namespace SistemaCenagas.Controllers
             if (Id == null)
                 return NotFound();
 
-            Global.proceso = _context.ADC_Procesos.Find(Id);
-            Global.tarea = Consultas.VistaTareas(_context).Where(a => a.proceso.Id == Id).FirstOrDefault();
-            Global.vista_archivos = Consultas.VistaArchivosADC(_context, Global.proceso.Id);
+            Global.proceso_prearranque = _context.PreArranque_Procesos.Find(Id);
+            Global.tarea_prearranque = Consultas.PreArranqueVistaTareas(_context).Where(a => a.proceso.Id == Id).FirstOrDefault();
+            Global.vista_archivos_prearranque = Consultas.PreArranqueVistaArchivos(_context, Global.proceso_prearranque.Id);
 
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> FileUpload(ADCModel_SubirArchivo uploadFile)
+        public async Task<ActionResult> FileUpload(PreArranqueModel_SubirArchivo uploadFile)
         {
             //return Content("Filename: " + uploadFile.Archivo.FileName);
             await UploadFile(uploadFile);
             Global.SUCCESS_MSJ = "El archivo se subió correctamente!";
             Global.panelTareas = "";
             Global.panelArchivos = "show active";
-            return RedirectToAction("Index", "ADC_Procesos");
+            return RedirectToAction("Index", "PreArranque_Procesos");
         }
         // Upload file on server
-        public async Task<bool> UploadFile(ADCModel_SubirArchivo upload)
+        public async Task<bool> UploadFile(PreArranqueModel_SubirArchivo upload)
         {
             string path = "";
             bool iscopied = false;
@@ -296,20 +296,20 @@ namespace SistemaCenagas.Controllers
                 if (upload.Archivo.Length > 0)
                 {
 
-                    ADC_Archivos archivo = new ADC_Archivos
+                    PreArranque_Archivos archivo = new PreArranque_Archivos
                     {
-                        Id_ADC = upload.Id_ADC,
+                        Id_PreArranque = upload.Id_PreArranque,
                         Id_Proceso = upload.Id_Proceso,
                         Actividad = upload.Actividad,
                         Id_Usuario = upload.Id_Usuario,
-                        Clave = string.Format("[ADC{0}-{1}]_[FILENAME-{2}]{3}", upload.Id_ADC, upload.Actividad, upload.Archivo.FileName, Path.GetExtension(upload.Archivo.FileName)),
+                        Clave = string.Format("[PreArranque{0}-{1}]_[FILENAME-{2}]{3}", upload.Id_PreArranque, upload.Actividad, upload.Archivo.FileName, Path.GetExtension(upload.Archivo.FileName)),
                         Nombre = upload.Archivo.FileName,
                         Extension = Path.GetExtension(upload.Archivo.FileName),
                         Size = (upload.Archivo.Length / 1000000),
                         Ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "UploadFiles"))
                     };
 
-                    _context.ADC_Archivos.Add(archivo);
+                    _context.PreArranque_Archivos.Add(archivo);
                     await _context.SaveChangesAsync();
 
 
@@ -333,7 +333,7 @@ namespace SistemaCenagas.Controllers
         public async Task<ActionResult> DownloadFile(int idFile)
         {
 
-            ADC_Archivos archivo = _context.ADC_Archivos.Find(idFile);
+            PreArranque_Archivos archivo = _context.PreArranque_Archivos.Find(idFile);
 
             var path = archivo.Ubicacion + "\\" + archivo.Clave;
 
@@ -355,12 +355,12 @@ namespace SistemaCenagas.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteFile(int? idFile)
         {
-            ADC_Archivos archivo = _context.ADC_Archivos.Find(idFile);
-            _context.ADC_Archivos.Remove(archivo);
+            PreArranque_Archivos archivo = _context.PreArranque_Archivos.Find(idFile);
+            _context.PreArranque_Archivos.Remove(archivo);
             await _context.SaveChangesAsync();
             Global.panelTareas = "";
             Global.panelArchivos = "show active";
-            return RedirectToAction("Index", "ADC_Procesos");
+            return RedirectToAction("Index", "PreArranque_Procesos");
         }
 
         private Dictionary<string, string> GetMimeTypes()

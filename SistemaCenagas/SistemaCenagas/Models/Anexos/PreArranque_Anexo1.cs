@@ -36,4 +36,12 @@ namespace SistemaCenagas.Models
         public string Concluida { get; set; }
         
     }
+
+    public class PreArranque_Anexo1Model_EquipoVerificador
+    {
+        public PreArranque_Anexo1 anexo1 { get; set; }
+        public List<string> miembros { get; set; }
+        public List<int> idMiembro { get; set; }
+        //public ADC_Anexo3_Documentacion[] documentacion { get; set; }
+    }
 }

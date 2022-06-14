@@ -5,6 +5,9 @@ select * from adc;
 select * from adc_procesos;
 select * from adc_archivos;
 select * from roles;
+select * from puestos;
+
+select * from prearranque;
 
 select * from usuarios;
 
@@ -13,7 +16,7 @@ select * from proyecto_miembros;
 
 #------CATALOGOS--------
 select * from residencias;
-select * from anexos;
+select * from adc_anexos;
 select * from gasoductos;
 select * from tramos;
 select * from instalaciones;
@@ -34,6 +37,16 @@ where id_propuestacambio = 1;
 
 update usuarios set id_rol = 2
 where id_usuario = 4;
+
+
+select * from prearranque;
+select * from prearranque_anexo2;
+select * from prearranque_procesos;
+
+delete from prearranque_procesos;
+delete from prearranque_anexo2;
+delete from prearranque;
+
 
 
 
