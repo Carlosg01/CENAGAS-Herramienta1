@@ -9,11 +9,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 7).FirstOrDefault().Nombre):
-                    <br />
-                    @(Global.proyectos.Nombre)
+                    @(Global.anexos.Where(a => a.Id == 7).FirstOrDefault().Nombre)
                 </h6>
-                <a asp-controller="ADC_Procesos" asp-action="Index" class="close btn btn-round">
+                <a asp-controller="PreArranque_Procesos" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
             </div>
@@ -22,6 +20,9 @@
 
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="anexo1.Id"/>
+                    <input type="hidden" asp-for="anexo1.Id_Prearranque"/>
 
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Lider del equipo verificador</label>
@@ -66,7 +67,7 @@
                         <button type="submit" role="button" class="btn btn-success">
                             Guardar
                         </button>
-                        <a class="btn btn-dark" asp-controller="ADC_Procesos" asp-action="Index">
+                        <a class="btn btn-dark" asp-controller="PreArranque_Procesos" asp-action="Index">
                             Cancelar
                         </a>
                     </div>

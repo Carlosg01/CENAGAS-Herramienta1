@@ -40,16 +40,13 @@ where id_usuario = 4;
 
 
 select * from prearranque;
+select * from prearranque_anexo1;
 select * from prearranque_anexo2;
 select * from prearranque_procesos;
 
+SET SQL_SAFE_UPDATES = 0;
+
 delete from prearranque_procesos;
+delete from prearranque_anexo1;
 delete from prearranque_anexo2;
 delete from prearranque;
-
-
-
-
-
-
-

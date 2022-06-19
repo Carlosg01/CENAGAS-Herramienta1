@@ -228,6 +228,8 @@ namespace SistemaCenagas
         public static IEnumerable<Roles> roles { get; set; }
         public static IEnumerable<Puestos> puestos { get; set; }
         public static IEnumerable<ADC_Anexos> anexos { get; set; }
+        public static IEnumerable<Proyectos> lista_proyectos_adc { get; set; }
+        public static IEnumerable<Proyectos> lista_proyectos_prearranque { get; set; }
         public static IEnumerable<Usuarios> lideres { get; set; }
         public static IEnumerable<Usuarios> responsablesADC { get; set; }
         public static IEnumerable<Usuarios> responsablesPreArranque { get; set; }
@@ -237,6 +239,7 @@ namespace SistemaCenagas
         public static IEnumerable<Gasoductos> gasoductos { get; set; }
         public static IEnumerable<Tramos> tramos { get; set; }
         public static IEnumerable<ADC> adcs { get; set; }
+        public static IEnumerable<ADC> adcsPrearranque { get; set; }
         public static IEnumerable<V_ADC> adcs_con_prearranque { get; set; }
         public static IEnumerable<ADC_Anexo3_CatalogoTipoDocumentacion> anexo3_CatalogoTipoDocumentacion { get; set; }
 

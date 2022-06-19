@@ -106,6 +106,8 @@ namespace SistemaCenagas.Controllers
             Global.anexos = _context.ADC_Anexos.ToList();
             Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
             Global.vista_actividadesPreArranque = _context.PreArranque_Actividades.ToList();
+
+            //Global.lista_proyectos_adc = _context.Proyectos.Where(p => p.Estado_ADC)
             
             Global.session = "LogIn";
             return View();

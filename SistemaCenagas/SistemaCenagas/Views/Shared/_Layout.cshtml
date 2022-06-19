@@ -58,12 +58,12 @@
                                 <ul class="nav nav-small flex-column">
 
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Solicitud de cambio</a>
+                                        <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Solicitudes</a>
                                     </li>
                                     @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Index">Gestión</a>
+                                            <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Index">Asignaciones</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Eliminados">Eliminados</a>

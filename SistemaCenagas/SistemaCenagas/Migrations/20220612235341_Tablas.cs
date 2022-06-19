@@ -171,6 +171,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Estado_ADC = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Estado_PreArranque = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -1916,6 +1918,7 @@ namespace SistemaCenagas.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+       
             migrationBuilder.DropTable(
                 name: "ADC");
 

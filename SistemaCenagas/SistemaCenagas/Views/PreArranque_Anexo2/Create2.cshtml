@@ -5,6 +5,34 @@
 }
 
 <script>
+
+    $("#Proyecto").change(function () {
+
+        $("#FolioADC").empty();
+
+        if ($("#Proyecto").val() != "-1") {
+            $.ajax({
+                type: "Post",
+                url: "/PreArranque_Anexo2/getAdcPrearranque",
+                data: { "idProyecto": $("#Proyecto").val() },
+                success: function (response) {
+                    var items = "";//"<option>--- Selecciona una opción ---</option>";
+                    $(response).each(function () {
+                        items += "<option value='" + this.value + "'>" + this.text + "</option>";
+                    })
+                    $("#FolioADC").html(items);
+                },
+                failure: function (response) {
+                    alert("Failure: " + response.responseText);
+                },
+                error: function (response) {
+                    alert("Error: " + response.responseText);
+                }
+
+            });
+        }
+    });
+
     $("#Residencia").change(function () {
 
         $("#Gasoducto").empty();
@@ -106,19 +134,31 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.proyectos.Nombre): Pre-arranque
+                    Nuevo pre-arranque
                 </h6>
-                <a asp-controller="PreArranque_Proyecto" asp-action="Index" class="close btn btn-round">
+                <a asp-controller="PreArranque_Admin" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
             </div>
             <!--end of modal head-->
             <div class="modal-body">
-                <form asp-action="Create">
+                <form asp-action="Create2">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="preArranque.Id_Proyecto" value="@(Global.proyectos.Id)" />
                     <input type="hidden" asp-for="preArranque.Fecha_Actualizacion" value="@(ViewBag.fecha)" />
 
+                    <div class="form-group row align-items-center">
+                        <label asp-for="preArranque.Id_Proyecto" class="col-2" style="text-align:right;">Proyecto</label>
+                        <div class="col">
+                            <select id="Proyecto" asp-for="preArranque.Id_Proyecto" class="form-control" required>
+                                <option value="-1">--- Selecciona nececidad de cambio ---</option>
+                                @foreach (var item in Global.lista_proyectos_prearranque)
+                                {
+                                    <option value="@(item.Id)">@(item.Nombre)</option>
+                                }
+                            </select>
+                        </div>
+                        <span asp-validation-for="preArranque.Id_Proyecto" class="text-danger"></span>
+                    </div>
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Fecha</label>
                         <div class="col">
@@ -140,10 +180,7 @@
                         <label asp-for="preArranque.Id_ADC" class="col-2" style="text-align:right;">Folio ADC</label>
                         <div class="col">
                             <select id="FolioADC" asp-for="preArranque.Id_ADC" class="form-control" required>
-                                @foreach (var item in Global.adcs_con_prearranque)
-                                {
-                                    <option value="@(item.adc.Id)">@(item.adc.Folio)</option>
-                                }
+                                
                             </select>
                         </div>
                         <span asp-validation-for="anexo2.Id_Residencia" class="text-danger"></span>
@@ -152,7 +189,7 @@
                         <label asp-for="anexo2.Id_Residencia" class="col-2" style="text-align:right;">Residencia</label>
                         <div class="col">
                             <select id="Residencia" asp-for="anexo2.Id_Residencia" class="form-control" required>
-                                
+
                                 @foreach (var item in Global.residencias)
                                 {
                                     <option value="@(item.Id)">@(item.Nombre)</option>
@@ -162,16 +199,15 @@
                         <span asp-validation-for="anexo2.Id_Residencia" class="text-danger"></span>
                     </div>
                     <div class="form-group row align-items-center" hidden id="div_Tramo">
-                        <label asp-for="anexo2.Ut_Gasoducto" class="col-2" style="text-align:right;">Tramo</label>
+                        <label asp-for="anexo2.Ut_Gasoducto" class="col-2" style="text-align:right;">Sistema de transporte</label>
                         <div class="col">
                             <select id="Gasoducto" asp-for="anexo2.Ut_Gasoducto" class="form-control" required>
-                                
                             </select>
                         </div>
                         <span asp-validation-for="anexo2.Ut_Gasoducto" class="text-danger"></span>
                     </div>
                     <div class="form-group row align-items-center" hidden id="div_Instalacion">
-                        <label asp-for="anexo2.Ut_Tramo" class="col-2" style="text-align:right;">Instalación</label>
+                        <label asp-for="anexo2.Ut_Tramo" class="col-2" style="text-align:right;">Tramo</label>
                         <div class="col">
                             <select id="Tramo" asp-for="anexo2.Ut_Tramo" class="form-control" required>
                             </select>
@@ -194,7 +230,7 @@
                         <button type="submit" role="button" class="btn btn-success">
                             Crear
                         </button>
-                        <a class="btn btn-dark" asp-controller="PreArranque_Proyecto" asp-action="Index">
+                        <a class="btn btn-dark" asp-controller="PreArranque_Admin" asp-action="Index">
                             Cancelar
                         </a>
                     </div>

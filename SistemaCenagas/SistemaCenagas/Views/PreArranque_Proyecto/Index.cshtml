@@ -46,7 +46,6 @@
                         data-toggle="modal" data-target="#nuevoADC-modal" data-url="@Url.Action($"PreArranque/{Global.proyectos.Id}")">
                     Nuevo <span class="material-icons">add</span>
                 </button>
-
             </div>
         </div>
 
@@ -56,12 +55,7 @@
                     <div class="tab-pane fade show active" role="tabpanel" id="profile">
                         <!--end of avatar-->
                         <dl class="row">
-                            <dt class="col-sm-3">
-                                Clave:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @(Global.proyectos.Clave)
-                            </dd>
+                            
                             <dt class="col-sm-3">
                                 Proyecto:
                             </dt>
@@ -147,7 +141,7 @@
                         <div class="card card-note">
 
                             <div class="card-body">
-                                <p>No hay ADCs propuestas registradas</p>
+                                <p>No hay Pre-arranques propuestos registrados</p>
                             </div>
                         </div>
                     }
@@ -227,7 +221,7 @@
                     <div class="card card-note">
 
                         <div class="card-body">
-                            <p>No hay ADCs a cargo registrados</p>
+                            <p>No hay Pre-arranques a cargo registrados</p>
                         </div>
                     </div>
                 }

@@ -42,7 +42,7 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="ProyectosAdmin" asp-action="Index">Proyectos</a>
+                    <a asp-controller="ProyectosAdmin" asp-action="Index">Necesidad de cambio</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Crear</li>
 
@@ -75,13 +75,13 @@
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Clave" value="@ViewBag.clave"/>
-                            <div class="form-group row align-items-center">
+                            <!--div class="form-group row align-items-center">
                                 <label asp-for="Clave" class="col-2" style="text-align:right;">Clave</label>
                                 <div class="col">
                                     <input type="text" asp-for="Clave" value="@ViewBag.clave" class="form-control" disabled />
                                 </div>
                                 <span asp-validation-for="Clave" class="text-danger"></span>
-                            </div>
+                            </!div-->
                             <div class="form-group row align-items-center">
                                 <label asp-for="Nombre" class="col-2" style="text-align:right;"></label>
                                 <div class="col">

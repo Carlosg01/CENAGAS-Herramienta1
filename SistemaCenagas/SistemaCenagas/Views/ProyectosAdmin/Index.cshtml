@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item">
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Solicitud de cambio</li>
+                <li class="breadcrumb-item active" aria-current="page">Asignaciones de necesidades de cambio</li>
 
             </ol>
         </nav>
@@ -38,7 +38,7 @@
         <div class="page-header mb-4">
             <div class="row content-list-head">
                 <div class="col-auto">
-                    <h1>Solicitudes de cambio</h1>
+                    <h1>Asignaciones de necesidades de cambio</h1>
                 </div>
                 <button type="button" class="btn btn-lg btn-dark col-xs-12"
                         data-toggle="modal" data-target="#nuevoProyecto-modal" data-url="@Url.Action("Create")">
@@ -53,7 +53,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>
-                            Clave
+                            Id
                         </th>
                         <th>
                             Nombre
@@ -73,7 +73,7 @@
                         {
                             <tr>
                                 <td data-filter-by="text">
-                                    @(item.Clave)
+                                    @(item.Id)
                                 </td>
                                 <td data-filter-by="">
                                     @(item.Nombre)
@@ -111,7 +111,7 @@
             <div class="card card-note">
                 
                 <div class="card-body">
-                    <p>No hay proyectos disponibles</p>
+                    <p>No existen necesidades de cambio</p>
                 </div>
             </div>
         }

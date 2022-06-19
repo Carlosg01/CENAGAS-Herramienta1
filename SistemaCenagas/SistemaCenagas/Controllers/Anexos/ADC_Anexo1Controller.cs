@@ -171,6 +171,128 @@ namespace SistemaCenagas.Controllers
             return PartialView(anexo1);
         }
 
+        public IActionResult Create2()
+        {
+            ViewBag.fecha = DateTime.Now.ToString();
+            Global.lista_proyectos_adc = _context.Proyectos.Where(p => p.Estado_ADC.Equals("Habilitado")).ToList();
+            return PartialView();
+        }
+
+        // POST: Anexo1/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create2(ADC_Anexo1 anexo1)
+        {
+            if (ModelState.IsValid)
+            {
+                ADC_Anexo2 anexo2 = new ADC_Anexo2
+                {
+                    Id_Proyecto = anexo1.Id_Proyecto
+                };
+
+                _context.Add(anexo2);
+                await _context.SaveChangesAsync();
+
+                anexo1.Estatus = "Pendiente";
+                anexo1.Id_Anexo2 = anexo2.Id;
+                _context.Add(anexo1);
+                await _context.SaveChangesAsync();
+
+                string x = anexo1.Tipo_Cambio.ToUpper()[0].ToString();
+                string xx = "NV";
+                string xxx = (anexo1.Id % 10 == 0) ? "0" + anexo1.Id.ToString() : "00" + anexo1.Id.ToString();
+                string xxxx = DateTime.Now.Year.ToString();
+
+                string stringFolio = $"{x}-{xx}-{xxx}-{xxxx}";
+
+                ADC adc = new ADC
+                {
+                    Id = anexo1.Id,
+                    Id_Proyecto = anexo1.Id_Proyecto,
+                    Folio = stringFolio,
+                    Id_ProponenteCambio = Global.session_usuario.user.Id,
+                    Id_LiderEquipoVerificador = 1,
+                    Id_ResponsableADC = 1,
+                    Id_Suplente = 1,
+                    Fecha_Actualizacion = anexo1.Fecha,
+                    PreArranque = "No",
+                    Eliminado = 0
+                };
+
+                Proyectos proyecto = _context.Proyectos.Find(adc.Id_Proyecto);
+                Usuarios user = _context.Usuarios.Find(adc.Id_ProponenteCambio);
+
+                //Notificacion por email a proponente de cambio
+                try
+                {
+                    //verificar si el usuario tiene activo las notificaciones de proyecto
+                    if (user.Notificacion_ADC.Equals("true"))
+                    {
+                        string emailText = $"<h1>Proyecto: <b>{proyecto.Nombre}</b></h1>" +
+                        $"<p>Haz realizado una solicitud de cambio para el proyecto <b>{proyecto.Nombre}</b></p>" +
+                        "<p>Inicia sesión en tu cuenta y revisa tu lista de propuestas de cambio para ver los detalles.</p>";
+
+                        ServicioEmail.SendEmailNotification(user, "Proponente de cambio", emailText);
+                    }
+
+                }
+                catch (Exception ex) { }
+
+                //Notificacion por email a los administradores
+                IEnumerable<Usuarios> administradores = _context.Usuarios.Where(a => a.Id_Rol >= 5).ToList();
+                foreach (var admin in administradores)
+                {
+                    try
+                    {
+                        if (admin.Notificacion_ADC.Equals("true"))
+                        {
+                            string emailText = $"<h1>Proyecto: <b>{proyecto.Nombre}</b></h1>" +
+                            $"<p>Se ha realizado una nueva solicitud de cambio para el proyecto <b>{proyecto.Nombre}</b> por el siguiente usuario:</p><hr>" +
+                            $"<p>Nombre: {user.Nombre} {user.Paterno} {user.Materno}</p><hr>" +
+                            $"<p>Nombre de usuario: {user.Username}</p><hr>" +
+                            $"<p>Email: {user.Email}</p><hr><hr>" +
+                            "<p>Inicia sesión en tu cuenta y revisa tu lista de propuestas de cambio para ver los detalles.</p>";
+
+                            ServicioEmail.SendEmailNotification(admin, "Nueva solicitud de cambio", emailText);
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+
+                _context.Add(adc);
+
+                await _context.SaveChangesAsync();
+
+                //int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
+                Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == anexo1.Id).FirstOrDefault();
+
+                for (int i = 0; i < Global.vista_actividadesADC.Count(); i++)
+                {
+                    //return Content(JsonConvert.SerializeObject(a));
+                    ADC_Procesos tarea = new ADC_Procesos
+                    {
+                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id,
+                        Id_ADC = anexo1.Id,
+                        Avance = 0,//(i == 0) ? (9.0f/12)*100 : 0, //primeros 9 atributos necesarios por primera vez de 12 posibles
+                        Faltante_Comentarios = "N/A",
+                        Plan_Accion = "N/A",
+                        Terminado = "false",
+                        Confirmado = "false"
+
+                    };
+                    _context.Add(tarea);
+                    await _context.SaveChangesAsync();
+                }
+
+
+                return RedirectToAction("Index", "ADC_Procesos");
+            }
+            return PartialView(anexo1);
+        }
+
         // GET: Anexo1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

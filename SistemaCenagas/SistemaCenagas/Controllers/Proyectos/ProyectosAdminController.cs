@@ -94,6 +94,7 @@ namespace SistemaCenagas.Controllers
                     Nombre = _proyecto.proyecto.Nombre,
                     Descripcion = _proyecto.proyecto.Descripcion,
                     Estado_ADC = _proyecto.proyecto.Estado_ADC,
+                    Estado_PreArranque = _proyecto.proyecto.Estado_PreArranque,
                     Eliminado = 0
                 };
                 _context.Add(p);

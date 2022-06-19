@@ -223,7 +223,7 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Edit(int id, PreArranque_Anexo1Model_EquipoVerificador model)
         {
             //return Content(""+id);
-            if (id != model.anexo1.Id)
+            if (id != model.anexo1.Id_Prearranque)
             {
                 return NotFound();
             }
@@ -296,7 +296,7 @@ namespace SistemaCenagas.Controllers
                     }
 
 
-                    PreArranque_Procesos a = _context.PreArranque_Procesos.Where(a => a.Id_PreArranque == model.anexo1.Id && a.Id_Actividad == 2).FirstOrDefault();
+                    PreArranque_Procesos a = _context.PreArranque_Procesos.Where(a => a.Id_PreArranque == model.anexo1.Id_Prearranque && a.Id_Actividad == 1).FirstOrDefault();
                     a.Avance = 100;
                     _context.Update(a);
                     await _context.SaveChangesAsync();
@@ -349,7 +349,7 @@ namespace SistemaCenagas.Controllers
 
         private bool Anexo1Exists(int id)
         {
-            return _context.ADC_Anexo1.Any(e => e.Id == id);
+            return _context.PreArranque_Anexo1.Any(e => e.Id == id);
         }
 
         [HttpPost]

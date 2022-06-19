@@ -62,7 +62,12 @@ namespace SistemaCenagas.Controllers
 
 
         private static HttpClient client = new HttpClient();
-            
+
+        public async Task<IActionResult> ADC()
+        {
+            //return RedirectToAction("Index", "ADCProyecto");
+            return RedirectToAction("Create2", "ADC_Anexo1");
+        }
 
         public async Task<HttpResponseMessage> HttpPostAsync(string url, string data)
         {
