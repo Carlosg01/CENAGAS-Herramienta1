@@ -193,7 +193,7 @@ namespace SistemaCenagas
                     residencia = s.First().residencia,
                     id_proyecto = s.First().id_proyecto,
                     proyecto = s.First().proyecto,
-                    avance_ADC = s.Sum(a => a.avance_ADC) / s.Count(),
+                    avance_ADC = (int)(s.Sum(a => a.avance_ADC) / s.Count()),
                     avance_Pre = 0,
                     avance_Fisico = 0
                 }).ToList();

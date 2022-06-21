@@ -160,6 +160,10 @@ namespace SistemaCenagas.Controllers
             model.miembros = new List<string>();
             model.idMiembro = new List<int>();
 
+            //model.RadioNuevo = "false";
+            //model.RadioRehabilitado = "false";
+            //model.RadioModificado = "false";
+
             Global.vista_usuarios = Consultas.VistaUsuarios(_context)
                 .Where(u => u.user.Id_Rol == Global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
 
@@ -204,6 +208,9 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
+
+                    model.anexo3.Tipo_ADC = model.RadioTipo["tipo"].ToString();
+
                     _context.Update(model.anexo3);
                     await _context.SaveChangesAsync();
 

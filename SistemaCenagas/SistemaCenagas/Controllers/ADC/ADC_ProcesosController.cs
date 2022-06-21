@@ -45,7 +45,7 @@ namespace SistemaCenagas.Controllers
             Global.vista_tareas = Consultas.VistaTareas(_context)
                 .Where(t => t.proceso.Id_ADC == Global.adc.adc.Id).ToList();
             Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id);
-            ViewBag.avance_total = Global.vista_tareas.Sum(t => t.proceso.Avance);
+            ViewBag.avance_total = (int)Global.vista_tareas.Sum(t => t.proceso.Avance);
             ViewBag.anexo3_action = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == Global.adc.adc.Id).ToList().Count == 0 ? "create" : "edit";
 
             return View();

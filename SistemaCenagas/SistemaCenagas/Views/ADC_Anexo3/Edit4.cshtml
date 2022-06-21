@@ -55,8 +55,25 @@
                                 <label class="col-2" style="text-align:right;">Tipo de ADC</label>
                                 <div class="col">
                                     <input type="text" value="@(ViewBag.TipoCambio1)" class="form-control" disabled />
+
+                                </div>
+                                <div class="col form-group">
                                     <input type="hidden" asp-for="anexo3.Tipo_ADC" />
-                                    <input type="text" asp-for="anexo3.Tipo_ADC" class="form-control" disabled />
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="Nuevo"
+                                               @(Model.anexo3.Tipo_ADC.Equals("Nuevo") ? "checked='checked''" : "") name="tipo" disabled />
+                                        <label class="form-check-label">Nuevo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="Rehabilitado"
+                                               @(Model.anexo3.Tipo_ADC.Equals("Rehabilitado") ? "checked='checked''" : "") name="tipo" disabled />
+                                        <label class="form-check-label">Rehabilitado</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="Modificado"
+                                               @(Model.anexo3.Tipo_ADC.Equals("Modificado") ? "checked='checked''" : "") name="tipo" disabled />
+                                        <label class="form-check-label">Modificado</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
@@ -162,7 +179,8 @@
                             <div class="form-group row align-items-center">
                                 <label class="col-2" style="text-align:right;">Justificación técnico-económico del cambio:</label>
                                 <div class="col">
-                                    @if (Global.session_usuario.user.Id_Rol == Global.RESPONSABLE_ADC)
+                                    @if (new List<int>() { Global.RESPONSABLE_ADC, Global.ADMINISTRADOR, Global.SUPERADMIN}
+                                        .Contains(Global.session_usuario.user.Id_Rol))
                                     {
                                         <textarea asp-for="anexo3.Justificacion" type="text" class="form-control" required></textarea>
                                     }
@@ -176,7 +194,8 @@
                             <div class="form-group row align-items-center">
                                 <label class="col-2" style="text-align:right;">Descripción del cambio:</label>
                                 <div class="col">
-                                    @if (Global.session_usuario.user.Id_Rol == Global.EQUIPO_VERIFICADOR || Global.session_usuario.user.Id_Rol == Global.LIDER_EQUIPO_VERIFICADOR)
+                                    @if (new List<int>() { Global.EQUIPO_VERIFICADOR, Global.LIDER_EQUIPO_VERIFICADOR, Global.ADMINISTRADOR, Global.SUPERADMIN }
+                                       .Contains(Global.session_usuario.user.Id_Rol))
                                     {
                                         <textarea asp-for="anexo3.Descripcion_Cambio" type="text" class="form-control" required></textarea>
                                     }
@@ -198,8 +217,8 @@
                             <hr />
                             <div class="form-group row align-items-center">
                                 <div class="col">
-                                    @if (Global.session_usuario.user.Id_Rol == 1 || Global.session_usuario.user.Id_Rol == 2 ||
-                                    Global.session_usuario.user.Id_Rol == 5 || Global.session_usuario.user.Id_Rol == 6)
+                                    @if (new List<int>() { Global.EQUIPO_VERIFICADOR, Global.LIDER_EQUIPO_VERIFICADOR, Global.ADMINISTRADOR, Global.SUPERADMIN }
+                                       .Contains(Global.session_usuario.user.Id_Rol))
                                     {
                                         for (int i = 0; i < 30; i++)
                                         {
