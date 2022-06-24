@@ -62,6 +62,7 @@ namespace SistemaCenagas.Data
         public DbSet<ADC_Anexo3> ADC_Anexo3 { get; set; }
         public DbSet<ADC_Anexo3_CatalogoTipoDocumentacion> ADC_Anexo3_CatalogoTipoDocumentacion { get; set; }
         public DbSet<ADC_Anexo3_Documentacion> ADC_Anexo3_Documentacion { get; set; }
+        public DbSet<ADC_Anexo3_DocumentacionResponsable> ADC_Anexo3_DocumentacionResponsable { get; set; }
         public DbSet<ADC_Anexo4> ADC_Anexo4 { get; set; }
         public DbSet<ADC_Anexo5> ADC_Anexo5 { get; set; }
         public DbSet<ADC_Anexo6> ADC_Anexo6 { get; set; }

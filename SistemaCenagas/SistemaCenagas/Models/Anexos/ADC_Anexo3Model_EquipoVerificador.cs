@@ -9,9 +9,12 @@ namespace SistemaCenagas.Models
     public class ADC_Anexo3Model_EquipoVerificador
     {
         public ADC_Anexo3 anexo3 { get; set; }
+        public string OtroElemento { get; set; }
+        public string OtroElemento_CheckValue { get; set; }
         public IFormCollection RadioTipo { get; set; }
         public List<string> miembros { get; set; }
         public List<int> idMiembro { get; set; }
         public ADC_Anexo3_Documentacion[] documentacion { get; set; }
+        public ADC_Anexo3_DocumentacionResponsable[] responsables { get; set; }
     }
 }

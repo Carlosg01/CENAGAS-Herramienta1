@@ -4,6 +4,24 @@
     ViewData["Title"] = "Edit";
 }
 
+<script>
+
+    $("#Check_OtroElemento").change(function () {
+        //alert("CHECK VALUE: " + $("Check_OtroElemento").is(":checked"));
+
+        if ($("#Check_OtroElemento").is(":checked")) {
+            //alert("CHECK FALSE: " + $("#Check_OtroElemento").is(":checked"));
+            $("#Div_OtroElemento").removeAttr("hidden");
+        }
+        else {
+            //alert("CHECK TRUE: " + $("#Check_OtroElemento").is(":checked"));
+            $("#Div_OtroElemento").attr('hidden', true);
+        }
+        
+    });
+
+</script>
+
 <div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo3-modal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -62,23 +80,21 @@
                                 <label class="col-2" style="text-align:right;">Tipo de ADC</label>
                                 <div class="col">
                                     <input type="text" value="@(ViewBag.TipoCambio1)" class="form-control" disabled />
-                                    <!--select asp-for="anexo3.Tipo_ADC" class="form-control" required>
-                                        <option>Nuevo</option>
-                                        <option>Rehabilitado</option>
-                                        <option>Modificado</option>
-                                    </select-->
                                 </div>
                                 <div class="col form-group">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" value="Nuevo" name="tipo" />
+                                        <input class="form-check-input" type="radio" value="Nuevo"
+                                               @(Model.anexo3.Tipo_ADC.Equals("Nuevo") ? "checked='checked''" : "") name="tipo" />
                                         <label class="form-check-label">Nuevo</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" value="Rehabilitado" name="tipo" />
+                                        <input class="form-check-input" type="radio" value="Rehabilitado"
+                                               @(Model.anexo3.Tipo_ADC.Equals("Rehabilitado") ? "checked='checked''" : "") name="tipo" />
                                         <label class="form-check-label">Rehabilitado</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" value="Modificado" name="tipo" />
+                                        <input class="form-check-input" type="radio" value="Modificado"
+                                               @(Model.anexo3.Tipo_ADC.Equals("Modificado") ? "checked='checked''" : "") name="tipo" />
                                         <label class="form-check-label">Modificado</label>
                                     </div>
                                 </div>
@@ -126,8 +142,12 @@
                                         <label class="form-check-label">Trampa de envios y recibo de diablos</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input asp-for="anexo3.Otro_Elemento" class="form-check-input" type="checkbox" id="inlineCheckbox2">
+                                        <input asp-for="OtroElemento_CheckValue" class="form-check-input" type="checkbox" id="Check_OtroElemento" >
                                         <label class="form-check-label">Otro</label>
+                                        
+                                    </div>
+                                    <div class="form-check form-check-inline" @(Model.OtroElemento_CheckValue.Equals("false") ? "hidden" : "") id="Div_OtroElemento">
+                                        <input asp-for="OtroElemento" placeholder="Describe la modificación" class="form-control" type="text" id="Input_OtroElemento">
                                     </div>
                                 </div>
 

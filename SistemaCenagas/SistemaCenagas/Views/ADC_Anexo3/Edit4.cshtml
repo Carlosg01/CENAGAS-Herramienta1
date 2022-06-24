@@ -2,7 +2,51 @@
 
 @{
     ViewData["Title"] = "Edit";
+
+    int contResponsables = 0;
 }
+
+<script>
+
+    function validateCheck(i) {
+        $("#Check_" + (i + 1)).change(function () {
+
+            //alert("#Check_" + (i + 1) + ":" + $("#Check_" + (i + 1)).is(':checked') + ", #Input_Check_" + (i+1));
+
+            if ($("#Check_" + (i + 1)).is(':checked')) {
+                $("#Input_Check_" + (i + 1)).removeAttr('disabled');
+            }
+            else {
+                $("#Input_Check_" + (i + 1)).attr('disabled', 'disabled');
+            }
+
+        });
+    }
+
+    validateCheck(0);
+    validateCheck(1);
+    validateCheck(2);
+    validateCheck(3);
+    validateCheck(4);
+    validateCheck(5);
+    validateCheck(6);
+    validateCheck(7);
+    validateCheck(8);
+    validateCheck(9);
+    validateCheck(10);
+    validateCheck(11);
+    validateCheck(12);
+    validateCheck(13);
+    validateCheck(14);
+    validateCheck(15);
+    validateCheck(16);
+    validateCheck(17);
+    validateCheck(18);
+    validateCheck(19);
+    validateCheck(20);
+    validateCheck(21);
+
+</script>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo3-modal">
     <div class="modal-dialog modal-lg" role="document">
@@ -129,9 +173,14 @@
                                         <label class="form-check-label">Trampa de envios y recibo de diablos</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="hidden" asp-for="anexo3.Otro_Elemento" />
-                                        <input asp-for="anexo3.Otro_Elemento" class="form-check-input" type="checkbox" disabled id="inlineCheckbox2">
+                                        <input type="hidden" asp-for="OtroElemento_CheckValue">
+                                        <input asp-for="OtroElemento_CheckValue" class="form-check-input" type="checkbox" disabled id="Check_OtroElemento">
                                         <label class="form-check-label">Otro</label>
+
+                                    </div>
+                                    <div class="form-check form-check-inline" @(Model.OtroElemento_CheckValue.Equals("false") ? "hidden" : "") id="Div_OtroElemento">
+                                        <input type="hidden" asp-for="OtroElemento">
+                                        <input asp-for="OtroElemento" placeholder="Describe la modificación" class="form-control" type="text" disabled id="Input_OtroElemento">
                                     </div>
                                 </div>
 
@@ -220,6 +269,67 @@
                                     @if (new List<int>() { Global.EQUIPO_VERIFICADOR, Global.LIDER_EQUIPO_VERIFICADOR, Global.ADMINISTRADOR, Global.SUPERADMIN }
                                        .Contains(Global.session_usuario.user.Id_Rol))
                                     {
+
+                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Tipo de documentacion</th>
+                                                    <th>Documentos requeridos</th>
+                                                    <th>Responsable / Área</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for(int i = 0; i < 22; i++)
+                                                {
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="Check_@(i+1)">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <label class="form-check-label">@(Global.anexo3_CatalogoTipoDocumentacion.ElementAt(i).TipoDocumentacion)</label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group row align-items-center">
+                                                            <div class="col">
+                                                                <textarea type="text" placeholder="Anotaciones" class="form-control" id="Input_Check_@(i+1)" disabled></textarea>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group row align-items-center">
+                                                            <div class="col">
+
+                                                                @for(int j = 0; j < ViewBag.numResponsables; j++)
+                                                                {
+                                                                            
+
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="checkbox" id="Check_@(i+1)">
+                                                                        <label class="form-check-label">
+                                                                        @(Global.responsablesDocumentacionAnexo3.ElementAt(contResponsables).puesto)
+                                                                        </label>
+                                                                    </div>
+
+                                                                    contResponsables++;
+                                                                }
+                                                                
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+
+                                        /*
                                         for (int i = 0; i < 30; i++)
                                         {
                                             if (Model.documentacion[i].Check.Equals("false") ||
@@ -239,6 +349,7 @@
                                                 </div>
                                             }
                                         }
+                                        */
                                     }
                                     else
                                     {

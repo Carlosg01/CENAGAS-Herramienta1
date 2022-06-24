@@ -154,6 +154,14 @@ namespace SistemaCenagas
         {
             public ADC_Equipo_Verificador_Integrantes integrante;
             public string nombre;
+            public string puesto;
+            public string email;
+        }
+        public struct V_ADC_ResponsablesDocumentacionAnexo3
+        {
+            public ADC_Anexo3_DocumentacionResponsable responsable;
+            public string nombre;
+            public string puesto;
             public string email;
         }
 
@@ -242,7 +250,7 @@ namespace SistemaCenagas
         public static IEnumerable<ADC> adcsPrearranque { get; set; }
         public static IEnumerable<V_ADC> adcs_con_prearranque { get; set; }
         public static IEnumerable<ADC_Anexo3_CatalogoTipoDocumentacion> anexo3_CatalogoTipoDocumentacion { get; set; }
-
+        public static List<V_ADC_ResponsablesDocumentacionAnexo3> responsablesDocumentacionAnexo3 { get; set; }
 
     }
 }

@@ -28,8 +28,15 @@
     <!--link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $(".statesSelect").select2();
+        })
+    </script>
 
 </head>
 
@@ -223,9 +230,6 @@
         $("#example").DataTable({
             scrollX: true,
         });
-
-        
-
     </script>
     <script>
         function buscar(controller, buscar, filtrar) {

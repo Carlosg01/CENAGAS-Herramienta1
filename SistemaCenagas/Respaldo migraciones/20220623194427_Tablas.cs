@@ -1169,9 +1169,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
                     Id_Tipo = table.Column<int>(type: "int", nullable: true),
-                    Check = table.Column<string>(type: "longtext", nullable: true)
+                    Anotaciones = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Id_Responsable = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1190,13 +1189,6 @@ namespace SistemaCenagas.Migrations
                       principalColumn: "Id",
                       onDelete: ReferentialAction.SetNull
                     );
-                    table.ForeignKey(
-                      name: "FK_Anexo3_Documentacion__Id_Responsable",
-                      column: x => x.Id_Responsable,
-                      principalTable: "Usuarios",
-                      principalColumn: "Id",
-                      onDelete: ReferentialAction.SetNull
-                    );
 
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -1210,10 +1202,66 @@ namespace SistemaCenagas.Migrations
                table: "ADC_Anexo3_Documentacion",
                column: "Id_Tipo"
                );
+            #endregion
+
+            #region ADC_Anexo3_DocumentacionResponsable
+
+            migrationBuilder.CreateTable(
+                name: "ADC_Anexo3_DocumentacionResponsable",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_Responsable = table.Column<int>(type: "int", nullable: true),
+                    Check = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Estatus = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
+                    Id_Documentacion = table.Column<int>(type: "int", nullable: true),
+
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Anexo3_DocumentacionResponsable", x => x.Id);
+                    table.ForeignKey(
+                      name: "FK_Anexo3_DocumentacionResponsable__IdResponsable",
+                      column: x => x.Id_Responsable,
+                      principalTable: "Usuarios",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                      name: "FK_Anexo3_DocumentacionResponsable__IdAnexo3",
+                      column: x => x.Id_Anexo3,
+                      principalTable: "ADC_Anexo3",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                      name: "FK_Anexo3_Documentacion__IdDocumentacion",
+                      column: x => x.Id_Documentacion,
+                      principalTable: "ADC_Anexo3_Documentacion",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull
+                    );
+
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
             migrationBuilder.CreateIndex(
-               name: "Index_Anexo6__Id_Responsable",
-               table: "ADC_Anexo3_Documentacion",
+               name: "Index_Anexo3_DocumentacionResponsable__IdResponsable",
+               table: "ADC_Anexo3_DocumentacionResponsable",
                column: "Id_Responsable"
+               );
+            migrationBuilder.CreateIndex(
+               name: "Index_Anexo3_DocumentacionResponsable__IdAnexo3",
+               table: "ADC_Anexo3_DocumentacionResponsable",
+               column: "Id_Anexo3"
+               );
+            migrationBuilder.CreateIndex(
+               name: "Index_Anexo3_DocumentacionResponsable__IdDocumentacion",
+               table: "ADC_Anexo3_DocumentacionResponsable",
+               column: "Id_Documentacion"
                );
             #endregion
 
@@ -1918,7 +1966,7 @@ namespace SistemaCenagas.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-       
+
             migrationBuilder.DropTable(
                 name: "ADC");
 

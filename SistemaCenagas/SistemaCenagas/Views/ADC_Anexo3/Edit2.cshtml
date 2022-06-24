@@ -126,9 +126,14 @@
                                         <label class="form-check-label">Trampa de envios y recibo de diablos</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="hidden" asp-for="anexo3.Otro_Elemento" />
-                                        <input asp-for="anexo3.Otro_Elemento" class="form-check-input" type="checkbox" disabled id="inlineCheckbox2">
+                                        <input type="hidden" asp-for="OtroElemento_CheckValue">
+                                        <input asp-for="OtroElemento_CheckValue" class="form-check-input" type="checkbox" disabled id="Check_OtroElemento">
                                         <label class="form-check-label">Otro</label>
+
+                                    </div>
+                                    <div class="form-check form-check-inline" @(Model.OtroElemento_CheckValue.Equals("false") ? "hidden" : "") id="Div_OtroElemento">
+                                        <input type="hidden" asp-for="OtroElemento">
+                                        <input asp-for="OtroElemento" placeholder="Describe la modificación" class="form-control" type="text" disabled id="Input_OtroElemento">
                                     </div>
                                 </div>
 

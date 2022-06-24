@@ -7,6 +7,8 @@ delete from proyectos;
 
 delete from adc_equipo_verificador;
 delete from adc_equipo_verificador_integrantes;
+delete from adc_anexo3_documentacionresponsable;
+delete from adc_anexo3_documentacion;
 delete from adc_anexo3;
 delete from adc_archivos;
 delete from adc_procesos;

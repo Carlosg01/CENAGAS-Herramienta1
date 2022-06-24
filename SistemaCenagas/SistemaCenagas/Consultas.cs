@@ -149,16 +149,33 @@ namespace SistemaCenagas
                         actividad = a
                     }).ToList();
         }
+        public static IEnumerable<Global.V_ADC_ResponsablesDocumentacionAnexo3> VistaADCResponsablesDocumentacionAnexo3(ApplicationDbContext context, int idAnexo3)
+        {
+            return (from docr in context.ADC_Anexo3_DocumentacionResponsable
+                    join u in context.Usuarios on docr.Id_Responsable equals u.Id
+                    join p in context.Puestos on u.Id_Puesto equals p.Id
+                    where docr.Estatus.Equals("Agregado") && docr.Id_Anexo3 == idAnexo3
+                    orderby docr.Id_Documentacion
+                    select new Global.V_ADC_ResponsablesDocumentacionAnexo3
+                    {
+                        responsable = docr,
+                        nombre = $"{u.Nombre} {u.Paterno} {u.Materno}",
+                        puesto = p.Nombre,
+                        email = u.Email
+                    }).ToList();
+        }
         public static IEnumerable<Global.V_EquipoVerificador> VistaEquipoVerificador(ApplicationDbContext context, int idEV)
         {
             return (from integrantes in context.ADC_Equipo_Verificador_Integrantes
                     join equipo in context.ADC_Equipo_Verificador on integrantes.Id_Equipo_Verificador_ADC equals equipo.Id
                     join usuarios in context.Usuarios on integrantes.Id_Usuario equals usuarios.Id
+                    join puestos in context.Puestos on usuarios.Id_Puesto equals puestos.Id
                     where integrantes.Id_Equipo_Verificador_ADC == idEV
                     select new Global.V_EquipoVerificador
                     {
                         integrante = integrantes,
                         nombre = $"{usuarios.Nombre} {usuarios.Paterno}",
+                        puesto = puestos.Nombre,
                         email = usuarios.Email
                     }).ToList();
         }
