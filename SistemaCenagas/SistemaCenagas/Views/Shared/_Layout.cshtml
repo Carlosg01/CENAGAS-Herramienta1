@@ -198,6 +198,54 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">Catalogos</a>
+                                <div id="submenu-10" class="collapse">
+                                    <ul class="nav nav-small flex-column">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="ElementoS3S" asp-action="Index">ElementosS3S</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Fuente_deteccion" asp-action="Index">Fuentes de deteccion</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Etapa_Realizada" asp-action="Index">Etapa Realizada</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Zonas" asp-action="Index">Zonas</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Estados" asp-action="Index">Estados</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Residencias" asp-action="Index">Residencias</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Especialidades" asp-action="Index">Especialidades</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Sistemas" asp-action="Index">Sistemas</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="DDV" asp-action="Index">DDV</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Unidades" asp-action="Index">Unidades</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Direccion_Ejecutiva" asp-action="Index">Direccion Ejecitiva</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Direccion" asp-action="Index">Direccion</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Tipo" asp-action="Index">Tipo</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
                         }
                     </ul>
 
@@ -227,9 +275,15 @@
     <script src="~/lib/jquery/dist/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        $("#example").DataTable({
-            scrollX: true,
-        });
+        
+        $(document).ready(function () {
+            $("#example").DataTable({
+                scrollX: true,
+                //serverSide: true,
+                searching: true
+            });
+        })
+
     </script>
     <script>
         function buscar(controller, buscar, filtrar) {

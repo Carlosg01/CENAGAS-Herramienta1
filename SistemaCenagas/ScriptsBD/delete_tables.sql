@@ -4,6 +4,7 @@ SET SQL_SAFE_UPDATES = 0;
 delete from instalaciones;
 
 delete from proyectos;
+delete from residencias;
 
 delete from adc_equipo_verificador;
 delete from adc_equipo_verificador_integrantes;

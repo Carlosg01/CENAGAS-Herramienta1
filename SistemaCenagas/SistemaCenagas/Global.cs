@@ -244,6 +244,9 @@ namespace SistemaCenagas
         public static IEnumerable<Usuarios> suplentes { get; set; }
         public static IEnumerable<Usuarios> equipo_verificador { get; set; }
         public static IEnumerable<Residencias> residencias { get; set; }
+        public static IEnumerable<Estados> estados { get; set; }
+        public static IEnumerable<Unidad> unidades { get; set; }
+        public static IEnumerable<Direccion_Ejecutiva> direcciones_ejecutivas { get; set; }
         public static IEnumerable<Gasoductos> gasoductos { get; set; }
         public static IEnumerable<Tramos> tramos { get; set; }
         public static IEnumerable<ADC> adcs { get; set; }

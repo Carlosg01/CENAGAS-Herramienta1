@@ -24,6 +24,8 @@ update prearranque_procesos set terminado = 'false';
 update prearranque_procesos set confirmado = 'false';
 update prearranque_procesos set activo = 'false';
 
+update estados set eliminado = 0;
+
 
 #update adc_anexo3_documentacion as a3 set a3.Check = 'false';
 

@@ -58,10 +58,9 @@ select * from ADC_Anexo3_CatalogoTipoDocumentacion;
 select * from adc_equipo_verificador;
 select * from adc_equipo_verificador_integrantes;
 
-select count(*)
-from ADC_Equipo_Verificador_Integrantes as evi
-inner join ADC_Equipo_Verificador as ev on evi.id_equipo_verificador_adc = ev.id
-inner join ADC_Anexo3 as a3 on ev.id_adc = a3.id_anexo1
-#inner join ADC_Anexo3_Documentacion as doc on a3.id = doc.id_anexo3
-inner join ADC_Anexo3_DocumentacionResponsable as docr on a3.id = docr.id_anexo3
-where evi.estatus = 'Agregado'
+select docr.*
+from ADC_Anexo3_DocumentacionResponsable as docr
+inner join usuarios as u on docr.id_responsable = u.id
+inner join puestos as p on u.id_puesto = p.id
+where docr.estatus = 'Agregado'
+order by docr.id_documentacion

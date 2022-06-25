@@ -31,6 +31,18 @@ namespace SistemaCenagas.Data
         public DbSet<Gasoductos> Gasoductos { get; set; }
         public DbSet<Tramos> Tramos { get; set; }
         public DbSet<ADC_Anexos> ADC_Anexos { get; set; }
+        public DbSet<ElementoS3S> ElementoS3S { get; set; }
+        public DbSet<Fuente_Deteccion> Fuente_Deteccion { get; set; }
+        public DbSet<Etapa_Realizada> Etapa_Realizada { get; set; }
+        public DbSet<Zonas> Zonas { get; set; }
+        public DbSet<Estados> Estados { get; set; }
+        public DbSet<Especialidades> Especialidades { get; set; }
+        public DbSet<Sistema> Sistema { get; set; }
+        public DbSet<DDV> DDV { get; set; }
+        public DbSet<Unidad> Unidad { get; set; }
+        public DbSet<Direccion_Ejecutiva> Direccion_Ejecutiva { get; set; }
+        public DbSet<Direccion> Direccion { get; set; }
+        public DbSet<Tipo> Tipo { get; set; }
 
         #endregion
 

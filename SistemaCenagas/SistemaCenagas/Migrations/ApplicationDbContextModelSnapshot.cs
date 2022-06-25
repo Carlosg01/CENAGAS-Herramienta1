@@ -571,6 +571,178 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("ADC_Procesos");
                 });
 
+            modelBuilder.Entity("SistemaCenagas.Models.DDV", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DDV");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Direccion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Abreviatura")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id_DireccionEjecutiva")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Direccion");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Direccion_Ejecitiva", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Abreviatura")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id_Unidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Direccion_Ejecitiva");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.ElementoS3S", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Clave")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Elemento")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ElementoS3S");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Especialidades", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Especialidades");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Estados", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Capital")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Latitud")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Longitud")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Pais")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Estados");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Etapa_Realizada", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Avance")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Etapa")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Etapa_Realizada");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Fuente_Deteccion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Abreviatura")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Fuente")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fuente_Deteccion");
+                });
+
             modelBuilder.Entity("SistemaCenagas.Models.Gasoductos", b =>
                 {
                     b.Property<int>("Id")
@@ -1119,7 +1291,13 @@ namespace SistemaCenagas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Codigo_Postal")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id_Estado")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -1154,6 +1332,49 @@ namespace SistemaCenagas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Sistema", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Denominacion")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sistema");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Tipo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Abreviatura")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Resumen")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Tipo_Instalacion")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tipo");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.Tramos", b =>
@@ -1201,6 +1422,26 @@ namespace SistemaCenagas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tramos");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Unidad", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Abreviatura")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Unidad");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.Usuarios", b =>
@@ -1266,6 +1507,23 @@ namespace SistemaCenagas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.Zonas", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Zonas");
                 });
 #pragma warning restore 612, 618
         }

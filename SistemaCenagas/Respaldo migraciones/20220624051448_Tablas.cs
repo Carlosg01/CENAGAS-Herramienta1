@@ -136,10 +136,10 @@ namespace SistemaCenagas.Migrations
 
             #endregion
 
-            #region Residencias
+            #region DDV
 
             migrationBuilder.CreateTable(
-                name: "Residencias",
+                name: "DDV",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -150,11 +150,309 @@ namespace SistemaCenagas.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Residencias", x => x.Id);
+                    table.PrimaryKey("PK_DDV", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
             #endregion
 
+            #region Unidad
+
+            migrationBuilder.CreateTable(
+                name: "Unidad",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Unidad", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            #region Direccion_Ejecutiva
+
+            migrationBuilder.CreateTable(
+                name: "Direccion_Ejecutiva",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_Unidad = table.Column<int>(type: "int", nullable: true),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Direccion_Ejecutiva", x => x.Id);
+                    table.ForeignKey(
+                       name: "FK_Direccion_Ejecutiva__IdUnidad",
+                       column: x => x.Id_Unidad,
+                       principalTable: "Unidad",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.SetNull
+                    );
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "Index_Direccion_Ejecutiva__IdUnidad",
+                table: "Direccion_Ejecutiva",
+                column: "Id_Unidad"
+                );
+
+            #endregion
+
+            #region Direccion
+
+            migrationBuilder.CreateTable(
+                name: "Direccion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_DireccionEjecutiva = table.Column<int>(type: "int", nullable: true),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Direccion", x => x.Id);
+                    table.ForeignKey(
+                       name: "FK_Direccion__IdDireccionEjecutiva",
+                       column: x => x.Id_DireccionEjecutiva,
+                       principalTable: "Direccion_Ejecutiva",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.SetNull
+                    );
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "Index_Direccion__IdDireccionEjecutiva",
+                table: "Direccion",
+                column: "Id_DireccionEjecutiva"
+                );
+            #endregion
+
+            #region ElementoS3S
+
+            migrationBuilder.CreateTable(
+                name: "ElementoS3S",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Elemento = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ElementoS3S", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            #region Especialidades
+
+            migrationBuilder.CreateTable(
+                name: "Especialidades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Especialidades", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            #region Estados
+
+            migrationBuilder.CreateTable(
+                name: "Estados",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Pais = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Capital = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Latitud = table.Column<double>(type: "double", nullable: false),
+                    Longitud = table.Column<double>(type: "double", nullable: false),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estados", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            #region Etapa_Realizada
+
+            migrationBuilder.CreateTable(
+                name: "Etapa_Realizada",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Etapa = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Avance = table.Column<int>(type: "int", nullable: false),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Etapa_Realizada", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            #region Fuente_Direccion
+
+            migrationBuilder.CreateTable(
+                name: "Fuente_Deteccion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Fuente = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fuente_Deteccion", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            #endregion
+
+            #region Residencias
+
+            migrationBuilder.CreateTable(
+                name: "Residencias",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_Estado = table.Column<int>(type: "int", nullable: true),
+                    Codigo_Postal = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Residencias", x => x.Id);
+                    table.ForeignKey(
+                       name: "FK_Residencias__IdEstado",
+                       column: x => x.Id_Estado,
+                       principalTable: "Residencias",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.SetNull
+                    );
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "Index_Residencias__IdEstado",
+                table: "Residencias",
+                column: "Id_Estado"
+                );
+
+            #endregion
+
+            #region Sistema
+
+            migrationBuilder.CreateTable(
+                name: "Sistema",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Denominacion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sistema", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            #region Tipo
+
+            migrationBuilder.CreateTable(
+                name: "Tipo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Tipo_Instalacion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Resumen = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tipo", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            #region Zonas
+
+            migrationBuilder.CreateTable(
+                name: "Zonas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Zonas", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            #endregion
+
+            
             #region Proyectos
 
             migrationBuilder.CreateTable(
@@ -1963,10 +2261,8 @@ namespace SistemaCenagas.Migrations
 
             #endregion
         }
-
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.DropTable(
                 name: "ADC");
 
@@ -1989,6 +2285,9 @@ namespace SistemaCenagas.Migrations
                 name: "ADC_Anexo3_Documentacion");
 
             migrationBuilder.DropTable(
+                name: "ADC_Anexo3_DocumentacionResponsable");
+
+            migrationBuilder.DropTable(
                 name: "ADC_Anexo4");
 
             migrationBuilder.DropTable(
@@ -1999,6 +2298,9 @@ namespace SistemaCenagas.Migrations
 
             migrationBuilder.DropTable(
                 name: "ADC_Anexo6_Documentacion");
+
+            migrationBuilder.DropTable(
+                name: "ADC_Anexos");
 
             migrationBuilder.DropTable(
                 name: "ADC_Archivos");
@@ -2016,7 +2318,28 @@ namespace SistemaCenagas.Migrations
                 name: "ADC_Procesos");
 
             migrationBuilder.DropTable(
-                name: "Anexos");
+                name: "DDV");
+
+            migrationBuilder.DropTable(
+                name: "Direccion");
+
+            migrationBuilder.DropTable(
+                name: "Direccion_Ejecitiva");
+
+            migrationBuilder.DropTable(
+                name: "ElementoS3S");
+
+            migrationBuilder.DropTable(
+                name: "Especialidades");
+
+            migrationBuilder.DropTable(
+                name: "Estados");
+
+            migrationBuilder.DropTable(
+                name: "Etapa_Realizada");
+
+            migrationBuilder.DropTable(
+                name: "Fuente_Deteccion");
 
             migrationBuilder.DropTable(
                 name: "Gasoductos");
@@ -2073,16 +2396,31 @@ namespace SistemaCenagas.Migrations
                 name: "Proyectos");
 
             migrationBuilder.DropTable(
+                name: "Puestos");
+
+            migrationBuilder.DropTable(
                 name: "Residencias");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
+                name: "Sistema");
+
+            migrationBuilder.DropTable(
+                name: "Tipo");
+
+            migrationBuilder.DropTable(
                 name: "Tramos");
 
             migrationBuilder.DropTable(
+                name: "Unidad");
+
+            migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Zonas");
         }
     }
 }

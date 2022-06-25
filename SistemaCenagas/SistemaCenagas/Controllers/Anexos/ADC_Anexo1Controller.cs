@@ -164,7 +164,9 @@ namespace SistemaCenagas.Controllers
                     _context.Add(tarea);
                     await _context.SaveChangesAsync();
                 }
-                
+
+                //Global.proyectos = Global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
+
 
                 return RedirectToAction("Index", "ADC_Procesos");
             }
@@ -286,8 +288,8 @@ namespace SistemaCenagas.Controllers
                     _context.Add(tarea);
                     await _context.SaveChangesAsync();
                 }
-
-
+                
+                Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id == anexo1.Id_Proyecto).FirstOrDefault();
                 return RedirectToAction("Index", "ADC_Procesos");
             }
             return PartialView(anexo1);

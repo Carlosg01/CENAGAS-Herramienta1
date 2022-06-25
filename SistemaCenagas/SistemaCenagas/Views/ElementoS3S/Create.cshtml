@@ -1,0 +1,62 @@
+﻿@model SistemaCenagas.Models.ElementoS3S
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="nuevoUsuario-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar nuevo ElementoS3S</h5>
+                <a asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+                
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Elemento" class="col-2" style="text-align:right;">Nombre</label>
+                        <div class="col">
+                            <input type="text" asp-for="Elemento" class="form-control" required />
+                        </div>
+                        <span asp-validation-for="Elemento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Clave" class="col-2" style="text-align:right;">Clave</label>
+                        <div class="col">
+                            <input type="text" asp-for="Clave" class="form-control" required/>
+                        </div>
+                        <span asp-validation-for="Clave" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Descripcion" class="col-2" style="text-align:right;">Descripcion</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="Descripcion" class="form-control" ></textarea>
+                        </div>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" id="submit_usuario" role="button" class="btn btn-success">
+                            Crear
+                        </button>
+                        <a class="btn btn-dark" asp-action="Index">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

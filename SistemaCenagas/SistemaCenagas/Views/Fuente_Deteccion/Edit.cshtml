@@ -1,0 +1,57 @@
+﻿@model SistemaCenagas.Models.Fuente_Deteccion
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editarUsuario-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar fuente de detección</h5>
+                <a asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id"/>
+
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Fuente" class="col-2" style="text-align:right;">Nombre</label>
+                        <div class="col">
+                            <input type="text" asp-for="Fuente" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Fuente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Abreviatura" class="col-2" style="text-align:right;">Abreviatura</label>
+                        <div class="col">
+                            <input type="text" asp-for="Abreviatura" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Abreviatura" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" id="submit_usuario" role="button" class="btn btn-success">
+                            Guardar
+                        </button>
+                        <a class="btn btn-dark" asp-action="Index">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
