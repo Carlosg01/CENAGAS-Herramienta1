@@ -205,17 +205,104 @@ namespace SistemaCenagas.Controllers
             return PartialView(model);
         }
 
-        public IActionResult Create2()
+        public async Task<IActionResult> Create2()
         {
+            PreArranque pre = _context.PreArranque.Where(a => a.Id_ADC == Global.adc.adc.Id).FirstOrDefault();
+            if (pre == null)
+            {
+                pre = new PreArranque
+                {
+                    Con_ADC = "Si",//model.preArranque.Con_ADC,
+                    Id_ADC = Global.adc.adc.Id,
+                    Fecha_Actualizacion = DateTime.Now.ToString(),
+                    Id_Proyecto = Global.adc.adc.Id_Proyecto,
+                    Folio = "N/A",
+                    Id_Responsable = Global.adc.adc.Id_ResponsableADC,
+                    Id_Suplente = Global.adc.adc.Id_ResponsableADC,
+                    //Id_LiderEquipoVerificador = model.preArranque.Id_LiderEquipoVerificador
+                };
+                PreArranque_Anexo2 anexo2 = null;
 
-            ViewBag.fecha = DateTime.Now.ToString();
+                ADC_Anexo1 adc_anexo1 = _context.ADC_Anexo1
+                        .Where(a => a.Id == pre.Id_ADC).FirstOrDefault();
 
-            Global.lista_proyectos_prearranque = _context.Proyectos.Where(p => p.Estado_PreArranque.Equals("Habilitado")).ToList();
+                ADC_Anexo3 adc_anexo3 = _context.ADC_Anexo3
+                    .Where(a => a.Id_Anexo1 == pre.Id_ADC).FirstOrDefault();
 
-            //Global.adcs_con_prearranque = Consultas.VistaADC(_context)
-            //  .Where(a => a.adc.PreArranque == "No" && a.adc.Id_Proyecto == Global.proyectos.Id);
+                ADC_Equipo_Verificador adc_ev = _context.ADC_Equipo_Verificador
+                    .Where(a => a.Id_ADC == pre.Id_ADC).FirstOrDefault();
 
-            return PartialView();
+                List<ADC_Equipo_Verificador_Integrantes> adc_ev_integrantes = _context.ADC_Equipo_Verificador_Integrantes
+                    .Where(a => a.Id_Equipo_Verificador_ADC == adc_ev.Id).ToList();
+
+
+                pre.Id_LiderEquipoVerificador = adc_ev.Id_LiderEquipoVerificador;
+                _context.Add(pre);
+                await _context.SaveChangesAsync();
+
+                anexo2 = new PreArranque_Anexo2
+                {
+                    Id_Residencia = adc_anexo1.Id_Residencia,
+                    Ut_Gasoducto = adc_anexo1.Ut_Gasoducto,
+                    Ut_Tramo = adc_anexo1.Ut_Tramo,
+                    Id_Prearranque = pre.Id,
+                    Fecha_Elaboracion = pre.Fecha_Actualizacion
+
+                };
+                _context.Add(anexo2);
+                await _context.SaveChangesAsync();
+
+                PreArranque_Equipo_Verificador pre_ev = new PreArranque_Equipo_Verificador
+                {
+                    Id_PreArranque = pre.Id,
+                    Id_LiderEquipoVerificador = adc_ev.Id_LiderEquipoVerificador
+                };
+                _context.Add(pre_ev);
+                await _context.SaveChangesAsync();
+
+                foreach (var integrante in adc_ev_integrantes)
+                {
+                    PreArranque_Equipo_Verificador_Integrantes pre_evi = new PreArranque_Equipo_Verificador_Integrantes
+                    {
+                        Id_Equipo_Verificador_PreArranque = pre_ev.Id,
+                        Id_Usuario = integrante.Id_Usuario,
+                        Estatus = integrante.Estatus
+                    };
+                    _context.Add(pre_evi);
+                    await _context.SaveChangesAsync();
+                }
+
+                PreArranque_Anexo1 anexo1 = new PreArranque_Anexo1
+                {
+                    Fecha_Elaboracion = pre.Fecha_Actualizacion,
+                    Id_Prearranque = pre.Id
+                };
+                _context.Add(anexo1);
+                await _context.SaveChangesAsync();
+
+                for (int i = 0; i < Global.vista_actividadesPreArranque.Count(); i++)
+                {
+                    //return Content(JsonConvert.SerializeObject(a));
+                    PreArranque_Procesos tarea = new PreArranque_Procesos
+                    {
+                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id,
+                        Id_PreArranque = pre.Id,
+                        Avance =  i == 0 ? 100 : 0,
+                        Faltante_Comentarios = "N/A",
+                        Plan_Accion = "N/A",
+                        Terminado = i == 0 ? "true" : "false",
+                        Confirmado = "false"
+
+                    };
+                    _context.Add(tarea);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            Global.prearranque = Consultas.PreArranqueVista(_context)
+                    .Where(a => a.prearranque.Id == pre.Id).FirstOrDefault();
+
+            return RedirectToAction("Index", "PreArranque_Procesos");
         }
 
         // POST: Anexo1/Create

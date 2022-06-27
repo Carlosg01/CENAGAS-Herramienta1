@@ -134,7 +134,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    Nuevo pre-arranque
+                    Pre-arranque: @(Global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="PreArranque_Admin" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
@@ -149,13 +149,7 @@
                     <div class="form-group row align-items-center">
                         <label asp-for="preArranque.Id_Proyecto" class="col-2" style="text-align:right;">Proyecto</label>
                         <div class="col">
-                            <select id="Proyecto" asp-for="preArranque.Id_Proyecto" class="form-control" required>
-                                <option value="-1">--- Selecciona nececidad de cambio ---</option>
-                                @foreach (var item in Global.lista_proyectos_prearranque)
-                                {
-                                    <option value="@(item.Id)">@(item.Nombre)</option>
-                                }
-                            </select>
+                            <input class="form-control" value=""/>
                         </div>
                         <span asp-validation-for="preArranque.Id_Proyecto" class="text-danger"></span>
                     </div>
@@ -166,24 +160,13 @@
                         </div>
                         <span asp-validation-for="preArranque.Fecha_Actualizacion" class="text-danger"></span>
                     </div>
-                    <div class="form-group row align-items-center">
-                        <label class="col-2" style="text-align:right;">Aplica ADC</label>
-                        <div class="col">
-                            <select id="AplicaADC" asp-for="preArranque.Con_ADC" class="form-control" required>
-                                <option>No</option>
-                                <option>Si</option>
-                            </select>
-                        </div>
-                        <span asp-validation-for="anexo2.Id_Residencia" class="text-danger"></span>
-                    </div>
                     <div class="form-group row align-items-center" hidden id="div_Folio">
                         <label asp-for="preArranque.Id_ADC" class="col-2" style="text-align:right;">Folio ADC</label>
                         <div class="col">
-                            <select id="FolioADC" asp-for="preArranque.Id_ADC" class="form-control" required>
-                                
-                            </select>
+                            <input type="hidden"  asp-for="preArranque.Id_ADC" value="@(Global.adc.adc.Id)"/>
+                            <input class="form-control" value="@(Global.adc.adc.Folio)" />
                         </div>
-                        <span asp-validation-for="anexo2.Id_Residencia" class="text-danger"></span>
+                        <span asp-validation-for="preArranque.Id_ADC" class="text-danger"></span>
                     </div>
                     <div class="form-group row align-items-center" hidden id="div_Residencia">
                         <label asp-for="anexo2.Id_Residencia" class="col-2" style="text-align:right;">Residencia</label>
