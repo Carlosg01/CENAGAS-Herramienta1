@@ -72,4 +72,12 @@
     <SourceGeneratorInput Remove="Migrations\20220606011429_Tablas.Designer.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220627184831_Tablas.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220627184831_Tablas.Designer.cs" />
+  </ItemGroup>
+
 </Project>

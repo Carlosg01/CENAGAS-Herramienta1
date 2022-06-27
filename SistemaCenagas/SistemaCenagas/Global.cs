@@ -255,5 +255,7 @@ namespace SistemaCenagas
         public static IEnumerable<ADC_Anexo3_CatalogoTipoDocumentacion> anexo3_CatalogoTipoDocumentacion { get; set; }
         public static List<V_ADC_ResponsablesDocumentacionAnexo3> responsablesDocumentacionAnexo3 { get; set; }
 
+        public static List<PreArranque_Anexo1_Avtividades_Model> modelActividades { get; set; }
+        public static List<V_EquipoVerificador_PreArranque> equipoVerificador_PreArranque { get; set; }
     }
 }

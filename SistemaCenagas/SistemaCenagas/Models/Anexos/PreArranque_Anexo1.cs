@@ -20,6 +20,7 @@ namespace SistemaCenagas.Models
         [Key]
         public int Id { get; set; }
         public int Id_Anexo2_Seccion2 { get; set; }
+        public string Accion_Descriptiva { get; set; }
         public int Id_Responsable { get; set; }
         public int Id_Anexo1 { get; set; } //FK
     }
@@ -29,6 +30,7 @@ namespace SistemaCenagas.Models
         [Key]
         public int Id { get; set; }
         public int Id_Anexo1_Actividades { get; set; } //FK
+        public string Actividad { get; set; }
         public string Fecha_Inicio { get; set; }
         public string Fecha_Termino { get; set; }
         public string Evidencia { get; set; }
@@ -40,8 +42,15 @@ namespace SistemaCenagas.Models
     public class PreArranque_Anexo1Model_EquipoVerificador
     {
         public PreArranque_Anexo1 anexo1 { get; set; }
+        public string Proyecto { get; set; }
+        public List<PreArranque_Anexo1_Avtividades_Model> actividadesModel { get; set; }
         public List<string> miembros { get; set; }
         public List<int> idMiembro { get; set; }
         //public ADC_Anexo3_Documentacion[] documentacion { get; set; }
+    }
+    public class PreArranque_Anexo1_Avtividades_Model
+    {
+        public PreArranque_Anexo1_Actividades accion;
+        public List<PreArranque_Anexo1_Actividades_Acciones> actividaes { get; set; }
     }
 }

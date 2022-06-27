@@ -14,7 +14,6 @@ namespace SistemaCenagas.Controllers
     public class PreArranque_Anexo1Controller : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public PreArranque_Anexo1Controller(ApplicationDbContext context)
         {
             _context = context;
@@ -318,6 +317,67 @@ namespace SistemaCenagas.Controllers
             return PartialView(model);
         }
 
+        public async Task<IActionResult> Edit2(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            PreArranque_Anexo1Model_EquipoVerificador model = new PreArranque_Anexo1Model_EquipoVerificador();
+            model.anexo1 = _context.PreArranque_Anexo1.Where(a => a.Id_Prearranque == id).OrderBy(a => a.Id).LastOrDefault();
+            model.Proyecto = (from pa1 in _context.PreArranque_Anexo1
+                              join p in _context.PreArranque on pa1.Id_Prearranque equals p.Id
+                              join pro in _context.Proyectos on p.Id_Proyecto equals pro.Id
+                              select pro.Nombre).FirstOrDefault();
+
+           
+            Global.modelActividades = new List<PreArranque_Anexo1_Avtividades_Model>();
+
+            var IdEV = _context.PreArranque_Equipo_Verificador
+                .Where(a => a.Id_PreArranque == model.anexo1.Id_Prearranque).FirstOrDefault().Id;
+
+            Global.equipoVerificador_PreArranque = Consultas.PreArranqueVistaEquipoVerificador(_context, IdEV).ToList();
+
+            return PartialView(model);
+        }
+
+        // POST: Anexo1/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit2(int id, PreArranque_Anexo1Model_EquipoVerificador model)
+        {
+            //return Content(""+id);
+            if (id != model.anexo1.Id_Prearranque)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Anexo1Exists(model.anexo1.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "PreArranque_Procesos");
+            }
+            return PartialView(model);
+        }
+
+
         // GET: Anexo1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -352,26 +412,28 @@ namespace SistemaCenagas.Controllers
             return _context.PreArranque_Anexo1.Any(e => e.Id == id);
         }
 
-        [HttpPost]
-        public JsonResult getGasoductos(int id_residencia)
-        {
-            string residencia = Global.residencias.Where(r => r.Id == id_residencia)
-                .FirstOrDefault().Nombre;
-
-            Global.gasoductos = Consultas.getGasoductos(_context, residencia);
-            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
-            
-            return Json(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"));            
-        }
 
         [HttpPost]
-        public JsonResult getTramos(string ut_gasoducto)
+        public JsonResult addAccion(string accionn)
         {
 
-            Global.tramos = Consultas.getTramos(_context, ut_gasoducto);
-            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
+            var model = new PreArranque_Anexo1_Avtividades_Model
+            {
+                accion = new PreArranque_Anexo1_Actividades
+                {
+                    Accion_Descriptiva = accionn,
+                    Id_Responsable = 1
+                },
+                actividaes = new List<PreArranque_Anexo1_Actividades_Acciones>()
 
-            return Json(new SelectList(Global.tramos, "Ut_Tramo", "Tramo"));
+
+            };
+            Global.modelActividades.Add(model);
+
+            return Json(model);
         }
+        
+
+        
     }
 }
