@@ -117,6 +117,7 @@
                         <th>
                             Avance
                         </th>
+                        <th></th>
                         <th style="width:10%;"></th>
                         @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                         {
@@ -142,10 +143,15 @@
                             @(item.responsable)
                         </td>
                         <td>
-                            
                         </td>
                         <td style="width:10%;">
                             <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.prearranque.Id">Tareas</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-round" title="Editar"
+                                    data-toggle="modal" data-target="#editar-modal" data-url="@Url.Action($"Edit/{item.prearranque.Id}", "PreArranque_Anexo2")">
+                                <span data-title="" class="material-icons">edit</span>
+                            </button>
                         </td>
                         @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                         {

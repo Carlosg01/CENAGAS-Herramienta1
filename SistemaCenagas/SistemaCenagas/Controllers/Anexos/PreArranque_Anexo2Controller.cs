@@ -360,19 +360,32 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-            var anexo1 = await _context.ADC_Anexo1.Where(
-                a => a.Id == Global.anexo1.anexo1.Id).FirstOrDefaultAsync();
 
-            Global.proyectos = Consultas.VistaProyectos(_context).Where(
-                p => p.Id == Global.anexo1.anexo1.Id_Proyecto).FirstOrDefault();
-
-            Global.tarea = Consultas.VistaTareas(_context)
-                .Where(t => t.proceso.Id_ADC == id).FirstOrDefault();
-
-            //ViewBag.
+            Global.adcs_con_prearranque =
+                (from adc in Consultas.VistaADC(_context)
+                 join pro in _context.ADC_Procesos on adc.adc.Id equals pro.Id_ADC
+                 join p in _context.Proyectos on adc.id_proyecto equals p.Id
+                 where pro.Id_Actividad == 5 && pro.Terminado == "true" && pro.Confirmado == "true" && p.Id == Global.proyectos.Id
+                 select adc).ToList();
 
 
-            return PartialView(anexo1);
+            PreArranqueModel_Crear model = new PreArranqueModel_Crear();
+
+            model.anexo1 = _context.PreArranque_Anexo1.Where(a => a.Id_Prearranque == id).FirstOrDefault();
+            model.anexo2 = _context.PreArranque_Anexo2.Where(a => a.Id_Prearranque == id).FirstOrDefault();
+            model.preArranque = _context.PreArranque.Find(id);
+
+            Global.proyectos = Consultas.VistaProyectos(_context)
+                .Where(p => p.Id == model.preArranque.Id_Proyecto).FirstOrDefault();
+
+            string residencia = Global.residencias.Where(r => r.Id == model.anexo2.Id_Residencia)
+                .FirstOrDefault().Nombre;
+
+            Global.gasoductos = Consultas.getGasoductos(_context, residencia);
+            Global.tramos = Consultas.getTramos(_context, model.anexo2.Ut_Gasoducto);
+
+
+            return PartialView(model);
         }
 
         // POST: Anexo1/Edit/5
@@ -380,10 +393,10 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ADC_Anexo1 anexo1)
+        public async Task<IActionResult> Edit(int id, PreArranqueModel_Crear model)
         {
             //return Content(""+id);
-            if (id != anexo1.Id)
+            if (id != model.preArranque.Id)
             {
                 return NotFound();
             }
@@ -395,45 +408,14 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
-                    string x = anexo1.Tipo_Cambio.ToUpper()[0].ToString();
-                    string xx = "MO";
-                    string xxx = (anexo1.Id % 10 == 0) ? "0" + anexo1.Id.ToString() : "00" + anexo1.Id.ToString();
-                    string xxxx = DateTime.Now.Year.ToString();
-
-                    string stringFolio = $"{x}-{xx}-{xxx}-{xxxx}";
-
-                    _context.Update(anexo1);                    
-                    await _context.SaveChangesAsync();
-
-                    ADC adc = _context.ADC.Where(a => a.Id == Global.adc.adc.Id).FirstOrDefault();
-                    adc.Fecha_Actualizacion = DateTime.Now.ToString();
-                    adc.Folio = stringFolio;
-                    Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
-                    Global.adc.adc.Folio = adc.Folio;
-                    _context.Update(adc);
-                    await _context.SaveChangesAsync();
-
-                    ADC_Procesos a = _context.ADC_Procesos.Where(a => a.Id_ADC == adc.Id).FirstOrDefault();
-
-                    //return Content(JsonConvert.SerializeObject(anexo1));
-                    if(Global.tarea.proceso.Id_Actividad == 1)
-                    {
-                        a.Avance = anexo1.Estatus.Equals("Aceptado") || anexo1.Estatus.Equals("Rechazado") ? 100 : 0;
-                        /*
-                        a.Avance = 9.0f / 12 * 100;
-                        a.Avance += (anexo1.Resultados_Analisis != null && anexo1.Resultados_Analisis.Length > 0) ? (1.0f / 12 * 100) : 0;
-                        a.Avance += (anexo1.Resultados_Propuesta != null && anexo1.Resultados_Propuesta.Length > 0) ? (1.0f / 12 * 100) : 0;
-                        a.Avance += (anexo1.Estatus != null && anexo1.Estatus.Length > 0) ? (1.0f / 12 * 100) : 0;
-                        */
-                    }
-                    //return Content(JsonConvert.SerializeObject(a)); 
-
-                    _context.Update(a);
+                    _context.Update(model.anexo1);
+                    _context.Update(model.anexo2);
+                    _context.Update(model.preArranque);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!Anexo1Exists(anexo1.Id))
+                    if (!Anexo1Exists(model.preArranque.Id))
                     {
                         return NotFound();
                     }
@@ -442,9 +424,9 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "ADC_Procesos");
+                return RedirectToAction("Index", "PreArranque_Admin");
             }
-            return PartialView(anexo1);
+            return PartialView(model);
         }
 
         // GET: Anexo1/Delete/5
@@ -478,7 +460,7 @@ namespace SistemaCenagas.Controllers
 
         private bool Anexo1Exists(int id)
         {
-            return _context.ADC_Anexo1.Any(e => e.Id == id);
+            return _context.PreArranque.Any(e => e.Id == id);
         }
 
         [HttpPost]
