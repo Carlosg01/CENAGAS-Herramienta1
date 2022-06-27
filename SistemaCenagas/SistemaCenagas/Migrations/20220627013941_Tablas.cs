@@ -1467,7 +1467,11 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
                     Id_Tipo = table.Column<int>(type: "int", nullable: true),
+                    Check = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Anotaciones = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Responsable_Area = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                 },
                 constraints: table =>

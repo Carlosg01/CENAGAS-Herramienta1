@@ -253,11 +253,17 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Anotaciones")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Check")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("Id_Anexo3")
                         .HasColumnType("int");
 
                     b.Property<int>("Id_Tipo")
                         .HasColumnType("int");
+
+                    b.Property<string>("Responsable_Area")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -611,7 +617,7 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("Direccion");
                 });
 
-            modelBuilder.Entity("SistemaCenagas.Models.Direccion_Ejecitiva", b =>
+            modelBuilder.Entity("SistemaCenagas.Models.Direccion_Ejecutiva", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -631,7 +637,7 @@ namespace SistemaCenagas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Direccion_Ejecitiva");
+                    b.ToTable("Direccion_Ejecutiva");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.ElementoS3S", b =>

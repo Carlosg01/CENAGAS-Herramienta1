@@ -7,8 +7,8 @@
 <script>
     $("#Residencia").change(function () {
         
-        $("#Gasoducto").empty();
-        $("#Tramo").empty();
+        //$("#Gasoducto").empty();
+        //$("#Tramo").empty();
 
         if ($("#Residencia").val() != "-1") {
             $.ajax({
@@ -16,7 +16,7 @@
                 url: "/ADC_Anexo1/getGasoductos",
                 data: { "id_residencia": $("#Residencia").val() },
                 success: function (response) {
-                    var items = "<option>--- Selecciona una opción ---</option>";
+                    var items = "<option value='-1'>--- Selecciona una opción ---</option>";
                     $(response).each(function () {
                         items += "<option value='" + this.value + "'>" + this.text + "</option>";
                     })
@@ -30,19 +30,20 @@
                 }
     
             });
+            validarCombos();
         }
 
     });
 
     $("#Gasoducto").change(function () {
-        $("#Tramo").empty();
+        //$("#Tramo").empty();
         if ($("#Gasoducto").val() != "--- Selecciona una opción ---") {
             $.ajax({
                 type: "Post",
                 url: "/ADC_Anexo1/getTramos",
                 data: { "ut_gasoducto": $("#Gasoducto").val() },
                 success: function (response) {
-                    var items = "<option>--- Selecciona una opción ---</option>";
+                    var items = "<option value='-1'>--- Selecciona una opción ---</option>";
                     $(response).each(function () {
                         items += "<option value='" + this.value + "'>" + this.text + "</option>";
                     })
@@ -56,26 +57,26 @@
                 }
 
             });
+            validarCombos();
         }
 
     });
 
     $("#Tramo").change(function () {
-        //validaCombo();
+        validarCombos();
     });
 
     
-    function validaCombo() {
-        if ($("#Residencia").val() != "--- Selecciona una opción ---" ||// $("#Residencia").val().length > 0 &&
-            $("#Gasoducto").val() != "--- Selecciona una opción ---" ||// $("#Gasoducto").val().length > 0 &&
-            $("#Tramo").val() != "--- Selecciona una opción ---"// && $("#Tramo").val().length > 0
-        ) {
-            alert("Habilitado");
-            $("#btnCrear").removeAttr("disabled");
+    function validarCombos() {
+
+        if ($("#Residencia").val() != "-1" &&
+            $("#Gasoducto").val() != "-1" &&
+            $("#Tramo").val() != "-1") {
+
+            $("#btn_crear").removeAttr('disabled');
         }
         else {
-            alert("Deshabilitado");
-            $("#btnCrear").prop("disabled", "disabled");
+            $("#btn_crear").attr('disabled', 'disabled');
         }
     }
 
@@ -138,7 +139,7 @@
                         <label asp-for="Ut_Gasoducto" class="col-2" style="text-align:right;">Sistema de transporte</label>
                         <div class="col">
                             <select id="Gasoducto" asp-for="Ut_Gasoducto" class="form-control" required>
-                                <option>--- Selecciona una opción ---</option>
+                                <option value="-1">--- Selecciona una opción ---</option>
                             </select>
                         </div>
                         <span asp-validation-for="Ut_Gasoducto" class="text-danger"></span>
@@ -147,7 +148,7 @@
                         <label asp-for="Ut_Tramo" class="col-2" style="text-align:right;">Tramo</label>
                         <div class="col">
                             <select id="Tramo" asp-for="Ut_Tramo" class="form-control" required>
-                                <option>--- Selecciona una opción ---</option>
+                                <option value="-1">--- Selecciona una opción ---</option>
                             </select>
                         </div>
                         <span asp-validation-for="Ut_Tramo" class="text-danger"></span>
@@ -181,7 +182,7 @@
                     </div>
                     <div class="modal-footer">
 
-                        <button id="btnCrear" type="submit" role="button" class="btn btn-success">
+                        <button id="btn_crear" type="submit" role="button" class="btn btn-success" disabled>
                             Crear
                         </button>
                         <a class="btn btn-dark" asp-controller="ADC_Proyecto" asp-action="Index">

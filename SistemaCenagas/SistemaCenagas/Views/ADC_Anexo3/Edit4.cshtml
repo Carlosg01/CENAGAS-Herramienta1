@@ -14,10 +14,12 @@
             //alert("#Check_" + (i + 1) + ":" + $("#Check_" + (i + 1)).is(':checked') + ", #Input_Check_" + (i+1));
 
             if ($("#Check_" + (i + 1)).is(':checked')) {
-                $("#Input_Check_" + (i + 1)).removeAttr('disabled');
+                $("#Input1_Check_" + (i + 1)).removeAttr('disabled');
+                $("#Input2_Check_" + (i + 1)).removeAttr('disabled');
             }
             else {
-                $("#Input_Check_" + (i + 1)).attr('disabled', 'disabled');
+                $("#Input1_Check_" + (i + 1)).attr('disabled', 'disabled');
+                $("#Input2_Check_" + (i + 1)).attr('disabled', 'disabled');
             }
 
         });
@@ -282,74 +284,52 @@
                                             <tbody>
                                                 @for(int i = 0; i < 22; i++)
                                                 {
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="Check_@(i+1)">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label">@(Global.anexo3_CatalogoTipoDocumentacion.ElementAt(i).TipoDocumentacion)</label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group row align-items-center">
-                                                            <div class="col">
-                                                                <textarea type="text" placeholder="Anotaciones" class="form-control" id="Input_Check_@(i+1)" disabled></textarea>
-
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check form-check-inline">
+                                                                <input asp-for="documentacion[i].Check" class="form-check-input" type="checkbox" id="Check_@(i+1)">
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group row align-items-center">
-                                                            <div class="col">
-
-                                                                @for(int j = 0; j < ViewBag.numResponsables; j++)
-                                                                {
-                                                                            
-
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="checkbox" id="Check_@(i+1)">
-                                                                        <label class="form-check-label">
-                                                                        @(Global.responsablesDocumentacionAnexo3.ElementAt(contResponsables).puesto)
-                                                                        </label>
-                                                                    </div>
-
-                                                                    contResponsables++;
-                                                                }
-                                                                
-
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-check form-check-inline">
+                                                                <label class="form-check-label">@(Global.anexo3_CatalogoTipoDocumentacion.ElementAt(i).TipoDocumentacion)</label>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group row align-items-center">
+                                                                <div class="col">
+                                                                    @if (Model.documentacion[i].Check.Equals("true"))
+                                                                    {
+                                                                        <textarea asp-for="documentacion[i].Anotaciones" type="text" placeholder="" class="form-control" id="Input1_Check_@(i+1)"></textarea>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <textarea asp-for="documentacion[i].Anotaciones" type="text" placeholder="" class="form-control" id="Input1_Check_@(i+1)" disabled></textarea>
+                                                                    }
+
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group row align-items-center">
+                                                                <div class="col">
+                                                                    @if (Model.documentacion[i].Check.Equals("true"))
+                                                                    {
+                                                                        <textarea asp-for="documentacion[i].Responsable_Area" type="text" placeholder="" class="form-control" id="Input2_Check_@(i+1)"></textarea>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <textarea asp-for="documentacion[i].Responsable_Area" type="text" placeholder="" class="form-control" id="Input2_Check_@(i+1)" disabled></textarea>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 }
                                             </tbody>
                                         </table>
-
-
-                                        /*
-                                        for (int i = 0; i < 30; i++)
-                                        {
-                                            if (Model.documentacion[i].Check.Equals("false") ||
-                                            (Model.documentacion[i].Check.Equals("true") && Model.documentacion[i].Id_Responsable == Global.session_usuario.user.Id))
-                                            {
-                                                <div class="form-check form-check-inline">
-                                                    <input asp-for="documentacion[i].Check" class="form-check-input" type="checkbox">
-                                                    <label class="form-check-label">@(Global.anexo3_CatalogoTipoDocumentacion.ElementAt(i).TipoDocumentacion)</label>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div class="form-check form-check-inline">
-                                                    <input type="hidden" asp-for="documentacion[i].Check" />
-                                                    <input asp-for="documentacion[i].Check" class="form-check-input" type="checkbox" disabled>
-                                                    <label class="form-check-label">@(Global.anexo3_CatalogoTipoDocumentacion.ElementAt(i).TipoDocumentacion)</label>
-                                                </div>
-                                            }
-                                        }
-                                        */
                                     }
                                     else
                                     {

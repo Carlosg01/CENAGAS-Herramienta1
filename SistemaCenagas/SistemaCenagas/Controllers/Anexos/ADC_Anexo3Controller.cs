@@ -124,7 +124,7 @@ namespace SistemaCenagas.Controllers
                     {
                         Id_Anexo3 = anexo3_model.anexo3.Id,
                         Id_Tipo = i,//catalogoDoc.ElementAt(i-1).Id,
-                        //Check = "false",
+                        Check = "false",
                         //Id_Responsable = Global.adc.adc.Id_LiderEquipoVerificador
                     });
                     _context.Update(anexo3_model.documentacion.ElementAt(i-1));
@@ -659,7 +659,9 @@ namespace SistemaCenagas.Controllers
                     int i = 0;
                     foreach(var doc in documentacion)
                     {
-                        //doc.Check = model.documentacion[i].Check;
+                        doc.Check = model.documentacion[i].Check;
+                        doc.Anotaciones = model.documentacion[i].Anotaciones;
+                        doc.Responsable_Area = model.documentacion[i].Responsable_Area;
                         //doc.Id_Responsable = Global.session_usuario.user.Id;
                         _context.Update(doc);
                         i++;

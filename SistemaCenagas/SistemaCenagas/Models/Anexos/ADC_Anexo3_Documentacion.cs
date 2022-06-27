@@ -12,7 +12,9 @@ namespace SistemaCenagas.Models
         public int Id { get; set; }
         public int Id_Anexo3 { get; set; }
         public int Id_Tipo { get; set; }
+        public string Check { get; set; } //NUEVO
         public string Anotaciones { get; set; } //NUEVO
+        public string Responsable_Area { get; set; } //NUEVO
         //public int Id_Responsable { get; set; }
     }
 }
