@@ -11,11 +11,11 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class Fuente_DeteccionController : Controller
+    public class ZonasController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Fuente_DeteccionController(ApplicationDbContext context)
+        public ZonasController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = _context.Fuente_Deteccion.ToList();
+            var model = _context.Zonas.ToList();
 
             return View(model);
         }
@@ -46,7 +46,7 @@ namespace SistemaCenagas.Controllers
             {
                 return NotFound();
             }
-            var model = await _context.Fuente_Deteccion
+            var model = await _context.Zonas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (model == null)
             {
@@ -67,7 +67,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Fuente_Deteccion model)
+        public async Task<IActionResult> Create(Zonas model)
         {
             //return Content(JsonConvert.SerializeObject(usuario));
             if (ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var model = await _context.Fuente_Deteccion.FindAsync(id);
+            var model = await _context.Zonas.FindAsync(id);
             if (model == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Fuente_Deteccion model)
+        public async Task<IActionResult> Edit(int id, Zonas model)
         {
             if (id != model.Id)
             {
@@ -137,7 +137,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var model = await _context.Fuente_Deteccion
+            var model = await _context.Zonas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (model == null)
             {
@@ -153,7 +153,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var model = await _context.Fuente_Deteccion.FindAsync(id);
+            var model = await _context.Zonas.FindAsync(id);
             model.Eliminado = 1; 
             _context.Update(model);
             await _context.SaveChangesAsync();
@@ -167,7 +167,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var model = await _context.Usuarios
+            var model = await _context.Zonas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (model == null)
             {
@@ -182,16 +182,16 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmed(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var usuario = await _context.Zonas.FindAsync(id);
             usuario.Eliminado = 0;
-            _context.Usuarios.Update(usuario);
+            _context.Zonas.Update(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Eliminados));
         }
 
         private bool UsuarioExists(int id)
         {
-            return _context.Usuarios.Any(e => e.Id == id);
+            return _context.Zonas.Any(e => e.Id == id);
         }
     }
 }

@@ -11,11 +11,11 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ZonasController : Controller
+    public class Fuente_DeteccionController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ZonasController(ApplicationDbContext context)
+        public Fuente_DeteccionController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = _context.Zonas.ToList();
+            var model = _context.Fuente_Deteccion.ToList();
 
             return View(model);
         }

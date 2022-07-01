@@ -2116,6 +2116,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descripcion_Recomendacion = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Responsable = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Responsable = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -2178,8 +2180,10 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Id_Anexo2_Seccion2 = table.Column<int>(type: "int", nullable: true),
+                    //Id_Anexo2_Seccion2 = table.Column<int>(type: "int", nullable: true),
                     Accion_Descriptiva = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Responsable = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Responsable = table.Column<int>(type: "int", nullable: true),
                     Id_Anexo1 = table.Column<int>(type: "int", nullable: true)
@@ -2187,13 +2191,15 @@ namespace SistemaCenagas.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PreArranque_Anexo1_Actividades", x => x.Id);
-                    table.ForeignKey(
+                   /*
+                   table.ForeignKey(
                        name: "FK_PreArranque_Anexo1_Actividades__Id_Anexo2_Seccion2",
                        column: x => x.Id_Anexo2_Seccion2,
                        principalTable: "PreArranque_Anexo2_Seccion2",
                        principalColumn: "Id",
                        onDelete: ReferentialAction.SetNull
                    );
+                    
                     table.ForeignKey(
                        name: "FK_PreArranque_Anexo1_Actividades__Id_Responsable",
                        column: x => x.Id_Responsable,
@@ -2201,6 +2207,7 @@ namespace SistemaCenagas.Migrations
                        principalColumn: "Id",
                        onDelete: ReferentialAction.SetNull
                    );
+                    */
                     table.ForeignKey(
                        name: "FK_PreArranque_Anexo1_Actividades__Id_Anexo1",
                        column: x => x.Id_Anexo1,
@@ -2210,16 +2217,19 @@ namespace SistemaCenagas.Migrations
                    );
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+            /*
             migrationBuilder.CreateIndex(
                 name: "Index_PreArranque_Anexo1_Actividades__Id_Anexo2_Seccion2",
                 table: "PreArranque_Anexo1_Actividades",
                 column: "Id_Anexo2_Seccion2"
             );
+           
             migrationBuilder.CreateIndex(
                name: "Index_PreArranque_Anexo1_Actividades__Id_Responsable",
                table: "PreArranque_Anexo1_Actividades",
                column: "Id_Responsable"
            );
+            */
             migrationBuilder.CreateIndex(
                name: "Index_PreArranque_Anexo1_Actividades__Id_Anexo1",
                table: "PreArranque_Anexo1_Actividades",
@@ -2246,6 +2256,8 @@ namespace SistemaCenagas.Migrations
                     Evidencia = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Avance = table.Column<float>(type: "float", nullable: false),
+                    Responsable = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Concluida = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -2268,6 +2280,58 @@ namespace SistemaCenagas.Migrations
             );
 
             #endregion
+
+            migrationBuilder.CreateTable(
+                name: "PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_Accion = table.Column<int>(type: "int", nullable: true),
+                    Actividad = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id_Usuario = table.Column<int>(type: "int", nullable: true),
+                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Extension = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Size = table.Column<float>(type: "float", nullable: false),
+                    Ubicacion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Eliminado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia", x => x.Id);
+                    table.ForeignKey(
+                       name: "FK_PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia____IdAccion",
+                       column: x => x.Id_Accion,
+                       principalTable: "PreArranque_Anexo1_Actividades_Acciones",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.SetNull
+                    );
+                    table.ForeignKey(
+                       name: "FK_PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia__IdUsuario",
+                       column: x => x.Id_Usuario,
+                       principalTable: "Usuarios",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.SetNull
+                    );
+
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.CreateIndex(
+               name: "Index___PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia____IdAccion",
+               table: "PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia",
+               column: "Id_Accion"
+            );
+            migrationBuilder.CreateIndex(
+               name: "Index_PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia__IdUsuario",
+               table: "PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia",
+               column: "Id_Usuario"
+            );
         }
         protected override void Down(MigrationBuilder migrationBuilder)
         {
@@ -2369,6 +2433,9 @@ namespace SistemaCenagas.Migrations
 
             migrationBuilder.DropTable(
                 name: "PreArranque_Anexo1_Actividades_Acciones");
+
+            migrationBuilder.DropTable(
+                name: "PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia");
 
             migrationBuilder.DropTable(
                 name: "PreArranque_Anexo2");

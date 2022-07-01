@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Agregar nueva zona</h5>
+                <h5 class="modal-title">Agregar nueva zonaaa</h5>
                 <a asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
@@ -19,10 +19,12 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                    <input type="hidden" asp-for="Eliminado" value="0" />
+
                     <div class="form-group row align-items-center">
                         <label asp-for="Nombre" class="col-2" style="text-align:right;">Nombre</label>
                         <div class="col">
-                            <input type="text" asp-for="Nombre" class="form-control" />
+                            <input type="text" asp-for="Nombre" class="form-control" required/>
                         </div>
                         <span asp-validation-for="Nombre" class="text-danger"></span>
                     </div>

@@ -1,4 +1,4 @@
-﻿@model SistemaCenagas.Models.Sistema
+﻿@model SistemaCenagas.Models.DDV
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Editar sistema</h5>
+                <h5 class="modal-title">Editar DDV</h5>
                 <a asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
@@ -19,6 +19,8 @@
 
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Eliminado" value="0" />
 
                     <div class="form-group row align-items-center">
                         <label asp-for="Nombre" class="col-2" style="text-align:right;">Nombre</label>
@@ -27,17 +29,11 @@
                         </div>
                         <span asp-validation-for="Nombre" class="text-danger"></span>
                     </div>
-                    <div class="form-group row align-items-center">
-                        <label asp-for="Denominacion" class="col-2" style="text-align:right;">Denominación</label>
-                        <div class="col">
-                            <input type="text" asp-for="Denominacion" class="form-control" required/>
-                        </div>
-                        <span asp-validation-for="Denominacion" class="text-danger"></span>
-                    </div>
+                    
                     <div class="modal-footer">
 
                         <button type="submit" id="submit_usuario" role="button" class="btn btn-success">
-                            Crear
+                            Guardar
                         </button>
                         <a class="btn btn-dark" asp-action="Index">
                             Cancelar

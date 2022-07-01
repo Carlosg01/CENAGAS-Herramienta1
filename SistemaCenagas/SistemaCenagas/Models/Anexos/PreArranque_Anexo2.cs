@@ -51,6 +51,7 @@ namespace SistemaCenagas.Models
         public string Descripcion_Hallazgo { get; set; }
         public string Riesgo { get; set; }
         public string Descripcion_Recomendacion { get; set; }
+        public string Responsable { get; set; }
         public int Id_Responsable { get; set; }
 
     }

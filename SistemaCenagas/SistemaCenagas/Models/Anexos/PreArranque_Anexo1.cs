@@ -19,8 +19,8 @@ namespace SistemaCenagas.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Id_Anexo2_Seccion2 { get; set; }
         public string Accion_Descriptiva { get; set; }
+        public string Responsable { get; set; }
         public int Id_Responsable { get; set; }
         public int Id_Anexo1 { get; set; } //FK
     }
@@ -35,11 +35,12 @@ namespace SistemaCenagas.Models
         public string Fecha_Termino { get; set; }
         public string Evidencia { get; set; }
         public float Avance { get; set; }
+        public string Responsable { get; set; }
         public string Concluida { get; set; }
         
     }
 
-    public class PreArranque_Anexo1Model_EquipoVerificador
+    public class PreArranque_Anexo1_Model
     {
         public PreArranque_Anexo1 anexo1 { get; set; }
         public string Proyecto { get; set; }
@@ -48,9 +49,24 @@ namespace SistemaCenagas.Models
         public List<int> idMiembro { get; set; }
         //public ADC_Anexo3_Documentacion[] documentacion { get; set; }
     }
+    public class PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia
+    {
+        [Key]
+        public int Id { get; set; }
+        public int Id_Accion { get; set; }
+        public string Actividad { get; set; }
+        public int Id_Usuario { get; set; }
+        public string Clave { get; set; }
+        public string Nombre { get; set; }
+        public string Extension { get; set; }
+        public float Size { get; set; }
+        public string Ubicacion { get; set; }
+        public int Eliminado { get; set; }
+    }
     public class PreArranque_Anexo1_Avtividades_Model
     {
-        public PreArranque_Anexo1_Actividades accion;
+        public PreArranque_Anexo1_Actividades accion { get; set; }
         public List<PreArranque_Anexo1_Actividades_Acciones> actividaes { get; set; }
+        public int Num_actividades_actuales { get; set; }
     }
 }

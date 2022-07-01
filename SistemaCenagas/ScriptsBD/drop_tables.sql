@@ -1,3 +1,4 @@
+drop table prearranque_anexo1_actividades_acciones_archivosevidencia;
 drop table prearranque_anexo1_actividades_acciones;
 drop table prearranque_anexo1_actividades;
 drop table prearranque_anexo1;

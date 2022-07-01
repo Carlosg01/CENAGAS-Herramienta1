@@ -87,7 +87,7 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            var model = await _context.Fuente_Deteccion.FindAsync(id);
+            var model = await _context.Estados.FindAsync(id);
             if (model == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Fuente_Deteccion model)
+        public async Task<IActionResult> Edit(int id, Estados model)
         {
             if (id != model.Id)
             {
@@ -191,7 +191,7 @@ namespace SistemaCenagas.Controllers
 
         private bool UsuarioExists(int id)
         {
-            return _context.Usuarios.Any(e => e.Id == id);
+            return _context.Estados.Any(e => e.Id == id);
         }
     }
 }

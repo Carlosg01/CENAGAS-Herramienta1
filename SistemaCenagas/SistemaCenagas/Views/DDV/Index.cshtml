@@ -44,10 +44,10 @@
                 <div class="col-auto">
                     <h2>DDV</h2>
                 </div>
-                <!--button type="button" class="btn btn-lg btn-dark col-xs-12"
+                <button type="button" class="btn btn-lg btn-dark col-xs-12"
                         data-toggle="modal" data-target="#nuevoUsuario-modal" data-url="@Url.Action("Create")">
                     Nuevo <span class="material-icons">add</span>
-                </button-->
+                </button>
             </div>
         </div>
 
@@ -62,6 +62,8 @@
                         <th>
                             Tipo DDV
                         </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,24 +79,24 @@
                                 <td>
                                     @(item.Nombre)
                                 </td>
-                                <!--td>
+                                <td>
                                     <button class="btn btn-round" title="Editar"
                                             data-toggle="modal" data-target="#editarUsuario-modal" data-url="@Url.Action($"Edit/{item.Id}")">
                                         <span data-title="" class="material-icons">edit</span>
                                     </button>
                                 </td>
-                                <td>
+                                <!--td>
                                     <button class="btn btn-round" title="Detalles"
                                             data-toggle="modal" data-target="#detallesUsuario-modal" data-url="@Url.Action($"Details/{item.Id}")">
                                         <span data-title="" class="material-icons">assignment</span>
                                     </button>
-                                </td>
+                                </td-->
                                 <td>
                                     <button class="btn btn-round" title="Eliminar"
                                             data-toggle="modal" data-target="#eliminarUsuario-modal" data-url="@Url.Action($"Delete/{item.Id}")">
                                         <span data-title="" class="material-icons">delete</span>
                                     </button>
-                                </td-->
+                                </td>
                             </tr>
                         }
 

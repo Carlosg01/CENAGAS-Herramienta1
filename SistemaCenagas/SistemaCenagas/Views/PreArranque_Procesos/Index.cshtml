@@ -231,10 +231,13 @@
                                 @if (actividad.actividad.Id == 2)
                                 {
 
-                                    <button class="btn btn-round" title="Anexo 1"
+                                    <!--button class="btn btn-round" title="Anexo 1"
                                             data-toggle="modal" data-target="#editarAnexo3-modal" data-url="@Url.Action($"Edit2/{Global.prearranque.prearranque.Id}", "PreArranque_Anexo1")">
                                         <span class="material-icons">exit_to_app</span>
-                                    </button>
+                                    </button-->
+                                    <a class="btn btn-round" asp-controller="PreArranque_Anexo1" asp-action="Edit2" asp-route-id="@(Global.prearranque.prearranque.Id)">
+                                        <span class="material-icons">exit_to_app</span>
+                                    </a>
                                 }
                                 @if (actividad.actividad.Id == 3)
                                 {

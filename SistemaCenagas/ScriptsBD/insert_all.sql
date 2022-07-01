@@ -1,4 +1,4 @@
-use cenagas;
+#use cenagas;
 
 SET SQL_SAFE_UPDATES = 0;
 #SET GLOBAL FOREIGN_KEY_CHECKS=0;
@@ -40,8 +40,8 @@ insert into usuarios (Username, Email, Password, Id_Rol, Id_Puesto, Estatus) val
 insert into usuarios (Username, Email, Password, Id_Rol, Id_Puesto, Estatus, Nombre, Paterno, Materno, Titulo, Observaciones) values
 ('ahdzt.97', 'ahdzt.97@gmail.com', '123', 3, 10, 'Habilitado', 'armando', 'hernandez', 'muñiz', 'Ingeniero', 'N/A'),
 ('carlosg', 'carlosg@cenagas.gob.mx', '123', 4,10, 'Habilitado', 'carlos', 'g', 'g', 'Ingeniero', 'N/A'),
-('cesarm', 'cesarm@cenagas.gob.mx', '123', 5,10, 'Habilitado', 'Cesar Jaciel', 'Suro', 'Manjarrez', 'Ingeniero', 'N/A'),
-('efraint', 'efraint@cenagas.gob.mx', '123', 6,10, 'Habilitado', 'Efraín', 'Torres', 'Torres', 'Ingeniero', 'N/A'),
+('cesarm', 'cesarm@cenagas.gob.mx', '123', 7,10, 'Habilitado', 'Cesar Jaciel', 'Suro', 'Manjarrez', 'Ingeniero', 'N/A'),
+('efraint', 'efraint@cenagas.gob.mx', '123', 7,10, 'Habilitado', 'Efraín', 'Torres', 'Torres', 'Ingeniero', 'N/A'),
 ('titoh', 'titoh@cenagas.gob.mx', '123', 6,10, 'Habilitado', 'Tito Ulices', 'Saldierna', 'Hernández', 'Ingeniero', 'N/A'),
 ('josem', 'josem@cenagas.gob.mx', '123', 7,10, 'Habilitado', 'José Guadalupe', 'Moya', 'Mcclaugherty', 'Ingeniero', 'N/A');
 #('luish', 'luish@cenagas.gob.mx', '123', 3, 'Habilitado', 'luis', 'h', 'm', 'Ingeniero', 'N/A'),
@@ -1993,6 +1993,12 @@ insert into tipo (abreviatura, tipo_instalacion, resumen) values
 ('VT','Válvula Troncal','Si'),
 ('GSD','Gasoducto','');
 
+
+insert into proyectos (Nombre, Descripcion, Estado_ADC, Estado_PreArranque, Eliminado) values
+('Patzcuaro', 
+'Diseño y construcción de la Estación de Compresión Pátzcuaro con la infraestructura necesaria para incrementar la capacidad de transporte de gas natural de 170 MMpcd a 270 MMpcd en el Gasoducto GSD 24” Ø Valtierrilla – Lázaro Cárdenas, tramo Morelia - Zirahuén.',
+'Habilitado', 'Habilitado', 0
+);
 
 update roles set eliminado = 0;
 update puestos set eliminado = 0;

@@ -8,7 +8,7 @@ using SistemaCenagas.Data;
 namespace SistemaCenagas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220627184831_Tablas")]
+    [Migration("20220630181347_Tablas")]
     partial class Tablas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -929,11 +929,11 @@ namespace SistemaCenagas.Migrations
                     b.Property<int>("Id_Anexo1")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_Anexo2_Seccion2")
-                        .HasColumnType("int");
-
                     b.Property<int>("Id_Responsable")
                         .HasColumnType("int");
+
+                    b.Property<string>("Responsable")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -967,9 +967,50 @@ namespace SistemaCenagas.Migrations
                     b.Property<int>("Id_Anexo1_Actividades")
                         .HasColumnType("int");
 
+                    b.Property<string>("Responsable")
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.ToTable("PreArranque_Anexo1_Actividades_Acciones");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Actividad")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Clave")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Eliminado")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Extension")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Id_Accion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id_Usuario")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.Property<float>("Size")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Ubicacion")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.PreArranque_Anexo2", b =>
@@ -1070,6 +1111,9 @@ namespace SistemaCenagas.Migrations
 
                     b.Property<int>("Id_Responsable")
                         .HasColumnType("int");
+
+                    b.Property<string>("Responsable")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Riesgo")
                         .HasColumnType("longtext");

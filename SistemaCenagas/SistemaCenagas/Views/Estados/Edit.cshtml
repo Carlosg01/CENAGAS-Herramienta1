@@ -1,4 +1,4 @@
-﻿@model SistemaCenagas.Models.Fuente_Deteccion
+﻿@model SistemaCenagas.Models.Estados
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Editar fuente de detección</h5>
+                <h5 class="modal-title">Editar estado</h5>
                 <a asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
@@ -19,21 +19,43 @@
 
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id"/>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Pais" />
 
                     <div class="form-group row align-items-center">
-                        <label asp-for="Fuente" class="col-2" style="text-align:right;">Nombre</label>
+                        <label asp-for="Pais" class="col-2" style="text-align:right;">País</label>
                         <div class="col">
-                            <input type="text" asp-for="Fuente" class="form-control" />
+                            <input type="text" asp-for="Pais" class="form-control" disabled />
                         </div>
-                        <span asp-validation-for="Fuente" class="text-danger"></span>
+                        <span asp-validation-for="Pais" class="text-danger"></span>
                     </div>
                     <div class="form-group row align-items-center">
-                        <label asp-for="Abreviatura" class="col-2" style="text-align:right;">Abreviatura</label>
+                        <label asp-for="Estado" class="col-2" style="text-align:right;">Estado</label>
                         <div class="col">
-                            <input type="text" asp-for="Abreviatura" class="form-control" />
+                            <input type="text" asp-for="Estado" class="form-control" required />
                         </div>
-                        <span asp-validation-for="Abreviatura" class="text-danger"></span>
+                        <span asp-validation-for="Estado" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Capital" class="col-2" style="text-align:right;">Capital</label>
+                        <div class="col">
+                            <input type="text" asp-for="Capital" class="form-control" required />
+                        </div>
+                        <span asp-validation-for="Capital" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Latitud" class="col-2" style="text-align:right;">Latitud</label>
+                        <div class="col">
+                            <input type="number" asp-for="Latitud" class="form-control" required />
+                        </div>
+                        <span asp-validation-for="Latitud" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label asp-for="Longitud" class="col-2" style="text-align:right;">Longitud</label>
+                        <div class="col">
+                            <input type="number" asp-for="Longitud" class="form-control" required />
+                        </div>
+                        <span asp-validation-for="Longitud" class="text-danger"></span>
                     </div>
                     <div class="modal-footer">
 

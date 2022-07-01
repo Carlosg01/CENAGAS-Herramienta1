@@ -90,6 +90,7 @@ namespace SistemaCenagas.Data
         public DbSet<PreArranque_Anexo1> PreArranque_Anexo1 { get; set; }
         public DbSet<PreArranque_Anexo1_Actividades> PreArranque_Anexo1_Actividades { get; set; }
         public DbSet<PreArranque_Anexo1_Actividades_Acciones> PreArranque_Anexo1_Actividades_Acciones { get; set; }
+        public DbSet<PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia> PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia { get; set; }
 
 
         #endregion

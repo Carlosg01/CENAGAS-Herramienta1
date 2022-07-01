@@ -39,10 +39,23 @@ update usuarios set id_rol = 2
 where id_usuario = 4;
 
 
-select * from prearranque;
+
+select * from prearranque_anexo1_actividades_acciones;
+select * from prearranque_anexo1_actividades;
 select * from prearranque_anexo1;
+select * from prearranque_anexo2_seccion2;
 select * from prearranque_anexo2;
 select * from prearranque_procesos;
+select * from prearranque;
+
+delete from prearranque_anexo1_actividades_acciones;
+delete from prearranque_anexo1_actividades;
+delete from prearranque_anexo1;
+delete from prearranque_anexo2_seccion2;
+delete from prearranque_anexo2;
+delete from prearranque_procesos;
+delete from prearranque;
+
 
 SET SQL_SAFE_UPDATES = 0;
 
@@ -64,3 +77,5 @@ inner join usuarios as u on docr.id_responsable = u.id
 inner join puestos as p on u.id_puesto = p.id
 where docr.estatus = 'Agregado'
 order by docr.id_documentacion
+
+select * from zonas;	

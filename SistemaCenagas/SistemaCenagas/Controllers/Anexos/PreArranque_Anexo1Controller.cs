@@ -183,7 +183,7 @@ namespace SistemaCenagas.Controllers
             var equipoVerificador = Consultas.PreArranqueVistaEquipoVerificador(_context, idEV);
 
 
-            PreArranque_Anexo1Model_EquipoVerificador model = new PreArranque_Anexo1Model_EquipoVerificador();
+            PreArranque_Anexo1_Model model = new PreArranque_Anexo1_Model();
             model.anexo1 = _context.PreArranque_Anexo1.Where(a => a.Id_Prearranque == id).OrderBy(a => a.Id).LastOrDefault();
             model.miembros = new List<string>();
             model.idMiembro = new List<int>();
@@ -219,7 +219,7 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PreArranque_Anexo1Model_EquipoVerificador model)
+        public async Task<IActionResult> Edit(int id, PreArranque_Anexo1_Model model)
         {
             //return Content(""+id);
             if (id != model.anexo1.Id_Prearranque)
@@ -324,22 +324,96 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            PreArranque_Anexo1Model_EquipoVerificador model = new PreArranque_Anexo1Model_EquipoVerificador();
+            PreArranque_Anexo1_Model model = new PreArranque_Anexo1_Model();
             model.anexo1 = _context.PreArranque_Anexo1.Where(a => a.Id_Prearranque == id).OrderBy(a => a.Id).LastOrDefault();
             model.Proyecto = (from pa1 in _context.PreArranque_Anexo1
                               join p in _context.PreArranque on pa1.Id_Prearranque equals p.Id
                               join pro in _context.Proyectos on p.Id_Proyecto equals pro.Id
                               select pro.Nombre).FirstOrDefault();
 
-           
-            Global.modelActividades = new List<PreArranque_Anexo1_Avtividades_Model>();
 
-            var IdEV = _context.PreArranque_Equipo_Verificador
-                .Where(a => a.Id_PreArranque == model.anexo1.Id_Prearranque).FirstOrDefault().Id;
+            var _actividades_anexo1 = _context.PreArranque_Anexo1_Actividades
+                .Where(a => a.Id_Anexo1 == model.anexo1.Id).ToList();
+            var existen_actividades = _actividades_anexo1.Where(a => a.Id_Anexo1 == model.anexo1.Id).Count() > 0;
+            model.actividadesModel = new List<PreArranque_Anexo1_Avtividades_Model>();
 
-            Global.equipoVerificador_PreArranque = Consultas.PreArranqueVistaEquipoVerificador(_context, IdEV).ToList();
+            if (!existen_actividades)
+            {
+                
+                for (int i = 0; i < 10; i++)
+                {
+                    var _accion = new PreArranque_Anexo1_Actividades
+                    {
+                        Id_Anexo1 = model.anexo1.Id
+                    };
+                    var _actividades = new List<PreArranque_Anexo1_Actividades_Acciones>();
 
-            return PartialView(model);
+                    for (int j = 0; j < 10; j++)
+                    {
+                        _actividades.Add(new PreArranque_Anexo1_Actividades_Acciones());
+                    }
+
+                    model.actividadesModel.Add(new PreArranque_Anexo1_Avtividades_Model
+                    {
+                        accion = _accion,
+                        actividaes = _actividades
+                    });
+                }
+            }
+            else
+            {
+                
+                foreach(var acciones in _actividades_anexo1)
+                {
+                    var act = _context.PreArranque_Anexo1_Actividades_Acciones
+                        .Where(a => a.Id_Anexo1_Actividades == acciones.Id).ToList();
+
+                    var act_ = act;
+
+                    var _size = act.Count();
+
+                    for (int i = 0; i < 10 - _size ; i++)
+                    {
+                        act.Add(new PreArranque_Anexo1_Actividades_Acciones());
+                    }
+
+                    model.actividadesModel.Add(new PreArranque_Anexo1_Avtividades_Model
+                    {
+                        accion = acciones,
+                        actividaes = act,
+                        Num_actividades_actuales = _size
+
+                    });
+                }
+
+                var size_acciones = model.actividadesModel.Count();
+
+                for (int i = 0; i < 10 - size_acciones; i++)
+                {
+                    var _accion = new PreArranque_Anexo1_Actividades
+                    {
+                        Id_Anexo1 = model.anexo1.Id
+                    };
+                    var _actividades = new List<PreArranque_Anexo1_Actividades_Acciones>();
+
+                    for (int j = 0; j < 10; j++)
+                    {
+                        _actividades.Add(new PreArranque_Anexo1_Actividades_Acciones());
+                    }
+
+                    model.actividadesModel.Add(new PreArranque_Anexo1_Avtividades_Model
+                    {
+                        accion = _accion,
+                        actividaes = _actividades
+                    });
+                }
+            }
+            //var IdEV = _context.PreArranque_Equipo_Verificador
+              //  .Where(a => a.Id_PreArranque == model.anexo1.Id_Prearranque).FirstOrDefault().Id;
+
+            //Global.equipoVerificador_PreArranque = Consultas.PreArranqueVistaEquipoVerificador(_context, IdEV).ToList();
+
+            return View(model);
         }
 
         // POST: Anexo1/Edit/5
@@ -347,9 +421,8 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit2(int id, PreArranque_Anexo1Model_EquipoVerificador model)
+        public async Task<IActionResult> Edit2(int id, PreArranque_Anexo1_Model model)
         {
-            //return Content(""+id);
             if (id != model.anexo1.Id_Prearranque)
             {
                 return NotFound();
@@ -359,6 +432,48 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
+                    var acciones_actuales = _context.PreArranque_Anexo1_Actividades
+                        .Where(a => a.Id_Anexo1 == model.anexo1.Id).ToList();
+
+                    foreach (var ac in acciones_actuales)
+                    {
+
+                    }
+
+                    foreach (var acciones in model.actividadesModel)
+                    {
+                        
+
+                        var existe_accion = _context.PreArranque_Anexo1_Actividades
+                            .Where(a => a.Id_Anexo1 == acciones.accion.Id_Anexo1).Count() > 0;
+                        
+                        if (!existe_accion)
+                        {
+                            if (acciones.accion.Accion_Descriptiva.Length > 0 && acciones.accion.Responsable.Length > 0)
+                            {
+                                _context.PreArranque_Anexo1_Actividades.Add(acciones.accion);
+                                await _context.SaveChangesAsync();
+
+                                foreach (var actividades in acciones.actividaes)
+                                {
+                                    if (actividades.Actividad != null && actividades.Actividad.Length > 0)
+                                    {       
+                                        actividades.Id_Anexo1_Actividades = acciones.accion.Id;
+                                        _context.Add(actividades);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        
+
+                        await _context.SaveChangesAsync();
+                    }
+
+                    
 
                 }
                 catch (DbUpdateConcurrencyException)
@@ -374,7 +489,7 @@ namespace SistemaCenagas.Controllers
                 }
                 return RedirectToAction("Index", "PreArranque_Procesos");
             }
-            return PartialView(model);
+            return View(model);
         }
 
 
@@ -414,7 +529,7 @@ namespace SistemaCenagas.Controllers
 
 
         [HttpPost]
-        public JsonResult addAccion(string accionn)
+        public void addAccion(string accionn, string responsable)
         {
 
             var model = new PreArranque_Anexo1_Avtividades_Model
@@ -422,7 +537,7 @@ namespace SistemaCenagas.Controllers
                 accion = new PreArranque_Anexo1_Actividades
                 {
                     Accion_Descriptiva = accionn,
-                    Id_Responsable = 1
+                    Responsable = responsable
                 },
                 actividaes = new List<PreArranque_Anexo1_Actividades_Acciones>()
 
@@ -430,7 +545,7 @@ namespace SistemaCenagas.Controllers
             };
             Global.modelActividades.Add(model);
 
-            return Json(model);
+            //return Json(model.accion);
         }
         
 

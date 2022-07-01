@@ -68,6 +68,13 @@
                         <th>
                             Capital
                         </th>
+                        <th>
+                            Latitud
+                        </th>
+                        <th>
+                            Longitud
+                        </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,13 +96,19 @@
                                 <td>
                                     @(item.Capital)
                                 </td>
-                                <!--td>
+                                <td>
+                                    @(item.Latitud)
+                                </td>
+                                <td>
+                                    @(item.Longitud)
+                                </td>
+                                <td>
                                     <button class="btn btn-round" title="Editar"
                                             data-toggle="modal" data-target="#editarUsuario-modal" data-url="@Url.Action($"Edit/{item.Id}")">
                                         <span data-title="" class="material-icons">edit</span>
                                     </button>
                                 </td>
-                                <td>
+                                <!--td>
                                     <button class="btn btn-round" title="Detalles"
                                             data-toggle="modal" data-target="#detallesUsuario-modal" data-url="@Url.Action($"Details/{item.Id}")">
                                         <span data-title="" class="material-icons">assignment</span>
