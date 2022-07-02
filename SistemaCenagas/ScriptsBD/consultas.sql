@@ -39,6 +39,8 @@ update usuarios set id_rol = 2
 where id_usuario = 4;
 
 
+use cenagas;
+SET SQL_SAFE_UPDATES = 0;
 
 select * from prearranque_anexo1_actividades_acciones;
 select * from prearranque_anexo1_actividades;

@@ -11,8 +11,10 @@
     var cont_accion = 0;
     var cont_actividades = [];
 
+    var ROWS = 2;
+
     $(document).ready(function () {
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < ROWS; i++) {
             $("#data_table_" + i).DataTable({
                 scrollCollapse: false,
                 scrollX: true,
@@ -34,6 +36,25 @@
             //alert("cont_actividades[" + cont_accion + "]: " + cont_actividades[cont_accion]);
             //alert("Acciones: " + cont_accion);
             $("#tabla_" + cont_accion).removeAttr('hidden');
+
+
+            //datos requiridos
+            $("#input_accion_" + id_accion).prop('required', true);
+            $("#input_responsable_" + id_accion).prop('required', true);
+
+            /*
+            for (var i = 0; i < 10; i++) {
+                $("#input_accion" + id_accion + "_act" + i + "_Actividad").prop('required', true);
+                $("#input_accion" + id_accion + "_act" + i + "_FecInicio").prop('required', true);
+                $("#input_accion" + id_accion + "_act" + i + "_FecFin").prop('required', true);
+                $("#input_accion" + id_accion + "_act" + i + "_Evidencia").prop('required', true);
+                $("#input_accion" + id_accion + "_act" + i + "_Avance").prop('required', true);
+
+                $("#fila_accion" + id_accion + "_act" + i).attr('hidden', true);
+            }
+            */
+
+
             cont_accion++;
         }
         else {
@@ -45,7 +66,7 @@
             $("#input_accion_" + id_accion).val("");
             $("#input_responsable_" + id_accion).val("");
 
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < ROWS; i++) {
                 $("#input_accion" + id_accion + "_act" + i + "_Actividad").val("");
                 $("#input_accion" + id_accion + "_act" + i + "_FecInicio").val("");
                 $("#input_accion" + id_accion + "_act" + i + "_FecFin").val("");
@@ -71,6 +92,12 @@
             //alert("cont_actividades[" + id_accion + "]: " + cont_actividades[id_accion]);
             $("#fila_accion" + id_accion + "_act" + cont_actividades[id_accion]).removeAttr('hidden');
             cont_actividades[id_accion]++;
+
+            $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_Actividad").prop('required', true);
+            $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_FecInicio").prop('required', true);
+            $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_FecFin").prop('required', true);
+            $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_Evidencia").prop('required', true);
+            $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_Avance").prop('required', true);
         }
         else {
             cont_actividades[id_accion]--;
@@ -197,6 +224,7 @@
                                 <td>
                                     
                                     <div class="col">
+                                        <input type="hidden" asp-for="actividadesModel[i].accion.Id" />
                                         <input type="hidden" asp-for="actividadesModel[i].accion.Id_Anexo1" />
                                         <input id="input_accion_@(i)" asp-for="actividadesModel[i].accion.Accion_Descriptiva" type="text" class="form-control">
                                     </div>
@@ -248,7 +276,7 @@
                                         </thead>
                                         <tbody >
 
-                                            @for (int j = 0; j < 10; j++)
+                                            @for (int j = 0; j < Model.actividadesModel[i].actividaes.Count(); j++)
                                             {   
                                                 <tr id="@($"fila_accion{i}_act{j}")" @(Model.actividadesModel[i].actividaes[j].Actividad != null ? "" : "hidden" )>
                                                     <td >
@@ -259,6 +287,8 @@
                                                     </td>
                                                     <td>
                                                         <div class="col">
+                                                            <input id="@($"input_accion{i}_act{j}_Id")" asp-for="actividadesModel[i].actividaes[j].Id" type="hidden"/>
+                                                            <input id="@($"input_accion{i}_act{j}_IdActividades")" asp-for="actividadesModel[i].actividaes[j].Id_Anexo1_Actividades" type="hidden"/>
                                                             <input style="font-size:12px;" size="150" id="@($"input_accion{i}_act{j}_Actividad")" asp-for="actividadesModel[i].actividaes[j].Actividad" placeholder="" type="text" class="form-control" required />
                                                         </div>
                                                     </td>

@@ -324,6 +324,8 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
+            int ROWS = 2;
+
             PreArranque_Anexo1_Model model = new PreArranque_Anexo1_Model();
             model.anexo1 = _context.PreArranque_Anexo1.Where(a => a.Id_Prearranque == id).OrderBy(a => a.Id).LastOrDefault();
             model.Proyecto = (from pa1 in _context.PreArranque_Anexo1
@@ -340,7 +342,7 @@ namespace SistemaCenagas.Controllers
             if (!existen_actividades)
             {
                 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < ROWS; i++)
                 {
                     var _accion = new PreArranque_Anexo1_Actividades
                     {
@@ -348,7 +350,7 @@ namespace SistemaCenagas.Controllers
                     };
                     var _actividades = new List<PreArranque_Anexo1_Actividades_Acciones>();
 
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < ROWS; j++)
                     {
                         _actividades.Add(new PreArranque_Anexo1_Actividades_Acciones());
                     }
@@ -372,7 +374,7 @@ namespace SistemaCenagas.Controllers
 
                     var _size = act.Count();
 
-                    for (int i = 0; i < 10 - _size ; i++)
+                    for (int i = 0; i < ROWS - _size ; i++)
                     {
                         act.Add(new PreArranque_Anexo1_Actividades_Acciones());
                     }
@@ -388,7 +390,7 @@ namespace SistemaCenagas.Controllers
 
                 var size_acciones = model.actividadesModel.Count();
 
-                for (int i = 0; i < 10 - size_acciones; i++)
+                for (int i = 0; i < ROWS - size_acciones; i++)
                 {
                     var _accion = new PreArranque_Anexo1_Actividades
                     {
@@ -396,7 +398,7 @@ namespace SistemaCenagas.Controllers
                     };
                     var _actividades = new List<PreArranque_Anexo1_Actividades_Acciones>();
 
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < ROWS; j++)
                     {
                         _actividades.Add(new PreArranque_Anexo1_Actividades_Acciones());
                     }
@@ -428,68 +430,176 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
+                var acciones_actuales = _context.PreArranque_Anexo1_Actividades
+                    .Where(a => a.Id_Anexo1 == model.anexo1.Id).ToList();
+
+                foreach (var acciones in model.actividadesModel)
                 {
-                    var acciones_actuales = _context.PreArranque_Anexo1_Actividades
-                        .Where(a => a.Id_Anexo1 == model.anexo1.Id).ToList();
-
-                    foreach (var ac in acciones_actuales)
+                    bool existe_accion = false;
+                    if (acciones.accion.Accion_Descriptiva != null && acciones.accion.Accion_Descriptiva.Length > 0 &&
+                        acciones.accion.Responsable != null && acciones.accion.Responsable.Length > 0)
                     {
-
+                        existe_accion = _context.PreArranque_Anexo1_Actividades
+                        .Where(a => a.Id_Anexo1 == acciones.accion.Id_Anexo1 &&
+                                    a.Accion_Descriptiva.Equals(acciones.accion.Accion_Descriptiva)).Count() > 0;
                     }
-
-                    foreach (var acciones in model.actividadesModel)
-                    {
-                        
-
-                        var existe_accion = _context.PreArranque_Anexo1_Actividades
-                            .Where(a => a.Id_Anexo1 == acciones.accion.Id_Anexo1).Count() > 0;
-                        
-                        if (!existe_accion)
-                        {
-                            if (acciones.accion.Accion_Descriptiva.Length > 0 && acciones.accion.Responsable.Length > 0)
-                            {
-                                _context.PreArranque_Anexo1_Actividades.Add(acciones.accion);
-                                await _context.SaveChangesAsync();
-
-                                foreach (var actividades in acciones.actividaes)
-                                {
-                                    if (actividades.Actividad != null && actividades.Actividad.Length > 0)
-                                    {       
-                                        actividades.Id_Anexo1_Actividades = acciones.accion.Id;
-                                        _context.Add(actividades);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-
-                        }
-                        
-
-                        await _context.SaveChangesAsync();
-                    }
-
                     
 
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!Anexo1Exists(model.anexo1.Id))
+                    if (!existe_accion && acciones.accion.Id == 0 && acciones.accion.Accion_Descriptiva != null && acciones.accion.Accion_Descriptiva.Length > 0)
                     {
-                        return NotFound();
+                        _context.Add(acciones.accion);
                     }
                     else
                     {
-                        throw;
+                        var local = _context.Set<PreArranque_Anexo1_Actividades>()
+                            .Local.FirstOrDefault(e => e.Id == acciones.accion.Id);
+                        if (local != null)
+                        {
+                            _context.Entry(local).State = EntityState.Detached;
+                        }
+
+                        if (acciones.accion.Accion_Descriptiva != null && acciones.accion.Accion_Descriptiva.Length > 0)
+                        {
+                            //modificar accion
+                            _context.Entry(acciones.accion).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            if(acciones.accion.Id != 0)
+                            {
+                                //primero se eliminan las actividades de dicha accion
+                                foreach (var items in acciones.actividaes)
+                                {
+                                    var exist = _context.PreArranque_Anexo1_Actividades_Acciones
+                                        .Where(a => a.Id == items.Id).Count() > 0;
+                                    if (exist)
+                                    {
+                                        var local2 = _context.Set<PreArranque_Anexo1_Actividades_Acciones>()
+                                            .Local.FirstOrDefault(e => e.Id == items.Id);
+                                        if (local2 != null)
+                                        {
+                                            _context.Entry(local2).State = EntityState.Detached;
+                                        }
+                                        _context.Entry(items).State = EntityState.Deleted;
+                                        await _context.SaveChangesAsync();
+                                        items.Id = 0;
+                                    }
+
+                                }
+
+                                //eliminar accion
+                                _context.Entry(acciones.accion).State = EntityState.Deleted;
+                            }
+                        }
+
+
+                        //_context.Update(acciones.accion);
                     }
+
+
+                    await _context.SaveChangesAsync();
+
+                    
+                    foreach (var actividades in acciones.actividaes)
+                    {
+                        bool existe_actividad = false;
+                        if (actividades.Actividad != null && actividades.Actividad.Length > 0)
+                        {
+                            existe_actividad = _context.PreArranque_Anexo1_Actividades_Acciones
+                                .Where(a => a.Id == actividades.Id &&
+                                            a.Actividad.Equals(actividades.Actividad)).Count() > 0;
+                        }
+                        
+
+                        actividades.Id_Anexo1_Actividades = acciones.accion.Id;
+
+                        if (!existe_actividad && actividades.Id == 0 && actividades.Actividad != null && actividades.Actividad.Length > 0)
+                        {
+                            _context.Add(actividades);
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            var local = _context.Set<PreArranque_Anexo1_Actividades_Acciones>()
+                                    .Local.FirstOrDefault(e => e.Id == actividades.Id);
+                            if (local != null)
+                            {
+                                _context.Entry(local).State = EntityState.Detached;
+                            }
+
+                            if (actividades.Actividad != null && actividades.Actividad.Length > 0)
+                            {
+                                _context.Entry(actividades).State = EntityState.Modified;
+                                await _context.SaveChangesAsync();
+                            }
+                            else
+                            {
+                                if (actividades.Id != 0)
+                                {
+                                    var local2 = _context.Set<PreArranque_Anexo1_Actividades_Acciones>()
+                                    .Local.FirstOrDefault(e => e.Id == actividades.Id);
+                                    if (local2 != null)
+                                    {
+                                        _context.Entry(local2).State = EntityState.Detached;
+                                    }
+                                    _context.Entry(actividades).State = EntityState.Deleted;
+                                    await _context.SaveChangesAsync();
+                                }
+
+                            }
+                            
+                                
+                        }
+                    }
+                    
+
+                    /*
+                    var existe_accion = _context.PreArranque_Anexo1_Actividades
+                        .Where(a => a.Id_Anexo1 == acciones.accion.Id_Anexo1).Count() > 0;
+
+                    if (!existe_accion)
+                    {
+                        if (acciones.accion.Accion_Descriptiva.Length > 0 && acciones.accion.Responsable.Length > 0)
+                        {
+                            _context.PreArranque_Anexo1_Actividades.Add(acciones.accion);
+                            await _context.SaveChangesAsync();
+
+                            foreach (var actividades in acciones.actividaes)
+                            {
+                                if (actividades.Actividad != null && actividades.Actividad.Length > 0)
+                                {       
+                                    actividades.Id_Anexo1_Actividades = acciones.accion.Id;
+                                    _context.Add(actividades);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                    */
+
+                    
                 }
-                return RedirectToAction("Index", "PreArranque_Procesos");
+
+
+
             }
-            return View(model);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Anexo1Exists(model.anexo1.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index", "PreArranque_Procesos");
         }
 
 
