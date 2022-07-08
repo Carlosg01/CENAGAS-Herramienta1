@@ -11,10 +11,11 @@
     var cont_accion = 0;
     var cont_actividades = [];
 
-    var ROWS = 2;
+    var ROWS_ACCIONES = 10;
+    var ROWS_ACTIVIDADES = 10;
 
     $(document).ready(function () {
-        for (var i = 0; i < ROWS; i++) {
+        for (var i = 0; i < ROWS_ACCIONES; i++) {
             $("#data_table_" + i).DataTable({
                 scrollCollapse: false,
                 scrollX: true,
@@ -66,7 +67,7 @@
             $("#input_accion_" + id_accion).val("");
             $("#input_responsable_" + id_accion).val("");
 
-            for (var i = 0; i < ROWS; i++) {
+            for (var i = 0; i < ROWS_ACTIVIDADES; i++) {
                 $("#input_accion" + id_accion + "_act" + i + "_Actividad").val("");
                 $("#input_accion" + id_accion + "_act" + i + "_FecInicio").val("");
                 $("#input_accion" + id_accion + "_act" + i + "_FecFin").val("");
@@ -87,21 +88,22 @@
         
     }
 
-    function btnAccionActividad(action, id_accion, id_actividad) {
+    function btnAccionActividad(action, id_accion, id_actividad, extra) {
         if (action == "agregar") {
-            //alert("cont_actividades[" + id_accion + "]: " + cont_actividades[id_accion]);
+            //alert("CCcont_actividades[" + 0 + "]: " + cont_actividades[0]);
             $("#fila_accion" + id_accion + "_act" + cont_actividades[id_accion]).removeAttr('hidden');
-            cont_actividades[id_accion]++;
-
             $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_Actividad").prop('required', true);
             $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_FecInicio").prop('required', true);
             $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_FecFin").prop('required', true);
             $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_Evidencia").prop('required', true);
             $("#input_accion" + id_accion + "_act" + cont_actividades[id_accion] + "_Avance").prop('required', true);
+
+            cont_actividades[id_accion]++;
         }
         else {
             cont_actividades[id_accion]--;
             $("#fila_accion" + id_accion + "_act" + id_actividad).attr('hidden', true);
+            //alert("cont_actividades[" + id_accion + "]: " + cont_actividades[id_accion]);
 
             $("#input_accion" + id_accion + "_act" + id_actividad + "_Actividad").val("");
             $("#input_accion" + id_accion + "_act" + id_actividad + "_FecInicio").val("");
@@ -115,11 +117,12 @@
     function setContAccion(val) {
         cont_accion += val;
         $("#btnGuardar").removeAttr('disabled');
+        cont_actividades.push(0);
         //alert("cont_accion: " + cont_accion);
     }
-    function setCont_actividades(val) {
-        cont_actividades.push(val);
-        //alert("cont_actividades: " + val);
+    function setCont_actividades(val, id_accion) {
+        cont_actividades[id_accion] = val;
+        //alert("cont_actividades[" + id_accion + "]: " + cont_actividades[id_accion]);
     }
 
 
@@ -161,195 +164,245 @@
     <!--end of modal head-->
     <div class="container">
 
-        <div class="page-header mb-4">
-            <div class="media">
-                <div class="media-body ml-3">
-                    <h2 class="mb-0">
-                        Programa de Pre-arranque
-                    </h2>
+    </div>
+
+    <div class="page-header mb-4">
+        <div class="media">
+            <div class="media-body ml-3">
+                <h3 class="mb-0">Programa de pre-arranque</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                    <!--end of avatar-->
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            Residencia:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.anexo2_prearranque.residencia)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Proyecto:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.anexo2_prearranque.proyecto)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Instalación/Área:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.anexo2_prearranque.instalacion)
+                        </dd>
+                        <dt class="col-sm-3">
+                            No. de Folio:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.prearranque.Folio)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Responsable del pre-arranque:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.responsable)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Suplente:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.suplente)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Líder de equipo verificador:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.lider)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Fecha de actualización:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.prearranque.Fecha_Actualizacion)
+                        </dd>
+                    </dl>
                 </div>
             </div>
         </div>
+    </div>
 
-        <form asp-action="Edit2">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Edit2">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <input type="hidden" asp-for="anexo1.Id" />
-            <input type="hidden" asp-for="anexo1.Id_Prearranque" />
+        <input type="hidden" asp-for="anexo1.Id" />
+        <input type="hidden" asp-for="anexo1.Id_Prearranque" />
 
-            <div class="form-group row align-items-center">
-                <label class="col-2" style="text-align:right;">Proyecto</label>
-                <div class="col">
-                    <input type="text" asp-for="Proyecto" class="form-control" disabled />
-                </div>
-            </div>
-            <hr />
-
-            <div class="form-group row align-items-center">
+        <div class="form-group row align-items-center">
 
 
-                <div class="col">
-                    <a class="btn btn-success" onclick="btnAccion('agregar', 0)">
-                        Agregar acción
-                    </a>
-                </div>
-            </div>
-
-            
-
-            <hr />
-            @for (int i = 0; i < Model.actividadesModel.Count() ; i++)
-            {
-
-                if (Model.actividadesModel[i].accion.Accion_Descriptiva != null)
-                {
-                    <script>
-                        setContAccion(1);
-                        setCont_actividades(@(Model.actividadesModel[i].Num_actividades_actuales));
-                    </script>
-                }
-                
-                <div id="@($"tabla_{i}")" @(Model.actividadesModel[i].accion.Accion_Descriptiva != null ? "" : "hidden" )  >
-                    <table class="table table-striped table-bordered" style="width:100%">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Acción descriptiva</th>
-                                <th>Responsable</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    
-                                    <div class="col">
-                                        <input type="hidden" asp-for="actividadesModel[i].accion.Id" />
-                                        <input type="hidden" asp-for="actividadesModel[i].accion.Id_Anexo1" />
-                                        <input id="input_accion_@(i)" asp-for="actividadesModel[i].accion.Accion_Descriptiva" type="text" class="form-control">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="col">
-                                        <input id="input_responsable_@(i)" asp-for="actividadesModel[i].accion.Responsable" type="text" class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="col">
-                                        <a class="btn btn-dark" onclick="btnAccion('quitar', @(i))">
-                                            Eliminar
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="col">
-                                        <a class="btn btn-success" onclick="btnAccionActividad('agregar', @(i))">
-                                            Agregar actividad
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="accordion" id="accordionExample_@(i)">
-                        <div class="accordion-item">
-
-                            <h2 class="accordion-header">
-                                <a class="btn accordion-button" data-toggle="collapse" data-target="#collapse_@(i)" aria-expanded="true" aria-controls="collapse_@(1)">
-                                    Actividades <i class="material-icons">keyboard_arrow_down</i>
-                                </a>
-                            </h2>
-                            <div id="collapse_@(i)" class="accordion-collapse collapse" aria-labelledby="headingThree" data-parent="#accordionExample_@(i)">
-                                <div class="accordion-body">
-                                    <table class="table table-striped table-bordered" style="display:block; overflow-x:auto; white-space:nowrap;">
-                                        <thead >
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Actividad</th>
-                                                <th>Fec. Inicio</th>
-                                                <th>Fec. Fin</th>
-                                                <th>Evidencia</th>
-                                                <th>Avance</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody >
-
-                                            @for (int j = 0; j < Model.actividadesModel[i].actividaes.Count(); j++)
-                                            {   
-                                                <tr id="@($"fila_accion{i}_act{j}")" @(Model.actividadesModel[i].actividaes[j].Actividad != null ? "" : "hidden" )>
-                                                    <td >
-                                                        <div class="col">
-                                                            
-                                                            <label style="font-size:10px" id="@($"input_accion{i}_act{j}_Numero")" type="text" class="form-control">@(i+1).@(j+1)</label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col">
-                                                            <input id="@($"input_accion{i}_act{j}_Id")" asp-for="actividadesModel[i].actividaes[j].Id" type="hidden"/>
-                                                            <input id="@($"input_accion{i}_act{j}_IdActividades")" asp-for="actividadesModel[i].actividaes[j].Id_Anexo1_Actividades" type="hidden"/>
-                                                            <input style="font-size:12px;" size="150" id="@($"input_accion{i}_act{j}_Actividad")" asp-for="actividadesModel[i].actividaes[j].Actividad" placeholder="" type="text" class="form-control" required />
-                                                        </div>
-                                                    </td>
-                                                    <!--td>
-                                                        <div class="col">
-                                                            <input id="@($"input_accion{i}_act{j}_Responsable")" asp-for="actividadesModel[i].actividaes[j].Responsable" placeholder="" type="text" class="form-control" />
-                                                        </div>
-                                                    </td-->
-                                                    <td>
-                                                        <div class="col">
-                                                            <input style="font-size:12px" id="@($"input_accion{i}_act{j}_FecInicio")" asp-for="actividadesModel[i].actividaes[j].Fecha_Inicio" type="date" class="form-control" required />
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col">
-                                                            <input style="font-size:12px" id="@($"input_accion{i}_act{j}_FecFin")" asp-for="actividadesModel[i].actividaes[j].Fecha_Termino" type="date" class="form-control" required />
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col">
-                                                            <input style="font-size:12px" size="150" id="@($"input_accion{i}_act{j}_Evidencia")" asp-for="actividadesModel[i].actividaes[j].Evidencia" placeholder="" type="text" class="form-control" required />
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col">
-                                                            <input style="font-size:12px" size="30" id="@($"input_accion{i}_act{j}_Avance")" asp-for="actividadesModel[i].actividaes[j].Avance" placeholder="" type="text" class="form-control" required />
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-round" title="Eliminar" onclick="btnAccionActividad('quitar', @(i), @(j))">
-                                                            <i class="material-icons">delete</i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            }
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            }
-
-
-            <div class="modal-footer">
-                <button id="btnGuardar" type="submit" role="button" class="btn btn-success"
-                        @(Model.actividadesModel[0].accion.Accion_Descriptiva != null ? "" : "disabled")>
-                    Guardar
-                </button>
-                <a class="btn btn-dark" asp-controller="PreArranque_Procesos" asp-action="Index">
-                    Cancelar
+            <div class="col">
+                <a class="btn btn-success" onclick="btnAccion('agregar', 0)">
+                    Agregar acción
                 </a>
             </div>
-        </form>
+        </div>
 
-    </div>
+
+
+        <hr />
+        @for (int i = 0; i < Model.actividadesModel.Count(); i++)
+        {
+
+            if (Model.actividadesModel[i].accion.Accion_Descriptiva != null)
+            {
+                <script>
+                        setContAccion(1);
+                        setCont_actividades(@(Model.actividadesModel[i].Num_actividades_actuales), @(i));
+                </script>
+            }
+
+            <div id="@($"tabla_{i}")" @(Model.actividadesModel[i].accion.Accion_Descriptiva != null ? "" : "hidden" )>
+                <table class="table table-striped table-bordered" style="width:100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Acción descriptiva</th>
+                            <th>Responsable</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+
+                                <div class="col">
+                                    <input type="hidden" asp-for="actividadesModel[i].accion.Id" />
+                                    <input type="hidden" asp-for="actividadesModel[i].accion.Id_Anexo1" />
+                                    <input id="input_accion_@(i)" asp-for="actividadesModel[i].accion.Accion_Descriptiva" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <input id="input_responsable_@(i)" asp-for="actividadesModel[i].accion.Responsable" type="text" class="form-control" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <a class="btn btn-dark" onclick="btnAccion('quitar', @(i))">
+                                        Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <a class="btn btn-success" onclick="btnAccionActividad('agregar', @(i))">
+                                        Agregar actividad
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="accordion" id="accordionExample_@(i)">
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+                            <a id="button_collapse_@(i)" class="btn accordion-button" data-toggle="collapse" data-target="#collapse_@(i)" aria-expanded="true" aria-controls="collapse_@(i)">
+                                Actividades <i class="material-icons">keyboard_arrow_down</i>
+                            </a>
+                        </h2>
+                        <div id="collapse_@(i)" class="accordion-collapse collapse" aria-labelledby="headingThree" aria-expanded="true" data-parent="#accordionExample_@(i)">
+                            <div class="accordion-body">
+                                <table class="table table-striped table-bordered" style="display:block; overflow-x:auto; white-space:nowrap;">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Actividad</th>
+                                            <th>Fec. Inicio</th>
+                                            <th>Fec. Fin</th>
+                                            <th>Evidencia</th>
+                                            <th>Avance</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @for (int j = 0; j < Model.actividadesModel[i].actividaes.Count(); j++)
+                                        {
+                                            <tr id="@($"fila_accion{i}_act{j}")" @(Model.actividadesModel[i].actividaes[j].Actividad != null ? "" : "hidden" )>
+                                                <td>
+                                                    <div class="col">
+
+                                                        <label style="font-size:10px" id="@($"input_accion{i}_act{j}_Numero")" type="text" class="form-control">@(i+1).@(j+1)</label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col">
+                                                        <input id="@($"input_accion{i}_act{j}_Id")" asp-for="actividadesModel[i].actividaes[j].Id" type="hidden" />
+                                                        <input id="@($"input_accion{i}_act{j}_IdActividades")" asp-for="actividadesModel[i].actividaes[j].Id_Anexo1_Actividades" type="hidden" />
+                                                        <input style="font-size:12px;" size="150" id="@($"input_accion{i}_act{j}_Actividad")" asp-for="actividadesModel[i].actividaes[j].Actividad" placeholder="" type="text" class="form-control" required />
+                                                    </div>
+                                                </td>
+                                                <!--td>
+                                                    <div class="col">
+                                                        <input id="@($"input_accion{i}_act{j}_Responsable")" asp-for="actividadesModel[i].actividaes[j].Responsable" placeholder="" type="text" class="form-control" />
+                                                    </div>
+                                                </td-->
+                                                <td>
+                                                    <div class="col">
+                                                        <input style="font-size:12px" id="@($"input_accion{i}_act{j}_FecInicio")" asp-for="actividadesModel[i].actividaes[j].Fecha_Inicio" type="date" class="form-control" required />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col">
+                                                        <input style="font-size:12px" id="@($"input_accion{i}_act{j}_FecFin")" asp-for="actividadesModel[i].actividaes[j].Fecha_Termino" type="date" class="form-control" required />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col">
+                                                        <input style="font-size:12px" size="150" id="@($"input_accion{i}_act{j}_Evidencia")" asp-for="actividadesModel[i].actividaes[j].Evidencia" placeholder="" type="text" class="form-control" required />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col">
+                                                        <input style="font-size:12px" size="30" id="@($"input_accion{i}_act{j}_Avance")" asp-for="actividadesModel[i].actividaes[j].Avance" placeholder="" type="text" class="form-control" required />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-round" title="Eliminar" onclick="btnAccionActividad('quitar', @(i), @(j))">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+        <div class="modal-footer">
+            <button id="btnGuardar" type="submit" role="button" class="btn btn-success"
+                    @(Model.actividadesModel[0].accion.Accion_Descriptiva != null ? "" : "disabled")>
+                Guardar
+            </button>
+            <a class="btn btn-dark" asp-controller="PreArranque_Procesos" asp-action="Index">
+                Cancelar
+            </a>
+        </div>
+    </form>
 </div>
 
 <!--script type="text/javascript" src="~/lib/jquery/dist/combo_cascada_edit.js"></script>

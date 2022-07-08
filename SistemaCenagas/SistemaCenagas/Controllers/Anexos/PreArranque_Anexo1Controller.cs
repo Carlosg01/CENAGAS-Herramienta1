@@ -294,6 +294,9 @@ namespace SistemaCenagas.Controllers
                         }
                     }
 
+                    Global.prearranque.prearranque.Fecha_Actualizacion = DateTime.Now.ToString();
+                    _context.Update(Global.prearranque.prearranque);
+
 
                     PreArranque_Procesos a = _context.PreArranque_Procesos.Where(a => a.Id_PreArranque == model.anexo1.Id_Prearranque && a.Id_Actividad == 1).FirstOrDefault();
                     a.Avance = 100;
@@ -324,7 +327,8 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
-            int ROWS = 2;
+            int ROWS_ACCIONES = 10;
+            int ROWS_ACTIVIDADES = 10;
 
             PreArranque_Anexo1_Model model = new PreArranque_Anexo1_Model();
             model.anexo1 = _context.PreArranque_Anexo1.Where(a => a.Id_Prearranque == id).OrderBy(a => a.Id).LastOrDefault();
@@ -342,7 +346,7 @@ namespace SistemaCenagas.Controllers
             if (!existen_actividades)
             {
                 
-                for (int i = 0; i < ROWS; i++)
+                for (int i = 0; i < ROWS_ACCIONES; i++)
                 {
                     var _accion = new PreArranque_Anexo1_Actividades
                     {
@@ -350,7 +354,7 @@ namespace SistemaCenagas.Controllers
                     };
                     var _actividades = new List<PreArranque_Anexo1_Actividades_Acciones>();
 
-                    for (int j = 0; j < ROWS; j++)
+                    for (int j = 0; j < ROWS_ACTIVIDADES; j++)
                     {
                         _actividades.Add(new PreArranque_Anexo1_Actividades_Acciones());
                     }
@@ -374,7 +378,7 @@ namespace SistemaCenagas.Controllers
 
                     var _size = act.Count();
 
-                    for (int i = 0; i < ROWS - _size ; i++)
+                    for (int i = 0; i < ROWS_ACTIVIDADES - _size ; i++)
                     {
                         act.Add(new PreArranque_Anexo1_Actividades_Acciones());
                     }
@@ -390,7 +394,7 @@ namespace SistemaCenagas.Controllers
 
                 var size_acciones = model.actividadesModel.Count();
 
-                for (int i = 0; i < ROWS - size_acciones; i++)
+                for (int i = 0; i < ROWS_ACCIONES - size_acciones; i++)
                 {
                     var _accion = new PreArranque_Anexo1_Actividades
                     {
@@ -398,7 +402,7 @@ namespace SistemaCenagas.Controllers
                     };
                     var _actividades = new List<PreArranque_Anexo1_Actividades_Acciones>();
 
-                    for (int j = 0; j < ROWS; j++)
+                    for (int j = 0; j < ROWS_ACTIVIDADES; j++)
                     {
                         _actividades.Add(new PreArranque_Anexo1_Actividades_Acciones());
                     }
@@ -553,39 +557,12 @@ namespace SistemaCenagas.Controllers
                                 
                         }
                     }
-                    
 
-                    /*
-                    var existe_accion = _context.PreArranque_Anexo1_Actividades
-                        .Where(a => a.Id_Anexo1 == acciones.accion.Id_Anexo1).Count() > 0;
-
-                    if (!existe_accion)
-                    {
-                        if (acciones.accion.Accion_Descriptiva.Length > 0 && acciones.accion.Responsable.Length > 0)
-                        {
-                            _context.PreArranque_Anexo1_Actividades.Add(acciones.accion);
-                            await _context.SaveChangesAsync();
-
-                            foreach (var actividades in acciones.actividaes)
-                            {
-                                if (actividades.Actividad != null && actividades.Actividad.Length > 0)
-                                {       
-                                    actividades.Id_Anexo1_Actividades = acciones.accion.Id;
-                                    _context.Add(actividades);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-
-                    }
-                    */
-
-                    
                 }
 
-
+                Global.prearranque.prearranque.Fecha_Actualizacion = DateTime.Now.ToString();
+                _context.Update(Global.prearranque.prearranque);
+                await _context.SaveChangesAsync();
 
             }
             catch (DbUpdateConcurrencyException)

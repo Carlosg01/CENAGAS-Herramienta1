@@ -2000,6 +2000,206 @@ insert into proyectos (Nombre, Descripcion, Estado_ADC, Estado_PreArranque, Elim
 'Habilitado', 'Habilitado', 0
 );
 
+
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Tecnología del Proceso');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(1, 'Verificar que cuente con la información completa del equipo o instalación, considerando en su caso los peligros nuevos o modificaciones de los materiales y energía. Adicionalmente, cuente con los manuales de los fabricantes conforme con el diseño.'),
+(1, 'Verificar que se disponga de las Hojas de Datos de Seguridad de los materiales peligrosos usados en el proceso y que estén disponibles para el personal que los usa.'),
+(1, 'Verificar si el personal operativo ha sido capacitado y demeustra la competencia en los sistemas de seguridad.'),
+(1, 'Verificar que los recipientes estén construidos de acuerdo con las especificaciones de diseño.'),
+(1, 'Verificar que el equipo dinámico este construido e instalado de acuerdo conforme con el diseño.'),
+(1, 'Verificar que todas las inspecciones y pruebas se encuentran registradas y fueron realizadas respecto al diseño.'),
+(1, 'Verificar la disponibilidad de los reportes de pruebas e inspección de la Integridad Mecánica de equipos, tuberías y accesorios para demostrar que la planta o equipo se ha construido o bien se ha reparado de acuerdo con las especificaciones y estándares de diseño.'),
+(1, 'Verificar que se realizaron todas las pruebas no destructivas de inspección consideradas en el diseño (radiografías de soldaduras, partículas magnéticas, identificación de materiales, corrientes de Eddy, líquidos penetrantes, entre otras), para asegurar que las tuberías, conexiones, accesorios, equipos, maquinaria fueron construidos conforme a los códigos de diseño de los mismos.'),
+(1, 'Verificar que los planos: unifilares, isométricos, diagramas de flujo de proceso, diagramas de tubería e instrumentación (DTI), Isométricos esten completos y actualizados.'),
+(1, 'Verificar que cuando se ocupe tecnología nueva, esta debe ser documentada y probada satisfactoriamente.'),
+(1, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Análisis de Riesgos de Procesos (ARP)');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(2, 'Verificar que la instalación cuente con Análisis de Riesgos de Proceso actualizado incluyendo el análisis de consecuencias y las recomendaciones emitidas en los análisis han sido solventadas.'),
+(2, 'Verificar que todo el personal que opera y mantiene el equipo o instalación en revisión esta capacitado y entrenado.'),
+(2, 'Verificar que las recomendaciones de los hallazgos tipo "A" esten atendidos y se cuente con la evidencia de su atención.'),
+(2, 'Verificar que las recomendaciones de los hallazgos tipo "B" esten atendidos y se cuente con la evidencia de su atención.'),
+(2, 'Otro');
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Procedimientos de Operación y Prácticas Seguras');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(3, 'Verificar que los procedimientos de operación normal y de emergencia están disponibles para el personal que los requiere en campo y que dicho personal esta capacitado y entrenado.'),
+(3, 'Verificar que se aplique el sistema de permiso de trabajo con riesgo (PDT), Análisis de Seguridad en el Trabajo (AST) y aplicación de listas de verificación en todas las actividades relacionadas con los procedimientos críticos de seguridad, procedimientos de operación, inspección y mantenimiento.'),
+(3, 'Verificar que existan avisos a las áreas involucradas sobre la fecha y hora de la puesta en operación de la instalación.'),
+(3, 'Verificar que se cuente con los diagramas de arranque, indicando los responsables de verificar cada etapa del proceso de arranque.'),
+(3, 'Verificar que las pruebas de hermeticidad requeridas fueron realizadas conforme con el diseño.'),
+(3, 'Verificar que todos los compresores y equipo dinámico han sido probados de acuerdo al fabricante y limites operativos estabelcidos.'),
+(3, 'Verificar que los equipos y tubería que cuenten con aislamiento térmico conforme con los planes de diseño.'),
+(3, 'Verificar que todas las válvulas automáticas de control se encuentren con sus bloqueos abiertos y sus válvulas de directo cerradas.'),
+(3, 'Verificar que los sistemas de desfogue se encuentren alineados a los quemadores elevados o de fosa según sea el caso, y en los casos en que tengan válvulas de bloqueo, que estos estén en su posición de abiertas y colocarles flejes o cadenas con candado.'),
+(3, 'Verificar que no existan en los circuitos bridas ciegas instaladas.'),
+(3, 'Verificar que se cuente con lámparas portátiles en el área de trabajo.'),
+(3, 'Verificar que los pilotos y quemadores de calentadores a fuego directo y calderas se encuentren instalados. Verificar que los loops de las válvulas automáticas operadas por solenoides estén completas conforme con el diseño.'),
+(3, 'Verificar que no se cuente con soportería o andamios, estructuras e instalaciones provisionales.'),
+(3, 'Verificar que haya orden y limpieza en la instalación.'),
+(3, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Administración de Cambios');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(4, 'Verificar que se haya aplicado el Procedimiento de Administración de Cambios.'),
+(4, 'Verificar que existen registros de que el personal involucrado se encuentra capacitado y entrenado en estos cambios, y de ser necesario que los procedimientos operativos han sido actualizados visualizando los riesgos en seguridad industrial, seguridad operativa y protección al medio ambiente y en donde se establezcan sus medidas preventivas.'),
+(4, 'Se cumplieron las recomendaciones de la Administración de Cambio en el diseño.'),
+(4, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Entrenamiento y Desempeño');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(5, 'Verificar que se cuente con el registro de capacitación y competencia identificados en la ADC.'),
+(5, 'Verificar que el personal que participará en la puesta en operación de la instalación cuente con el registro de capacitación y comptencia para el proceso de que se trate.'),
+(5, 'Verificar que se tenga actualizada la matriz de perfil/puesto del trabajador de la operación de la instalación conforme con las modifcaciones en el diseño.'),
+(5, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Planeación y Respuesta a Emergencias');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(6, 'Verificar la disponibilidad de un plan de respuesta a emergencias por escrito y que considere que las personas estan capacitadas y tienen la competencia en los procedimientos de respuesta a emergencias, que considere fundamentalmente; organización, recursos, procedimientos para cada escenario, rutas de evacuación, puntos de reunión, equipamiento para control de fugas y derrames.'),
+(6, 'Verificar que estos planes sean consistentes con los escenarios identificados en los ARPS iniciales de la instalación, así como los identificados en ARP cuando se realizan administraciones al cambio.'),
+(6, 'Verificar que exista equipo y materiales para atender una emergencia.'),
+(6, 'Verificar que los sistemas de aspersión estén completos y que fueron probados para garantizar que serán efectivos durante un paro de emergencia conforme con la NFPA.'),
+(6, 'Verificar los sistemas de detección de fuego, humo, toxicidad, oxígeno (donde aplique) y explosividad, así como botones de emergencia y alarmas estén probados y disponibles conforme con el diseño.'),
+(6, 'Verificar que los extintores contraincendio cumplen con sus periodos de revisión y están colocados con base al cálculo de unidades de riesgo.'),
+(6, 'Verificar que las válvulas de seguridad y/o alivio de presión, discos de ruptura, válvulas de presión y vacío han sido instalados y fueron debidamente calibrados y cumplen con las especificaciones del diseño y se cuenta con sus hojas de datos.'),
+(6, 'Verificar que las regaderas de emergencia, lavaojos, tinas de neutralización, circuitos cerrados de televisión, sistemas de aspersión, mitigación, tomas de conexión rápida para aire, han sido instaladas y se encuentran operando.'),
+(6, 'Verificar que la iluminación de emergencia requerida en las instalaciones, cuartos de control, cuartos satélites, subestaciones eléctricas este instalada y se encuentre operable.'),
+(6, 'Verificar que se disponga del personal contraincendio necesario para cubrir la etapa de arranque de la instalación hasta su normalización.'),
+(6, 'Verificar que se dispone de equipo de protección personal para atender situaciones de emergencia y éste se encuentra en buenas condiciones y operable.'),
+(6, 'Verificar las brigadas de respuesta a emergecnias estén integradas y actualizadas.'),
+(6, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Integridad Mecánica y Aseguramiento de la Calidad');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(7, 'Verificar que las conexiones roscadas de tubería y equipos se encuentren en buenas condiciones de operabilidad.'),
+(7, 'Verificar que no existan juntas ciegas por retirar o colocar según lo demande el proceso de arranque y que las figuras ocho estén en la posición que requiera el proceso de arranque.'),
+(7, 'Verificar la aplicación de los procedimientos de control de calidad para asegurar que los materiales utilizados cumplen las especificaciones cuando se reciben y se utilizan.'),
+(7, 'Verificar que se han efectuado las pruebas no destructivas y destructivas de Inspección Técnica (espesor, radiografías, líquidos penetrantes, partículas magnéticas, hidrostáticas o neumáticas según sea el caso) indicadas en el diseño para los equipos, tuberías y accesorios con el propósito de demostrar que la instalación, planta o equipo ha sido construida, modificada o reparada de acuerdo con los estándares de diseño, esto incluye válvulas de seguridad, circuitos de proceso, recipientes a presión, tanques de almacenamiento, e instrumentación.'),
+(7, 'Verificar la disponibilidad y cumplimiento de un programa de inspección técnica de equipo estático.'),
+(7, 'Verificar la disponibilidad y cumplimiento de un programa de mantenimiento preventivo de equipo estático y dinámico.'),
+(7, 'Verificar que las alarmas y disparos de protección de equipos así como Interlocks fueron calibrados y probados conforme a los límites establecidos en el diseño.'),
+(7, 'Verificar que las válvulas e instrumentos de campo que se utilizarán durante el proceso de arranque estén accesibles para el operador.'),
+(7, 'Verificar que las válvulas de desfogues y purgas se encuentren cerradas y con tapones, si durante el proceso de arranque son retirados los tapones, por necesidades operativas, éstos deberán reinstalarse después de realizar los purgados o venteados necesarios.'),
+(7, 'Verificar que no existan válvulas de seguridad faltantes, y que aquellas que tengan válvulas de bloqueo se encuentren abiertas y aseguradas con cadena y candado.'),
+(7, 'Verificar que los discos de ruptura estén instalados y sean de las especificaciones indicadas en el diseño.'),
+(7, 'Verificar que la tubería (conduit y condulets), que conduce cableado eléctrico y conexiones cuenten con sus tapas respectivas y cumplan con áreas de clasificación eléctrica para áreas de riesgo.'),
+(7, 'Verificar que las conexiones de proceso y servicio cumplan con la especificación establecida.'),
+(7, 'Verificar que la descarga de purgas sea segura y correcta.'),
+(7, 'Verificar que las instalaciones y dispositivos provisionales se hayan eliminado.'),
+(7, 'Verificar que no existen en los circuitos bridas ciegas instaladas y que las figuras “8”, hayan sido giradas según las necesidades del proceso de arranque.'),
+(7, 'Verificar que las guardas de protección de partes giratorias o movimientos alternativos estén instalados adecuadamente.'),
+(7, 'Verificar que las pruebas de sentido de rotación de los equipos intervenidos se hayan realizado.'),
+(7, 'Verificar que todos los arreglos de los instrumentos de los equipos y tuberías en campo se encuentren completamente instalados y debidamente alineados.'),
+(7, 'Verificar que los espárragos y tornillos estén completos y distribuidos en las bridas.'),
+(7, 'Verificar que todos los lazos de control hayan sido probados.'),
+(7, 'Verificar que los sistemas de tierra estén íntegros.'),
+(7, 'Verificar que las estaciones de conexión rápida para equipos de Contra Incendio se encuentren disponibles.'),
+(7, 'Verificar que se estén haciendo las gestiones para la autorización de los recipientes sujetos a presión ante la STPS y que estos presenten sus respectivas pruebas.'),
+(7, 'Verificar que se tengan listados de partes de repuesto de equipos críticos.'),
+(7, 'Verificar que se tienen los equipos y condiciones para un manejo adecuado de los residuos peligrosos.'),
+(7, 'Verificar que se disponga de Instalaciones para contención o direccionamiento de derrames.'),
+(7, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Eléctrica / Instrumentación ');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(8, 'Verificar que las válvulas de activación remota, se encuentren instalados conforme a las normas aplicables y se haya probado su funcionalidad.'),
+(8, 'Verificar que las tierras físicas de equipos y circuitos electricos cumplen con estudio, conforme a la NOM-022-STPS-2015, Electricidad estática en los Centros de Trabajo- Condiciones de Seguridad.'),
+(8, 'Verificar que los valores de la resisencia a tierra de la red de puesta a tierra que se obtenga en esta prueba, sean menores o iguales a 10 ohms y para el (los) electrodo (s) del sistema de pararrayos y/o tener un valor menor o igual a 25 ohms para la resistenia a tierra de la red de puesta a tierra.'),
+(8, 'Verificar que los equipos eléctricos cumplan con la clasificación eléctrica del área.'),
+(8, 'Verificar que se cuente con memoria de cálculo para determinar:
+A) Protecciones como fusibles y termomagnéticos.
+B) Sistema de tierras.
+C) Cálculo de arco eléctrico en circuitos y equipos, etiquetas de riesgo y ddeterminaciones del EPPE.
+D)Determinación de calibres de conductores eléctricos.'),
+(8, 'Verificar que se cuente con los diagramas actualizados: DTI, unifilares, esquematicos, arreglos del equipo, entre otros con sus respectivas cargas eléctricas que correspondan.'),
+(8, 'Verificar la funcionalidad correcta de los lazos de control de válvulas automáticas e instrumentos en general.'),
+(8, 'Verificar que la iluminación sea adecuada en el área involucrada.'),
+(8, 'Verificar que la prueba de rotación de los motores se encuentre registrado y efectuado.'),
+(8, 'Verificar que las protecciones contra descargas atmosféricas estén en condiciones seguras de operatividad.'),
+(8, 'Verificar que los sistemas de presurización de subestaciones eléctricas y cuartos de control satélite se encuentren funcionando correctamente en cumplimiento con la normatividad.'),
+(8, 'Verificar que todos los empates de conductores eléctricos estén resguardados dentro de las cajas de conexiones aprobadas en el diseño.'),
+(8, 'Verificar la hermeticidad de cajas de conexiones eléctricas roscadas sean a prueba de explosión con sus empaques completos y cerradas.
+Para gabinetes con tornillo, estos deben estar completos con empaques y apretadas.'),
+(8, 'Verificar que los instrumentos y los sistemas eléctricos (interrumtores, botoneras de CCM´s, controles locales) estén debidamente identificados.'),
+(8, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Obra Civil');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(9, 'Los diques de contención de recipientes (tanques de almacenamiento de sustancias químicas peligrosas) y sardinesles de los equipos deben estar calafateados en piso y muros por cruces de tuberias.'),
+(9, 'Verifica que la tubería esta soportada (mocheta, estrctura, entre otroas) y cuenta con abrazaderas y aislante para prevenir la corrosión.'),
+(9, 'Verificar que se cuente con análisis de flexibilidad de tuberías'),
+(9, 'Verificar que se cuente con el estudio de mecánica de suelos.'),
+(9, 'Verificar que se cuente con iluminación en las áreas de trabajo.'),
+(9, 'Verificar que las bardas perimetrales de la instalación midan al menos 3 metros de altura y tengan concertina.'),
+(9, 'Verificar que los registros de drenajes cuenten con sus tapas y estén identificados.'),
+(9, 'Verificar que las escaleras de acceso, plataformas de equipos estén totalmente terminadas.'),
+(9, 'Verificar que se cuenta con puertas para escape de emergencia.'),
+(9, 'Verificar que la tubería este debidamente identificada con la señalización de dirección de flujo y conforme con la NOM-026-STPS-2008 y NOM-018-STPS-2015.'),
+(9, 'Verificar que exista señalización en circuitos de alto voltaje'),
+(9, 'Verificar que todos los equipos de proceso y servicios auxiliares, Tanques de almacenamiento, Bombas y compresores, válvulas de seguridad, cuenten con sus placas de identificación conforme a lo establecido en las normas.'),
+(9, 'Verificar que los contenedores de materiales peligrosos estén debidamente identificados.'),
+(9, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Administración de Salud en el trabajo');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(10, 'Se cuenta con el atlas de riesgo a la salud actalizado, considerando las modificaciones, cambios, adaptaciones o actualizaciones realizadas.'),
+(10, 'Verificar que se cuente con botiquin y cumpla con lo descrito en la NOM-005-STPS-1998.'),
+(10, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Administración Ambiental');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(11, 'Verificar que se actualizo la identificación de aspectos ambientales'),
+(11, 'Verificar que se cuente con Licencia Ambiental Única, Actualización del Estudio de Riesgo Ambiental, Programa de Prevención de Accidentes, Plan de Respuesta a Emergencias, Manifiesto como Empresa Generadora de Residuos Peligrosos, Emisiones al Aire, Suelo, Título de Concesión para el Aprovechamiento de Aguas Nacionales y Descarga de Aguas Residuales, Permiso de Ocupación de Zona Federal e Infraestructura Hidráulica, entre otros.'),
+(11, 'Verificar que se cuente con los permisos de Estudio de Riesgo Ambiental y Maifiesto de Impacto Ambiental Regional y/o particular  por obras y actividades que puedan causar desequilibrio ecológico en cumplimiento con el Título Cuarto, Capítulo Cinco, Art. 147 de la Ley General de Equilibrio Ecológico y la Protección al Ambiente.'),
+(11, 'Verificar el cumplimiento de condicionantes de los resolutivos del Estudio de Riesgo Ambiental y Manifiesto de Impacto Ambiental Regional y/o particular en cumplimiento con el Título Cuarto, Capítulo Cinco, Art. 147 de la Ley General del Equilibrio Ecológico y la Protección al Ambiente.'),
+(11, 'Verificar que se disponga de un plan para el manejo de residuos y control de emisiones al aire, suelo y agua generados durante el proceso de arranque y operación normal de la instalación.'),
+(11, 'Verificar que se cuente con la autorizacion de funcionamiento definitiva de cada uno de los genradores de vapor y recipientes sujetos a presion en cumplimiento con los requisitos establecidos en la NOM-020-STPS-2011 mediante un dictamen emitido por una Unidad Verificadora acreditada por la EMA y aprobada por la STPS.'),
+(11, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Seguridad de los Contratistas, Prestadores de Servicio o Proveedores.');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(12, 'Verificar si el personal de las compañías contratistas, ha sido comunicado sobre los riesgos durante la puesta en operación de la instalación, así como de las medidas preventivas que tienen que adoptar.'),
+(12, 'Verificar que el personal que participe en el proceso de revisión de seguridad de pre-arranque cuenta con la capacitación y experiencia en actividades de arranque de equipos, plantas o instalaciones similares.'),
+(12, 'Verificar que los servicios sanitarios y área para comedores sean los adecuados.'),
+(12, 'Verificar si se cuenta con transporte de personal, y aplicación de procedimientos de acceso a las Instalaciones.'),
+(12, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Protección catódica: Franjas de seguridad ');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(13, 'Verificar que el potencial del tubo  - suelo aplicado debe ser como mínimo de -0.85volts.'),
+(13, 'Verificar que le ducto este aislado electricamente en todas las interconexiones y estructuras ajenas mediante recubrimiento con espesor adecuado.'),
+(13, 'Verificar que la protección mecánica para cubrir las soldaduras circunferenciales (extremos de tubería, conexiones de tubería y accesorios) se mantengan y sean compatibles con el existente.'),
+(13, 'Verificar que el ducto cuente con la protección catódica a base de corriente impresa y/o ánodos de sacrificio y/o cámaras anódicas.'),
+(13, 'Verificar que se cuente con un accesorio de aislamiento eléctrico, entre la tubería enterrada y la tubería superficial conforme a diseño.'),
+(13, 'Otro');
+
+insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
+('Trampa de recibo y envio de diablo');
+insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 
+(14, 'Verificar que las tuberías, conexiones de tuberías, válvulas, componentes y accesorios deben ser de las especificacionees de diseño: límite de cedencia, máximos niveles de esfuerzo. Además de probarse hidrostáticamente a las máximas presiones que el ducto principal.'),
+(14, 'Verificar que las tapas - charnelas de las cubetas abisagradas, sean de apertura y cierre rápido (están prohibidas las roscadas y de apriete de golpe), dotadas don dispositivos de bloqueo y alerta por presiones para advertir a los operadores, que la cubeta esté presionada y evitar accidentes.'),
+(14, 'Se debe contar con dos arreglos básicos de niplería (ABC) a manera de venteos, uno en cada extremo de la cubeta a 40 cm de la soldadura brida-tubo para verificar que la cubeta esté sin presión.'),
+(14, 'Otro');
+
+
+
+
+
 update roles set eliminado = 0;
 update puestos set eliminado = 0;
 update usuarios set eliminado = 0;

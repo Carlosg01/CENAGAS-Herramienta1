@@ -1060,6 +1060,20 @@ namespace SistemaCenagas.Migrations
                     b.ToTable("PreArranque_Anexo2_Seccion2");
                 });
 
+            modelBuilder.Entity("SistemaCenagas.Models.PreArranque_Anexo2_Seccion2_Catalogo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tarea")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreArranque_Anexo2_Seccion2_Catalogo");
+                });
+
             modelBuilder.Entity("SistemaCenagas.Models.PreArranque_Anexo2_Seccion2_ElementosRevision", b =>
                 {
                     b.Property<int>("Id")
@@ -1090,6 +1104,23 @@ namespace SistemaCenagas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PreArranque_Anexo2_Seccion2_ElementosRevision");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id_Tarea")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subtarea")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.PreArranque_Anexo2_Seccion3", b =>

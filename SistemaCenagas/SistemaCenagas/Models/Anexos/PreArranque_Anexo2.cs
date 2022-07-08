@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -39,8 +40,32 @@ namespace SistemaCenagas.Models
         public string Tipo_Revision { get; set; }
         public string Tipo_Hallazgo { get; set; }
         public string Atendido { get; set; }
+        
         public string Observacion { get; set; }
         public int Id_Anexo2_Seccion2 { get; set; } //FK
+    }
+
+    public class PreArranque_Anexo2_Seccion2_ElementosRevision_Model
+    {
+        public PreArranque_Anexo2_Seccion2_ElementosRevision elemento { get; set; }
+        public IFormCollection RadioTipoRevision { get; set; }
+        public IFormCollection RadioTipoHallazgo { get; set; }
+        public IFormCollection RadioAtendido { get; set; }
+        public string TareaPrincipal { get; set; }
+    }
+
+    public class PreArranque_Anexo2_Seccion2_Catalogo
+    {
+        [Key]
+        public int Id { get; set; } 
+        public string Tarea { get; set; } 
+    }
+    public class PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo
+    {
+        [Key]
+        public int Id { get; set; }
+        public int Id_Tarea { get; set; }
+        public string Subtarea { get; set; }
     }
 
     public class PreArranque_Anexo2_Seccion3
@@ -54,5 +79,19 @@ namespace SistemaCenagas.Models
         public string Responsable { get; set; }
         public int Id_Responsable { get; set; }
 
+    }
+
+    //MODELOS PARA ENTRADA Y SALIDA DE INFORMACION
+
+    public class PreArranque_Anexo2_Model
+    {
+        public int Id_Anexo2 { get; set; }
+        public List<PreArranque_Anexo2_Seccion2_Model> seccion2 { get; set; }
+        public List<PreArranque_Anexo2_Seccion3> seccion3 { get; set; }
+    }
+    public class PreArranque_Anexo2_Seccion2_Model
+    {
+        public PreArranque_Anexo2_Seccion2 tareas { get; set; }
+        public List<PreArranque_Anexo2_Seccion2_ElementosRevision_Model> subtareas { get; set; }
     }
 }

@@ -83,7 +83,9 @@ namespace SistemaCenagas.Data
 
         public DbSet<PreArranque_Anexo2> PreArranque_Anexo2 { get; set; }
         public DbSet<PreArranque_Anexo2_Seccion2> PreArranque_Anexo2_Seccion2 { get; set; }
+        public DbSet<PreArranque_Anexo2_Seccion2_Catalogo> PreArranque_Anexo2_Seccion2_Catalogo { get; set; }
         public DbSet<PreArranque_Anexo2_Seccion2_ElementosRevision> PreArranque_Anexo2_Seccion2_ElementosRevision { get; set; }
+        public DbSet<PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo> PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo { get; set; }
         public DbSet<PreArranque_Anexo2_Seccion3> PreArranque_Anexo2_Seccion3 { get; set; }
 
 

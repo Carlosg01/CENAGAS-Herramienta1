@@ -80,4 +80,11 @@ inner join puestos as p on u.id_puesto = p.id
 where docr.estatus = 'Agregado'
 order by docr.id_documentacion
 
+
+select * from prearranque_anexo2_seccion2_elementosrevision_catalogo;
+select * from prearranque_anexo2_seccion2_catalogo;
+
+select * from prearranque_anexo2_seccion2;
+select * from prearranque_anexo2_seccion2_elementosrevision;
+
 select * from zonas;	

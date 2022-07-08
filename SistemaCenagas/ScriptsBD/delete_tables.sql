@@ -15,3 +15,9 @@ delete from adc_archivos;
 delete from adc_procesos;
 delete from adc_anexo1;
 delete from adc;
+
+delete from prearranque_anexo2_seccion2_elementosrevision_catalogo;
+delete from prearranque_anexo2_seccion2_catalogo;
+
+delete from prearranque_anexo2_seccion2_elementosrevision;
+delete from prearranque_anexo2_seccion2;

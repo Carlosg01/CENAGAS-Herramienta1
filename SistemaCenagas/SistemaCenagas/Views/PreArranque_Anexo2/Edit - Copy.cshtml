@@ -1,0 +1,255 @@
+﻿@model SistemaCenagas.Models.PreArranque_Anexo2_Model
+
+@{
+    ViewData["Title"] = "Edit";
+
+    var x = Model;
+}
+
+<script>
+
+    $(document).ready(function () {
+        $("#tabla").DataTable({
+            scrollX: true,
+            paging: false,
+            ordering:false
+        });
+    })
+
+</script>
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="PreArranque_Admin" asp-action="Index">Pre-arranque</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Tareas</li>
+
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+                <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!--end of modal head-->
+    <div class="container">
+
+    </div>
+
+    <div class="page-header mb-4">
+        <div class="media">
+            <div class="media-body ml-3">
+                <h3 class="mb-0">Revisión de seguridad de pre-arranque</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                    <!--end of avatar-->
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            Residencia:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.anexo2_prearranque.residencia)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Proyecto:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.anexo2_prearranque.proyecto)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Instalación/Área:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.anexo2_prearranque.instalacion)
+                        </dd>
+                        <dt class="col-sm-3">
+                            No. de Folio:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.prearranque.Folio)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Responsable del pre-arranque:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.responsable)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Suplente:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.suplente)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Líder de equipo verificador:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.lider)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Fecha de actualización:
+                        </dt>
+                        <dd class="col-sm-9">
+                            @(Global.prearranque.prearranque.Fecha_Actualizacion)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="Id_Anexo2" />
+
+        <table id="tabla" class="table table-bordered table-responsive-xl">
+            <thead class="thead-dark">
+                <tr>
+                    <th>No.</th>
+                    <th>Elementos para revisión</th>
+                    <th>Tipo de revisión</th>
+                    <th>Tipo de hallazgo</th>
+                    <th>ATE</th>
+                    <th>NDI</th>
+                    <th>DO</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.seccion2.Count(); i++)
+                {
+                    <tr style="background-color:gray; color:white;">
+                        <td>@(i+1)</td>
+                        <td>@(Model.seccion2[i].tareas.Nombre)</td>
+                        <td style="font-size:10px">
+                            D=Revisión Documental <br />
+                            F=Revisión Física<br />
+                            DF=combinación de ambas revisiones
+                        </td>
+                        <td>A ó B</td>
+                        <td>Si</td>
+                        <td>No</td>
+                        <td>N/A</td>
+                        <td>Observacion</td>
+                    </tr>
+
+                    for (var j = 0; j < Model.seccion2[i].subtareas.Count(); j++)
+                    {
+                        <tr>
+                            <td style="width:5%;">@(i+1).@(j+1)</td>
+                            <td style="width:40%;">
+
+                                <input id="Id_@(i)_@(j)" type="hidden" asp-for="seccion2[i].subtareas[j].elemento.Id" />
+                                <input id="Id_Anexo2_Seccion2_@(i)_@(j)" type="hidden" asp-for="seccion2[i].subtareas[j].elemento.Id_Anexo2_Seccion2" />
+
+                                
+                                @if (!Model.seccion2[i].subtareas[j].elemento.Elemento_Revision.Equals("Otro"))
+                                {
+                                    @(Model.seccion2[i].subtareas[j].elemento.Elemento_Revision)
+                                }
+                                else
+                                {
+                                    <b>xxx</b>
+                                    
+                                    <!--textarea id="Elemento_Otro_@(i)_@(j)" class="form-control" placeholder="Describir otro" type="text" asp-for="seccion2[i].subtareas[j].elementos.Elemento_Revision"></textarea-->
+                                }
+                                
+
+                            </td>
+                            <td style="width:10%;">
+                                <div class="form-group row align-items-center">
+                                    <div class="col">
+                                        <select id="Tipo_Revision_@(i)_@(j)" class="form-control" asp-for="seccion2[i].subtareas[j].elemento.Tipo_Revision">
+                                            <option>D</option>
+                                            <option>F</option>
+                                            <option>DF</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width:10%;">
+                                <div class="form-group row align-items-center">
+                                    <div class="col">
+                                        <select id="Tipo_Hallazgo_@(i)_@(j)" class="form-control" asp-for="seccion2[i].subtareas[j].elemento.Tipo_Hallazgo">
+                                            <option>A</option>
+                                            <option>B</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width:5%;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" value="Si" name="atendido" 
+                                           @(Model.seccion2[i].subtareas[j].elemento.Atendido.Equals("Si") ? "checked":"") />
+                                </div>
+                            </td>
+                            <td style="width:5%;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" value="No" name="atendido" 
+                                           @(Model.seccion2[i].subtareas[j].elemento.Atendido.Equals("No") ? "checked":"") />
+                                </div>
+                            </td>
+                            <td style="width:5%;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" value="N/A" name="atendido" 
+                                           @(Model.seccion2[i].subtareas[j].elemento.Atendido.Equals("N/A") ? "checked":"") />
+                                </div>
+                            </td>
+                            <td style="width:20%;">
+                                <textarea id="Observacion_@(i)_@(j)" class="form-control" type="text" asp-for="seccion2[i].subtareas[j].elemento.Observacion"></textarea>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+
+        <hr />
+
+        <div class="modal-footer">
+            <button type="submit" role="button" class="btn btn-success">
+                Guardar
+            </button>
+            <a class="btn btn-dark" asp-controller="PreArranque_Procesos" asp-action="Index">
+                Cancelar
+            </a>
+        </div>
+    </form>
+
+
+</div>
+
+<!--script type="text/javascript" src="~/lib/jquery/dist/combo_cascada.js"></script-->
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

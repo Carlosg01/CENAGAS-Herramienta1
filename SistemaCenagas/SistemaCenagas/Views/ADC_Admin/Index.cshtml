@@ -34,7 +34,7 @@
 
     <div id="PlaceHolderHere"></div>
 
-    <div class="container">
+    <div style="padding-left:10px; padding-right:10px;">
 
         <div class="page-header mb-4">
             <div class="row content-list-head">
@@ -120,12 +120,12 @@
                         </th>
                         @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                         {
-                            <th style="width:10%;"></th>
+                            <th style="width:5%;"></th>
                         }
-                        <th style="width:10%;"></th>
+                        <th style="width:5%;"></th>
                         @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                         {
-                            <th style="width:10%;"></th>
+                            <th style="width:5%;"></th>
                         }
 
                     </tr>
@@ -152,19 +152,19 @@
 
                         @if (new List<int> {Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                         {
-                            <td style="width:10%; ">
+                            <td style="width:5%; ">
                                 <button class="btn btn-dark" title="Detalles"
                                         data-toggle="modal" data-target="#administrarADC-modal" data-url="@Url.Action($"Edit/{item.adc.Id}")">
                                     <span>Administrar</span>
                                 </button>
                             </td>
                         }
-                        <td style="width:10%;">
+                        <td style="width:5%;">
                             <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.adc.Id">Tareas</a>
                         </td>
                         @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
                         {
-                            <td style="width:10%;">
+                            <td style="width:5%;">
                                 <button class="btn btn-round" title="Eliminar"
                                         data-toggle="modal" data-target="#eliminarADC-modal" data-url="@Url.Action($"Delete/{item.adc.Id}")">
                                     <span data-title="" class="material-icons">delete</span>

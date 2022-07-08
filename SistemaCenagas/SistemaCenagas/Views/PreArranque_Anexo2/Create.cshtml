@@ -27,15 +27,13 @@
                 },
                 error: function (response) {
                     alert("Error: " + response.responseText);
-                }
-    
+                }    
             });
             validarCombos();
         }
     });
 
     $("#Gasoducto").change(function () {
-        //$("#Tramo").empty();
         if ($("#Gasoducto").val() != "--- Selecciona una opción ---") {
             $.ajax({
                 type: "Post",

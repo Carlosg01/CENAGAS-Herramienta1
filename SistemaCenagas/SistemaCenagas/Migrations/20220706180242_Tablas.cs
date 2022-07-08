@@ -2100,6 +2100,57 @@ namespace SistemaCenagas.Migrations
 
             #endregion
 
+            #region PreArranque_Anexo2_Seccion2_Catalogo
+
+            migrationBuilder.CreateTable(
+                name: "PreArranque_Anexo2_Seccion2_Catalogo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Tarea = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreArranque_Anexo2_Seccion2_Catalogo", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            #endregion
+
+            #region PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo
+
+            migrationBuilder.CreateTable(
+                name: "PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_Tarea = table.Column<int>(type: "int", nullable: true),
+                    Subtarea = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo", x => x.Id);
+                    table.ForeignKey(
+                       name: "FK_PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo__IdTarea",
+                       column: x => x.Id_Tarea,
+                       principalTable: "PreArranque_Anexo2_Seccion2_Catalogo",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.SetNull
+                   );
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+             name: "Index_PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo__IdTarea",
+             table: "PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo",
+             column: "Id_Tarea"
+             );
+            #endregion
+
             #region PreArranque_Anexo2_Seccion3
 
             migrationBuilder.CreateTable(
@@ -2191,23 +2242,23 @@ namespace SistemaCenagas.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PreArranque_Anexo1_Actividades", x => x.Id);
-                   /*
-                   table.ForeignKey(
-                       name: "FK_PreArranque_Anexo1_Actividades__Id_Anexo2_Seccion2",
-                       column: x => x.Id_Anexo2_Seccion2,
-                       principalTable: "PreArranque_Anexo2_Seccion2",
-                       principalColumn: "Id",
-                       onDelete: ReferentialAction.SetNull
-                   );
-                    
+                    /*
                     table.ForeignKey(
-                       name: "FK_PreArranque_Anexo1_Actividades__Id_Responsable",
-                       column: x => x.Id_Responsable,
-                       principalTable: "Usuarios",
-                       principalColumn: "Id",
-                       onDelete: ReferentialAction.SetNull
-                   );
-                    */
+                        name: "FK_PreArranque_Anexo1_Actividades__Id_Anexo2_Seccion2",
+                        column: x => x.Id_Anexo2_Seccion2,
+                        principalTable: "PreArranque_Anexo2_Seccion2",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull
+                    );
+
+                     table.ForeignKey(
+                        name: "FK_PreArranque_Anexo1_Actividades__Id_Responsable",
+                        column: x => x.Id_Responsable,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull
+                    );
+                     */
                     table.ForeignKey(
                        name: "FK_PreArranque_Anexo1_Actividades__Id_Anexo1",
                        column: x => x.Id_Anexo1,
@@ -2445,6 +2496,12 @@ namespace SistemaCenagas.Migrations
 
             migrationBuilder.DropTable(
                 name: "PreArranque_Anexo2_Seccion2_ElementosRevision");
+
+            migrationBuilder.DropTable(
+                name: "PreArranque_Anexo2_Seccion2_Catalogo");
+
+            migrationBuilder.DropTable(
+                name: "PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo");
 
             migrationBuilder.DropTable(
                 name: "PreArranque_Anexo2_Seccion3");

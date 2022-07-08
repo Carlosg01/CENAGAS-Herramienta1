@@ -1,0 +1,222 @@
+﻿@model SistemaCenagas.Models.PreArranque_Anexo2_Model
+
+@{
+    ViewData["Title"] = "Edit_Seccion2";
+
+    var x = Model;
+}
+
+<script>
+
+    $(document).ready(function () {
+        $("#tabla").DataTable({
+            scrollX: true,
+            paging: false,
+            ordering:false
+        });
+    })
+
+</script>
+
+<div class="main-container">
+
+    <div class="navbar bg-white breadcrumb-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="PreArranque_Admin" asp-action="Index">Pre-arranque</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Tareas</li>
+
+            </ol>
+        </nav>
+
+        <div class="dropdown">
+            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+                <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div style="padding-left:10px; padding-right:10px;">
+
+        <div id="PlaceHolderHere"></div>
+
+        <div class="page-header mb-4">
+            <div class="media">
+                <div class="media-body ml-3">
+                    <h3 class="mb-0">Revisión de seguridad de pre-arranque</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <!--end of avatar-->
+                        <dl class="row">
+                            <dt class="col-sm-3">
+                                Residencia:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.anexo2_prearranque.residencia)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Proyecto:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.anexo2_prearranque.proyecto)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Instalación/Área:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.anexo2_prearranque.instalacion)
+                            </dd>
+                            <dt class="col-sm-3">
+                                No. de Folio:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.prearranque.prearranque.Folio)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Responsable del pre-arranque:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.prearranque.responsable)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Suplente:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.prearranque.suplente)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Líder de equipo verificador:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.prearranque.lider)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Fecha de actualización:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @(Global.prearranque.prearranque.Fecha_Actualizacion)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table id="tabla" class="table table-bordered table-responsive-xl">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th>No.</th>
+                    <th>Elementos para revisión</th>
+                    <th>Tipo de revisión</th>
+                    <th>Tipo de hallazgo</th>
+                    <th>Atendido</th>
+                    <th>Observación</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.seccion2.Count(); i++)
+                {
+                    <tr style="background-color:gray; color:white;">
+                        <td style="width:5%;">
+                            <button class="btn btn-round accordion-button" data-toggle="collapse" data-target="#demo_@(i)" aria-expanded="true" aria-controls="collapse_@(i)">
+                                <span class="material-icons">arrow_drop_down_circle</span>
+                            </button>
+                        </td>
+                        <td style="width:5%;">@(i + 1)</td>
+                        <td style="width:35%;">@(Model.seccion2[i].tareas.Nombre)</td>
+                        <td style="font-size:10px">
+                            D=Revisión Documental <br />
+                            F=Revisión Física<br />
+                            DF=combinación de ambas revisiones
+                        </td>
+                        <td style="width:10%;">A ó B</td>
+                        <td style="width:10%;">Atendido</td>
+                        <td style="width:20%;">Observacion</td>
+                        <td style="width:5%;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" style="padding:0 !important">
+                            <div id="demo_@(i)" class="accordion-collapse collapse" aria-labelledby="headingThree" aria-expanded="true">
+                                <table>
+                                    @{
+                                        int j = 0;
+                                    }
+
+
+                                    @foreach (var item in Model.seccion2[i].subtareas)
+                                    {
+                                        <tr>
+                                            <td style="width:5%;"></td>
+                                            <td style="width:5%;">@(i+1).@(j+1)</td>
+                                            <td style="width:35%;">
+                                                @(item.elemento.Elemento_Revision)
+                                            </td>
+                                            <td style="width:10%;">
+                                                @(item.elemento.Tipo_Revision == null ? "" :
+                                            item.elemento.Tipo_Revision.Equals("Revisión documental") ? "D" :
+                                            item.elemento.Tipo_Revision.Equals("Revisión física") ? "F" : "DF")
+                                            </td>
+                                            <td style="width:10%;">
+                                                @(item.elemento.Tipo_Hallazgo)
+                                            </td>
+                                            <td style="width:10%;">
+                                                @(item.elemento.Atendido)
+                                            </td>
+                                            <td style="width:20%;">
+                                                @(item.elemento.Observacion)
+                                            </td>
+                                            <td style="width:5%;">
+                                                <button class="btn btn-round" title="Editar"
+                                                        data-toggle="modal" data-target="#editar-modal" data-url="@Url.Action($"Edit_Seccion2_Elementos/{item.elemento.Id}")">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+
+                                        j++;
+                                    }
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+    
+
+
+</div>
+
+<!--script type="text/javascript" src="~/lib/jquery/dist/combo_cascada.js"></script-->
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -200,6 +200,38 @@ namespace SistemaCenagas.Controllers
                     await _context.SaveChangesAsync();
                 }
 
+                #region Prearranque Anexo2 seccion 2
+
+                var tareas = _context.PreArranque_Anexo2_Seccion2_Catalogo.ToList();
+
+                foreach(var tarea in tareas)
+                {
+                    var item = new PreArranque_Anexo2_Seccion2
+                    {
+                        Nombre = tarea.Tarea,
+                        Id_Anexo2 = Global.prearranque.anexo2.Id
+                    };
+                    _context.Add(item);
+                    await _context.SaveChangesAsync();
+
+                    var subtareas = _context.PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo.Where(a => a.Id_Tarea == tarea.Id).ToList();
+
+                    foreach(var subtarea in subtareas)
+                    {
+                        _context.Add(new PreArranque_Anexo2_Seccion2_ElementosRevision
+                        {
+                            Elemento_Revision = subtarea.Subtarea,
+                            Atendido = "",
+                            Observacion = "",
+                            Id_Anexo2_Seccion2 = item.Id
+                        });
+                    }
+                }
+
+                #endregion
+
+
+
                 return RedirectToAction("Index", "PreArranque_Procesos");
             }
             return PartialView(model);
@@ -512,6 +544,151 @@ namespace SistemaCenagas.Controllers
                     }
                 }
                 return RedirectToAction("Index", "PreArranque_Admin");
+            }
+            return PartialView(model);
+        }
+
+        // GET: Anexo1/Edit/5
+        public async Task<IActionResult> Edit_Seccion2(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = new PreArranque_Anexo2_Model();
+            model.Id_Anexo2 = Global.prearranque.anexo2.Id;
+            model.seccion2 = new List<PreArranque_Anexo2_Seccion2_Model>();
+
+            var tareas = _context.PreArranque_Anexo2_Seccion2.Where(a => a.Id_Anexo2 == Global.prearranque.anexo2.Id).ToList();
+            foreach(var tarea in tareas)
+            {
+
+                //var subtareas = _context.PreArranque_Anexo2_Seccion2_ElementosRevision.Where(a => a.Id_Anexo2_Seccion2 == tarea.Id).ToList();
+                var subtareas = (from a in _context.PreArranque_Anexo2_Seccion2_ElementosRevision
+                                 where a.Id_Anexo2_Seccion2 == tarea.Id
+                                 select new PreArranque_Anexo2_Seccion2_ElementosRevision_Model
+                                 {
+                                     elemento = a,
+                                     TareaPrincipal = tarea.Nombre
+                                 }).ToList();
+
+                model.seccion2.Add(new PreArranque_Anexo2_Seccion2_Model
+                {
+                    tareas = tarea,
+                    subtareas = subtareas
+                });
+            }
+            
+
+
+
+            return View(model);
+        }
+
+        // POST: Anexo1/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit_Seccion2(int id, PreArranque_Anexo2_Model model)
+        {
+            //return Content(""+id);
+            if (id != model.Id_Anexo2)
+            {
+                return NotFound();
+            }
+
+
+            //return Content(JsonConvert.SerializeObject(anexo1));
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    
+                    foreach(var tarea in model.seccion2)
+                    {
+                        foreach(var subtarea in tarea.subtareas)
+                        {
+                            subtarea.elemento.Atendido = subtarea.RadioAtendido["atendido"].ToString();
+                            subtarea.elemento.Id_Anexo2_Seccion2 = tarea.tareas.Id;
+                            _context.Update(subtarea.elemento);
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Anexo1Exists(model.Id_Anexo2))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "PreArranque_Procesos");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> Edit_Seccion2_Elementos(int? Id)
+        {
+            var item = _context.PreArranque_Anexo2_Seccion2_ElementosRevision.Find(Id);
+            var tarea = _context.PreArranque_Anexo2_Seccion2.Where(a => a.Id == item.Id_Anexo2_Seccion2).FirstOrDefault();
+            var model = new PreArranque_Anexo2_Seccion2_ElementosRevision_Model
+            {
+                elemento = item,
+                TareaPrincipal = tarea.Nombre
+            };
+
+            return PartialView(model);
+        }
+
+        // POST: Anexo1/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit_Seccion2_Elementos(int id, PreArranque_Anexo2_Seccion2_ElementosRevision_Model model)
+        {
+            //return Content(""+id);
+            if (id != model.elemento.Id)
+            {
+                return NotFound();
+            }
+
+
+            //return Content(JsonConvert.SerializeObject(anexo1));
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.elemento.Tipo_Revision = model.RadioTipoRevision["tipoRevision"].ToString();
+                    model.elemento.Tipo_Hallazgo = model.RadioTipoHallazgo["tipoHallazgo"].ToString();
+                    model.elemento.Atendido = model.RadioAtendido["atendido"].ToString();
+                    _context.Update(model.elemento);
+
+                    Global.prearranque.prearranque.Fecha_Actualizacion = DateTime.Now.ToString();
+                    _context.Update(Global.prearranque.prearranque);
+                    
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Anexo1Exists(model.elemento.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Edit_Seccion2", new { id = Global.prearranque.prearranque.Id });
             }
             return PartialView(model);
         }

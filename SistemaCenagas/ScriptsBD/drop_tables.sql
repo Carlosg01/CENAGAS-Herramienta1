@@ -5,6 +5,8 @@ drop table prearranque_anexo1;
 drop table prearranque_anexo2_seccion3;
 drop table prearranque_anexo2_seccion2_ElementosRevision;
 drop table prearranque_anexo2_seccion2;
+drop table prearranque_anexo2_seccion2_ElementosRevision_Catalogo;
+drop table prearranque_anexo2_seccion2_Catalogo;
 drop table prearranque_anexo2;
 drop table prearranque_equipo_verificador_integrantes;
 drop table prearranque_equipo_verificador;

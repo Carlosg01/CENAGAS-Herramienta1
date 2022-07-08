@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +40,13 @@ namespace SistemaCenagas
                 options.Cookie.IsEssential = true;
             });
             services.AddControllersWithViews();
+            
+            services.AddMvc(options => {
+                options.MaxModelBindingCollectionSize = 8000;
+            });
+            
+
+            //services.Configure<FormOptions>(options => options.ValueCountLimit = 5000);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

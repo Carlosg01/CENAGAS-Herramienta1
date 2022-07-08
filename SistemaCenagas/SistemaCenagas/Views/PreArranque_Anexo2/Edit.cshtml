@@ -6,10 +6,8 @@
 
 <script>
     $("#Residencia").change(function () {
-
         //$("#Gasoducto").empty();
         //$("#Tramo").empty();
-
         if ($("#Residencia").val() != "-1") {
             $.ajax({
                 type: "Post",
@@ -28,12 +26,10 @@
                 error: function (response) {
                     alert("Error: " + response.responseText);
                 }
-
             });
             validarCombos();
         }
     });
-
     $("#Gasoducto").change(function () {
         //$("#Tramo").empty();
         if ($("#Gasoducto").val() != "--- Selecciona una opción ---") {
@@ -54,17 +50,13 @@
                 error: function (response) {
                     alert(response.responseText);
                 }
-
             });
             validarCombos();
         }
-
     });
-
     $("#Tramo").change(function () {
         validarCombos();
     });
-
     $("#AplicaADC").change(function () {
         if ($("#AplicaADC").val() == "Si") {
             $("#btn_crear").removeAttr('disabled');
@@ -73,65 +65,46 @@
             validarCombos();
         }
     });
-
     function validarCombos() {
-
         if ($("#Residencia").val() != "-1" &&
             $("#Gasoducto").val() != "-1" &&
             $("#Tramo").val() != "-1") {
-
             $("#btn_crear").removeAttr('disabled');
         }
         else {
             $("#btn_crear").attr('disabled', 'disabled');
         }
     }
-
     var update = function () {
         if ($("#AplicaADC").val() == "No") {
-
             $("#FolioADC").prop('disabled', 'disabled');
             $("#Residencia").removeAttr("disabled");
             $("#Gasoducto").removeAttr("disabled");
             $("#Tramo").removeAttr("disabled");
             $("#LiderEV").removeAttr("disabled");
-
             $("#div_Folio").attr('hidden', true);
             $("#div_Residencia").removeAttr("hidden");
             $("#div_Instalacion").removeAttr("hidden");
             $("#div_Tramo").removeAttr("hidden");
             $("#div_Lider").removeAttr("hidden");
-
-
         }
         else {
-
             $("#FolioADC").removeAttr("disabled");
             $("#Residencia").prop('disabled', 'disabled');
             $("#Gasoducto").prop('disabled', 'disabled');
             $("#Tramo").prop('disabled', 'disabled');
             $("#LiderEV").prop('disabled', 'disabled');
-
-
             $("#div_Folio").removeAttr("hidden");
             $("#div_Residencia").attr('hidden', true);
             $("#div_Instalacion").attr('hidden', true);
             $("#div_Tramo").attr('hidden', true);
             $("#div_Lider").attr('hidden', true);
-
-
         }
     };
-
     $(update);
     $("#AplicaADC").change(update);
-
     $(document).ready(function () {
-
     });
-
-
-
 </script>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editar-modal">
@@ -152,9 +125,9 @@
 
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="preArranque.Id"/>
-                    <input type="hidden" asp-for="preArranque.Id_Proyecto"/>
-                    <input type="hidden" asp-for="preArranque.Fecha_Actualizacion"/>
+                    <input type="hidden" asp-for="preArranque.Id" />
+                    <input type="hidden" asp-for="preArranque.Id_Proyecto" />
+                    <input type="hidden" asp-for="preArranque.Fecha_Actualizacion" />
 
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Fecha</label>
@@ -179,7 +152,7 @@
                             <select id="FolioADC" asp-for="preArranque.Id_ADC" class="form-control" required>
                                 @foreach (var item in Global.adcs_con_prearranque)
                                 {
-                                    <option value="@(item.adc.Id)">@(item.adc.Folio)</option>
+                                <option value="@(item.adc.Id)">@(item.adc.Folio)</option>
                                 }
                             </select>
                         </div>
@@ -192,7 +165,7 @@
                                 <option value='-1'>--- Selecciona una opción ---</option>
                                 @foreach (var item in Global.residencias)
                                 {
-                                    <option value="@(item.Id)">@(item.Nombre)</option>
+                                <option value="@(item.Id)">@(item.Nombre)</option>
                                 }
                             </select>
                         </div>
@@ -205,7 +178,7 @@
                                 <option value='-1'>--- Selecciona una opción ---</option>
                                 @foreach(var item in Global.gasoductos)
                                 {
-                                    <option value="@(item.Ut_Gasoducto)">@($"{item.Ut_Gasoducto} - {item.Gasoducto}")</option>
+                                <option value="@(item.Ut_Gasoducto)">@($"{item.Ut_Gasoducto} - {item.Gasoducto}")</option>
                                 }
                             </select>
                         </div>
@@ -218,7 +191,7 @@
                                 <option value='-1'>--- Selecciona una opción ---</option>
                                 @foreach (var item in Global.tramos)
                                 {
-                                    <option value="@(item.Ut_Tramo)">@($"{item.Ut_Tramo} - {item.Tramo}")</option>
+                                <option value="@(item.Ut_Tramo)">@($"{item.Ut_Tramo} - {item.Tramo}")</option>
                                 }
                             </select>
                         </div>
@@ -230,7 +203,7 @@
                             <select id="LiderEV" asp-for="preArranque.Id_LiderEquipoVerificador" class="form-control" required>
                                 @foreach (var item in Global.lideres)
                                 {
-                                    <option value="@(item.Id)">@($"{item.Nombre} {item.Paterno} {item.Materno}")</option>
+                                <option value="@(item.Id)">@($"{item.Nombre} {item.Paterno} {item.Materno}")</option>
                                 }
                             </select>
                         </div>
@@ -253,8 +226,6 @@
 
 <!--script type="text/javascript" src="~/lib/jquery/dist/combo_cascada_edit.js"></script>
 <script type="text/javascript" src="~/lib/jquery/dist/combo_cascada.js"></script-->
-
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

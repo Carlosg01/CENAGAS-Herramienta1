@@ -50,7 +50,7 @@
 
     <div id="PlaceHolderHere"></div>
 
-    <div class="container">
+    <div style="padding-left:10px; padding-right:10px;">
 
         <div class="page-header mb-4">
             <div class="row content-list-head">
@@ -77,7 +77,11 @@
                         <th>
                             Anexo
                         </th>
-                        <th style="width:10%;"></th>
+                        @if (Global.session_usuario.user.Id_Rol <= Global.ADMINISTRADOR)
+                        {
+                            <th style="width:5%;"></th>
+                        }
+                            
                     </tr>
                 </thead>
                 <tbody>
@@ -100,7 +104,7 @@
                                 </td>
                                 @if (Global.session_usuario.user.Id_Rol <= Global.ADMINISTRADOR)
                                 {
-                                    <td style="width:10%;">
+                                    <td style="width:5%;">
                                         <button class="btn btn-round" title="Editar"
                                                 data-toggle="modal" data-target="#editarNormativa-modal" data-url="@Url.Action($"Edit/{item.adc_normativas.Id}")">
                                             <span data-title="" class="material-icons">edit</span>
