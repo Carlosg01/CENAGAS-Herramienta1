@@ -1,0 +1,74 @@
+﻿@model SistemaCenagas.Models.ADC_Anexo4
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo4-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">
+                    @(Global.anexos.Where(a => a.Id == 4).FirstOrDefault().Nombre):
+                    <br />
+                    @(Global.proyectos.Nombre)
+                </h6>
+                <a asp-controller="ADC_Procesos" asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Id_Anexo1" />
+                    <input type="hidden" asp-for="Id_Anexo3" />
+                    <input type="hidden" asp-for="Id_Residente" />
+
+
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Fecha retiro de cambio temporal:</label>
+                        <div class="col">
+                            <input type="date" class="form-control" asp-for="Fecha_Retiro_Cambio_Temporal" required />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Tiempo estimado de ejecución (días):</label>
+                        <div class="col">
+                            <input type="date" class="form-control" asp-for="Tiempo_Estimado" required />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Propuesta de inicio de operación:</label>
+                        <div class="col">
+                            <textarea type="text" class="form-control" asp-for="Propuesta_Inicio_Operacion" required></textarea>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="modal-footer">
+
+                        <button type="submit" role="button" class="btn btn-success">
+                            Solicitar autorización
+                        </button>
+                        <a class="btn btn-dark" asp-controller="ADC_Procesos" asp-action="Index">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--script type="text/javascript" src="~/lib/jquery/dist/combo_cascada_edit.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/combo_cascada.js"></script-->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

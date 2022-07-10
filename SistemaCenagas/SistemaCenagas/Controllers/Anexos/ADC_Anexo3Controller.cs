@@ -153,11 +153,31 @@ namespace SistemaCenagas.Controllers
                 _context.Update(a);
                 await _context.SaveChangesAsync();
 
+                //ANEXO 4
+                _context.Add(new ADC_Anexo4
+                {
+                    Id_Anexo1 = anexo3_model.anexo3.Id_Anexo1,
+                    Id_Anexo3 = anexo3_model.anexo3.Id,
+                    Id_Residente = Global.ADMINISTRADOR
+                });
 
-                //_context.Add(anexo2);
-                //await _context.SaveChangesAsync();
+                //ANEXO 5
+                _context.Add(new ADC_Anexo5
+                {
+                    Id_Anexo1 = anexo3_model.anexo3.Id_Anexo1,
+                    Id_Responsable_Cambio_Temporal = Global.ADMINISTRADOR,
+                    Id_Anexo3 = anexo3_model.anexo3.Id
+                });
+
+                //ANEXO 6
+                _context.Add(new ADC_Anexo6
+                {
+                    Id_Anexo1 = anexo3_model.anexo3.Id_Anexo1,
+                    Id_anexo3 = anexo3_model.anexo3.Id
+                });
 
 
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index", "ADC_Procesos");
             }

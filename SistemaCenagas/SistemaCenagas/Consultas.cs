@@ -138,6 +138,9 @@ namespace SistemaCenagas
 
                     }).FirstOrDefault();
         }
+
+        
+
         public static IEnumerable<Global.V_Tareas> VistaTareas(ApplicationDbContext context)
         {
             return (from t in context.ADC_Procesos

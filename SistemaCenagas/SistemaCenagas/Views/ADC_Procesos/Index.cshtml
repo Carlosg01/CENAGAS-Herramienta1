@@ -225,7 +225,9 @@
                                    (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)))
+                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)))
                                 {
                                     <button class="btn btn-round" title="Editar actividad"
                                             data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{actividad.proceso.Id}")">
@@ -238,15 +240,17 @@
                         </td>
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                           (Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                            Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+                          (Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+                           Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
                                 if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, Global.adc.adc.Id_ProponenteCambio }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 2 && new List<int> { super, admin, resp }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)))
+                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)))
                                 {
                                     <button class="btn btn-round" title="Gestionar archivos"
                                             data-toggle="modal" data-target="#archivoProceso-modal" data-url="@Url.Action($"Archivos/{actividad.proceso.Id}")">
@@ -259,15 +263,17 @@
                         </td>
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                 (Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                  Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+              (Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+               Global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
                                 if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, Global.adc.adc.Id_ProponenteCambio }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 2 && new List<int> { super, admin, resp }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)))
+                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(Global.session_usuario.user.Id)))
                                 {
                                     @if (actividad.actividad.Id == 1)
                                     {
@@ -320,10 +326,24 @@
                                     }
                                     @if (actividad.actividad.Id == 6)
                                     {
-                                        <a class="btn btn-round form-control" title="Iniciar pre-arranque" 
+                                        <a class="btn btn-round form-control" title="Iniciar pre-arranque"
                                            asp-action="Create2" asp-controller="PreArranque_Anexo2">
                                             <span class="material-icons">exit_to_app</span>
                                         </a>
+                                    }
+                                    @if (actividad.actividad.Id == 7)
+                                    {
+                                        <button class="btn btn-round" title="@(Global.anexos.Where(a=>a.Id == 4).FirstOrDefault().Nombre)"
+                                                data-toggle="modal" data-target="#editarAnexo4-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id}", "ADC_Anexo4")">
+                                            <span class="material-icons">exit_to_app</span>
+                                        </button>
+                                    }
+                                    @if (actividad.actividad.Id == 8)
+                                    {
+                                        <button class="btn btn-round" title="@(Global.anexos.Where(a=>a.Id == 5).FirstOrDefault().Nombre)"
+                                                data-toggle="modal" data-target="#editarAnexo4-modal" data-url="@Url.Action($"Edit/{Global.adc.adc.Id}", "ADC_Anexo5")">
+                                            <span class="material-icons">exit_to_app</span>
+                                        </button>
                                     }
                                 }
 

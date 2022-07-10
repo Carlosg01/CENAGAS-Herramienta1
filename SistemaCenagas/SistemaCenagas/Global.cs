@@ -134,6 +134,10 @@ namespace SistemaCenagas
             public string residencia;
             public string tipoCambio1;
             public string tipoCambio2;
+            public string Responsable;
+            public string Director_Seguridad_Industrial;
+            public string Director_Ejecutivo_Operacion;
+            public string Director_Ejecutivo_Mantenimiento;
         }
         public static V_Anexo3 anexo3;
 

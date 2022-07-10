@@ -165,6 +165,9 @@ namespace SistemaCenagas.Controllers
                     await _context.SaveChangesAsync();
                 }
 
+
+                
+
                 //Global.proyectos = Global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
 
 

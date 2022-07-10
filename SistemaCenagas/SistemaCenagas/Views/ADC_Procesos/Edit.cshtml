@@ -44,7 +44,8 @@
                         </div>
                         <span asp-validation-for="Plan_Accion" class="text-danger"></span>
                     </div>
-                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol) ||
+                         (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR, Global.LIDER_EQUIPO_VERIFICADOR, Global.EQUIPO_VERIFICADOR }.Contains(Global.session_usuario.user.Id_Rol) && Global.tarea.actividad.Id == 7))
                     {
                         <div class="form-group row align-items-center">
                             <label class="col-2" style="text-align:right;">Terminado</label>

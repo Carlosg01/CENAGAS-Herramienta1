@@ -337,7 +337,7 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Anio_Retiro")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Descripcion_Cambio_Temporal")
+                    b.Property<string>("Descripcion")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Dia_Cambio")
