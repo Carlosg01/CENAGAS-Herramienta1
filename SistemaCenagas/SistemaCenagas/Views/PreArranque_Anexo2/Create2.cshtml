@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Global global = (Global)ViewBag.global;
 }
 
 <script>
@@ -134,7 +135,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    Pre-arranque: @(Global.proyectos.Nombre)
+                    Pre-arranque: @(global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="PreArranque_Admin" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
@@ -163,8 +164,8 @@
                     <div class="form-group row align-items-center" hidden id="div_Folio">
                         <label asp-for="preArranque.Id_ADC" class="col-2" style="text-align:right;">Folio ADC</label>
                         <div class="col">
-                            <input type="hidden"  asp-for="preArranque.Id_ADC" value="@(Global.adc.adc.Id)"/>
-                            <input class="form-control" value="@(Global.adc.adc.Folio)" />
+                            <input type="hidden"  asp-for="preArranque.Id_ADC" value="@(global.adc.adc.Id)"/>
+                            <input class="form-control" value="@(global.adc.adc.Folio)" />
                         </div>
                         <span asp-validation-for="preArranque.Id_ADC" class="text-danger"></span>
                     </div>
@@ -173,7 +174,7 @@
                         <div class="col">
                             <select id="Residencia" asp-for="anexo2.Id_Residencia" class="form-control" required>
 
-                                @foreach (var item in Global.residencias)
+                                @foreach (var item in global.residencias)
                                 {
                                     <option value="@(item.Id)">@(item.Nombre)</option>
                                 }
@@ -201,7 +202,7 @@
                         <label asp-for="preArranque.Id_LiderEquipoVerificador" class="col-2" style="text-align:right;">Lider del equipo verificador</label>
                         <div class="col">
                             <select id="LiderEV" asp-for="preArranque.Id_LiderEquipoVerificador" class="form-control" required>
-                                @foreach (var item in Global.lideres)
+                                @foreach (var item in global.lideres)
                                 {
                                     <option value="@(item.Id)">@($"{item.Nombre} {item.Paterno} {item.Materno}")</option>
                                 }

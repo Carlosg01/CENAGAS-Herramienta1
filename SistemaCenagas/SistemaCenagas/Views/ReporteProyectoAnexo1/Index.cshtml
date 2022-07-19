@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="main-container">
@@ -23,11 +24,11 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-round" role="button" title="@(global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
                 <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-header text-dark text-uppercase">@(global.session_usuario.Rol)</a>
                 <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
@@ -59,19 +60,19 @@
                                 Clave:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.proyectos.Clave)
+                                @(global.proyectos.Clave)
                             </dd>
                             <dt class="col-sm-3">
                                 Proyecto:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.proyectos.Nombre)
+                                @(global.proyectos.Nombre)
                             </dd>
                             <dt class="col-sm-3">
                                 Descripción:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.proyectos.Descripcion)
+                                @(global.proyectos.Descripcion)
                             </dd>
                         </dl>
                     </div>
@@ -81,7 +82,7 @@
 
         <div class="tab-content">
             <div class="tab-pane fade show active" id="adc-todas" role="tabpanel">
-                @if (Global.vista_adc != null && Global.vista_adc.Count() > 0)
+                @if (global.vista_adc != null && global.vista_adc.Count() > 0)
                 {
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead class="thead-dark">
@@ -99,7 +100,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Global.vista_adc)
+                            @foreach (var item in global.vista_adc)
                             {
                                 <tr>
                                     <td>
@@ -109,7 +110,7 @@
                                         @(item.lider)
                                     </td>
                                     <td>
-                                        @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
+                                        @(global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
                                     </td>
                                     <td style="width:10%;">
                                         <a class="btn btn-round form-control" title="Descargar Anexo 1" asp-action="Descargar" asp-route-idADC="@(item.adc.Id)">

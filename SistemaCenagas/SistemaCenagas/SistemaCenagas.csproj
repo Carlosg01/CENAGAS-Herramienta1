@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\OCULTO\**" />
+    <Content Remove="Views\OCULTO\**" />
+    <EmbeddedResource Remove="Views\OCULTO\**" />
+    <None Remove="Views\OCULTO\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Reporte\ReporteAnexos\Create.cshtml" />
     <Content Remove="Views\Reporte\ReporteAnexos\Delete.cshtml" />
     <Content Remove="Views\Reporte\ReporteAnexos\Details.cshtml" />
@@ -23,6 +30,7 @@
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.3" />
     <PackageReference Include="MailKit" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.15" />
@@ -78,6 +86,22 @@
 
   <ItemGroup>
     <SourceGeneratorInput Remove="Migrations\20220627184831_Tablas.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220710185401_Tablas.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220710185401_Tablas.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220712091650_Tablas.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Migrations\20220712091650_Tablas.Designer.cs" />
   </ItemGroup>
 
 </Project>

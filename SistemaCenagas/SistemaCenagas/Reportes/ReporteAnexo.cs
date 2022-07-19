@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SelectPdf;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
@@ -30,10 +32,13 @@ namespace SistemaCenagas.Reportes
 
 
         private readonly ApplicationDbContext context;
+        private Global global;
 
-        public ReporteAnexos(ApplicationDbContext _context)
+        public ReporteAnexos(ApplicationDbContext _context, Global _global)
         {
             context = _context;
+            global = _global;
+
             string ubicacion = "";
             
             ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
@@ -106,7 +111,7 @@ namespace SistemaCenagas.Reportes
         public string Anexo2_REGISTROS { get; set; }
         public void Anexo2_AgregarRegistros(int IdProyecto)
         {
-            Global.resumenADC = Consultas.VistaResumenADC(context).Where(r => r.id_proyecto == IdProyecto);
+            global.resumenADC = Consultas.VistaResumenADC(context).Where(r => r.id_proyecto == IdProyecto);
 
             IEnumerable<Anexo2_Registro> registros = (from p in context.Proyectos
                                                join adc in context.ADC on p.Id equals adc.Id_Proyecto
@@ -114,7 +119,7 @@ namespace SistemaCenagas.Reportes
                                                join res in context.Usuarios on adc.Id_ResponsableADC equals res.Id
                                                       join lider in context.Usuarios on adc.Id_LiderEquipoVerificador equals lider.Id
                                                       join r in context.Residencias on a1.Id_Residencia equals r.Id
-                                               //join resumen in Global.resumenADC on p.Id_Proyecto equals resumen.id_proyecto
+                                               //join resumen in global.resumenADC on p.Id_Proyecto equals resumen.id_proyecto
                                                where p.Id == IdProyecto
                                                select new Anexo2_Registro
                                                {
@@ -137,7 +142,7 @@ namespace SistemaCenagas.Reportes
             int i = 0;
             foreach(var reg in registros)
             {
-                var estatusADC = Global.resumenADC.ElementAt(i).avance_ADC >= 100 || reg.estatus.Equals("Rechazado") ? "Concluida" : "En elaboración";
+                var estatusADC = global.resumenADC.ElementAt(i).avance_ADC >= 100 || reg.estatus.Equals("Rechazado") ? "Concluida" : "En elaboración";
                 var style = "style16";
                 Anexo2_REGISTROS += "<tr class='row13'>";
                 Anexo2_REGISTROS += $"<td class='column0 {style} null {style}'>{reg.NoFolio}</td>";

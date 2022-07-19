@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 
     var x = Model.actividadesModel[0].accion.Accion_Descriptiva;
 }
@@ -147,11 +148,11 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-round" role="button" title="@(global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
                 <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-header text-dark text-uppercase">@(global.session_usuario.Rol)</a>
                 <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
@@ -184,49 +185,49 @@
                             Residencia:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.anexo2_prearranque.residencia)
+                            @(global.anexo2_prearranque.residencia)
                         </dd>
                         <dt class="col-sm-3">
                             Proyecto:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.anexo2_prearranque.proyecto)
+                            @(global.anexo2_prearranque.proyecto)
                         </dd>
                         <dt class="col-sm-3">
                             Instalación/Área:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.anexo2_prearranque.instalacion)
+                            @(global.anexo2_prearranque.instalacion)
                         </dd>
                         <dt class="col-sm-3">
                             No. de Folio:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.prearranque.prearranque.Folio)
+                            @(global.prearranque.prearranque.Folio)
                         </dd>
                         <dt class="col-sm-3">
                             Responsable del pre-arranque:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.prearranque.responsable)
+                            @(global.prearranque.responsable)
                         </dd>
                         <dt class="col-sm-3">
                             Suplente:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.prearranque.suplente)
+                            @(global.prearranque.suplente)
                         </dd>
                         <dt class="col-sm-3">
                             Líder de equipo verificador:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.prearranque.lider)
+                            @(global.prearranque.lider)
                         </dd>
                         <dt class="col-sm-3">
                             Fecha de actualización:
                         </dt>
                         <dd class="col-sm-9">
-                            @(Global.prearranque.prearranque.Fecha_Actualizacion)
+                            @(global.prearranque.prearranque.Fecha_Actualizacion)
                         </dd>
                     </dl>
                 </div>

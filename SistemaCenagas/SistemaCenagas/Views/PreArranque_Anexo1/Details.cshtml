@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="main-container">
@@ -22,7 +23,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+                    @(global.session_usuario.user.Titulo + " " + global.session_usuario.user.Nombre + " | " + global.session_usuario.Rol)
                 </li>
             </ol>
         </nav>

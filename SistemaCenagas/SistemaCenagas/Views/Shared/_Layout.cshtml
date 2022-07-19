@@ -39,12 +39,15 @@
     </script>
 
 </head>
+@{ 
+    Global global = (Global)ViewBag.global;
+}
 
 <body>
 
-    <div class="layout @if (Global.session.Equals("LogIn")) { @Html.Encode("layout-nav-side") } ">
+    <div class="layout @if (global.session.Equals("LogIn")) { @Html.Encode("layout-nav-side") } ">
 
-        @if (Global.session.Equals("LogIn"))
+        @if (global.session.Equals("LogIn"))
         {
             <div class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
                 <div class="collapse navbar-collapse flex-column" id="navbar-collapse">
@@ -65,9 +68,9 @@
                                 <ul class="nav nav-small flex-column">
 
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Solicitudes</a>
+                                        <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Solicitudes: @(User.FindFirst("Email").Value)</a>
                                     </li>
-                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="ProyectosAdmin" asp-action="Index">Asignaciones</a>
@@ -84,7 +87,7 @@
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">ADC</a>
                             <div id="submenu-4" class="collapse">
                                 <ul class="nav nav-small flex-column">
-                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="ADC_Admin" asp-action="Index">Lista</a>
@@ -97,7 +100,7 @@
                                         <a class="nav-link" asp-controller="ADC_Usuario" asp-action="Index">Mis propuestas</a>
                                     </li>
 
-                                    @if ((new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR, Global.EMPLEADO }.Contains(Global.session_usuario.user.Id_Rol)) == false)
+                                    @if ((new List<int> { global.SUPERADMIN, global.ADMINISTRADOR, global.EMPLEADO }.Contains(int.Parse(User.FindFirst("Id_Rol").Value))) == false)
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="ADC_Admin" asp-action="Index">Asignados</a>
@@ -112,7 +115,7 @@
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">Pre-Arranque</a>
                             <div id="submenu-8" class="collapse">
                                 <ul class="nav nav-small flex-column">
-                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="PreArranque_Admin" asp-action="Index">Lista</a>
@@ -121,7 +124,7 @@
                                             <a class="nav-link" asp-controller="PreArranque_Actividades" asp-action="Index">Actividades</a>
                                         </li>
                                     }
-                                    @if ((new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR, Global.EMPLEADO }.Contains(Global.session_usuario.user.Id_Rol)) == false)
+                                    @if ((new List<int> { global.SUPERADMIN, global.ADMINISTRADOR, global.EMPLEADO }.Contains(int.Parse(User.FindFirst("Id_Rol").Value))) == false)
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="PreArranque_Admin" asp-action="Index">Asignados</a>
@@ -136,7 +139,7 @@
         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">Pre arranque</a>
         <div id="submenu-8" class="collapse">
             <ul class="nav nav-small flex-column">
-                @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista</a>
@@ -146,7 +149,7 @@
                     <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
                 </li>
 
-                @if ((new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR, Global.EMPLEADO }.Contains(Global.session_usuario.user.Id_Rol)) == false)
+                @if ((new List<int> { global.SUPERADMIN, global.ADMINISTRADOR, global.EMPLEADO }.Contains(int.Parse(User.FindFirst("Id_Rol").Value))) == false)
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Asignados</a>
@@ -156,7 +159,7 @@
             </ul>
         </div>
     </li-->
-                        @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                        @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5">Usuarios</a>
@@ -284,6 +287,8 @@
                 ordering: false
             });
         })
+
+        
 
     </script>
     <script>

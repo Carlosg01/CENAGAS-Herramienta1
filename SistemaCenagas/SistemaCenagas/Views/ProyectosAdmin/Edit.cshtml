@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarProyecto-modal">
@@ -82,17 +83,17 @@
                                     <input type="search" class="form-control filter-list-input" placeholder="Buscar usuarios" aria-label="Filter Members">
                                 </div>
                                 <div class="form-group-users">
-                                    @for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+                                    @for (int i = 0; i < global.vista_usuarios.Count(); i++)
                                     {
 
                                         <div class="custom-control custom-checkbox">
-                                            <input type="hidden" asp-for="idMiembro[i]" value="@(Global.vista_usuarios.ElementAt(i).user.Id)" />
-                                            <input asp-for="miembros[i]" type="checkbox" class="custom-control-input" id="project-user-@(Global.vista_usuarios.ElementAt(i).user.Id)">
-                                            <label class="custom-control-label" for="project-user-@(Global.vista_usuarios.ElementAt(i).user.Id)">
+                                            <input type="hidden" asp-for="idMiembro[i]" value="@(global.vista_usuarios.ElementAt(i).user.Id)" />
+                                            <input asp-for="miembros[i]" type="checkbox" class="custom-control-input" id="project-user-@(global.vista_usuarios.ElementAt(i).user.Id)">
+                                            <label class="custom-control-label" for="project-user-@(global.vista_usuarios.ElementAt(i).user.Id)">
                                                 <span class="d-flex align-items-center">
                                                     <img alt="Claire Connors" src="~/assets/img/user.jpeg" class="avatar mr-2" />
                                                     <span class="h6 mb-0" data-filter-by="text">
-                                                        @(Global.vista_usuarios.ElementAt(i).user.Email)
+                                                        @(global.vista_usuarios.ElementAt(i).user.Email)
                                                     </span>
                                                 </span>
                                             </label>

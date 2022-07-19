@@ -14,6 +14,7 @@ namespace SistemaCenagas.Models
         public string Fecha_Retiro_Cambio_Temporal { get; set; }
         public string Tiempo_Estimado { get; set; }
         public string Propuesta_Inicio_Operacion { get; set; }
+        public string Autorizacion_Inicio_Operacion { get; set; }
         public int Id_Anexo3 { get; set; }
         public int Id_Residente { get; set; }
     }
@@ -26,7 +27,7 @@ namespace SistemaCenagas.Models
         public string Proceso { get; set; }
         public string Prestacion_Servicio { get; set; }
         public string Clasificacion_Cambio { get; set; }
-        public Global.V_Anexo1 anexo1 { get; set; }
+        public V_Anexo1 anexo1 { get; set; }
         public ADC_Anexo4 anexo4 { get; set; }
         public string Responsable { get; set; }
         public string Lider_EquipoVerificador { get; set; }

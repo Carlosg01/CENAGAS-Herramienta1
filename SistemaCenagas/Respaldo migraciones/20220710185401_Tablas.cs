@@ -76,6 +76,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Password = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Token = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Rol = table.Column<int>(type: "int", nullable: true),
                     Estatus = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -1271,6 +1273,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Propuesta_Inicio_Operacion = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Autorizacion_Inicio_Operacion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
                     Id_Residente = table.Column<int>(type: "int", nullable: true),
                 },
@@ -1341,6 +1345,8 @@ namespace SistemaCenagas.Migrations
                     Mes_Retiro = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Anio_Retiro = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Confirmacion_Retiro_Cambios_Temporales = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
 
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),

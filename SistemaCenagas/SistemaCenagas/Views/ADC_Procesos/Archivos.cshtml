@@ -1,13 +1,14 @@
 ﻿
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarProceso-modal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">@(Global.tarea.actividad.Actividad): Archivos</h5>
+                <h5 class="modal-title">@(global.tarea.actividad.Actividad): Archivos</h5>
                 <a asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
@@ -22,27 +23,27 @@
 
                         <form asp-action="FileUpload" enctype="multipart/form-data">
 
-                            <input type="hidden" asp-for="Id_Usuario" value="@(Global.session_usuario.user.Id)" />
+                            <input type="hidden" asp-for="Id_Usuario" value="@(global.session_usuario.user.Id)" />
 
                             <div class="form-group row align-items-center">
                                 <label class="col-2" style="text-align:right;">Seleccionar archivo:</label>
                                 <div class="col">
-                                    <input type="hidden" asp-for="Id_ADC" value="@(Global.adc.adc.Id)" />
-                                    <input type="hidden" asp-for="Id_Proceso" value="@(Global.proceso.Id)" />
-                                    <input type="hidden" asp-for="Actividad" value="@(Global.tarea.actividad)" />
+                                    <input type="hidden" asp-for="Id_ADC" value="@(global.adc.adc.Id)" />
+                                    <input type="hidden" asp-for="Id_Proceso" value="@(global.proceso.Id)" />
+                                    <input type="hidden" asp-for="Actividad" value="@(global.tarea.actividad)" />
                                     <input type="file" asp-for="Archivo" class="form-control" required />
                                 </div>
                             </div>
-                            @if (Global.SUCCESS_MSJ != null)
+                            @if (global.SUCCESS_MSJ != null)
                             {
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    @(Global.SUCCESS_MSJ)
+                                    @(global.SUCCESS_MSJ)
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
 
-                                Global.SUCCESS_MSJ = null;
+                                global.SUCCESS_MSJ = null;
 
 
                             }
@@ -57,7 +58,7 @@
 
                         <ul class="list-group list-group-activity dropzone-previews flex-column-reverse">
 
-                            @foreach (var item in Global.vista_archivos)
+                            @foreach (var item in global.vista_archivos)
                             {
                                 <li class="list-group-item">
                                     <div class="media align-items-center">

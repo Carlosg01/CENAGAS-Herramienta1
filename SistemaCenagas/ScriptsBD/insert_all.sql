@@ -30,7 +30,7 @@ insert into puestos (nombre) values
 ('Jefe de la unidad de transporte y almacenamiento'),
 ('Otro');
 
-
+update usuarios set token = null;
 #select * from usuarios where Id_Usuario = 6
 #delete from usuarios where Id_Usuario = 6
 #update usuarios set Estatus = 'Habilitado' where Id_Usuario = 1

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 
@@ -10,9 +11,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 5).FirstOrDefault().Nombre):
+                    @(global.anexos.Where(a => a.Id == 5).FirstOrDefault().Nombre):
                     <br />
-                    @(Global.proyectos.Nombre)
+                    @(global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="ADC_Procesos" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
@@ -26,7 +27,7 @@
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="Id_Anexo1" />
                     <input type="hidden" asp-for="Id_Anexo3" />
-                    <input type="hidden" asp-for="Id_Responsable_Cambio_Temporal" value="@(Global.adc.adc.Id_ResponsableADC)" />
+                    <input type="hidden" asp-for="Id_Responsable_Cambio_Temporal" value="@(global.adc.adc.Id_ResponsableADC)" />
 
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Fecha retiro de cambio temporal:</label>
@@ -38,13 +39,13 @@
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Responsable de retirar el cambio temporal:</label>
                         <div class="col">
-                            <input type="text" class="form-control" value="@(Global.adc.responsable)" disabled />
+                            <input type="text" class="form-control" value="@(global.adc.responsable)" disabled />
                         </div>
                     </div>
 
 
 
-                    @if (Global.session_usuario.user.Id_Rol != Global.RESPONSABLE_ADC)
+                    @if (global.session_usuario.user.Id_Rol != global.RESPONSABLE_ADC)
                     {
                         <div class="form-group row align-items-center">
                             <label class="col-2" style="text-align:right;">Descripción del cambio temporal:</label>
@@ -128,6 +129,19 @@
 
 
                         </p>
+
+                        <input type="hidden" asp-for="Confirmacion_Retiro_Cambios_Temporales" />
+
+                        @if (Model.Dia_Cambio != null)
+                        {
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Estatus de retiro de cambios temporales:</label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="Confirmacion_Retiro_Cambios_Temporales" disabled />
+                                </div>
+                            </div>
+                        }
                     }
                     else if (Model.Dia_Cambio != null)
                     {
@@ -158,9 +172,18 @@
 
                             En virtud de lo anterior, le solicitamos atentamente instruya la ejecución de las acciones que correspondan para que dicho cambio sea retirado en la fecha
                             establecida y se retorne a las condiciones originales.
-
-
                         </p>
+                        <hr />
+                        <div class="form-group row align-items-center">
+                            <label class="col-2" style="text-align:right;">Estatus de retiro de cambios temporales:</label>
+                            <div class="col">
+                                <select type="text" class="form-control" asp-for="Confirmacion_Retiro_Cambios_Temporales" required>
+                                    <option>Pendiente</option>
+                                    <option>Cambios retirados</option>
+                                    <option>Cambios no retirados</option>
+                                </select>
+                            </div>
+                        </div>
                     }
 
 
@@ -170,7 +193,7 @@
                     <div class="modal-footer">
 
                         <button type="submit" role="button" class="btn btn-success">
-                            @(Global.session_usuario.user.Id_Rol != Global.RESPONSABLE_ADC ? "Solicitar retiro de cambios temporales" : "Aceptar")
+                            @(global.session_usuario.user.Id_Rol != global.RESPONSABLE_ADC ? "Solicitar retiro de cambios temporales" : "Aceptar")
                         </button>
                         <a class="btn btn-dark" asp-controller="ADC_Procesos" asp-action="Index">
                             Cancelar

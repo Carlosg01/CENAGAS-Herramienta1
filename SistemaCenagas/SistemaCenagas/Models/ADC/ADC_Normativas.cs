@@ -18,4 +18,5 @@ namespace SistemaCenagas.Models
         public int Eliminado { get; set; }
 
     }
+    
 }

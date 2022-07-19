@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 
@@ -10,9 +11,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 4).FirstOrDefault().Nombre):
+                    @(global.anexos.Where(a => a.Id == 4).FirstOrDefault().Nombre):
                     <br />
-                    @(Global.proyectos.Nombre)
+                    @(global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="ADC_Procesos" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
@@ -28,31 +29,96 @@
                     <input type="hidden" asp-for="Id_Anexo3" />
                     <input type="hidden" asp-for="Id_Residente" />
 
+                    @if (global.session_usuario.user.Id_Rol == global.RESPONSABLE_ADC)
+                    {
+                        <div class="form-group row align-items-center">
+                            <label class="col-2" style="text-align:right;">Fecha retiro de cambio temporal:</label>
+                            <div class="col">
+                                <input type="date" class="form-control" asp-for="Fecha_Retiro_Cambio_Temporal" required />
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label class="col-2" style="text-align:right;">Tiempo estimado de ejecución (días):</label>
+                            <div class="col">
+                                <input type="number" class="form-control" asp-for="Tiempo_Estimado" required />
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label class="col-2" style="text-align:right;">Propuesta de inicio de operación:</label>
+                            <div class="col">
+                                <textarea type="text" class="form-control" asp-for="Propuesta_Inicio_Operacion" required></textarea>
+                            </div>
+                        </div>
 
-                    <div class="form-group row align-items-center">
-                        <label class="col-2" style="text-align:right;">Fecha retiro de cambio temporal:</label>
-                        <div class="col">
-                            <input type="date" class="form-control" asp-for="Fecha_Retiro_Cambio_Temporal" required />
-                        </div>
-                    </div>
-                    <div class="form-group row align-items-center">
-                        <label class="col-2" style="text-align:right;">Tiempo estimado de ejecución (días):</label>
-                        <div class="col">
-                            <input type="date" class="form-control" asp-for="Tiempo_Estimado" required />
-                        </div>
-                    </div>
-                    <div class="form-group row align-items-center">
-                        <label class="col-2" style="text-align:right;">Propuesta de inicio de operación:</label>
-                        <div class="col">
-                            <textarea type="text" class="form-control" asp-for="Propuesta_Inicio_Operacion" required></textarea>
-                        </div>
-                    </div>
+                        <input type="hidden" asp-for="Autorizacion_Inicio_Operacion" />
+
+                        @if (Model.Propuesta_Inicio_Operacion != null)
+                        {
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Propuesta de inicio de operación:</label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="Autorizacion_Inicio_Operacion" disabled />
+                                </div>
+                            </div>
+                        }
+
+
+                    }
+
+                    @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR}.Contains(global.session_usuario.user.Id_Rol))
+                    {
+                        @if (Model.Propuesta_Inicio_Operacion != null)
+                        {
+
+                            <input type="hidden" asp-for="Fecha_Retiro_Cambio_Temporal" />
+                            <input type="hidden" asp-for="Tiempo_Estimado" />
+                            <input type="hidden" asp-for="Propuesta_Inicio_Operacion" />
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Fecha retiro de cambio temporal:</label>
+                                <div class="col">
+                                    <input type="date" class="form-control" asp-for="Fecha_Retiro_Cambio_Temporal" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Tiempo estimado de ejecución (días):</label>
+                                <div class="col">
+                                    <input type="date" class="form-control" asp-for="Tiempo_Estimado" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Propuesta de inicio de operación:</label>
+                                <div class="col">
+                                    <textarea type="text" class="form-control" asp-for="Propuesta_Inicio_Operacion" disabled></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-2" style="text-align:right;">Estatus de inicio de operación:</label>
+                                <div class="col">
+                                    <select type="text" class="form-control" asp-for="Autorizacion_Inicio_Operacion" required>
+                                        <option>Pendiente</option>
+                                        <option>Autorizado</option>
+                                        <option>No autorizado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <p>Aún no hay solicitudes de inicio de operacion de cambios temporales por parte del responsable de la administración del cambio</p>
+                        }
+                    }
+
+
+
                     <hr>
 
                     <div class="modal-footer">
 
                         <button type="submit" role="button" class="btn btn-success">
-                            Solicitar autorización
+                            @(global.session_usuario.user.Id_Rol == global.RESPONSABLE_ADC ? "Solicitar autorización" : "Aceptar")
                         </button>
                         <a class="btn btn-dark" asp-controller="ADC_Procesos" asp-action="Index">
                             Cancelar

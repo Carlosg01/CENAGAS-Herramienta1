@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="administrarADC-modal">
@@ -29,32 +30,32 @@
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Proyecto</label>
                         <div class="col">
-                            <input type="text" value="@(Global.adc.proyecto)" class="form-control" disabled />
+                            <input type="text" value="@(global.adc.proyecto)" class="form-control" disabled />
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">No. de Folio del ADC</label>
                         <div class="col">
-                            <input type="text" value="@(Global.adc.adc.Folio)" class="form-control" disabled />
+                            <input type="text" value="@(global.adc.adc.Folio)" class="form-control" disabled />
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Proponente del cambio</label>
                         <div class="col">
-                            <input type="text" value="@(Global.adc.proponente)" class="form-control" disabled />
+                            <input type="text" value="@(global.adc.proponente)" class="form-control" disabled />
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Fecha de actualización</label>
                         <div class="col">
-                            <input type="text" value="@(Global.adc.adc.Fecha_Actualizacion)" class="form-control" disabled />
+                            <input type="text" value="@(global.adc.adc.Fecha_Actualizacion)" class="form-control" disabled />
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
                         <label asp-for="Id_LiderEquipoVerificador" class="col-2" style="text-align:right;">Líder del equipo verificador</label>
                         <div class="col">
                             <select asp-for="Id_LiderEquipoVerificador" class="form-control" required>
-                                @foreach (var item in Global.lideres)
+                                @foreach (var item in global.lideres)
                                 {
                                     <option value="@(item.Id)">
                                         @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
@@ -69,7 +70,7 @@
                         <label asp-for="Id_ResponsableADC" class="col-2" style="text-align:right;">Responsable del ADC</label>
                         <div class="col">
                             <select asp-for="Id_ResponsableADC" class="form-control" required>
-                                @foreach (var item in Global.responsablesADC)
+                                @foreach (var item in global.responsablesADC)
                                 {
                                     <option value="@(item.Id)">
                                         @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)
@@ -84,7 +85,7 @@
                         <div class="col">
                             <select asp-for="Id_Suplente" class="form-control" required>
                                 <option value="1">--- Selecciona una opción ---</option>
-                                @foreach (var item in Global.suplentes)
+                                @foreach (var item in global.suplentes)
                                 {
                                     <option value="@(item.Id)">
                                         @(item.Titulo + " " + item.Nombre + " " + item.Paterno + " " + item.Materno)

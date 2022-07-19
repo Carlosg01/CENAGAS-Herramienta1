@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Global global = (Global)ViewBag.global;
 }
 
 <script type="text/javascript">
@@ -121,7 +122,7 @@
                         <div class="col">
                             <select asp-for="Id_Puesto" class="form-control" required>
                                 <option></option>
-                                @foreach (var puesto in Global.puestos)
+                                @foreach (var puesto in global.puestos)
                                 {
                                     <option value="@(puesto.Id)">@(puesto.Nombre)</option>
                                 }
@@ -134,7 +135,7 @@
                         <div class="col">
                             <select asp-for="Id_Rol" class="form-control" required>
                                 <option></option>
-                                @foreach (var rol in Global.roles)
+                                @foreach (var rol in global.roles)
                                 {
                                     <option value="@(rol.Id)">@(rol.Nombre)</option>
                                 }

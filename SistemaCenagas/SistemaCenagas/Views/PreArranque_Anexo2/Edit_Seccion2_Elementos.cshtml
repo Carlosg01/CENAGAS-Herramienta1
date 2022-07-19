@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit_Seccion2_Elementos";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editar-modal">
@@ -11,7 +12,7 @@
                 <h6 class="modal-title">
                     Editar subtarea de <b>@(Model.TareaPrincipal)</b>
                 </h6>
-                <a asp-action="Edit_Seccion2" asp-route-id="@(Global.prearranque.prearranque.Id)" class="close btn btn-round">
+                <a asp-action="Edit_Seccion2" asp-route-id="@(global.prearranque.prearranque.Id)" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
             </div>
@@ -22,6 +23,8 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="elemento.Id" />
                     <input type="hidden" asp-for="elemento.Id_Anexo2_Seccion2" />
+                    <input type="hidden" asp-for="elemento.Clave" />
+                    
 
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Elemento de revisión</label>
@@ -103,7 +106,7 @@
                         <button type="submit" role="button" class="btn btn-success">
                             Guardar
                         </button>
-                        <a class="btn btn-dark" asp-action="Edit_Seccion2" asp-route-id="@(Global.prearranque.prearranque.Id)">
+                        <a class="btn btn-dark" asp-action="Edit_Seccion2" asp-route-id="@(global.prearranque.prearranque.Id)">
                             Cancelar
                         </a>
                     </div>

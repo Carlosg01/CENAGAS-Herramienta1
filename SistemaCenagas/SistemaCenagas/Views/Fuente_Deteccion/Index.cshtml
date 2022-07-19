@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Fuente_Deteccion> 
 @{
     ViewData["Title"] = "Index";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="main-container">
@@ -20,11 +21,11 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-round" role="button" title="@(global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
                 <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-header text-dark text-uppercase">@(global.session_usuario.Rol)</a>
                 <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>

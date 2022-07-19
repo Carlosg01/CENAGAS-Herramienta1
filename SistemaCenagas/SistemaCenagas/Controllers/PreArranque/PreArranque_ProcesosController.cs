@@ -19,70 +19,92 @@ using iTextSharp.tool.xml.css.parser.state;
 using System.Text;
 using SelectPdf;
 using SistemaCenagas.Reportes;
+using Microsoft.AspNetCore.Http;
 
 namespace SistemaCenagas.Controllers
 {
     public class PreArranque_ProcesosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Global global;
 
         public PreArranque_ProcesosController(ApplicationDbContext context)
         {
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
-            Global.panelTareas = "show active";
-            Global.panelArchivos = "";
-
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         // GET: ADC_Procesos
         public async Task<IActionResult> Index()
         {
-            if (!Global.session.Equals("LogIn"))
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            global.panelTareas = "show active";
+            global.panelArchivos = "";
+
+            if (!global.session.Equals("LogIn"))
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.vista_tareas_prearranque = Consultas.PreArranqueVistaTareas(_context)
-                .Where(t => t.proceso.Id_PreArranque == Global.prearranque.prearranque.Id).ToList();
+            global.vista_tareas_prearranque = Consultas.PreArranqueVistaTareas(_context)
+                .Where(t => t.proceso.Id_PreArranque == global.prearranque.prearranque.Id).ToList();
 
-            Global.anexo2_prearranque = Consultas.PreArranqueVistaAnexo2(_context, Global.prearranque.prearranque.Id);
-            ViewBag.avance_total = Global.vista_tareas_prearranque.Sum(t => t.proceso.Avance);
-            //ViewBag.anexo3_action = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == Global.adc.adc.Id).ToList().Count == 0 ? "create" : "edit";
+            global.anexo2_prearranque = Consultas.PreArranqueVistaAnexo2(_context, global.prearranque.prearranque.Id);
+            ViewBag.avance_total = global.vista_tareas_prearranque.Sum(t => t.proceso.Avance);
+            //ViewBag.anexo3_action = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == global.adc.adc.Id).ToList().Count == 0 ? "create" : "edit";
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         public async Task<IActionResult> PropuestaCambio()
         {
-            //Global.anexo1 = Consultas.VistaAnexo1(_context, Global.adc.adc.Id_ADC);
-            //Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == id).FirstOrDefault();
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            //global.anexo1 = Consultas.VistaAnexo1(_context, global.adc.adc.Id_ADC);
+            //global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id_ADC == id).FirstOrDefault();
 
-            if (Global.anexo1.anexo1 == null)
+            if (global.anexo1.anexo1 == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction("Edit", "Anexo1");
         }
 
         public async Task<IActionResult> Normativas(int? id)
         {
-            Global.actividadPreArranque = await _context.PreArranque_Actividades
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            global.actividadPreArranque = await _context.PreArranque_Actividades
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Global.actividadPreArranque == null)
+            if (global.actividadPreArranque == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction("Index", "PreArranque_Normativas");
         }
 
         // GET: ADC_Procesos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -90,30 +112,44 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (prearranque_Procesos == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View(prearranque_Procesos);
         }
 
         public async Task<IActionResult> CrearAnexo3(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
-            //Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id_Proyecto == id).FirstOrDefault();
+            //global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id_Proyecto == id).FirstOrDefault();
 
-            Global.anexo1 = Consultas.VistaAnexo1(_context, id);
+            global.anexo1 = Consultas.VistaAnexo1(_context, id);
 
-            //return RedirectToAction("Index", "ADCProyecto");
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return RedirectToAction("Index", "ADCProyecto");
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction("Create", "Anexo3");
         }
 
         // GET: ADC_Procesos/Create
         public IActionResult Create()
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
@@ -124,32 +160,44 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id_Proceso,Id_Actividad,Id_ADC,Avance,Faltante_Comentarios,Plan_Accion,Registro_Eliminado")] ADC_Procesos aDC_Procesos)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (ModelState.IsValid)
             {
                 _context.Add(aDC_Procesos);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View(aDC_Procesos);
         }
 
         // GET: ADC_Procesos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
             var prearranque_Procesos = await _context.PreArranque_Procesos.FindAsync(id);
             if (prearranque_Procesos == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
-            Global.tarea_prearranque = Global.vista_tareas_prearranque
+            global.tarea_prearranque = global.vista_tareas_prearranque
                 .Where(t => t.proceso.Id_Actividad == prearranque_Procesos.Id_Actividad).FirstOrDefault();
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View(prearranque_Procesos);
         }
 
@@ -160,8 +208,11 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PreArranque_Procesos prearranque_Procesos)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id != prearranque_Procesos.Id)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -173,9 +224,9 @@ namespace SistemaCenagas.Controllers
                     _context.Update(prearranque_Procesos);
                     await _context.SaveChangesAsync();
 
-                    PreArranque pre = _context.PreArranque.Where(a => a.Id == Global.prearranque.prearranque.Id).FirstOrDefault();
+                    PreArranque pre = _context.PreArranque.Where(a => a.Id == global.prearranque.prearranque.Id).FirstOrDefault();
                     pre.Fecha_Actualizacion = DateTime.Now.ToString();
-                    Global.prearranque.prearranque.Fecha_Actualizacion = pre.Fecha_Actualizacion;
+                    global.prearranque.prearranque.Fecha_Actualizacion = pre.Fecha_Actualizacion;
                     _context.Update(pre);
                     await _context.SaveChangesAsync();
                 }
@@ -183,6 +234,8 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!ADC_ProcesosExists(prearranque_Procesos.Id))
                     {
+                        HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -190,16 +243,23 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View(prearranque_Procesos);
         }
 
         // GET: ADC_Procesos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -207,18 +267,25 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (aDC_Procesos == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View(aDC_Procesos);
         }
 
         //REPORTES
         public async Task<IActionResult> ReporteAnexo1(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
             string ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            //return Ok(ubicacion + "\\Anexo2.xlsx");
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return Ok(ubicacion + "\\Anexo2.xlsx");
 
             string html = System.IO.File.ReadAllText(ubicacion + "\\Formato_Anexo2_2.html");
 
@@ -229,9 +296,13 @@ namespace SistemaCenagas.Controllers
             byte[] pdf = doc.Save();
             doc.Close();
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return File(pdf, "applicaction/pdf", "TEST.pdf");
 
-            //return Ok("REPORTE ANEXO2");
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return Ok("REPORTE ANEXO2");
         }
 
         // POST: ADC_Procesos/Delete/5
@@ -239,56 +310,78 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var aDC_Procesos = await _context.ADC_Procesos.FindAsync(id);
             _context.ADC_Procesos.Remove(aDC_Procesos);
             await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction(nameof(Index));
         }
 
         private bool ADC_ProcesosExists(int id)
         {
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return _context.ADC_Procesos.Any(e => e.Id == id);
         }
 
         public async Task<IActionResult> Anexo1_Descargar(int idADC)
         {
-            ReporteAnexos reporte = new ReporteAnexos(_context);
-            byte[] pdf = reporte.Anexo1_PDF(Global.proyectos, idADC);
-            return File(pdf, "application/pdf", $"Anexo 1 - {Global.proyectos.Nombre}.pdf");
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            ReporteAnexos reporte = new ReporteAnexos(_context, global);
+            byte[] pdf = reporte.Anexo1_PDF(global.proyectos, idADC);
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return File(pdf, "application/pdf", $"Anexo 1 - {global.proyectos.Nombre}.pdf");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Terminado(string check)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return Ok(check);
         }
 
         public async Task<IActionResult> Archivos(int? Id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (Id == null)
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
 
-            Global.proceso_prearranque = _context.PreArranque_Procesos.Find(Id);
-            Global.tarea_prearranque = Consultas.PreArranqueVistaTareas(_context).Where(a => a.proceso.Id == Id).FirstOrDefault();
-            Global.vista_archivos_prearranque = Consultas.PreArranqueVistaArchivos(_context, Global.proceso_prearranque.Id);
+            global.proceso_prearranque = _context.PreArranque_Procesos.Find(Id);
+            global.tarea_prearranque = Consultas.PreArranqueVistaTareas(_context).Where(a => a.proceso.Id == Id).FirstOrDefault();
+            global.vista_archivos_prearranque = Consultas.PreArranqueVistaArchivos(_context, global.proceso_prearranque.Id);
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> FileUpload(PreArranqueModel_SubirArchivo uploadFile)
         {
-            //return Content("Filename: " + uploadFile.Archivo.FileName);
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return Content("Filename: " + uploadFile.Archivo.FileName);
             await UploadFile(uploadFile);
-            Global.SUCCESS_MSJ = "El archivo se subió correctamente!";
-            Global.panelTareas = "";
-            Global.panelArchivos = "show active";
+            global.SUCCESS_MSJ = "El archivo se subió correctamente!";
+            global.panelTareas = "";
+            global.panelArchivos = "show active";
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction("Index", "PreArranque_Procesos");
         }
         // Upload file on server
         public async Task<bool> UploadFile(PreArranqueModel_SubirArchivo upload)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             string path = "";
             bool iscopied = false;
             try
@@ -313,7 +406,7 @@ namespace SistemaCenagas.Controllers
                     await _context.SaveChangesAsync();
 
 
-                    //string filename = "ADC-" + Global.adc.adc.Id_ADC.ToString() + "_" + upload.Archivo.FileName + Path.GetExtension(upload.Archivo.FileName);
+                    //string filename = "ADC-" + global.adc.adc.Id_ADC.ToString() + "_" + upload.Archivo.FileName + Path.GetExtension(upload.Archivo.FileName);
                     path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "UploadFiles"));
                     using (var filestream = new FileStream(Path.Combine(archivo.Ubicacion, archivo.Clave), FileMode.Create))
                     {
@@ -326,12 +419,15 @@ namespace SistemaCenagas.Controllers
             {
                 throw;
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return iscopied;
         }
 
         [HttpGet]
         public async Task<ActionResult> DownloadFile(int idFile)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
             PreArranque_Archivos archivo = _context.PreArranque_Archivos.Find(idFile);
 
@@ -345,26 +441,35 @@ namespace SistemaCenagas.Controllers
             memoria.Position = 0;
             var ext = archivo.Extension.ToLowerInvariant();
 
-            Global.panelTareas = "";
-            Global.panelArchivos = "show active";
+            global.panelTareas = "";
+            global.panelArchivos = "show active";
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return File(memoria, GetMimeTypes()[ext], archivo.Nombre);
-            //return RedirectToAction("Index", "ADC_Procesos");
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return RedirectToAction("Index", "ADC_Procesos");
         }
 
         [HttpGet]
         public async Task<ActionResult> DeleteFile(int? idFile)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             PreArranque_Archivos archivo = _context.PreArranque_Archivos.Find(idFile);
             _context.PreArranque_Archivos.Remove(archivo);
             await _context.SaveChangesAsync();
-            Global.panelTareas = "";
-            Global.panelArchivos = "show active";
+            global.panelTareas = "";
+            global.panelArchivos = "show active";
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction("Index", "PreArranque_Procesos");
         }
 
         private Dictionary<string, string> GetMimeTypes()
         {
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return new Dictionary<string, string>
             {
                 {".txt", "text/plain" },

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="detallesUsuario-modal">
@@ -66,7 +67,7 @@
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Rol</label>
                         <div class="col">
-                            <input type="text" value="@(Global.usuario.Rol)" class="form-control" disabled />
+                            <input type="text" value="@(global.usuario.Rol)" class="form-control" disabled />
                         </div>
                     </div>
                     <div class="form-group row align-items-center">

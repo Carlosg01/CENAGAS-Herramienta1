@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo1-modal">
@@ -9,9 +10,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre):
+                    @(global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre):
                     <br />
-                    @(Global.proyectos.Nombre)
+                    @(global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="ADC_Procesos" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
@@ -31,7 +32,7 @@
                     <div class="form-group row align-items-center">
                         <label asp-for="Tipo_Cambio" class="col-2" style="text-align:right;">Tipo de cambio</label>
                         <div class="col">
-                            @if (Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio)
+                            @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
                                 <select asp-for="Tipo_Cambio" class="form-control" required>
                                     <option>Temporal</option>
@@ -58,14 +59,14 @@
                     <div class="form-group row align-items-center">
                         <label asp-for="Id_Residencia" class="col-2" style="text-align:right;">Residencia</label>
                         <div class="col">
-                            @if (Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio)
+                            @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
                                 <input type="hidden" asp-for="Id_Residencia" />
-                                <input type="text" value="@(Global.anexo1.residencia)" class="form-control" disabled />
+                                <input type="text" value="@(global.anexo1.residencia)" class="form-control" disabled />
 
                                 <!--select id="Residencia" asp-for="Id_Residencia" class="form-control" required>
                                     <option value="-1">--- Selecciona una opción ---</option>
-                                    @foreach (var item in Global.residencias)
+                                    @foreach (var item in global.residencias)
                                     {
                                         <option value="@(item.Id)">@(item.Nombre)</option>
                                     }
@@ -74,7 +75,7 @@
                             else
                             {
                                 <input type="hidden" asp-for="Id_Residencia" />
-                                <input type="text" value="@(Global.anexo1.residencia)" class="form-control" disabled />
+                                <input type="text" value="@(global.anexo1.residencia)" class="form-control" disabled />
                             }
 
                         </div>
@@ -83,10 +84,10 @@
                     <div class="form-group row align-items-center">
                         <label asp-for="Ut_Gasoducto" class="col-2" style="text-align:right;">Sistema de transporte</label>
                         <div class="col">
-                            @if (Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio)
+                            @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
                                 <input type="hidden" asp-for="Ut_Gasoducto" />
-                                <input type="text" value="@(Global.anexo1.gasoducto)" class="form-control" disabled />
+                                <input type="text" value="@(global.anexo1.gasoducto)" class="form-control" disabled />
                                 <!--input type="hidden" id="Hidden_Gasoducto" asp-for="Ut_Gasoducto" value="@(Model.Ut_Gasoducto)" />
                 <select id="Gasoducto" asp-for="Ut_Gasoducto" class="form-control" required>
                     <option>--- Selecciona una opción ---</option>
@@ -95,7 +96,7 @@
                             else
                             {
                                 <input type="hidden" asp-for="Ut_Gasoducto" />
-                                <input type="text" value="@(Global.anexo1.gasoducto)" class="form-control" disabled />
+                                <input type="text" value="@(global.anexo1.gasoducto)" class="form-control" disabled />
                             }
 
                         </div>
@@ -104,10 +105,10 @@
                     <div class="form-group row align-items-center">
                         <label asp-for="Ut_Tramo" class="col-2" style="text-align:right;">Tramo</label>
                         <div class="col">
-                            @if (Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio)
+                            @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
                                 <input type="hidden" asp-for="Ut_Tramo" />
-                                <input type="text" value="@(Global.anexo1.tramo)" class="form-control" disabled />
+                                <input type="text" value="@(global.anexo1.tramo)" class="form-control" disabled />
                                 <!--input type="hidden" id="Hidden_Tramo" asp-for="Ut_Tramo" value="@(Model.Ut_Tramo)" />
                 <select id="Tramo" asp-for="Ut_Tramo" class="form-control" required>
                     <option>--- Selecciona una opción ---</option>
@@ -117,7 +118,7 @@
                             {
 
                                 <input type="hidden" asp-for="Ut_Tramo" />
-                                <input type="text" value="@(Global.anexo1.tramo)" class="form-control" disabled />
+                                <input type="text" value="@(global.anexo1.tramo)" class="form-control" disabled />
                             }
 
                         </div>
@@ -128,7 +129,7 @@
                             Proceso, maquinaria o equipo por modificar
                         </label>
                         <div class="col">
-                            @if (Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio)
+                            @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
                                 <textarea type="text" asp-for="Proceso" class="form-control" required></textarea>
                             }
@@ -146,7 +147,7 @@
                             Prestación del servicio de la maquinaria o equipo
                         </label>
                         <div class="col">
-                            @if (Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio)
+                            @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
                                 <textarea type="text" asp-for="Prestacion_Servicio" class="form-control" required></textarea>
                             }
@@ -164,7 +165,7 @@
                             Descripción del cambio propuesto, indicando las razones del mismo
                         </label>
                         <div class="col">
-                            @if (Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio)
+                            @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
                                 <textarea type="text" asp-for="Descripcion" class="form-control" required></textarea>
                             }
@@ -184,7 +185,7 @@
                             Resultado del análisis de la propuesta
                         </label>
                         <div class="col">
-                            @if (new List<int>() { Global.ADMINISTRADOR, Global.SUPERADMIN, Global.RESPONSABLE_ADC}.Contains(Global.session_usuario.user.Id_Rol)) //Responsable ADC
+                            @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC}.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
                                 <textarea type="text" asp-for="Resultados_Analisis" class="form-control"></textarea>
                             }
@@ -204,8 +205,8 @@
                             Resultado de la propuesta
                         </label>
                         <div class="col">
-                            @if ((Global.session_usuario.user.Id == Global.adc.adc.Id_ProponenteCambio &&
-                       Global.anexo1.anexo1.Resultados_Analisis != null) || new List<int>() { Global.ADMINISTRADOR, Global.SUPERADMIN }.Contains(Global.session_usuario.user.Id_Rol)) //Responsable ADC
+                            @if ((global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio &&
+                       global.anexo1.anexo1.Resultados_Analisis != null) || new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
                                 <textarea type="text" asp-for="Resultados_Propuesta" class="form-control"></textarea>
                             }
@@ -224,7 +225,7 @@
                             Estatus
                         </label>
                         <div class="col">
-                            @if (new List<int>() { Global.ADMINISTRADOR, Global.SUPERADMIN, Global.RESPONSABLE_ADC }.Contains(Global.session_usuario.user.Id_Rol)) //Responsable ADC
+                            @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
                                 <select asp-for="Estatus" class="form-control" required>
                                     <option>Pendiente</option>

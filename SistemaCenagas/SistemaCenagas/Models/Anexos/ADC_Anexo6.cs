@@ -18,4 +18,10 @@ namespace SistemaCenagas.Models
         public string Fecha_Termino { get; set; }
 
     }
+
+    public class ADC_Anexo6_Model
+    {
+        public ADC_Anexo6 anexo6 { get; set; }
+        public List<ADC_Anexo6_Documentacion> documentacion { get; set; }
+    }
 }

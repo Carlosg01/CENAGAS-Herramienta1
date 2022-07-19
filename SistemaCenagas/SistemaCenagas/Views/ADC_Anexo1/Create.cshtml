@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Global global = (Global)ViewBag.global;
 }
 
 <script>
@@ -89,9 +90,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre):
+                    @(global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre):
                     <br />
-                    @(Global.proyectos.Nombre)
+                    @(global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="ADC_Proyecto" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
@@ -102,7 +103,7 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Registro_Eliminado" value="0" />
-                    <input type="hidden" asp-for="Id_Proyecto" value="@(Global.proyectos.Id)" />
+                    <input type="hidden" asp-for="Id_Proyecto" value="@(global.proyectos.Id)" />
                     <input type="hidden" asp-for="Fecha" value="@(ViewBag.fecha)" />
 
                     <div class="form-group row align-items-center">
@@ -127,7 +128,7 @@
                         <div class="col">
                             <select id="Residencia" asp-for="Id_Residencia" class="form-control" required>
                                 <option value="-1">--- Selecciona una opción ---</option>
-                                @foreach (var item in Global.residencias)
+                                @foreach (var item in global.residencias)
                                 {
                                     <option value="@(item.Id)">@(item.Nombre)</option>
                                 }

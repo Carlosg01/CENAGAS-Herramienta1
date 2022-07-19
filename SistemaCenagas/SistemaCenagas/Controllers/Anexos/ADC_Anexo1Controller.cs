@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,30 +13,39 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class ADC_Anexo1Controller : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Global global;
 
         public ADC_Anexo1Controller(ApplicationDbContext context)
         {
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         // GET: Anexo1
         public async Task<IActionResult> Index()
         {
-            if (!Global.session.Equals("LogIn"))
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if (!global.session.Equals("LogIn"))
             {
+                ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
+            ViewBag.global = global;
             return View();
         }
 
         // GET: Anexo1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -42,17 +53,21 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (anexo1 == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            ViewBag.global = global;
             return View(anexo1);
         }
 
         // GET: Anexo1/Create
         public IActionResult Create()
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
             ViewBag.fecha = DateTime.Now.ToString();
+            ViewBag.global = global;
             return PartialView();
         }
 
@@ -63,11 +78,12 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ADC_Anexo1 anexo1)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (ModelState.IsValid)
             {
                 ADC_Anexo2 anexo2 = new ADC_Anexo2
                 {
-                    Id_Proyecto = Global.proyectos.Id
+                    Id_Proyecto = global.proyectos.Id
                 };
 
                 _context.Add(anexo2);
@@ -88,9 +104,9 @@ namespace SistemaCenagas.Controllers
                 ADC adc = new ADC
                 {
                     Id = anexo1.Id,
-                    Id_Proyecto = Global.proyectos.Id,
+                    Id_Proyecto = global.proyectos.Id,
                     Folio = stringFolio,
-                    Id_ProponenteCambio = Global.session_usuario.user.Id,
+                    Id_ProponenteCambio = global.session_usuario.user.Id,
                     Id_LiderEquipoVerificador = 1,
                     Id_ResponsableADC = 1,
                     Id_Suplente = 1,
@@ -145,14 +161,15 @@ namespace SistemaCenagas.Controllers
                 await _context.SaveChangesAsync();
 
                 //int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
-                Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == anexo1.Id).FirstOrDefault();
+                global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == anexo1.Id).FirstOrDefault();
 
-                for (int i = 0; i < Global.vista_actividadesADC.Count(); i++)
+                for (int i = 0; i < global.vista_actividadesADC.Count(); i++)
                 {
+                    ViewBag.global = global;//
                     //return Content(JsonConvert.SerializeObject(a));
                     ADC_Procesos tarea = new ADC_Procesos
                     {
-                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id,
+                        Id_Actividad = global.vista_actividadesADC.ElementAt(i).Id,
                         Id_ADC = anexo1.Id,
                         Avance = 0,//(i == 0) ? (9.0f/12)*100 : 0, //primeros 9 atributos necesarios por primera vez de 12 posibles
                         Faltante_Comentarios = "N/A",
@@ -165,21 +182,26 @@ namespace SistemaCenagas.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-
-                
-
-                //Global.proyectos = Global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
 
+                //global.proyectos = global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
+
+
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(anexo1);
         }
 
         public IActionResult Create2()
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             ViewBag.fecha = DateTime.Now.ToString();
-            Global.lista_proyectos_adc = _context.Proyectos.Where(p => p.Estado_ADC.Equals("Habilitado")).ToList();
+            global.lista_proyectos_adc = _context.Proyectos.Where(p => p.Estado_ADC.Equals("Habilitado")).ToList();
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView();
         }
 
@@ -190,6 +212,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create2(ADC_Anexo1 anexo1)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (ModelState.IsValid)
             {
                 ADC_Anexo2 anexo2 = new ADC_Anexo2
@@ -217,7 +240,7 @@ namespace SistemaCenagas.Controllers
                     Id = anexo1.Id,
                     Id_Proyecto = anexo1.Id_Proyecto,
                     Folio = stringFolio,
-                    Id_ProponenteCambio = Global.session_usuario.user.Id,
+                    Id_ProponenteCambio = global.session_usuario.user.Id,
                     Id_LiderEquipoVerificador = 1,
                     Id_ResponsableADC = 1,
                     Id_Suplente = 1,
@@ -272,14 +295,15 @@ namespace SistemaCenagas.Controllers
                 await _context.SaveChangesAsync();
 
                 //int id = _context.ADC.OrderByDescending(a => a.Id_ADC).FirstOrDefault().Id_ADC;
-                Global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == anexo1.Id).FirstOrDefault();
+                global.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == anexo1.Id).FirstOrDefault();
 
-                for (int i = 0; i < Global.vista_actividadesADC.Count(); i++)
+                for (int i = 0; i < global.vista_actividadesADC.Count(); i++)
                 {
+                    ViewBag.global = global;//
                     //return Content(JsonConvert.SerializeObject(a));
                     ADC_Procesos tarea = new ADC_Procesos
                     {
-                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id,
+                        Id_Actividad = global.vista_actividadesADC.ElementAt(i).Id,
                         Id_ADC = anexo1.Id,
                         Avance = 0,//(i == 0) ? (9.0f/12)*100 : 0, //primeros 9 atributos necesarios por primera vez de 12 posibles
                         Faltante_Comentarios = "N/A",
@@ -292,31 +316,37 @@ namespace SistemaCenagas.Controllers
                     await _context.SaveChangesAsync();
                 }
                 
-                Global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id == anexo1.Id_Proyecto).FirstOrDefault();
+                global.proyectos = Consultas.VistaProyectos(_context).Where(p => p.Id == anexo1.Id_Proyecto).FirstOrDefault();
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(anexo1);
         }
 
         // GET: Anexo1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
             var anexo1 = await _context.ADC_Anexo1.Where(
-                a => a.Id == Global.anexo1.anexo1.Id).FirstOrDefaultAsync();
+                a => a.Id == global.anexo1.anexo1.Id).FirstOrDefaultAsync();
 
-            Global.proyectos = Consultas.VistaProyectos(_context).Where(
-                p => p.Id == Global.anexo1.anexo1.Id_Proyecto).FirstOrDefault();
+            global.proyectos = Consultas.VistaProyectos(_context).Where(
+                p => p.Id == global.anexo1.anexo1.Id_Proyecto).FirstOrDefault();
 
-            Global.tarea = Consultas.VistaTareas(_context)
+            global.tarea = Consultas.VistaTareas(_context)
                 .Where(t => t.proceso.Id_ADC == id).FirstOrDefault();
 
             //ViewBag.
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
-
+            ViewBag.global = global;
             return PartialView(anexo1);
         }
 
@@ -327,14 +357,13 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ADC_Anexo1 anexo1)
         {
-            //return Content(""+id);
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            
             if (id != anexo1.Id)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
-
-
-            //return Content(JsonConvert.SerializeObject(anexo1));
 
             if (ModelState.IsValid)
             {
@@ -350,18 +379,17 @@ namespace SistemaCenagas.Controllers
                     _context.Update(anexo1);                    
                     await _context.SaveChangesAsync();
 
-                    ADC adc = _context.ADC.Where(a => a.Id == Global.adc.adc.Id).FirstOrDefault();
+                    ADC adc = _context.ADC.Where(a => a.Id == global.adc.adc.Id).FirstOrDefault();
                     adc.Fecha_Actualizacion = DateTime.Now.ToString();
                     adc.Folio = stringFolio;
-                    Global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
-                    Global.adc.adc.Folio = adc.Folio;
+                    global.adc.adc.Fecha_Actualizacion = adc.Fecha_Actualizacion;
+                    global.adc.adc.Folio = adc.Folio;
                     _context.Update(adc);
                     await _context.SaveChangesAsync();
 
                     ADC_Procesos a = _context.ADC_Procesos.Where(a => a.Id_ADC == adc.Id).FirstOrDefault();
 
-                    //return Content(JsonConvert.SerializeObject(anexo1));
-                    if(Global.tarea.proceso.Id_Actividad == 1)
+                    if(global.tarea.proceso.Id_Actividad == 1)
                     {
                         a.Avance = anexo1.Estatus.Equals("Aceptado") || anexo1.Estatus.Equals("Rechazado") ? 100 : 0;
                         /*
@@ -371,15 +399,16 @@ namespace SistemaCenagas.Controllers
                         a.Avance += (anexo1.Estatus != null && anexo1.Estatus.Length > 0) ? (1.0f / 12 * 100) : 0;
                         */
                     }
-                    //return Content(JsonConvert.SerializeObject(a)); 
-
+                    
                     _context.Update(a);
                     await _context.SaveChangesAsync();
+                    HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!Anexo1Exists(anexo1.Id))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -387,16 +416,20 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(anexo1);
         }
 
         // GET: Anexo1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -404,9 +437,11 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (anexo1 == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            ViewBag.global = global;
             return View(anexo1);
         }
 
@@ -415,37 +450,46 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var anexo1 = await _context.ADC_Anexo1.FindAsync(id);
             _context.ADC_Anexo1.Remove(anexo1);
             await _context.SaveChangesAsync();
+            ViewBag.global = global;
             return RedirectToAction(nameof(Index));
         }
 
         private bool Anexo1Exists(int id)
         {
+            ViewBag.global = global;
             return _context.ADC_Anexo1.Any(e => e.Id == id);
         }
 
         [HttpPost]
         public JsonResult getGasoductos(int id_residencia)
         {
-            string residencia = Global.residencias.Where(r => r.Id == id_residencia)
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            string residencia = global.residencias.Where(r => r.Id == id_residencia)
                 .FirstOrDefault().Nombre;
 
-            Global.gasoductos = Consultas.getGasoductos(_context, residencia);
-            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
-            
-            return Json(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"));            
+            global.gasoductos = Consultas.getGasoductos(_context, residencia);
+            //ViewBag.global = global;//
+            //return Json(JsonConvert.SerializeObject(global.gasoductos));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return Json(new SelectList(global.gasoductos, "Ut_Gasoducto", "Gasoducto"));            
         }
 
         [HttpPost]
         public JsonResult getTramos(string ut_gasoducto)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
-            Global.tramos = Consultas.getTramos(_context, ut_gasoducto);
-            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
-
-            return Json(new SelectList(Global.tramos, "Ut_Tramo", "Tramo"));
+            global.tramos = Consultas.getTramos(_context, ut_gasoducto);
+            //ViewBag.global = global;//
+            //return Json(JsonConvert.SerializeObject(global.gasoductos));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return Json(new SelectList(global.tramos, "Ut_Tramo", "Tramo"));
         }
     }
 }

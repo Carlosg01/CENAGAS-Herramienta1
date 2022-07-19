@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    Global global = (Global)ViewBag.global;
 }
 
 <script>
@@ -29,11 +30,11 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-round" role="button" title="@(User.FindFirst("NombreCompleto").Value)" data-toggle="dropdown" aria-expanded="false">
                 <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-header text-dark text-uppercase">@(User.FindFirst("Rol").Value)</a>
                 <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
@@ -52,7 +53,7 @@
                     <h3 class="mb-0">Administraciones de cambio</h3>
                 </div>
                 <button type="button" class="btn btn-lg btn-dark col-xs-12"
-                        data-toggle="modal" data-target="#nuevoADC-modal" data-url="@Url.Action($"ADC/{Global.proyectos.Id}")">
+                        data-toggle="modal" data-target="#nuevoADC-modal" data-url="@Url.Action($"ADC/{global.proyectos.Id}")">
                     Nuevo <span class="material-icons">add</span>
                 </button>
 
@@ -70,13 +71,13 @@
                                 Proyecto:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.proyectos.Nombre)
+                                @(global.proyectos.Nombre)
                             </dd>
                             <dt class="col-sm-3">
                                 Descripción:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.proyectos.Descripcion)
+                                @(global.proyectos.Descripcion)
                             </dd>
                         </dl>
                     </div>
@@ -85,14 +86,14 @@
         </div>
 
         <ul class="nav nav-tabs nav-fill" role="tablist">
-            @if (new List<int>() { Global.SUPERADMIN, Global.ADMINISTRADOR}.Contains(Global.session_usuario.user.Id_Rol))
+            @if (new List<int>() { global.SUPERADMIN, global.ADMINISTRADOR}.Contains(global.session_usuario.user.Id_Rol))
             {
                 <li class="nav-item">
                     <a class="nav-link active" id="project-add-details-tab" data-toggle="tab" href="#adc-todas" role="tab" aria-controls="adc-todas" aria-selected="true">Todas</a>
                 </li>
             }
             <li class="nav-item">
-                <a class="nav-link @(!(new List<int>() { Global.SUPERADMIN, Global.ADMINISTRADOR}.Contains(Global.session_usuario.user.Id_Rol)) ? "active" : "")" id="project-add-details-tab" data-toggle="tab" href="#adc-propuestas" role="tab" aria-controls="adc-propuestas" aria-selected="true">Mis propuestas</a>
+                <a class="nav-link @(!(new List<int>() { global.SUPERADMIN, global.ADMINISTRADOR}.Contains(global.session_usuario.user.Id_Rol)) ? "active" : "")" id="project-add-details-tab" data-toggle="tab" href="#adc-propuestas" role="tab" aria-controls="adc-propuestas" aria-selected="true">Mis propuestas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="project-add-members-tab" data-toggle="tab" href="#adc-cargo" role="tab" aria-controls="adc-cargo" aria-selected="false">A mi cargo</a>
@@ -100,10 +101,10 @@
         </ul>
 
         <div class="tab-content">
-            @if (new List<int>() { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+            @if (new List<int>() { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(global.session_usuario.user.Id_Rol))
             {
                 <div class="tab-pane fade show active" id="adc-todas" role="tabpanel">
-                    @if (Global.vista_adc != null && Global.vista_adc.Count() > 0)
+                    @if (global.vista_adc != null && global.vista_adc.Count() > 0)
                     {
                         <table id="example1" class="table table-striped table-bordered" style="width:100%">
                             <thead class="thead-dark">
@@ -122,7 +123,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Global.vista_adc)
+                                @foreach (var item in global.vista_adc)
                                 {
                                     <tr>
                                         <td>
@@ -132,7 +133,7 @@
                                             @(item.lider)
                                         </td>
                                         <td>
-                                            @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
+                                            @(global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
                                         </td>
 
                                         <td>
@@ -161,8 +162,8 @@
                 </div>
             }
 
-            <div class="tab-pane fade @(Global.session_usuario.user.Id_Rol != Global.SUPERADMIN && Global.session_usuario.user.Id_Rol != Global.ADMINISTRADOR ? "show active" : "")" id="adc-propuestas" role="tabpanel">
-                @if (Global.vista_adc_propuestas != null && Global.vista_adc_propuestas.Count() > 0)
+            <div class="tab-pane fade @(global.session_usuario.user.Id_Rol != global.SUPERADMIN && global.session_usuario.user.Id_Rol != global.ADMINISTRADOR ? "show active" : "")" id="adc-propuestas" role="tabpanel">
+                @if (global.vista_adc_propuestas != null && global.vista_adc_propuestas.Count() > 0)
                 {
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead class="thead-dark">
@@ -184,7 +185,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Global.vista_adc_propuestas)
+                            @foreach (var item in global.vista_adc_propuestas)
                             {
                                 <tr>
                                     <td>
@@ -197,7 +198,7 @@
                                         @(item.lider)
                                     </td>
                                     <td>
-                                        @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
+                                        @(global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
                                     </td>
 
                                     <td>
@@ -226,7 +227,7 @@
             </div>
 
             <div class="tab-pane fade" id="adc-cargo" role="tabpanel">
-                @if (Global.vista_adc_cargo != null && Global.vista_adc_cargo.Count() > 0 && Global.session_usuario.user.Id_Rol != Global.EMPLEADO)
+                @if (global.vista_adc_cargo != null && global.vista_adc_cargo.Count() > 0 && global.session_usuario.user.Id_Rol != global.EMPLEADO)
                 {
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead class="thead-dark">
@@ -240,12 +241,12 @@
                                 <th>
                                     Avance ADC
                                 </th>
-                                @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(global.session_usuario.user.Id_Rol))
                                 {
                                     <th></th>
                                 }
                                 <th></th>
-                                @if (new List<int> {Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                @if (new List<int> {global.SUPERADMIN, global.ADMINISTRADOR }.Contains(global.session_usuario.user.Id_Rol))
                                 {
                                     <th></th>
                                 }
@@ -253,7 +254,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Global.vista_adc_cargo)
+                            @foreach (var item in global.vista_adc_cargo)
                             {
                                 <tr>
                                     <td>
@@ -263,10 +264,10 @@
                                         @(item.lider)
                                     </td>
                                     <td>
-                                        @(Global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
+                                        @(global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
                                     </td>
 
-                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(global.session_usuario.user.Id_Rol))
                                     {
                                         <td>
                                             <button class="btn btn-dark" title="Detalles"
@@ -278,7 +279,7 @@
                                     <td>
                                         <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.adc.Id">Tareas</a>
                                     </td>
-                                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                    @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(global.session_usuario.user.Id_Rol))
                                     {
                                         <td>
                                             <button class="btn btn-round" title="Eliminar"

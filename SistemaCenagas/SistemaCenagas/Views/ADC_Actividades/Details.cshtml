@@ -21,7 +21,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+                    @(User.FindFirst("Titulo").Value + " " + User.FindFirst("Nombre").Value + " | " + User.FindFirst("Rol").Value)
                 </li>
             </ol>
         </nav>

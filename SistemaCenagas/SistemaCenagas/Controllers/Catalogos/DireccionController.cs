@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,24 +13,30 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class DireccionController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Global global;
 
         public DireccionController(ApplicationDbContext context)
         {
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            if (!Global.session.Equals("LogIn"))
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if (!global.session.Equals("LogIn"))
             {
+                ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.direcciones_ejecutivas = _context.Direccion_Ejecutiva.Where(a => a.Eliminado == 0).ToList();
+            global.direcciones_ejecutivas = _context.Direccion_Ejecutiva.Where(a => a.Eliminado == 0).ToList();
 
             var model = (from dir in _context.Direccion
                          join d in _context.Direccion_Ejecutiva on dir.Id_DireccionEjecutiva equals d.Id
@@ -39,36 +47,46 @@ namespace SistemaCenagas.Controllers
                              direccionEjecutiva = $"{d.Abreviatura} - {d.Nombre}",
                              _unidad = $"{u.Abreviatura} - {u.Nombre}"
                          }).ToList();
-
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View(model);
         }
 
         public async Task<IActionResult> Eliminados()
         {
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context).Where(u => u.user.Eliminado == 1);
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            global.vista_usuarios = Consultas.VistaUsuarios(_context).Where(u => u.user.Eliminado == 1);
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
-        {   
+        {
+        global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));   
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
             var model = await _context.Direccion
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (model == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         // GET: Usuarios/Create
         public IActionResult Create()
-        {   
+        {
+        global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));   
+            ViewBag.global = global;
             return PartialView();
         }
 
@@ -79,30 +97,37 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Direccion model)
         {
-            //return Content(JsonConvert.SerializeObject(usuario));
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            
             if (ModelState.IsValid)
             {
                 _context.Add(model);
                 await _context.SaveChangesAsync();
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
             var model = await _context.Direccion.FindAsync(id);
             if (model == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
             
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -113,8 +138,10 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Direccion model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id != model.Id)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -123,12 +150,14 @@ namespace SistemaCenagas.Controllers
 
                 _context.Update(model);
                 await _context.SaveChangesAsync();
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!UsuarioExists(model.Id))
                 {
+                    ViewBag.global = global;
                     return NotFound();
                 }
                 else
@@ -136,14 +165,17 @@ namespace SistemaCenagas.Controllers
                     throw;
                 }
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -151,10 +183,12 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (model == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
             
 
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -163,17 +197,21 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var model = await _context.Direccion.FindAsync(id);
             model.Eliminado = 1;
             _context.Update(model);
             await _context.SaveChangesAsync();
+            ViewBag.global = global;
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Restore(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -181,9 +219,11 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (model == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -192,15 +232,18 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var usuario = await _context.Direccion.FindAsync(id);
             usuario.Eliminado = 0;
             _context.Direccion.Update(usuario);
             await _context.SaveChangesAsync();
+            ViewBag.global = global;
             return RedirectToAction(nameof(Eliminados));
         }
 
         private bool UsuarioExists(int id)
         {
+            ViewBag.global = global;
             return _context.Direccion.Any(e => e.Id == id);
         }
     }

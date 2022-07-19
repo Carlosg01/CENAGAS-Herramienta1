@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="main-container">
@@ -20,11 +21,11 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-round" role="button" title="@(global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
                 <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-header text-dark text-uppercase">@(global.session_usuario.Rol)</a>
                 <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
@@ -42,12 +43,12 @@
         <div class="page-header mb-4">
             <div class="row content-list-head">
                 <div class="col-auto">
-                    <h2>@(Global.proyectos.Nombre)</h2>
+                    <h2>@(global.proyectos.Nombre)</h2>
                 </div>
             </div>
         </div>
 
-        @if (Global.anexos.Count() > 0)
+        @if (global.anexos.Count() > 0)
         {
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead class="thead-dark">
@@ -65,13 +66,13 @@
                     <!--ANEXO 1-->
                     <tr>
                         <td>
-                            @(Global.anexos.ElementAt(0).Id)
+                            @(global.anexos.ElementAt(0).Id)
                         </td>
                         <td>
-                            @(Global.anexos.ElementAt(0).Nombre)
+                            @(global.anexos.ElementAt(0).Nombre)
                         </td>
                         <td style="width:10%;">
-                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo1" asp-route-idProyecto="@(Global.proyectos.Id)">
+                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo1" asp-route-idProyecto="@(global.proyectos.Id)">
                                 <span class="material-icons">get_app</span>
                             </a>
                         </td>
@@ -79,10 +80,10 @@
                     <!--ANEXO 2-->
                     <tr>
                         <td>
-                            @(Global.anexos.ElementAt(1).Id)
+                            @(global.anexos.ElementAt(1).Id)
                         </td>
                         <td>
-                            @(Global.anexos.ElementAt(1).Nombre)
+                            @(global.anexos.ElementAt(1).Nombre)
                         </td>
                         <td style="width:10%;">
                             <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo2">
@@ -92,13 +93,13 @@
                     </tr>
                     <tr>
                         <td>
-                            @(Global.anexos.ElementAt(2).Id)
+                            @(global.anexos.ElementAt(2).Id)
                         </td>
                         <td>
-                            @(Global.anexos.ElementAt(2).Nombre)
+                            @(global.anexos.ElementAt(2).Nombre)
                         </td>
                         <td style="width:10%;">
-                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo3" asp-route-idProyecto="@(Global.proyectos.Id)">
+                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo3" asp-route-idProyecto="@(global.proyectos.Id)">
                                 <span class="material-icons">get_app</span>
                             </a>
                         </td>

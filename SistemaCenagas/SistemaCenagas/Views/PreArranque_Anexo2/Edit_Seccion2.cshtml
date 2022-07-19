@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit_Seccion2";
+    Global global = (Global)ViewBag.global;
 
     var x = Model;
 }
@@ -35,11 +36,11 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-round" role="button" title="@(global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
                 <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-header text-dark text-uppercase">@(global.session_usuario.Rol)</a>
                 <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
@@ -65,55 +66,57 @@
             <div class="card-body">
                 <div class="tab-content">
                     <div class="tab-pane fade show active" role="tabpanel" id="profile">
+                        <h4><b>Seccion 1: Datos generales</b></h4>
+                        <hr />
                         <!--end of avatar-->
                         <dl class="row">
                             <dt class="col-sm-3">
                                 Residencia:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.anexo2_prearranque.residencia)
+                                @(global.anexo2_prearranque.residencia)
                             </dd>
                             <dt class="col-sm-3">
                                 Proyecto:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.anexo2_prearranque.proyecto)
+                                @(global.anexo2_prearranque.proyecto)
                             </dd>
                             <dt class="col-sm-3">
                                 Instalación/Área:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.anexo2_prearranque.instalacion)
+                                @(global.anexo2_prearranque.instalacion)
                             </dd>
                             <dt class="col-sm-3">
                                 No. de Folio:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.prearranque.Folio)
+                                @(global.prearranque.prearranque.Folio)
                             </dd>
                             <dt class="col-sm-3">
                                 Responsable del pre-arranque:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.responsable)
+                                @(global.prearranque.responsable)
                             </dd>
                             <dt class="col-sm-3">
                                 Suplente:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.suplente)
+                                @(global.prearranque.suplente)
                             </dd>
                             <dt class="col-sm-3">
                                 Líder de equipo verificador:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.lider)
+                                @(global.prearranque.lider)
                             </dd>
                             <dt class="col-sm-3">
                                 Fecha de actualización:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.prearranque.Fecha_Actualizacion)
+                                @(global.prearranque.prearranque.Fecha_Actualizacion)
                             </dd>
                         </dl>
                     </div>
@@ -121,90 +124,126 @@
             </div>
         </div>
 
-        <table id="tabla" class="table table-bordered table-responsive-xl">
-            <thead class="thead-dark">
-                <tr>
-                    <th></th>
-                    <th>No.</th>
-                    <th>Elementos para revisión</th>
-                    <th>Tipo de revisión</th>
-                    <th>Tipo de hallazgo</th>
-                    <th>Atendido</th>
-                    <th>Observación</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = 0; i < Model.seccion2.Count(); i++)
-                {
-                    <tr style="background-color:gray; color:white;">
-                        <td style="width:5%;">
-                            <button class="btn btn-round accordion-button" data-toggle="collapse" data-target="#demo_@(i)" aria-expanded="true" aria-controls="collapse_@(i)">
-                                <span class="material-icons">arrow_drop_down_circle</span>
-                            </button>
-                        </td>
-                        <td style="width:5%;">@(i + 1)</td>
-                        <td style="width:35%;">@(Model.seccion2[i].tareas.Nombre)</td>
-                        <td style="font-size:10px">
-                            D=Revisión Documental <br />
-                            F=Revisión Física<br />
-                            DF=combinación de ambas revisiones
-                        </td>
-                        <td style="width:10%;">A ó B</td>
-                        <td style="width:10%;">Atendido</td>
-                        <td style="width:20%;">Observacion</td>
-                        <td style="width:5%;"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="12" style="padding:0 !important">
-                            <div id="demo_@(i)" class="accordion-collapse collapse" aria-labelledby="headingThree" aria-expanded="true">
-                                <table>
-                                    @{
-                                        int j = 0;
-                                    }
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="anexo2-seccion2-tab" data-toggle="tab" href="#anexo2-seccion2" role="tab" aria-controls="anexo2-seccion2" aria-selected="true" title="Revisión de Seguridad de Pre-Arranque. (criterios)">Seccion 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="anexo2-seccion3-tab" data-toggle="tab" href="#anexo2-seccion3" role="tab" aria-controls="anexo2-seccion3" aria-selected="false" title="Resultados de la Verificación">Seccion 3</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-pane fade show active" id="anexo2-seccion2" role="tabpanel">
+                <h4><b>Seccion 2: Revisión de Seguridad de Pre-Arranque. (criterios)</b></h4>
+                <hr />
+                <table id="tabla" class="table table-bordered table-responsive-xl">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>No.</th>
+                            <th>Elementos para revisión</th>
+                            <th>Tipo de revisión</th>
+                            <th>Tipo de hallazgo</th>
+                            <th>Atendido</th>
+                            <th>Estatus</th>
+                            <th>Observación</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.seccion2.Count(); i++)
+                        {
+                            <tr style="background-color:gray; color:white;">
+                                <td style="width:5%;">
+                                    <button class="btn btn-round accordion-button" data-toggle="collapse" data-target="#demo_@(i)" aria-expanded="true" aria-controls="collapse_@(i)">
+                                        <span class="material-icons">arrow_drop_down_circle</span>
+                                    </button>
+                                </td>
+                                <td style="width:5%;">@(i + 1)</td>
+                                <td style="width:25%;">@(Model.seccion2[i].tareas.Nombre)</td>
+                                <td style="font-size:10px">
+                                    D=Revisión Documental <br />
+                                    F=Revisión Física<br />
+                                    DF=combinación de ambas revisiones
+                                </td>
+                                <td style="width:10%;">A ó B</td>
+                                <td style="width:10%;">Atendido</td>
+                                <td style="width:10%;">Estatus</td>
+                                <td style="width:20%;">Observacion</td>
+                                <td style="width:5%;"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="padding:0 !important">
+                                    <div id="demo_@(i)" class="accordion-collapse collapse" aria-labelledby="headingThree" aria-expanded="true">
+                                        <table>
+                                            @{
+                                                int j = 0;
+                                            }
 
 
-                                    @foreach (var item in Model.seccion2[i].subtareas)
-                                    {
-                                        <tr>
-                                            <td style="width:5%;"></td>
-                                            <td style="width:5%;">@(i+1).@(j+1)</td>
-                                            <td style="width:35%;">
-                                                @(item.elemento.Elemento_Revision)
-                                            </td>
-                                            <td style="width:10%;">
-                                                @(item.elemento.Tipo_Revision == null ? "" :
+                                            @foreach (var item in Model.seccion2[i].subtareas)
+                                            {
+                                                <tr>
+                                                    <td style="width:5%;"></td>
+                                                    <td style="width:5%;">
+                                                        @(Model.seccion2[i].subtareas[j].elemento.Clave)
+                                                        
+                                                    </td>
+                                                    <td style="width:25%;">
+                                                        @(item.elemento.Elemento_Revision)
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        @(item.elemento.Tipo_Revision == null ? "" :
                                             item.elemento.Tipo_Revision.Equals("Revisión documental") ? "D" :
                                             item.elemento.Tipo_Revision.Equals("Revisión física") ? "F" : "DF")
-                                            </td>
-                                            <td style="width:10%;">
-                                                @(item.elemento.Tipo_Hallazgo)
-                                            </td>
-                                            <td style="width:10%;">
-                                                @(item.elemento.Atendido)
-                                            </td>
-                                            <td style="width:20%;">
-                                                @(item.elemento.Observacion)
-                                            </td>
-                                            <td style="width:5%;">
-                                                <button class="btn btn-round" title="Editar"
-                                                        data-toggle="modal" data-target="#editar-modal" data-url="@Url.Action($"Edit_Seccion2_Elementos/{item.elemento.Id}")">
-                                                    <span class="material-icons">edit</span>
-                                                </button>
-                                            </td>
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        @(item.elemento.Tipo_Hallazgo)
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        @(item.elemento.Atendido)
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        @if (item.elemento.Atendido == "Si")
+                                                        {
+                                                            <span style="height: 25px; width: 25px; background-color: green; border-radius: 50%; display: inline-block;"></span>
+                                                        }
+                                                        @if (item.elemento.Atendido == "No")
+                                                        {
+                                                            <span style="height: 25px; width: 25px; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                                                        }
 
-                                        </tr>
+                                                    </td>
+                                                    <td style="width:20%;">
+                                                        @(item.elemento.Observacion)
+                                                    </td>
+                                                    <td style="width:5%;">
+                                                        <button class="btn btn-round" title="Editar"
+                                                                data-toggle="modal" data-target="#editar-modal" data-url="@Url.Action($"Edit_Seccion2_Elementos/{item.elemento.Id}")">
+                                                            <span class="material-icons">edit</span>
+                                                        </button>
+                                                    </td>
 
-                                        j++;
-                                    }
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+                                                </tr>
 
-        </table>
+                                                j++;
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="anexo2-seccion3" role="tabpanel">
+                <h4><b>Sección 3. Resultados de la Verificación</b></h4>
+                <hr />
+            </div>
+        </div>
 
     </div>
 

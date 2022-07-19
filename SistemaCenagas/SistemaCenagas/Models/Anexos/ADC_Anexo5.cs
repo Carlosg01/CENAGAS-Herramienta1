@@ -19,6 +19,7 @@ namespace SistemaCenagas.Models
         public string Dia_Retiro { get; set; }
         public string Mes_Retiro { get; set; }
         public string Anio_Retiro { get; set; }
+        public string Confirmacion_Retiro_Cambios_Temporales { get; set; }
         public int Id_Anexo3 { get; set; }
 
     }

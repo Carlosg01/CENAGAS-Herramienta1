@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Global global = (Global)ViewBag.global;
 }
 
 <script>
@@ -66,7 +67,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre)
+                    @(global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre)
                 </h6>
                 <a asp-controller="ADC_Admin" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
@@ -83,7 +84,7 @@
                         <label asp-for="Id_Proyecto" class="col-2" style="text-align:right;">Proyecto</label>
                         <div class="col">
                             <select id="" asp-for="Id_Proyecto" class="form-control" required>
-                                @foreach (var item in Global.lista_proyectos_adc)
+                                @foreach (var item in global.lista_proyectos_adc)
                                 {
                                     <option value="@(item.Id)">@(item.Nombre)</option>
                                 }
@@ -114,7 +115,7 @@
                         <div class="col">
                             <select id="Residencia" asp-for="Id_Residencia" class="form-control" required>
                                 <option value="-1">--- Selecciona una opción ---</option>
-                                @foreach (var item in Global.residencias)
+                                @foreach (var item in global.residencias)
                                 {
                                     <option value="@(item.Id)">@(item.Nombre)</option>
                                 }

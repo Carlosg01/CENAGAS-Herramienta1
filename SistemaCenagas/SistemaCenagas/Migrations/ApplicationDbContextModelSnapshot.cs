@@ -302,6 +302,9 @@ namespace SistemaCenagas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Autorizacion_Inicio_Operacion")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Fecha_Retiro_Cambio_Temporal")
                         .HasColumnType("longtext");
 
@@ -335,6 +338,9 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Anio_Retiro")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Confirmacion_Retiro_Cambios_Temporales")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Descripcion")
@@ -1586,6 +1592,9 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Titulo")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Token")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Username")

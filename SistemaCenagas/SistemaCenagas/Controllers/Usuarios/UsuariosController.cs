@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,62 +15,86 @@ namespace SistemaCenagas.Controllers
     public class UsuariosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Global global;
 
         public UsuariosController(ApplicationDbContext context)
         {
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         [HttpPost]
         public JsonResult EmailAuto(string username)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             string email = username + "@cenagas.gob.mx";
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return Json(email);            
         }
 
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            if (!Global.session.Equals("LogIn"))
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if (!global.session.Equals("LogIn"))
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
 
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context);
+            global.vista_usuarios = Consultas.VistaUsuarios(_context);
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         public async Task<IActionResult> Eliminados()
         {
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context).Where(u => u.user.Eliminado == 1);
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            global.vista_usuarios = Consultas.VistaUsuarios(_context).Where(u => u.user.Eliminado == 1);
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
-        {   
+        {
+        global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));   
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
             var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
-            Global.usuario = new Global.V_Usuarios
+            global.usuario = new V_Usuarios
             {
                 Rol = _context.Roles.Where(
                     r => r.Id == usuario.Id_Rol).FirstOrDefault().Nombre
             };
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(usuario);
         }
 
         // GET: Usuarios/Create
         public IActionResult Create()
-        {   
+        {
+        global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));   
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView();
         }
 
@@ -80,33 +105,47 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Usuarios usuario)
         {
-            //return Content(JsonConvert.SerializeObject(usuario));
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return Content(JsonConvert.SerializeObject(usuario));
             if (ModelState.IsValid)
             {
                 usuario.Email = usuario.Username + "@cenagas.gob.mx";
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(usuario);
         }
 
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
-            Global.usuario = Consultas.VistaUsuarios(_context).Where(u => u.user.Id == id).FirstOrDefault();
+            global.usuario = Consultas.VistaUsuarios(_context).Where(u => u.user.Id == id).FirstOrDefault();
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(usuario);
         }
 
@@ -117,8 +156,11 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Usuarios usuario)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id != usuario.Id)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -130,20 +172,22 @@ namespace SistemaCenagas.Controllers
 
                     if (usuario.Id_Rol == 2)
                     {
-                        Global.lideres = _context.Usuarios
-                            .Where(u => u.Id_Rol == 2 && u.Id != Global.session_usuario.user.Id).ToList();
+                        global.lideres = _context.Usuarios
+                            .Where(u => u.Id_Rol == 2 && u.Id != global.session_usuario.user.Id).ToList();
                     }
                     if (usuario.Id_Rol == 3)
                     {
-                        Global.responsablesADC = _context.Usuarios
-                            .Where(u => u.Id_Rol == 3 && u.Id != Global.session_usuario.user.Id).ToList();
+                        global.responsablesADC = _context.Usuarios
+                            .Where(u => u.Id_Rol == 3 && u.Id != global.session_usuario.user.Id).ToList();
                     }
                     if (usuario.Id_Rol == 4)
                     {
-                        Global.suplentes = _context.Usuarios
-                            .Where(u => u.Id_Rol == 4 && u.Id != Global.session_usuario.user.Id).ToList();
+                        global.suplentes = _context.Usuarios
+                            .Where(u => u.Id_Rol == 4 && u.Id != global.session_usuario.user.Id).ToList();
                     }
-                    //return Content(JsonConvert.SerializeObject(usuario));
+                    HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+                    ViewBag.global = global;
+                    return Content(JsonConvert.SerializeObject(usuario));
 
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();
@@ -152,6 +196,8 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!UsuarioExists(usuario.Id))
                     {
+                        HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -159,10 +205,12 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
 
-            /*Global.usuario = new Global.V_Usuarios
+            /*global.usuario = new global.V_Usuarios
             {
                 user = _context.Usuarios.Find(id),
                 Rol = _context.Roles.Where(
@@ -170,14 +218,19 @@ namespace SistemaCenagas.Controllers
 
             };*/
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(usuario);
         }
 
         // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -185,14 +238,18 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
-            Global.usuario = new Global.V_Usuarios
+            global.usuario = new V_Usuarios
             {
                 Rol = _context.Roles.Where(
                     r => r.Id == usuario.Id_Rol).FirstOrDefault().Nombre
             };
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(usuario);
         }
 
@@ -201,17 +258,23 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var usuario = await _context.Usuarios.FindAsync(id);
             usuario.Eliminado = 1; 
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Restore(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -219,14 +282,18 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
-            Global.usuario = new Global.V_Usuarios
+            global.usuario = new V_Usuarios
             {
                 Rol = _context.Roles.Where(
                     r => r.Id == usuario.Id_Rol).FirstOrDefault().Nombre
             };
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(usuario);
         }
 
@@ -235,15 +302,20 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var usuario = await _context.Usuarios.FindAsync(id);
             usuario.Eliminado = 0;
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction(nameof(Eliminados));
         }
 
         private bool UsuarioExists(int id)
         {
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return _context.Usuarios.Any(e => e.Id == id);
         }
     }

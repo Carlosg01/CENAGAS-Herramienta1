@@ -14,6 +14,7 @@ namespace SistemaCenagas.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Token { get; set; }
         public int Id_Rol { get; set; }
         public string Estatus { get; set; }
         public string Confirmar_Password { get; set; }
@@ -30,4 +31,6 @@ namespace SistemaCenagas.Models
         public string Notificacion_ADC { get; set; }
         public int Eliminado { get; set; }
     }
+
+    
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo3-modal">
@@ -9,9 +10,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 3).FirstOrDefault().Nombre):
+                    @(global.anexos.Where(a => a.Id == 3).FirstOrDefault().Nombre):
                     <br />
-                    @(Global.proyectos.Nombre)
+                    @(global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="ADC_Procesos" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>

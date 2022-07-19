@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarNormativa-modal">
@@ -53,7 +54,7 @@
                         <label asp-for="Id" class="col-2" style="text-align:right;">Anexo</label>
                         <div class="col">
                             <select asp-for="Id" class="form-control" required>
-                                @foreach (var a in Global.anexos)
+                                @foreach (var a in global.anexos)
                                 {
                                     <option value="@(a.Id)">@(a.Nombre)</option>
                                 }

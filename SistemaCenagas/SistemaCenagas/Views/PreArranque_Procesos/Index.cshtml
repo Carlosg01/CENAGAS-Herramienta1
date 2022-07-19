@@ -1,11 +1,12 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    int resp = Global.RESPONSABLE_ADC;
-    int lider = Global.LIDER_EQUIPO_VERIFICADOR;
-    int ev = Global.EQUIPO_VERIFICADOR;
-    int admin = Global.ADMINISTRADOR;
-    int super = Global.SUPERADMIN;
+    Global global = (Global)ViewBag.global;
+    int resp = global.RESPONSABLE_ADC;
+    int lider = global.LIDER_EQUIPO_VERIFICADOR;
+    int ev = global.EQUIPO_VERIFICADOR;
+    int admin = global.ADMINISTRADOR;
+    int super = global.SUPERADMIN;
 }
 
 <div class="main-container">
@@ -25,11 +26,11 @@
         </nav>
 
         <div class="dropdown">
-            <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-round" role="button" title="@(global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
                 <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+                <a class="dropdown-header text-dark text-uppercase">@(global.session_usuario.Rol)</a>
                 <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
@@ -60,49 +61,49 @@
                                 Residencia:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.anexo2_prearranque.residencia)
+                                @(global.anexo2_prearranque.residencia)
                             </dd>
                             <dt class="col-sm-3">
                                 Proyecto:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.anexo2_prearranque.proyecto)
+                                @(global.anexo2_prearranque.proyecto)
                             </dd>
                             <dt class="col-sm-3">
                                 Instalación/Área:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.anexo2_prearranque.instalacion)
+                                @(global.anexo2_prearranque.instalacion)
                             </dd>
                             <dt class="col-sm-3">
                                 No. de Folio:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.prearranque.Folio)
+                                @(global.prearranque.prearranque.Folio)
                             </dd>
                             <dt class="col-sm-3">
                                 Responsable del pre-arranque:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.responsable)
+                                @(global.prearranque.responsable)
                             </dd>
                             <dt class="col-sm-3">
                                 Suplente:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.suplente)
+                                @(global.prearranque.suplente)
                             </dd>
                             <dt class="col-sm-3">
                                 Líder de equipo verificador:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.lider)
+                                @(global.prearranque.lider)
                             </dd>
                             <dt class="col-sm-3">
                                 Fecha de actualización:
                             </dt>
                             <dd class="col-sm-9">
-                                @(Global.prearranque.prearranque.Fecha_Actualizacion)
+                                @(global.prearranque.prearranque.Fecha_Actualizacion)
                             </dd>
                         </dl>
                     </div>
@@ -140,7 +141,7 @@
 
             <tbody>
 
-                @foreach (var actividad in Global.vista_tareas_prearranque)
+                @foreach (var actividad in global.vista_tareas_prearranque)
                 {
                     <tr>
                         <td>
@@ -148,8 +149,8 @@
                         </td>
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                            (Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                             Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+                            (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+                             global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
                                 <a asp-action="Normativas" asp-route-id="@(actividad.proceso.Id_Actividad)">
                                     @(actividad.actividad.Actividad)
@@ -194,60 +195,77 @@
 
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                     (Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                      Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+                    (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+                     global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
-                                <button class="btn btn-round" title="Editar actividad"
-                                        data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{actividad.proceso.Id}")">
-                                    <span class="material-icons">edit</span>
-                                </button>
+                                
+                                if ((actividad.actividad.Id == 1 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 2 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 3 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)))
+                                {
+                                    <button class="btn btn-round" title="Editar actividad"
+                                            data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{actividad.proceso.Id}")">
+                                        <span class="material-icons">edit</span>
+                                    </button>
+                                }
                             }
                         </td>
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                        (Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                         Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+                      (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+                       global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
-                                <button class="btn btn-round" title="Gestionar archivos"
-                                        data-toggle="modal" data-target="#archivoProceso-modal" data-url="@Url.Action($"Archivos/{actividad.proceso.Id}")">
-                                    <span class="material-icons">attach_file</span>
-                                </button>
+                                if ((actividad.actividad.Id == 1 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 2 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 3 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)))
+                                {
+                                    <button class="btn btn-round" title="Gestionar archivos"
+                                            data-toggle="modal" data-target="#archivoProceso-modal" data-url="@Url.Action($"Archivos/{actividad.proceso.Id}")">
+                                        <span class="material-icons">attach_file</span>
+                                    </button>
+                                }
+
                             }
 
                         </td>
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                              (Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                               Global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+                              (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+                               global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
-                                @if (actividad.actividad.Id == 1)
+                                @if (actividad.actividad.Id == 1 &&
+                                   new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE}.Contains(global.session_usuario.user.Id_Rol))
                                 {
-                                    <button class="btn btn-round" title="Anexo 1"
-                                            data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{Global.prearranque.prearranque.Id}", "PreArranque_Anexo1")">
+                                    <button class="btn btn-round" title="Integracion del equipo verificador"
+                                            data-toggle="modal" data-target="#editarAnexo1-modal" data-url="@Url.Action($"Edit/{global.prearranque.prearranque.Id}", "PreArranque_Anexo1")">
                                         <span class="material-icons">exit_to_app</span>
                                     </button>
                                 }
-                                @if (actividad.actividad.Id == 2)
+                                @if (actividad.actividad.Id == 2 &&
+                                   new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))
                                 {
 
                                     <!--button class="btn btn-round" title="Anexo 1"
-                                        data-toggle="modal" data-target="#editarAnexo3-modal" data-url="@Url.Action($"Edit2/{Global.prearranque.prearranque.Id}", "PreArranque_Anexo1")">
+                                        data-toggle="modal" data-target="#editarAnexo3-modal" data-url="@Url.Action($"Edit2/{global.prearranque.prearranque.Id}", "PreArranque_Anexo1")">
                                     <span class="material-icons">exit_to_app</span>
                                 </button-->
-                                    <a class="btn btn-round" asp-controller="PreArranque_Anexo1" asp-action="Edit2" asp-route-id="@(Global.prearranque.prearranque.Id)">
+                                    <a class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 7).FirstOrDefault().Nombre)" 
+                                       asp-controller="PreArranque_Anexo1" asp-action="Edit2" asp-route-id="@(global.prearranque.prearranque.Id)">
                                         <span class="material-icons">exit_to_app</span>
                                     </a>
                                 }
-                                @if (actividad.actividad.Id == 3)
+                                @if (actividad.actividad.Id == 3 &&
+                                   new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))
                                 {
-                                    <a class="btn btn-round" asp-controller="PreArranque_Anexo2" asp-action="Edit_Seccion2" asp-route-id="@(Global.prearranque.prearranque.Id)">
+                                    <a class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 8).FirstOrDefault().Nombre)" 
+                                       asp-controller="PreArranque_Anexo2" asp-action="Edit_Seccion2" asp-route-id="@(global.prearranque.prearranque.Id)">
                                         <span class="material-icons">exit_to_app</span>
                                     </a>
                                 }
                             }
                         </td>
                         <!--td style="width:15%;">
-                        <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(Global.prearranque.prearranque.Id)">
+                        <a class="btn btn-round form-control" title="Descargar reporte" asp-action="Anexo1_Descargar" asp-route-idADC="@(global.prearranque.prearranque.Id)">
                             <span class="material-icons">get_app</span>
                         </a>
                     </td-->
@@ -263,7 +281,7 @@
                         <label style="color:red;">Avance total:</label>
                     </td>
                     <td>
-                        <label style="color:red;"><b>@(ViewBag.avance_total / Global.vista_tareas_prearranque.Count()) %</b></label>
+                        <label style="color:red;"><b>@(ViewBag.avance_total / global.vista_tareas_prearranque.Count()) %</b></label>
                     </td>
                     <td></td>
                     <td></td>

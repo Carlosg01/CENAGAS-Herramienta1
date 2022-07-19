@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarUsuario-modal">
@@ -38,7 +39,7 @@
                         <label asp-for="Abreviatura" class="col-2" style="text-align:right;">Unidad</label>
                         <div class="col">
                             <select asp-for="Id_Unidad" class="form-control">
-                                @foreach (var item in Global.unidades)
+                                @foreach (var item in global.unidades)
                                 {
                                     <option value="@(item.Id)">@($"{item.Abreviatura} - {item.Nombre}")</option>
                                 }

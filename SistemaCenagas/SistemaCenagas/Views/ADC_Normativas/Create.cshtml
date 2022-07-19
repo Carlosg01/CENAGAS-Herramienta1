@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="main-container">
@@ -26,7 +27,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">
-                    @(Global.session_usuario.user.Titulo + " " + Global.session_usuario.user.Nombre + " | " + Global.session_usuario.Rol)
+                    @(global.session_usuario.user.Titulo + " " + global.session_usuario.user.Nombre + " | " + global.session_usuario.Rol)
                 </li>
             </ol>
         </nav>
@@ -48,7 +49,7 @@
                         <!--end of avatar-->
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Id_Actividad" value="@(Global.actividadADC.Id)" />
+                            <input type="hidden" asp-for="Id_Actividad" value="@(global.actividadADC.Id)" />
                             <input type="hidden" asp-for="Clave" value="@(ViewBag.clave_normativa)" />
                             <input type="hidden" asp-for="Eliminado" value="0" />
                             <div class="form-group row align-items-center">
@@ -82,7 +83,7 @@
                                 <label asp-for="Id" class="col-2" style="text-align:right;">Anexo</label>
                                 <div class="col">
                                     <select asp-for="Id" class="form-control" required>
-                                        @foreach(var a in Global.anexos)
+                                        @foreach(var a in global.anexos)
                                         {
                                             <option value="@(a.Id)">@(a.Nombre)</option>
                                         }

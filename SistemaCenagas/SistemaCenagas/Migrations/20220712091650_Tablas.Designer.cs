@@ -8,7 +8,7 @@ using SistemaCenagas.Data;
 namespace SistemaCenagas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220710044950_Tablas")]
+    [Migration("20220712091650_Tablas")]
     partial class Tablas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -304,6 +304,9 @@ namespace SistemaCenagas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Autorizacion_Inicio_Operacion")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Fecha_Retiro_Cambio_Temporal")
                         .HasColumnType("longtext");
 
@@ -337,6 +340,9 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Anio_Retiro")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Confirmacion_Retiro_Cambios_Temporales")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Descripcion")
@@ -1588,6 +1594,9 @@ namespace SistemaCenagas.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Titulo")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Token")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Username")

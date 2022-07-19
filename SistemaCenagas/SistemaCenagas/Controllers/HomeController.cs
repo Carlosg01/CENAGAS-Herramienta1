@@ -19,6 +19,11 @@ using Microsoft.AspNetCore.Identity;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 /*using System.Net;
 using System.Net.Mail;
@@ -29,9 +34,13 @@ namespace SistemaCenagas.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        //private string EMAIL_ADDRESS, EMAIL_PASSWORD;
+        private readonly IConfiguration _config;
+        private readonly ITokenService _tokenService;
+        private string generatedToken = null;
 
-        public HomeController(ApplicationDbContext context)
+        private Global global;
+
+        public HomeController(ApplicationDbContext context, IConfiguration config, ITokenService tokenService)
         {
             _context = context;
             ServicioEmail.EMAIL_ADDRESS = "aihm.mytests@gmail.com";
@@ -39,77 +48,175 @@ namespace SistemaCenagas.Controllers
             ServicioEmail.EMAIL_SERVER = "https://localhost:43366";
             ServicioEmail.EMAIL_SERVER = "http://cenagas-001-site1.htempurl.com/";
 
-            
+            _config = config;
+            _tokenService = tokenService;
 
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Roles> r = _context.Roles.ToList();
-            var u = _context.Usuarios.ToList();
 
-            Global.ADMINISTRADOR = _context.Roles.Where(x => x.Nombre.Equals("Administrador")).FirstOrDefault().Id;
-            Global.SUPERADMIN = _context.Roles.Where(x => x.Nombre.Equals("Superadmin")).FirstOrDefault().Id;
-            Global.RESPONSABLE_ADC = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la administración de cambio")).FirstOrDefault().Id;
-            Global.RESPONSABLE_PREARRANQUE = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la revisión de seguridad del pre-arranque")).FirstOrDefault().Id;
-            Global.SUPLENTE = _context.Roles.Where(x => x.Nombre.Equals("Suplente")).FirstOrDefault().Id;
-            Global.LIDER_EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Lider de equipo verificador")).FirstOrDefault().Id;
-            Global.EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Equipo verificador")).FirstOrDefault().Id;
-            Global.EMPLEADO = _context.Roles.Where(x => x.Nombre.Equals("Empleado")).FirstOrDefault().Id;
+            if (HttpContext.Session.GetString("Global") != null)
+            {
+                return RedirectToAction(nameof(Dashboard));
+            }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(new Global()));
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context);
-            Global.session = "LogOut";
+            //Se carga la informacion
+            global.ADMINISTRADOR = _context.Roles.Where(x => x.Nombre.Equals("Administrador")).FirstOrDefault().Id;
+            global.SUPERADMIN = _context.Roles.Where(x => x.Nombre.Equals("Superadmin")).FirstOrDefault().Id;
+            global.RESPONSABLE_ADC = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la administración de cambio")).FirstOrDefault().Id;
+            global.RESPONSABLE_PREARRANQUE = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la revisión de seguridad del pre-arranque")).FirstOrDefault().Id;
+            global.SUPLENTE = _context.Roles.Where(x => x.Nombre.Equals("Suplente")).FirstOrDefault().Id;
+            global.LIDER_EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Lider de equipo verificador")).FirstOrDefault().Id;
+            global.EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Equipo verificador")).FirstOrDefault().Id;
+            global.EMPLEADO = _context.Roles.Where(x => x.Nombre.Equals("Empleado")).FirstOrDefault().Id;
 
+            global.vista_usuarios = Consultas.VistaUsuarios(_context);
+            global.session = "LogOut";
+            /*
+
+            var token = "yeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhZG1pbkBjZW5hZ2FzLmdvYi5teCIsIm5iZiI6MTY1NzYxNjU4NSwiZXhwIjoxNjU3NjIwMTg1LCJpYXQiOjE2NTc2MTY1ODV9.Fwq4jTsK4E2utECzTzEl7JuzWXnPPAp_6PecYG2iim0";
+            var isValid = _tokenService.IsTokenValid(_config["SecretKey"].ToString(), token);
+
+            if (isValid)
+            {
+                HttpContext.Session.SetString("Token", token);
+                return RedirectToAction(nameof(Dashboard));
+            }
+
+            */
             //return Content(JsonConvert.SerializeObject(_context.Roles.ToList()));
-
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         [HttpPost]
+        [Route("Login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Usuarios user)
         {
             Usuarios us = _context.Usuarios.Where(u => u.Email == user.Email && 
                     u.Password == user.Password && u.Estatus != null).FirstOrDefault();
 
+            IActionResult response = Unauthorized();
+
+            Prueba p = new Prueba();
+
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            
+
             if (us != null && us.Estatus.Equals("Habilitado"))
             {
-                //return Content(JsonConvert.SerializeObject(us));
-                Global.session_usuario = new Global.V_Usuarios { 
-                    user = us,
-                    Rol = _context.Roles.Where(
-                    r => r.Id == us.Id_Rol).FirstOrDefault().Nombre 
-                };
-                return RedirectToAction(nameof(Dashboard));
+                /*
+                if(us.Token != null)
+                {
+                    HttpContext.Session.SetString("Token", us.Token);
+                    HttpContext.Session.SetString("User", JsonConvert.SerializeObject(us)); //.SetString("Token", us.Token);
+                    HttpContext.Session.SetString("prueba", JsonConvert.SerializeObject(p));
+                    return RedirectToAction(nameof(Dashboard));
+                }
+                */
+
+
+                generatedToken = _tokenService.BuildToken(_config["Jwt:SecretKey1"].ToString(), _config["Jwt:Issuer"].ToString(), us, _context);
+
+                if (generatedToken != null)
+                {
+                    HttpContext.Session.SetString("User", JsonConvert.SerializeObject(us));
+                    HttpContext.Session.SetString("Token", generatedToken);
+
+                    return RedirectToAction(nameof(Dashboard));
+                }
+                else
+                {
+                    global.ERROR_MSJ = "Error al generar el token!";
+                    return RedirectToAction(nameof(Index));
+                }
+                
+
             }
-            Global.ERROR_MSJ = "El correo o contraseña son incorrectos!";
+            global.ERROR_MSJ = "El correo o contraseña son incorrectos!";
+            return RedirectToAction(nameof(Index));
             //return Content(ViewBag.error ? "True" : "False");
 
-            return RedirectToAction(nameof(Index));
+
         }
 
-        public IActionResult Dashboard()
-        {
 
-            if (Global.session_usuario.user == null)
+        [Authorize]
+        public async Task<IActionResult> Dashboard()
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+
+            string token = HttpContext.Session.GetString("Token");
+            //var emailUserLogged = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier);
+            //var userLogged = _context.Usuarios.Where(u => u.Email == emailUserLogged.Value).FirstOrDefault();
+
+            //HttpContext.Session.SetString("Token", token);
+            var _user = JsonConvert.DeserializeObject<Usuarios>(HttpContext.Session.GetString("User"));
+
+            
+
+
+
+            _user.Token = token;
+
+            global.session_usuario = new V_Usuarios
+            {
+                user = new Usuarios
+                {
+                    Id = int.Parse(User.FindFirstValue("Id")),
+                    Id_Rol = int.Parse(User.FindFirstValue("Id_Rol")),
+                    Nombre = User.FindFirstValue("Nombre"),
+                    Titulo = User.FindFirstValue("Titulo"),
+                    Email = User.FindFirstValue("Email")
+                },
+                Rol = User.FindFirstValue("Rol") //_context.Roles.Where(r => r.Id == int.Parse(User.FindFirstValue("Rol"))).FirstOrDefault().Nombre
+            };
+
+            //var _prueba = JsonConvert.DeserializeObject<Prueba>(HttpContext.Session.GetString("prueba"));
+
+
+
+
+
+            if (token == null && !_tokenService.IsTokenValid(_config["Jwt:SecretKey1"].ToString(), _config["Jwt:Issuer"].ToString(), token))
+            {
+                
+                return RedirectToAction(nameof(Index));
+            }
+
+            
+
+            _context.Update(_user);
+            await _context.SaveChangesAsync();
+
+            
+
+            if (global.session_usuario.user == null)
                 return RedirectToAction(nameof(Index));
 
             //catalogos
-            Global.roles = _context.Roles.Where(r => r.Id != 1).ToList();            
-            Global.puestos = _context.Puestos.ToList();            
-            Global.residencias = _context.Residencias.ToList();
-            Global.lideres = _context.Usuarios.Where(u => u.Id_Rol == Global.LIDER_EQUIPO_VERIFICADOR && u.Id != Global.session_usuario.user.Id).ToList();
-            Global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == Global.RESPONSABLE_ADC && u.Id != Global.session_usuario.user.Id).ToList();
-            Global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == Global.SUPLENTE && u.Id != Global.session_usuario.user.Id).ToList();
-            Global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == Global.EQUIPO_VERIFICADOR && u.Id != Global.session_usuario.user.Id).ToList();
+            global.roles = _context.Roles.Where(r => r.Id != 1).ToList();            
+            global.puestos = _context.Puestos.ToList();            
+            global.residencias = _context.Residencias.ToList();
+            global.lideres = _context.Usuarios.Where(u => u.Id_Rol == global.LIDER_EQUIPO_VERIFICADOR && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
+            global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == global.RESPONSABLE_ADC && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
+            global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == global.SUPLENTE && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
+            global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == global.EQUIPO_VERIFICADOR && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
 
-            Global.anexos = _context.ADC_Anexos.ToList();
-            Global.vista_actividadesADC = _context.ADC_Actividades.ToList();
-            Global.vista_actividadesPreArranque = _context.PreArranque_Actividades.ToList();
+            global.anexos = _context.ADC_Anexos.ToList();
+            global.vista_actividadesADC = _context.ADC_Actividades.ToList();
+            global.vista_actividadesPreArranque = _context.PreArranque_Actividades.ToList();
 
-            //Global.lista_proyectos_adc = _context.Proyectos.Where(p => p.Estado_ADC)
+            //global.lista_proyectos_adc = _context.Proyectos.Where(p => p.Estado_ADC)
             
-            Global.session = "LogIn";
+            global.session = "LogIn";
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
@@ -217,25 +324,39 @@ namespace SistemaCenagas.Controllers
             return View();
         }
 
-        public IActionResult LogOut()
+        [Authorize]
+        public async Task<IActionResult> LogOut()
         {
-            Global.session = null;
-            Global.usuario.user = null;
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            var _user = JsonConvert.DeserializeObject<Usuarios>(HttpContext.Session.GetString("User"));
+            _user.Token = null;
+            global.session_usuario.user.Token = null;
+            _context.Update(_user);
+            await _context.SaveChangesAsync();
+
+            //var x = HttpContext.Session.GetString("Token");
+            global.session = null;
+            global.usuario.user = null;
+
+            HttpContext.Session.Clear();
+
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
         public IActionResult AccountSettings()
         {
-            return View((Usuarios)Global.session_usuario.user);
+            return View((Usuarios)global.session_usuario.user);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAccountSettings(Usuarios user)
         {
             /*actualiza tabla de usuarios*/
-            user.Id = Global.session_usuario.user.Id;
-            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id);
+            user.Id = int.Parse(User.FindFirstValue("Id"));
+            Usuarios consultaUsuario = _context.Usuarios.Find(int.Parse(User.FindFirstValue("Id")));
             consultaUsuario.Nombre = user.Nombre;
             consultaUsuario.Paterno = user.Paterno;
             consultaUsuario.Materno = user.Materno;
@@ -244,45 +365,47 @@ namespace SistemaCenagas.Controllers
             consultaUsuario.Observaciones = user.Observaciones;
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
-            Global.session_usuario.user = consultaUsuario;
-            
+            global.session_usuario.user = consultaUsuario;
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             return RedirectToAction(nameof(AccountSettings));
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdatePassword(Usuarios user)
         {
-            if (user.Password.Equals(Global.session_usuario.user.Password) &&
+            if (user.Password.Equals(global.session_usuario.user.Password) &&
                 user.Nueva_Password.Equals(user.Confirmar_Password))
             {
                 
                 /*actualiza tabla de usuarios*/
-                user.Id = Global.session_usuario.user.Id;
-                Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id);
+                user.Id = int.Parse(User.FindFirstValue("Id"));
+                Usuarios consultaUsuario = _context.Usuarios.Find(int.Parse(User.FindFirstValue("Id")));
                 consultaUsuario.Password = user.Nueva_Password;
                 _context.Update(consultaUsuario);
                 await _context.SaveChangesAsync();
-                Global.session_usuario.user = consultaUsuario;
+                global.session_usuario.user = consultaUsuario;
             }
-
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             return RedirectToAction(nameof(AccountSettings));
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Notificaciones(Usuarios user)
         {
             /*actualiza notificaciones de usuarios*/
-            user.Id = Global.session_usuario.user.Id;
-            Usuarios consultaUsuario = _context.Usuarios.Find(Global.session_usuario.user.Id);
+            user.Id = int.Parse(User.FindFirstValue("Id"));
+            Usuarios consultaUsuario = _context.Usuarios.Find(int.Parse(User.FindFirstValue("Id")));
             consultaUsuario.Notificacion_Tarea = user.Notificacion_Tarea;
             consultaUsuario.Notificacion_Proyecto = user.Notificacion_Proyecto;
             consultaUsuario.Notificacion_ADC = user.Notificacion_ADC;
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
-            Global.session_usuario.user = consultaUsuario;
-
+            global.session_usuario.user = consultaUsuario;
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             return RedirectToAction(nameof(AccountSettings));
         }
 

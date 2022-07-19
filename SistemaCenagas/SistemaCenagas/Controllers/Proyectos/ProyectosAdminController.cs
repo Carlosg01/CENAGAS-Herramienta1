@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,67 +15,88 @@ namespace SistemaCenagas.Controllers
     public class ProyectosAdminController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Global global;
 
         public ProyectosAdminController(ApplicationDbContext context)
         {
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         // GET: ProyectosAdmin
         public async Task<IActionResult> Index()
         {
-            if (!Global.session.Equals("LogIn"))
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if (!global.session.Equals("LogIn"))
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
-            Global.vista_proyectos = Consultas.VistaProyectos(_context);
+            global.vista_proyectos = Consultas.VistaProyectos(_context);
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         public async Task<IActionResult> Eliminados()
         {
-            Global.vista_proyectos = Consultas.VistaProyectos(_context).Where(p => p.Eliminado == 1);
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            global.vista_proyectos = Consultas.VistaProyectos(_context).Where(p => p.Eliminado == 1);
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return View();
         }
 
         // GET: ProyectosAdmin/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
-            Global.proyectos = await _context.Proyectos.FindAsync(id);
-            if (Global.proyectos == null)
+            global.proyectos = await _context.Proyectos.FindAsync(id);
+            if (global.proyectos == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
-            Global.miembrosProyecto = Consultas.VistaMiembrosProyecto(_context, Global.proyectos.Id);
+            global.miembrosProyecto = Consultas.VistaMiembrosProyecto(_context, global.proyectos.Id);
 
             Proyecto_Miembro_Model model_ProyectoMiembro = new Proyecto_Miembro_Model();
-            model_ProyectoMiembro.proyecto = Global.proyectos;
+            model_ProyectoMiembro.proyecto = global.proyectos;
             model_ProyectoMiembro.miembros = new List<string>();
             model_ProyectoMiembro.idMiembro = new List<int>();
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(model_ProyectoMiembro);
         }
 
         // GET: ProyectosAdmin/Create
         public IActionResult Create()
         {
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context)
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            global.vista_usuarios = Consultas.VistaUsuarios(_context)
                 .Where(u => u.user.Id_Rol > 2 && u.user.Eliminado == 0).ToList();
             ViewBag.clave = "PRO-CEN-UTA-022";
             Proyecto_Miembro_Model model_ProyectoMiembro = new Proyecto_Miembro_Model();
             model_ProyectoMiembro.miembros = new List<string>();
             model_ProyectoMiembro.idMiembro = new List<int>();
-            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+            for (int i = 0; i < global.vista_usuarios.Count(); i++)
             {
                 model_ProyectoMiembro.miembros.Add("false");
-                model_ProyectoMiembro.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id);
+                model_ProyectoMiembro.idMiembro.Add(global.vista_usuarios.ElementAt(i).user.Id);
             }
                 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(model_ProyectoMiembro);
         }
 
@@ -85,7 +107,10 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Proyecto_Miembro_Model _proyecto)
         {
-            //return Content(JsonConvert.SerializeObject(_proyecto));
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return Content(JsonConvert.SerializeObject(_proyecto));
             if (ModelState.IsValid)
             {
                 Proyectos p = new Proyectos
@@ -139,42 +164,51 @@ namespace SistemaCenagas.Controllers
                 }
                 /*_context.Add(proyecto);
                 await _context.SaveChangesAsync();*/
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(_proyecto);
         }
 
         // GET: ProyectosAdmin/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
-            Global.proyectos = await _context.Proyectos.FindAsync(id);
-            if (Global.proyectos == null)
+            global.proyectos = await _context.Proyectos.FindAsync(id);
+            if (global.proyectos == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
-            Global.miembrosProyecto = Consultas.VistaMiembrosProyecto(_context, Global.proyectos.Id);
+            global.miembrosProyecto = Consultas.VistaMiembrosProyecto(_context, global.proyectos.Id);
 
             Proyecto_Miembro_Model model_ProyectoMiembro = new Proyecto_Miembro_Model();
-            model_ProyectoMiembro.proyecto = Global.proyectos;
+            model_ProyectoMiembro.proyecto = global.proyectos;
             model_ProyectoMiembro.miembros = new List<string>();
             model_ProyectoMiembro.idMiembro = new List<int>();
 
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context)
+            global.vista_usuarios = Consultas.VistaUsuarios(_context)
                 .Where(u => u.user.Id_Rol > 2 && u.user.Eliminado == 0).ToList();
-            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+            for (int i = 0; i < global.vista_usuarios.Count(); i++)
             {
                 model_ProyectoMiembro.miembros.Add("false");
-                model_ProyectoMiembro.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id);
+                model_ProyectoMiembro.idMiembro.Add(global.vista_usuarios.ElementAt(i).user.Id);
 
-                for(int j = 0; j < Global.miembrosProyecto.Count(); j++)
+                for(int j = 0; j < global.miembrosProyecto.Count(); j++)
                 {
-                    if(Global.vista_usuarios.ElementAt(i).user.Id == Global.miembrosProyecto.ElementAt(j).pm.Id_Usuario &&
-                        Global.miembrosProyecto.ElementAt(j).pm.Estatus.Equals("Agregado"))
+                    if(global.vista_usuarios.ElementAt(i).user.Id == global.miembrosProyecto.ElementAt(j).pm.Id_Usuario &&
+                        global.miembrosProyecto.ElementAt(j).pm.Estatus.Equals("Agregado"))
                     {
                         model_ProyectoMiembro.miembros[i] = "true";
                         break;
@@ -183,6 +217,8 @@ namespace SistemaCenagas.Controllers
             }
 
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(model_ProyectoMiembro);
         }
 
@@ -193,10 +229,15 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Proyecto_Miembro_Model proyectos)
         {
-            //return Content(JsonConvert.SerializeObject(proyectos));
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+            ViewBag.global = global;
+            return Content(JsonConvert.SerializeObject(proyectos));
 
             if (id != proyectos.proyecto.Id)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -221,7 +262,9 @@ namespace SistemaCenagas.Controllers
                             p.Id_Usuario = proyectos.idMiembro[i];
                             p.Estatus = (proyectos.miembros[i].Equals("true") ? "Agregado" : "Eliminado");
                             _context.Update(p);
-                            //return Content(JsonConvert.SerializeObject(p));
+                            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+                            ViewBag.global = global;
+                            return Content(JsonConvert.SerializeObject(p));
                             
                         }
                         else if(proyectos.miembros[i].Equals("true"))
@@ -255,7 +298,9 @@ namespace SistemaCenagas.Controllers
 
                             }
 
-                            //return Content(JsonConvert.SerializeObject(pm));
+                            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+                            ViewBag.global = global;
+                            return Content(JsonConvert.SerializeObject(pm));
                         }
                         await _context.SaveChangesAsync();
                     }
@@ -265,6 +310,8 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!ProyectosExists(proyectos.proyecto.Id))
                     {
+                        HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -272,16 +319,23 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(proyectos);
         }
 
         // GET: ProyectosAdmin/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -289,10 +343,14 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (proyectos == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
-            Global.proyectos = Global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
+            global.proyectos = global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(proyectos);
         }
 
@@ -301,17 +359,23 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var proyectos = await _context.Proyectos.FindAsync(id);
             proyectos.Eliminado = 1;
             _context.Proyectos.Update(proyectos);
             await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Restore(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -319,10 +383,14 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (proyectos == null)
             {
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return NotFound();
             }
-            Global.proyectos = Global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
+            global.proyectos = global.vista_proyectos.Where(p => p.Id == id).FirstOrDefault();
 
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(proyectos);
         }
 
@@ -331,16 +399,21 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var proyectos = await _context.Proyectos.FindAsync(id);
             proyectos.Eliminado = 0;
             _context.Proyectos.Update(proyectos);
             await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction(nameof(Eliminados));
         }
 
 
         private bool ProyectosExists(int id)
         {
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return _context.Proyectos.Any(e => e.Id == id);
         }
     }

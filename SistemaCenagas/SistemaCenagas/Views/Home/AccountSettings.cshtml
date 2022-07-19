@@ -5,6 +5,7 @@
 For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Global global = (Global)ViewBag.global;
 }
 <div class="breadcrumb-bar navbar bg-white sticky-top">
     <nav aria-label="breadcrumb">
@@ -17,11 +18,11 @@ For more information on enabling MVC for empty projects, visit https://go.micros
     </nav>
 
     <div class="dropdown">
-        <button class="btn btn-round" role="button" title="@(Global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-round" role="button" title="@(global.session_usuario.nombre_completo)" data-toggle="dropdown" aria-expanded="false">
             <img alt="Image" src="~/assets/img/user.jpeg" class="avatar" />
         </button>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-header text-dark text-uppercase">@(Global.session_usuario.Rol)</a>
+            <a class="dropdown-header text-dark text-uppercase">@(global.session_usuario.Rol)</a>
             <a class="dropdown-item" asp-controller="Home" asp-action="AccountSettings">Configuración de la cuenta</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item text-danger" asp-controller="Home" asp-action="LogOut">Cerrar sesión</a>
@@ -82,7 +83,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                 <div class="form-group row align-items-center">
                                     <label asp-for="Id_Rol" class="col-3">Rol</label>
                                     <div class="col">
-                                        <input disabled type="text" value="@(Global.session_usuario.Rol)" class="form-control" />
+                                        <input disabled type="text" value="@(global.session_usuario.Rol)" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -132,7 +133,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                         <label class="custom-control-label" for="notify-1">Solicitudes de ADC</label>
                                     </div>
                                 </div>
-                                @if(new List<int>() { Global.ADMINISTRADOR, Global.SUPERADMIN, Global.RESPONSABLE_ADC, Global.SUPLENTE, Global.LIDER_EQUIPO_VERIFICADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                                @if(new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))
                                 {
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox custom-checkbox-switch">

@@ -2,13 +2,14 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Global global = (Global)ViewBag.global;
 }
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarProceso-modal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">@(Global.tarea_prearranque.actividad.Actividad)</h5>
+                <h5 class="modal-title">@(global.tarea_prearranque.actividad.Actividad)</h5>
                 <a asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>
                 </a>
@@ -44,7 +45,7 @@
                         </div>
                         <span asp-validation-for="Plan_Accion" class="text-danger"></span>
                     </div>
-                    @if (new List<int> { Global.SUPERADMIN, Global.ADMINISTRADOR }.Contains(Global.session_usuario.user.Id_Rol))
+                    @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(global.session_usuario.user.Id_Rol))
                     {
                         <div class="form-group row align-items-center">
                             <label class="col-2" style="text-align:right;">Terminado</label>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,33 +13,42 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class PreArranque_Anexo2Controller : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Global global;
 
         public PreArranque_Anexo2Controller(ApplicationDbContext context)
         {
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         // GET: Anexo1
         public async Task<IActionResult> Index()
         {
-            if (!Global.session.Equals("LogIn"))
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if (!global.session.Equals("LogIn"))
             {
+                ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
 
 
 
+            ViewBag.global = global;
             return View();
         }
 
         // GET: Anexo1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -45,28 +56,32 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (anexo1 == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            ViewBag.global = global;
             return View(anexo1);
         }
 
         // GET: Anexo1/Create
         public IActionResult Create()
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
             ViewBag.fecha = DateTime.Now.ToString();
 
-            Global.adcs_con_prearranque =
+            global.adcs_con_prearranque =
                 (from adc in Consultas.VistaADC(_context)
                  join pro in _context.ADC_Procesos on adc.adc.Id equals pro.Id_ADC
                  join p in _context.Proyectos on adc.id_proyecto equals p.Id
-                 where pro.Id_Actividad == 5 && pro.Terminado == "true" && pro.Confirmado == "true" && p.Id == Global.proyectos.Id
+                 where pro.Id_Actividad == 5 && pro.Terminado == "true" && pro.Confirmado == "true" && p.Id == global.proyectos.Id
                  select adc).ToList();
 
-            //Global.adcs_con_prearranque = Consultas.VistaADC(_context)
-              //  .Where(a => a.adc.PreArranque == "No" && a.adc.Id_Proyecto == Global.proyectos.Id);
+            //global.adcs_con_prearranque = Consultas.VistaADC(_context)
+              //  .Where(a => a.adc.PreArranque == "No" && a.adc.Id_Proyecto == global.proyectos.Id);
             
+            ViewBag.global = global;
             return PartialView();
         }
 
@@ -77,6 +92,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PreArranqueModel_Crear model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (ModelState.IsValid)
             {
                 PreArranque pre = new PreArranque
@@ -86,8 +102,8 @@ namespace SistemaCenagas.Controllers
                     Fecha_Actualizacion = model.preArranque.Fecha_Actualizacion,
                     Id_Proyecto = model.preArranque.Id_Proyecto,
                     Folio = "N/A",
-                    Id_Responsable = Global.session_usuario.user.Id,
-                    Id_Suplente = Global.session_usuario.user.Id,
+                    Id_Responsable = global.session_usuario.user.Id,
+                    Id_Suplente = global.session_usuario.user.Id,
                     //Id_LiderEquipoVerificador = model.preArranque.Id_LiderEquipoVerificador
                 };
                 PreArranque_Anexo2 anexo2 = null;
@@ -179,15 +195,16 @@ namespace SistemaCenagas.Controllers
                 await _context.SaveChangesAsync();
 
 
-                Global.prearranque = Consultas.PreArranqueVista(_context)
+                global.prearranque = Consultas.PreArranqueVista(_context)
                     .Where(a => a.prearranque.Id == pre.Id).FirstOrDefault();
 
-                for (int i = 0; i < Global.vista_actividadesPreArranque.Count(); i++)
+                for (int i = 0; i < global.vista_actividadesPreArranque.Count(); i++)
                 {
+                    //ViewBag.global = global;//
                     //return Content(JsonConvert.SerializeObject(a));
                     PreArranque_Procesos tarea = new PreArranque_Procesos
                     {
-                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id,
+                        Id_Actividad = global.vista_actividadesADC.ElementAt(i).Id,
                         Id_PreArranque = pre.Id,
                         Avance = i == 0 && model.preArranque.Con_ADC == "Si" ? 100 : 0,
                         Faltante_Comentarios = "N/A",
@@ -204,53 +221,60 @@ namespace SistemaCenagas.Controllers
 
                 var tareas = _context.PreArranque_Anexo2_Seccion2_Catalogo.ToList();
 
+                int ii = 1;
                 foreach(var tarea in tareas)
                 {
                     var item = new PreArranque_Anexo2_Seccion2
                     {
                         Nombre = tarea.Tarea,
-                        Id_Anexo2 = Global.prearranque.anexo2.Id
+                        Id_Anexo2 = global.prearranque.anexo2.Id
                     };
                     _context.Add(item);
                     await _context.SaveChangesAsync();
 
                     var subtareas = _context.PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo.Where(a => a.Id_Tarea == tarea.Id).ToList();
-
+                    int j = 1;
                     foreach(var subtarea in subtareas)
                     {
                         _context.Add(new PreArranque_Anexo2_Seccion2_ElementosRevision
                         {
+                            Clave = $"{ii}.{j}",
                             Elemento_Revision = subtarea.Subtarea,
                             Atendido = "",
                             Observacion = "",
                             Id_Anexo2_Seccion2 = item.Id
                         });
+                        j++;
                     }
+                    ii++; 
                 }
 
                 #endregion
 
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
-
+                ViewBag.global = global;
                 return RedirectToAction("Index", "PreArranque_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         public async Task<IActionResult> Create2()
         {
-            PreArranque pre = _context.PreArranque.Where(a => a.Id_ADC == Global.adc.adc.Id).FirstOrDefault();
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            PreArranque pre = _context.PreArranque.Where(a => a.Id_ADC == global.adc.adc.Id).FirstOrDefault();
             if (pre == null)
             {
                 pre = new PreArranque
                 {
                     Con_ADC = "Si",//model.preArranque.Con_ADC,
-                    Id_ADC = Global.adc.adc.Id,
+                    Id_ADC = global.adc.adc.Id,
                     Fecha_Actualizacion = DateTime.Now.ToString(),
-                    Id_Proyecto = Global.adc.adc.Id_Proyecto,
+                    Id_Proyecto = global.adc.adc.Id_Proyecto,
                     Folio = "N/A",
-                    Id_Responsable = Global.adc.adc.Id_ResponsableADC,
-                    Id_Suplente = Global.adc.adc.Id_ResponsableADC,
+                    Id_Responsable = global.adc.adc.Id_ResponsableADC,
+                    Id_Suplente = global.adc.adc.Id_ResponsableADC,
                     //Id_LiderEquipoVerificador = model.preArranque.Id_LiderEquipoVerificador
                 };
                 PreArranque_Anexo2 anexo2 = null;
@@ -312,12 +336,13 @@ namespace SistemaCenagas.Controllers
                 _context.Add(anexo1);
                 await _context.SaveChangesAsync();
 
-                for (int i = 0; i < Global.vista_actividadesPreArranque.Count(); i++)
+                for (int i = 0; i < global.vista_actividadesPreArranque.Count(); i++)
                 {
+                    //ViewBag.global = global;//
                     //return Content(JsonConvert.SerializeObject(a));
                     PreArranque_Procesos tarea = new PreArranque_Procesos
                     {
-                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id,
+                        Id_Actividad = global.vista_actividadesADC.ElementAt(i).Id,
                         Id_PreArranque = pre.Id,
                         Avance =  i == 0 ? 100 : 0,
                         Faltante_Comentarios = "N/A",
@@ -331,9 +356,40 @@ namespace SistemaCenagas.Controllers
                 }
             }
 
-            Global.prearranque = Consultas.PreArranqueVista(_context)
+            global.prearranque = Consultas.PreArranqueVista(_context)
                     .Where(a => a.prearranque.Id == pre.Id).FirstOrDefault();
 
+            #region Prearranque Anexo2 seccion 2
+
+            var tareas = _context.PreArranque_Anexo2_Seccion2_Catalogo.ToList();
+
+            foreach (var tarea in tareas)
+            {
+                var item = new PreArranque_Anexo2_Seccion2
+                {
+                    Nombre = tarea.Tarea,
+                    Id_Anexo2 = global.prearranque.anexo2.Id //global.prearranque.anexo2.Id
+                };
+                _context.Add(item);
+                await _context.SaveChangesAsync();
+
+                var subtareas = _context.PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo.Where(a => a.Id_Tarea == tarea.Id).ToList();
+
+                foreach (var subtarea in subtareas)
+                {
+                    _context.Add(new PreArranque_Anexo2_Seccion2_ElementosRevision
+                    {
+                        Elemento_Revision = subtarea.Subtarea,
+                        Atendido = "",
+                        Observacion = "",
+                        Id_Anexo2_Seccion2 = item.Id
+                    });
+                }
+            }
+
+            #endregion
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return RedirectToAction("Index", "PreArranque_Procesos");
         }
 
@@ -344,6 +400,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create2(PreArranqueModel_Crear model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (ModelState.IsValid)
             {
                 PreArranque pre = new PreArranque
@@ -353,8 +410,8 @@ namespace SistemaCenagas.Controllers
                     Fecha_Actualizacion = model.preArranque.Fecha_Actualizacion,
                     Id_Proyecto = model.preArranque.Id_Proyecto,
                     Folio = "N/A",
-                    Id_Responsable = Global.session_usuario.user.Id,
-                    Id_Suplente = Global.session_usuario.user.Id,
+                    Id_Responsable = global.session_usuario.user.Id,
+                    Id_Suplente = global.session_usuario.user.Id,
                     //Id_LiderEquipoVerificador = model.preArranque.Id_LiderEquipoVerificador
                 };
                 PreArranque_Anexo2 anexo2 = null;
@@ -446,15 +503,16 @@ namespace SistemaCenagas.Controllers
                 await _context.SaveChangesAsync();
 
 
-                Global.prearranque = Consultas.PreArranqueVista(_context)
+                global.prearranque = Consultas.PreArranqueVista(_context)
                     .Where(a => a.prearranque.Id == pre.Id).FirstOrDefault();
 
-                for (int i = 0; i < Global.vista_actividadesPreArranque.Count(); i++)
+                for (int i = 0; i < global.vista_actividadesPreArranque.Count(); i++)
                 {
+                    //ViewBag.global = global;//
                     //return Content(JsonConvert.SerializeObject(a));
                     PreArranque_Procesos tarea = new PreArranque_Procesos
                     {
-                        Id_Actividad = Global.vista_actividadesADC.ElementAt(i).Id,
+                        Id_Actividad = global.vista_actividadesADC.ElementAt(i).Id,
                         Id_PreArranque = pre.Id,
                         Avance = i == 0 && model.preArranque.Con_ADC == "Si" ? 100 : 0,
                         Faltante_Comentarios = "N/A",
@@ -467,24 +525,30 @@ namespace SistemaCenagas.Controllers
                     await _context.SaveChangesAsync();
                 }
 
+
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction("Index", "PreArranque_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         // GET: Anexo1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
-            Global.adcs_con_prearranque =
+            global.adcs_con_prearranque =
                 (from adc in Consultas.VistaADC(_context)
                  join pro in _context.ADC_Procesos on adc.adc.Id equals pro.Id_ADC
                  join p in _context.Proyectos on adc.id_proyecto equals p.Id
-                 where pro.Id_Actividad == 5 && pro.Terminado == "true" && pro.Confirmado == "true" && p.Id == Global.proyectos.Id
+                 where pro.Id_Actividad == 5 && pro.Terminado == "true" && pro.Confirmado == "true" && p.Id == global.proyectos.Id
                  select adc).ToList();
 
 
@@ -494,16 +558,17 @@ namespace SistemaCenagas.Controllers
             model.anexo2 = _context.PreArranque_Anexo2.Where(a => a.Id_Prearranque == id).FirstOrDefault();
             model.preArranque = _context.PreArranque.Find(id);
 
-            Global.proyectos = Consultas.VistaProyectos(_context)
+            global.proyectos = Consultas.VistaProyectos(_context)
                 .Where(p => p.Id == model.preArranque.Id_Proyecto).FirstOrDefault();
 
-            string residencia = Global.residencias.Where(r => r.Id == model.anexo2.Id_Residencia)
+            string residencia = global.residencias.Where(r => r.Id == model.anexo2.Id_Residencia)
                 .FirstOrDefault().Nombre;
 
-            Global.gasoductos = Consultas.getGasoductos(_context, residencia);
-            Global.tramos = Consultas.getTramos(_context, model.anexo2.Ut_Gasoducto);
+            global.gasoductos = Consultas.getGasoductos(_context, residencia);
+            global.tramos = Consultas.getTramos(_context, model.anexo2.Ut_Gasoducto);
 
-
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -514,13 +579,17 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PreArranqueModel_Crear model)
         {
-            //return Content(""+id);
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            ViewBag.global = global;//
+            return Content(""+id);
             if (id != model.preArranque.Id)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
 
+            //ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(anexo1));
 
             if (ModelState.IsValid)
@@ -536,6 +605,7 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!Anexo1Exists(model.preArranque.Id))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -543,24 +613,28 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                ViewBag.global = global;
                 return RedirectToAction("Index", "PreArranque_Admin");
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         // GET: Anexo1/Edit/5
         public async Task<IActionResult> Edit_Seccion2(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
             var model = new PreArranque_Anexo2_Model();
-            model.Id_Anexo2 = Global.prearranque.anexo2.Id;
+            model.Id_Anexo2 = global.prearranque.anexo2.Id;
             model.seccion2 = new List<PreArranque_Anexo2_Seccion2_Model>();
 
-            var tareas = _context.PreArranque_Anexo2_Seccion2.Where(a => a.Id_Anexo2 == Global.prearranque.anexo2.Id).ToList();
+            var tareas = _context.PreArranque_Anexo2_Seccion2.Where(a => a.Id_Anexo2 == global.prearranque.anexo2.Id).ToList();
             foreach(var tarea in tareas)
             {
 
@@ -579,10 +653,11 @@ namespace SistemaCenagas.Controllers
                     subtareas = subtareas
                 });
             }
-            
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
 
 
+            ViewBag.global = global;
             return View(model);
         }
 
@@ -593,13 +668,17 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit_Seccion2(int id, PreArranque_Anexo2_Model model)
         {
-            //return Content(""+id);
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            ViewBag.global = global;//
+            return Content(""+id);
             if (id != model.Id_Anexo2)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
 
+            //ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(anexo1));
 
             if (ModelState.IsValid)
@@ -622,6 +701,7 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!Anexo1Exists(model.Id_Anexo2))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -629,13 +709,16 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                ViewBag.global = global;
                 return RedirectToAction("Index", "PreArranque_Procesos");
             }
+            ViewBag.global = global;
             return View(model);
         }
 
         public async Task<IActionResult> Edit_Seccion2_Elementos(int? Id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var item = _context.PreArranque_Anexo2_Seccion2_ElementosRevision.Find(Id);
             var tarea = _context.PreArranque_Anexo2_Seccion2.Where(a => a.Id == item.Id_Anexo2_Seccion2).FirstOrDefault();
             var model = new PreArranque_Anexo2_Seccion2_ElementosRevision_Model
@@ -644,6 +727,7 @@ namespace SistemaCenagas.Controllers
                 TareaPrincipal = tarea.Nombre
             };
 
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -654,13 +738,17 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit_Seccion2_Elementos(int id, PreArranque_Anexo2_Seccion2_ElementosRevision_Model model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            //ViewBag.global = global;//
             //return Content(""+id);
             if (id != model.elemento.Id)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
 
+            //ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(anexo1));
 
             if (ModelState.IsValid)
@@ -672,15 +760,17 @@ namespace SistemaCenagas.Controllers
                     model.elemento.Atendido = model.RadioAtendido["atendido"].ToString();
                     _context.Update(model.elemento);
 
-                    Global.prearranque.prearranque.Fecha_Actualizacion = DateTime.Now.ToString();
-                    _context.Update(Global.prearranque.prearranque);
+                    global.prearranque.prearranque.Fecha_Actualizacion = DateTime.Now.ToString();
+                    _context.Update(global.prearranque.prearranque);
                     
                     await _context.SaveChangesAsync();
+                    HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!Anexo1Exists(model.elemento.Id))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -688,16 +778,20 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Edit_Seccion2", new { id = Global.prearranque.prearranque.Id });
+                ViewBag.global = global;
+                return RedirectToAction("Edit_Seccion2", new { id = global.prearranque.prearranque.Id });
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         // GET: Anexo1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -705,9 +799,11 @@ namespace SistemaCenagas.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (anexo1 == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
+            ViewBag.global = global;
             return View(anexo1);
         }
 
@@ -716,21 +812,25 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             var anexo1 = await _context.ADC_Anexo1.FindAsync(id);
             _context.ADC_Anexo1.Remove(anexo1);
             await _context.SaveChangesAsync();
+            ViewBag.global = global;
             return RedirectToAction(nameof(Index));
         }
 
         private bool Anexo1Exists(int id)
         {
+            ViewBag.global = global;
             return _context.PreArranque.Any(e => e.Id == id);
         }
 
         [HttpPost]
         public JsonResult getAdcPrearranque(int idProyecto)
         {
-            Global.adcsPrearranque =
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            global.adcsPrearranque =
                 (from vistaAdc in Consultas.VistaADC(_context)
                  join adc in _context.ADC on vistaAdc.adc.Id equals adc.Id
                  join pro in _context.ADC_Procesos on vistaAdc.adc.Id equals pro.Id_ADC
@@ -738,31 +838,39 @@ namespace SistemaCenagas.Controllers
                  where pro.Id_Actividad == 5 && pro.Terminado == "true" && pro.Confirmado == "true" && p.Id == idProyecto
                  select adc).ToList();
 
-            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
-            
-            return Json(new SelectList(Global.adcsPrearranque, "Id", "Folio"));
+            //ViewBag.global = global;
+                //return Json(JsonConvert.SerializeObject(global.gasoductos));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return Json(new SelectList(global.adcsPrearranque, "Id", "Folio"));
         }
 
         [HttpPost]
         public JsonResult getGasoductos(int id_residencia)
         {
-            string residencia = Global.residencias.Where(r => r.Id == id_residencia)
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            string residencia = global.residencias.Where(r => r.Id == id_residencia)
                 .FirstOrDefault().Nombre;
 
-            Global.gasoductos = Consultas.getGasoductos(_context, residencia);
-            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
-            
-            return Json(new SelectList(Global.gasoductos, "Ut_Gasoducto", "Gasoducto"));            
+            global.gasoductos = Consultas.getGasoductos(_context, residencia);
+            ViewBag.global = global;//
+            //return Json(JsonConvert.SerializeObject(global.gasoductos));
+            //HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return Json(new SelectList(global.gasoductos, "Ut_Gasoducto", "Gasoducto"));            
         }
 
         [HttpPost]
         public JsonResult getTramos(string ut_gasoducto)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
-            Global.tramos = Consultas.getTramos(_context, ut_gasoducto);
-            //return Json(JsonConvert.SerializeObject(Global.gasoductos));
-
-            return Json(new SelectList(Global.tramos, "Ut_Tramo", "Tramo"));
+            global.tramos = Consultas.getTramos(_context, ut_gasoducto);
+            ViewBag.global = global;//
+            //return Json(JsonConvert.SerializeObject(global.gasoductos));
+            //HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return Json(new SelectList(global.tramos, "Ut_Tramo", "Tramo"));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using SistemaCenagas.Data;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 using System;
 using System.Collections.Generic;
@@ -11,12 +13,12 @@ namespace SistemaCenagas
     {
         //------CATALOGOS-----
 
-        public static IEnumerable<Global.V_Usuarios> VistaUsuarios(ApplicationDbContext context)
+        public static IEnumerable<V_Usuarios> VistaUsuarios(ApplicationDbContext context)
         {
-            IEnumerable<Global.V_Usuarios> vu = (from u in context.Usuarios
+            IEnumerable<V_Usuarios> vu = (from u in context.Usuarios
                                                  join r in context.Roles on u.Id_Rol equals r.Id
                                                  where u.Id_Rol > 1
-                                                 select new Global.V_Usuarios
+                                                 select new V_Usuarios
                                                  {
                                                      user = u,
                                                      nombre_completo = u.Nombre + " " + u.Paterno + " " + u.Materno,
@@ -28,12 +30,12 @@ namespace SistemaCenagas
         {
             return context.Proyectos.ToList();
         }
-        public static IEnumerable<Global.V_MiembrosProyecto> VistaMiembrosProyecto(ApplicationDbContext context, int idProyecto)
+        public static IEnumerable<V_MiembrosProyecto> VistaMiembrosProyecto(ApplicationDbContext context, int idProyecto)
         {
             return (from m in context.Proyecto_Miembros
                     join u in context.Usuarios on m.Id_Usuario equals u.Id
                     where m.Id_Proyecto == idProyecto
-                    select new Global.V_MiembrosProyecto
+                    select new V_MiembrosProyecto
                     {
                         pm = m,
                         nombre_miembro = u.Nombre + " " + u.Paterno,
@@ -69,21 +71,22 @@ namespace SistemaCenagas
         {
             return context.ADC_Actividades.Where(a => a.Eliminado == 0).ToList();
         }
-        public static IEnumerable<Global.V_Normativas> VistaNormativasADC(ApplicationDbContext context)
+        public static IEnumerable<V_Normativas> VistaNormativasADC(ApplicationDbContext context, Global global)
         {
+            
             return (from n in context.ADC_Normativas
                     join a in context.ADC_Actividades on n.Id_Actividad equals a.Id
                     //join an in context.ADC_Anexos on n.Id equals an.Id
                     where n.Eliminado == 0 &&
-                          n.Id_Actividad == Global.actividadADC.Id
-                    select new Global.V_Normativas
+                          n.Id_Actividad == global.actividadADC.Id
+                    select new V_Normativas
                     {
                         adc_normativas = n,
                         actividad = a.Actividad,
                         anexo = n.Registro
                     }).ToList();
         }
-        public static IEnumerable<Global.V_ADC> VistaADC(ApplicationDbContext context)
+        public static IEnumerable<V_ADC> VistaADC(ApplicationDbContext context)
         {
             return (from a in context.ADC
                     join a1 in context.ADC_Anexo1 on a.Id equals a1.Id
@@ -94,7 +97,7 @@ namespace SistemaCenagas
                     join r in context.Usuarios on a.Id_ResponsableADC equals r.Id
                     join s in context.Usuarios on a.Id_Suplente equals s.Id
                     where a.Eliminado == 0
-                    select new Global.V_ADC
+                    select new V_ADC
                     {
                         adc = a,
                         anexo1 = a1,
@@ -107,7 +110,7 @@ namespace SistemaCenagas
                         suplente = s.Titulo + " " + s.Nombre + " " + s.Paterno + " " + s.Materno
                     }).ToList();
         }
-        public static IEnumerable<Global.V_ADC> VistaADC_EV(ApplicationDbContext context)
+        public static IEnumerable<V_ADC> VistaADC_EV(ApplicationDbContext context)
         {
             var _vista_adc = Consultas.VistaADC(context);
             return (from v in _vista_adc
@@ -117,7 +120,7 @@ namespace SistemaCenagas
                     ).ToList();
 
         }
-        public static Global.V_Anexo1 VistaAnexo1(ApplicationDbContext context, int? id_adc)
+        public static V_Anexo1 VistaAnexo1(ApplicationDbContext context, int? id_adc)
         {
             return (from a in context.ADC_Anexo1
                     join p in context.Proyectos on a.Id_Proyecto equals p.Id
@@ -127,7 +130,7 @@ namespace SistemaCenagas
                     join i in context.Instalaciones on t.Ut_Tramo equals i.Ut_Tramo
                     where a.Registro_Eliminado == 0 && a.Id == id_adc &&
                           i.Ut_Tramo.Equals(a.Ut_Tramo) && i.Residencia.Equals(t.Residencia)
-                    select new Global.V_Anexo1
+                    select new V_Anexo1
                     {
                         anexo1 = a,
                         proyecto = p.Nombre,
@@ -141,25 +144,25 @@ namespace SistemaCenagas
 
         
 
-        public static IEnumerable<Global.V_Tareas> VistaTareas(ApplicationDbContext context)
+        public static IEnumerable<V_Tareas> VistaTareas(ApplicationDbContext context)
         {
             return (from t in context.ADC_Procesos
                     join a in context.ADC_Actividades on t.Id_Actividad equals a.Id
                     where t.Eliminado == 0// && a.Id_Actividad == 1
-                    select new Global.V_Tareas
+                    select new V_Tareas
                     {
                         proceso = t,
                         actividad = a
                     }).ToList();
         }
-        public static IEnumerable<Global.V_ADC_ResponsablesDocumentacionAnexo3> VistaADCResponsablesDocumentacionAnexo3(ApplicationDbContext context, int idAnexo3)
+        public static IEnumerable<V_ADC_ResponsablesDocumentacionAnexo3> VistaADCResponsablesDocumentacionAnexo3(ApplicationDbContext context, int idAnexo3)
         {
             return (from docr in context.ADC_Anexo3_DocumentacionResponsable
                     join u in context.Usuarios on docr.Id_Responsable equals u.Id
                     join p in context.Puestos on u.Id_Puesto equals p.Id
                     where docr.Estatus.Equals("Agregado") && docr.Id_Anexo3 == idAnexo3
                     orderby docr.Id_Documentacion
-                    select new Global.V_ADC_ResponsablesDocumentacionAnexo3
+                    select new V_ADC_ResponsablesDocumentacionAnexo3
                     {
                         responsable = docr,
                         nombre = $"{u.Nombre} {u.Paterno} {u.Materno}",
@@ -167,14 +170,14 @@ namespace SistemaCenagas
                         email = u.Email
                     }).ToList();
         }
-        public static IEnumerable<Global.V_EquipoVerificador> VistaEquipoVerificador(ApplicationDbContext context, int idEV)
+        public static IEnumerable<V_EquipoVerificador> VistaEquipoVerificador(ApplicationDbContext context, int idEV)
         {
             return (from integrantes in context.ADC_Equipo_Verificador_Integrantes
                     join equipo in context.ADC_Equipo_Verificador on integrantes.Id_Equipo_Verificador_ADC equals equipo.Id
                     join usuarios in context.Usuarios on integrantes.Id_Usuario equals usuarios.Id
                     join puestos in context.Puestos on usuarios.Id_Puesto equals puestos.Id
                     where integrantes.Id_Equipo_Verificador_ADC == idEV
-                    select new Global.V_EquipoVerificador
+                    select new V_EquipoVerificador
                     {
                         integrante = integrantes,
                         nombre = $"{usuarios.Nombre} {usuarios.Paterno}",
@@ -182,16 +185,16 @@ namespace SistemaCenagas
                         email = usuarios.Email
                     }).ToList();
         }
-        public static IEnumerable<Global.V_Resumen> VistaResumenADC(ApplicationDbContext context)
+        public static IEnumerable<V_Resumen> VistaResumenADC(ApplicationDbContext context)
         {
-            IEnumerable<Global.V_Resumen> resumen = (from a1 in context.ADC_Anexo1
+            IEnumerable<V_Resumen> resumen = (from a1 in context.ADC_Anexo1
                                                      join adc in context.ADC on a1.Id equals adc.Id
                                                      join r in context.Residencias on a1.Id_Residencia equals r.Id
                                                      join p in context.Proyectos on a1.Id_Proyecto equals p.Id
                                                      join proc in context.ADC_Procesos on adc.Id equals proc.Id_ADC
                                                      where adc.Eliminado == 0 //&& proc.Id_Actividad == 1
 
-                                                     select new Global.V_Resumen
+                                                     select new V_Resumen
                                                      {
                                                          id_adc = adc.Id,
                                                          folio_adc = adc.Folio,
@@ -205,7 +208,7 @@ namespace SistemaCenagas
 
             return resumen
                 .GroupBy(r => r.id_adc)
-                .Select(s => new Global.V_Resumen
+                .Select(s => new V_Resumen
                 {
                     id_adc = s.First().id_adc,
                     folio_adc = s.First().folio_adc,
@@ -218,12 +221,12 @@ namespace SistemaCenagas
                     avance_Fisico = 0
                 }).ToList();
         }
-        public static IEnumerable<Global.V_Archivos> VistaArchivosADC(ApplicationDbContext context, int Id_Proceso)
+        public static IEnumerable<V_Archivos> VistaArchivosADC(ApplicationDbContext context, int Id_Proceso)
         {
             return (from a in context.ADC_Archivos
                     join u in context.Usuarios on a.Id_Usuario equals u.Id
                     where a.Id_Proceso == Id_Proceso
-                    select new Global.V_Archivos
+                    select new V_Archivos
                     {
                         archivo = a,
                         usuario = $"{u.Nombre} {u.Paterno}"
@@ -240,21 +243,21 @@ namespace SistemaCenagas
         {
             return context.PreArranque_Actividades.Where(a => a.Eliminado == 0).ToList();
         }
-        public static IEnumerable<Global.V_Normativas_PreArranque> PreArranqueVistaNormativas(ApplicationDbContext context)
+        public static IEnumerable<V_Normativas_PreArranque> PreArranqueVistaNormativas(ApplicationDbContext context, Global global)
         {
             return (from n in context.PreArranque_Normativas
                     join a in context.PreArranque_Actividades on n.Id_Actividad equals a.Id
                     //join an in context.ADC_Anexos on n.Id equals an.Id
                     where n.Eliminado == 0 &&
-                          n.Id_Actividad == Global.actividadPreArranque.Id
-                    select new Global.V_Normativas_PreArranque
+                          n.Id_Actividad == global.actividadPreArranque.Id
+                    select new V_Normativas_PreArranque
                     {
                         prearranque_normativas = n,
                         actividad = a.Actividad,
                         registro = n.Registro
                     }).ToList();
         }
-        public static IEnumerable<Global.V_PreArranque> PreArranqueVista(ApplicationDbContext context)
+        public static IEnumerable<V_PreArranque> PreArranqueVista(ApplicationDbContext context)
         {
             return (from a in context.PreArranque
                     join a2 in context.PreArranque_Anexo2 on a.Id equals a2.Id_Prearranque
@@ -264,7 +267,7 @@ namespace SistemaCenagas
                     join r in context.Usuarios on a.Id_Responsable equals r.Id
                     join s in context.Usuarios on a.Id_Suplente equals s.Id
                     where a.Eliminado == 0
-                    select new Global.V_PreArranque
+                    select new V_PreArranque
                     {
                         prearranque = a,
                         anexo2 = a2,
@@ -276,7 +279,7 @@ namespace SistemaCenagas
                         suplente = s.Titulo + " " + s.Nombre + " " + s.Paterno + " " + s.Materno
                     }).ToList();
         }
-        public static IEnumerable<Global.V_PreArranque> PreArranqueVista_EV(ApplicationDbContext context)
+        public static IEnumerable<V_PreArranque> PreArranqueVista_EV(ApplicationDbContext context)
         {
             var _vista_prearranque = Consultas.PreArranqueVista(context);
             return (from v in _vista_prearranque
@@ -286,7 +289,7 @@ namespace SistemaCenagas
                     ).ToList();
 
         }
-        public static Global.V_Anexo2_PreArranque PreArranqueVistaAnexo2(ApplicationDbContext context, int? id_adc)
+        public static V_Anexo2_PreArranque PreArranqueVistaAnexo2(ApplicationDbContext context, int? id_adc)
         {
             return (from a in context.PreArranque_Anexo2
                     join r in context.Residencias on a.Id_Residencia equals r.Id
@@ -297,7 +300,7 @@ namespace SistemaCenagas
                     join p in context.Proyectos on pre.Id_Proyecto equals p.Id
                     where a.Id_Prearranque == id_adc &&
                           i.Ut_Tramo.Equals(a.Ut_Tramo) && i.Residencia.Equals(t.Residencia)
-                    select new Global.V_Anexo2_PreArranque
+                    select new V_Anexo2_PreArranque
                     {
                         anexo2 = a,
                         proyecto = p.Nombre,
@@ -308,36 +311,36 @@ namespace SistemaCenagas
 
                     }).FirstOrDefault();
         }
-        public static IEnumerable<Global.V_Tareas_PreArranque> PreArranqueVistaTareas(ApplicationDbContext context)
+        public static IEnumerable<V_Tareas_PreArranque> PreArranqueVistaTareas(ApplicationDbContext context)
         {
             return (from t in context.PreArranque_Procesos
                     join a in context.PreArranque_Actividades on t.Id_Actividad equals a.Id
                     where t.Eliminado == 0// && a.Id_Actividad == 1
-                    select new Global.V_Tareas_PreArranque
+                    select new V_Tareas_PreArranque
                     {
                         proceso = t,
                         actividad = a
                     }).ToList();
         }
-        public static IEnumerable<Global.V_EquipoVerificador_PreArranque> PreArranqueVistaEquipoVerificador(ApplicationDbContext context, int idEV)
+        public static IEnumerable<V_EquipoVerificador_PreArranque> PreArranqueVistaEquipoVerificador(ApplicationDbContext context, int idEV)
         {
             return (from integrantes in context.PreArranque_Equipo_Verificador_Integrantes
                     join equipo in context.PreArranque_Equipo_Verificador on integrantes.Id_Equipo_Verificador_PreArranque equals equipo.Id
                     join usuarios in context.Usuarios on integrantes.Id_Usuario equals usuarios.Id
                     where integrantes.Id_Equipo_Verificador_PreArranque == idEV
-                    select new Global.V_EquipoVerificador_PreArranque
+                    select new V_EquipoVerificador_PreArranque
                     {
                         integrante = integrantes,
                         nombre = $"{usuarios.Nombre} {usuarios.Paterno}",
                         email = usuarios.Email
                     }).ToList();
         }
-        public static IEnumerable<Global.V_Archivos_PreArranque> PreArranqueVistaArchivos(ApplicationDbContext context, int Id_Proceso)
+        public static IEnumerable<V_Archivos_PreArranque> PreArranqueVistaArchivos(ApplicationDbContext context, int Id_Proceso)
         {
             return (from a in context.PreArranque_Archivos
                     join u in context.Usuarios on a.Id_Usuario equals u.Id
                     where a.Id_Proceso == Id_Proceso
-                    select new Global.V_Archivos_PreArranque
+                    select new V_Archivos_PreArranque
                     {
                         archivo = a,
                         usuario = $"{u.Nombre} {u.Paterno}"

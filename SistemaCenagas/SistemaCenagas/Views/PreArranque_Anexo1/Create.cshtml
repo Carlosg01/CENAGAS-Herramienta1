@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Global global = (Global)ViewBag.global;
 }
 
 
@@ -11,9 +12,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    @(Global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre):
+                    @(global.anexos.Where(a => a.Id == 1).FirstOrDefault().Nombre):
                     <br />
-                    @(Global.proyectos.Nombre)
+                    @(global.proyectos.Nombre)
                 </h6>
                 <a asp-controller="ADC_Proyecto" asp-action="Index" class="close btn btn-round">
                     <i class="material-icons">close</i>

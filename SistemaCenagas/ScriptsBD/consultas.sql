@@ -76,4 +76,4 @@ select * from prearranque_anexo2_seccion2_elementosrevision;
 
 select * from adc_anexo4;
 select * from adc_anexo5;
-select * from adc_anexo6;
+select * from adc_anexo6_documentacion;

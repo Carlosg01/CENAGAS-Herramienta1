@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,53 +13,62 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class ADC_Anexo3Controller : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Global global;
 
         public ADC_Anexo3Controller(ApplicationDbContext context)
         {
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         // GET: Anexo1
         public async Task<IActionResult> Index()
         {
-            if (!Global.session.Equals("LogIn"))
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if (!global.session.Equals("LogIn"))
             {
+                ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
+            ViewBag.global = global;
             return View();
         }
 
         // GET: Anexo1/Create
         public IActionResult Create()
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             ViewBag.fecha = DateTime.Now.ToString();
 
-            ViewBag.folio = Global.adc.adc.Folio;
-            ViewBag.TipoCambio1 = Global.anexo1.anexo1.Tipo_Cambio;
-            ViewBag.TipoCambio2 = $"{Global.adc.adc.Folio[2]}{Global.adc.adc.Folio[3]}";
+            ViewBag.folio = global.adc.adc.Folio;
+            ViewBag.TipoCambio1 = global.anexo1.anexo1.Tipo_Cambio;
+            ViewBag.TipoCambio2 = $"{global.adc.adc.Folio[2]}{global.adc.adc.Folio[3]}";
             ViewBag.TipoCambio2 = ViewBag.TipoCambio2 == "NV" ? "Nuevo" : "Modificado";
-            ViewBag.residencia = Global.anexo1.residencia;
-            ViewBag.liderEV = Global.adc.lider;
+            ViewBag.residencia = global.anexo1.residencia;
+            ViewBag.liderEV = global.adc.lider;
 
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == Global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
+            global.vista_usuarios = Consultas.VistaUsuarios(_context)
+                .Where(u => u.user.Id_Rol == global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
             ViewBag.clave = "PRO-CEN-UTA-022";
             /*
             Model_ProyectoMiembro model_ProyectoMiembro = new Model_ProyectoMiembro();
             model_ProyectoMiembro.miembros = new List<string>();
             model_ProyectoMiembro.idMiembro = new List<int>();
-            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+            for (int i = 0; i < global.vista_usuarios.Count(); i++)
             {
                 model_ProyectoMiembro.miembros.Add("false");
-                model_ProyectoMiembro.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id_Usuario);
+                model_ProyectoMiembro.idMiembro.Add(global.vista_usuarios.ElementAt(i).user.Id_Usuario);
             }
             */
             //Documentación
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
-
+            ViewBag.global = global;
             return PartialView();
         }
 
@@ -68,6 +79,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ADC_Anexo3Model_EquipoVerificador anexo3_model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (ModelState.IsValid)
             {
                 anexo3_model.anexo3.Tipo_ADC = anexo3_model.RadioTipo["tipo"].ToString();
@@ -75,8 +87,8 @@ namespace SistemaCenagas.Controllers
                     $"{anexo3_model.OtroElemento_CheckValue}:{anexo3_model.OtroElemento}" : anexo3_model.OtroElemento_CheckValue;
 
                 //Anexo3 anexo = anexo3.anexo33
-                anexo3_model.anexo3.Id_Anexo2 = Global.anexo1.anexo1.Id_Anexo2;
-                anexo3_model.anexo3.Id_Responsable_ADC = Global.adc.adc.Id_ResponsableADC;
+                anexo3_model.anexo3.Id_Anexo2 = global.anexo1.anexo1.Id_Anexo2;
+                anexo3_model.anexo3.Id_Responsable_ADC = global.adc.adc.Id_ResponsableADC;
                 anexo3_model.anexo3.Id_Director_Seguridad_Industrial = 1;
                 anexo3_model.anexo3.Id_Director_Ejecutivo_Operacion = 1;
                 anexo3_model.anexo3.Id_Director_Ejecutivo_Mantenimiento_y_Seguridad = 1;
@@ -84,8 +96,8 @@ namespace SistemaCenagas.Controllers
 
                 ADC_Equipo_Verificador ev = new ADC_Equipo_Verificador
                 {
-                    Id_ADC = Global.anexo1.anexo1.Id,
-                    Id_LiderEquipoVerificador = Global.adc.adc.Id_LiderEquipoVerificador
+                    Id_ADC = global.anexo1.anexo1.Id,
+                    Id_LiderEquipoVerificador = global.adc.adc.Id_LiderEquipoVerificador
                 };
 
                 _context.Add(ev);
@@ -125,7 +137,7 @@ namespace SistemaCenagas.Controllers
                         Id_Anexo3 = anexo3_model.anexo3.Id,
                         Id_Tipo = i,//catalogoDoc.ElementAt(i-1).Id,
                         Check = "false",
-                        //Id_Responsable = Global.adc.adc.Id_LiderEquipoVerificador
+                        //Id_Responsable = global.adc.adc.Id_LiderEquipoVerificador
                     });
                     _context.Update(anexo3_model.documentacion.ElementAt(i-1));
                     await _context.SaveChangesAsync();
@@ -158,45 +170,88 @@ namespace SistemaCenagas.Controllers
                 {
                     Id_Anexo1 = anexo3_model.anexo3.Id_Anexo1,
                     Id_Anexo3 = anexo3_model.anexo3.Id,
-                    Id_Residente = Global.ADMINISTRADOR
+                    Id_Residente = global.ADMINISTRADOR,
+                    Autorizacion_Inicio_Operacion = "Pendiente"
                 });
 
                 //ANEXO 5
                 _context.Add(new ADC_Anexo5
                 {
                     Id_Anexo1 = anexo3_model.anexo3.Id_Anexo1,
-                    Id_Responsable_Cambio_Temporal = Global.ADMINISTRADOR,
-                    Id_Anexo3 = anexo3_model.anexo3.Id
+                    Id_Responsable_Cambio_Temporal = global.ADMINISTRADOR,
+                    Id_Anexo3 = anexo3_model.anexo3.Id,
+                    Confirmacion_Retiro_Cambios_Temporales = "Pendiente"
                 });
 
                 //ANEXO 6
-                _context.Add(new ADC_Anexo6
+                var a6 = new ADC_Anexo6
                 {
                     Id_Anexo1 = anexo3_model.anexo3.Id_Anexo1,
                     Id_anexo3 = anexo3_model.anexo3.Id
-                });
-
+                };
+                _context.Add(a6);
 
                 await _context.SaveChangesAsync();
 
+                _context.AddRange( new List<ADC_Anexo6_Documentacion>()
+                {
+                    new ADC_Anexo6_Documentacion
+                    {
+                        Id_Anexo6 = a6.Id,
+                        Elemento = "Elemento 1",
+                        Check = "false",
+                        Seccion = "4"
+                    },
+                    new ADC_Anexo6_Documentacion
+                    {
+                        Id_Anexo6 = a6.Id,
+                        Elemento = "Elemento 2",
+                        Check = "false",
+                        Seccion = "4"
+                    },
+                    new ADC_Anexo6_Documentacion
+                    {
+                        Id_Anexo6 = a6.Id,
+                        Elemento = "Elemento 1",
+                        Check = "false",
+                        Seccion = "5"
+                    },
+                    new ADC_Anexo6_Documentacion
+                    {
+                        Id_Anexo6 = a6.Id,
+                        Elemento = "Elemento 2",
+                        Check = "false",
+                        Seccion = "5"
+                    },
+
+                }
+                );
+
+
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(anexo3_model);
         }
 
         // GET: Anexo1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
-            ViewBag.folio = Global.adc.adc.Folio;
-            ViewBag.TipoCambio1 = Global.anexo1.anexo1.Tipo_Cambio;
-            ViewBag.TipoCambio2 = $"{Global.adc.adc.Folio[2]}{Global.adc.adc.Folio[3]}";
+            ViewBag.folio = global.adc.adc.Folio;
+            ViewBag.TipoCambio1 = global.anexo1.anexo1.Tipo_Cambio;
+            ViewBag.TipoCambio2 = $"{global.adc.adc.Folio[2]}{global.adc.adc.Folio[3]}";
             ViewBag.TipoCambio2 = ViewBag.TipoCambio2 == "NV" ? "Nuevo" : "Modificado";
-            ViewBag.residencia = Global.anexo1.residencia;
-            ViewBag.liderEV = Global.adc.lider;
+            ViewBag.residencia = global.anexo1.residencia;
+            ViewBag.liderEV = global.adc.lider;
             ViewBag.clave = "PRO-CEN-UTA-022";
 
             int idEV = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == id).FirstOrDefault().Id;
@@ -223,19 +278,19 @@ namespace SistemaCenagas.Controllers
             //model.RadioRehabilitado = "false";
             //model.RadioModificado = "false";
 
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == Global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
+            global.vista_usuarios = Consultas.VistaUsuarios(_context)
+                .Where(u => u.user.Id_Rol == global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
 
             if(equipoVerificador != null)
             {
-                for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+                for (int i = 0; i < global.vista_usuarios.Count(); i++)
                 {
                     model.miembros.Add("false");
-                    model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id);
+                    model.idMiembro.Add(global.vista_usuarios.ElementAt(i).user.Id);
 
                     for (int j = 0; j < equipoVerificador.Count(); j++)
                     {
-                        if (Global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
+                        if (global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
                             equipoVerificador.ElementAt(j).integrante.Estatus.Equals("Agregado"))
                         {
                             model.miembros[i] = "true";
@@ -244,8 +299,9 @@ namespace SistemaCenagas.Controllers
                     }
                 }
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
-            
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -256,10 +312,13 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ADC_Anexo3Model_EquipoVerificador model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(proyectos));
 
             if (id != model.anexo3.Id_Anexo1)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -294,6 +353,7 @@ namespace SistemaCenagas.Controllers
                                 //p.Id_Usuario = proyectos.idMiembro[i];
                                 integrante.Estatus = (model.miembros[i].Equals("true") ? "Agregado" : "Eliminado");
                                 _context.Update(integrante);
+                                ViewBag.global = global;//
                                 //return Content(JsonConvert.SerializeObject(p));
 
                             }
@@ -322,6 +382,7 @@ namespace SistemaCenagas.Controllers
                                     });
                                 }
 
+                                ViewBag.global = global;//
                                 //return Content(JsonConvert.SerializeObject(pm));
                             }
                             await _context.SaveChangesAsync();
@@ -387,6 +448,7 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!Anexo3Exists(model.anexo3.Id))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -394,23 +456,27 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         public async Task<IActionResult> Edit2(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
-            ViewBag.folio = Global.adc.adc.Folio;
-            ViewBag.TipoCambio1 = Global.anexo1.anexo1.Tipo_Cambio;
-            ViewBag.TipoCambio2 = $"{Global.adc.adc.Folio[2]}{Global.adc.adc.Folio[3]}";
+            ViewBag.folio = global.adc.adc.Folio;
+            ViewBag.TipoCambio1 = global.anexo1.anexo1.Tipo_Cambio;
+            ViewBag.TipoCambio2 = $"{global.adc.adc.Folio[2]}{global.adc.adc.Folio[3]}";
             ViewBag.TipoCambio2 = ViewBag.TipoCambio2 == "NV" ? "Nuevo" : "Modificado";
-            ViewBag.residencia = Global.anexo1.residencia;
-            ViewBag.liderEV = Global.adc.lider;
+            ViewBag.residencia = global.anexo1.residencia;
+            ViewBag.liderEV = global.adc.lider;
             ViewBag.clave = "PRO-CEN-UTA-022";
 
             int idEV = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == id).FirstOrDefault().Id;
@@ -432,16 +498,16 @@ namespace SistemaCenagas.Controllers
                 model.OtroElemento_CheckValue = model.anexo3.Otro_Elemento;
             }
 
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context)
+            global.vista_usuarios = Consultas.VistaUsuarios(_context)
                 .Where(u => u.user.Id_Rol == 6 && u.user.Eliminado == 0).ToList();
-            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+            for (int i = 0; i < global.vista_usuarios.Count(); i++)
             {
                 model.miembros.Add("false");
-                model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id);
+                model.idMiembro.Add(global.vista_usuarios.ElementAt(i).user.Id);
 
                 for (int j = 0; j < equipoVerificador.Count(); j++)
                 {
-                    if (Global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
+                    if (global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
                         equipoVerificador.ElementAt(j).integrante.Estatus.Equals("Agregado"))
                     {
                         model.miembros[i] = "true";
@@ -449,6 +515,8 @@ namespace SistemaCenagas.Controllers
                     }
                 }
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -459,10 +527,13 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit2(int id, ADC_Anexo3Model_EquipoVerificador model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            //ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(proyectos));
 
             if (id != model.anexo3.Id_Anexo1)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -486,6 +557,7 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!Anexo3Exists(model.anexo3.Id))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -493,23 +565,27 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         public async Task<IActionResult> Edit3(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
-            ViewBag.folio = Global.adc.adc.Folio;
-            ViewBag.TipoCambio1 = Global.anexo1.anexo1.Tipo_Cambio;
-            ViewBag.TipoCambio2 = $"{Global.adc.adc.Folio[2]}{Global.adc.adc.Folio[3]}";
+            ViewBag.folio = global.adc.adc.Folio;
+            ViewBag.TipoCambio1 = global.anexo1.anexo1.Tipo_Cambio;
+            ViewBag.TipoCambio2 = $"{global.adc.adc.Folio[2]}{global.adc.adc.Folio[3]}";
             ViewBag.TipoCambio2 = ViewBag.TipoCambio2 == "NV" ? "Nuevo" : "Modificado";
-            ViewBag.residencia = Global.anexo1.residencia;
-            ViewBag.liderEV = Global.adc.lider;
+            ViewBag.residencia = global.anexo1.residencia;
+            ViewBag.liderEV = global.adc.lider;
             ViewBag.clave = "PRO-CEN-UTA-022";
 
             int idEV = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == id).FirstOrDefault().Id;
@@ -531,16 +607,16 @@ namespace SistemaCenagas.Controllers
                 model.OtroElemento_CheckValue = model.anexo3.Otro_Elemento;
             }
 
-            Global.vista_usuarios = Consultas.VistaUsuarios(_context)
+            global.vista_usuarios = Consultas.VistaUsuarios(_context)
                 .Where(u => u.user.Id_Rol == 6 && u.user.Eliminado == 0).ToList();
-            for (int i = 0; i < Global.vista_usuarios.Count(); i++)
+            for (int i = 0; i < global.vista_usuarios.Count(); i++)
             {
                 model.miembros.Add("false");
-                model.idMiembro.Add(Global.vista_usuarios.ElementAt(i).user.Id);
+                model.idMiembro.Add(global.vista_usuarios.ElementAt(i).user.Id);
 
                 for (int j = 0; j < equipoVerificador.Count(); j++)
                 {
-                    if (Global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
+                    if (global.vista_usuarios.ElementAt(i).user.Id == equipoVerificador.ElementAt(j).integrante.Id_Usuario &&
                         equipoVerificador.ElementAt(j).integrante.Estatus.Equals("Agregado"))
                     {
                         model.miembros[i] = "true";
@@ -548,6 +624,8 @@ namespace SistemaCenagas.Controllers
                     }
                 }
             }
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -558,10 +636,13 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit3(int id, ADC_Anexo3Model_EquipoVerificador model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            //ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(proyectos));
 
             if (id != model.anexo3.Id_Anexo1)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -585,6 +666,7 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!Anexo3Exists(model.anexo3.Id))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -592,23 +674,27 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         public async Task<IActionResult> Edit4(int? id)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (id == null)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
-            ViewBag.folio = Global.adc.adc.Folio;
-            ViewBag.TipoCambio1 = Global.anexo1.anexo1.Tipo_Cambio;
-            ViewBag.TipoCambio2 = $"{Global.adc.adc.Folio[2]}{Global.adc.adc.Folio[3]}";
+            ViewBag.folio = global.adc.adc.Folio;
+            ViewBag.TipoCambio1 = global.anexo1.anexo1.Tipo_Cambio;
+            ViewBag.TipoCambio2 = $"{global.adc.adc.Folio[2]}{global.adc.adc.Folio[3]}";
             ViewBag.TipoCambio2 = ViewBag.TipoCambio2 == "NV" ? "Nuevo" : "Modificado";
-            ViewBag.residencia = Global.anexo1.residencia;
-            ViewBag.liderEV = Global.adc.lider;
+            ViewBag.residencia = global.anexo1.residencia;
+            ViewBag.liderEV = global.adc.lider;
             ViewBag.clave = "PRO-CEN-UTA-022";
 
             int idEV = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == id).FirstOrDefault().Id;
@@ -616,7 +702,7 @@ namespace SistemaCenagas.Controllers
             ADC_Anexo3Model_EquipoVerificador model = new ADC_Anexo3Model_EquipoVerificador();
             model.anexo3 = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == id).OrderBy(a => a.Id).LastOrDefault();
 
-            Global.anexo3_CatalogoTipoDocumentacion = _context.ADC_Anexo3_CatalogoTipoDocumentacion.ToList();
+            global.anexo3_CatalogoTipoDocumentacion = _context.ADC_Anexo3_CatalogoTipoDocumentacion.ToList();
 
             var documentacion = _context.ADC_Anexo3_Documentacion.Where(a => a.Id_Anexo3 == model.anexo3.Id).ToList();
             model.documentacion = new ADC_Anexo3_Documentacion[22];
@@ -638,11 +724,14 @@ namespace SistemaCenagas.Controllers
                 model.OtroElemento_CheckValue = model.anexo3.Otro_Elemento;
             }
 
-            Global.responsablesDocumentacionAnexo3 = Consultas.VistaADCResponsablesDocumentacionAnexo3(
+            global.responsablesDocumentacionAnexo3 = Consultas.VistaADCResponsablesDocumentacionAnexo3(
                 _context, model.anexo3.Id).ToList();
             ViewBag.numResponsables = _context.ADC_Equipo_Verificador_Integrantes
                 .Where(a => a.Estatus.Equals("Agregado")).Count();
-            
+
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+
+            ViewBag.global = global;
             return PartialView(model);
         }
 
@@ -653,10 +742,13 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit4(int id, ADC_Anexo3Model_EquipoVerificador model)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            //ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(proyectos));
 
             if (id != model.anexo3.Id_Anexo1)
             {
+                ViewBag.global = global;
                 return NotFound();
             }
 
@@ -682,7 +774,7 @@ namespace SistemaCenagas.Controllers
                         doc.Check = model.documentacion[i].Check;
                         doc.Anotaciones = model.documentacion[i].Anotaciones;
                         doc.Responsable_Area = model.documentacion[i].Responsable_Area;
-                        //doc.Id_Responsable = Global.session_usuario.user.Id;
+                        //doc.Id_Responsable = global.session_usuario.user.Id;
                         _context.Update(doc);
                         i++;
                     }
@@ -694,6 +786,7 @@ namespace SistemaCenagas.Controllers
                 {
                     if (!Anexo3Exists(model.anexo3.Id))
                     {
+                        ViewBag.global = global;
                         return NotFound();
                     }
                     else
@@ -701,13 +794,16 @@ namespace SistemaCenagas.Controllers
                         throw;
                     }
                 }
+                ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");
             }
+            ViewBag.global = global;
             return PartialView(model);
         }
 
         private bool Anexo3Exists(int id)
         {
+            ViewBag.global = global;
             return _context.ADC_Anexo3.Any(e => e.Id == id);
         }
     }
