@@ -5,6 +5,45 @@
     Global global = (Global)ViewBag.global;
 }
 
+<script>
+    
+
+    function checkRadio() {
+
+        var radio_D = $("#radio_D").is(':checked');
+        var radio_F = $("#radio_F").is(':checked');
+        var radio_DF = $("#radio_DF").is(':checked');
+        var radio_A = $("#radio_A").is(':checked');
+        var radio_B = $("#radio_B").is(':checked');
+        var radio_SI = $("#radio_SI").is(':checked');
+        var radio_NO = $("#radio_NO").is(':checked');
+        var radio_NA = $("#radio_NA").is(':checked');
+        /*
+        alert("Radio D: " + radio_D +
+            ("\nRadio F: " + radio_F) +
+            ("\nRadio DF: " + radio_DF) +
+            ("\nRadio A: " + radio_A) +
+            ("\nRadio B: " + radio_B) +
+            ("\nRadio SI: " + radio_SI) +
+            ("\nRadio NO: " + radio_NO) +
+            ("\nRadio N/A: " + radio_NA));
+            */
+
+        if ((radio_D || radio_F || radio_DF) &&
+            (radio_A || radio_B) &&
+            (radio_SI || radio_NO || radio_NA)) {
+
+            
+            $("#btnGuardar").removeAttr('disabled');
+
+        }
+        
+        else {
+            $("#btnGuardar").attr('disabled', 'disabled');
+        }
+    }
+</script>
+
 <div class="modal fade" tabindex="-1" role="dialog" id="editar-modal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -37,19 +76,19 @@
                         <label class="col-2" style="text-align:right;">Tipo de revisión</label>
                         <div class="col form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="Revisión documental"
+                                <input class="form-check-input" type="radio" id="radio_D" onchange="checkRadio();" value="Revisión documental"
                                        @(Model.elemento.Tipo_Revision != null && Model.elemento.Tipo_Revision.Equals("Revisión documental") ? "checked='checked''" : "") name="tipoRevision" />
-                                <label class="form-check-label">Revisión documental</label>
+                                <label class="form-check-label">Revisión documental (D)</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="Revisión física"
+                                <input class="form-check-input" type="radio" id="radio_F" onchange="checkRadio();" value="Revisión física"
                                        @(Model.elemento.Tipo_Revision != null && Model.elemento.Tipo_Revision.Equals("Revisión física") ? "checked='checked''" : "") name="tipoRevision" />
-                                <label class="form-check-label">Revisión física</label>
+                                <label class="form-check-label">Revisión física (F)</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="Revisión documental y física"
+                                <input class="form-check-input" type="radio" id="radio_DF" onchange="checkRadio();" value="Revisión documental y física"
                                        @(Model.elemento.Tipo_Revision != null && Model.elemento.Tipo_Revision.Equals("Revisión documental y física") ? "checked='checked''" : "") name="tipoRevision" />
-                                <label class="form-check-label">Revisión documental y física</label>
+                                <label class="form-check-label">Revisión documental y física (DF)</label>
                             </div>
                         </div>
                     </div>
@@ -58,12 +97,12 @@
                         <label class="col-2" style="text-align:right;">Tipo de hallazgo</label>
                         <div class="col form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="A"
+                                <input class="form-check-input" type="radio" id="radio_A" value="A" onchange="checkRadio();"
                                        @(Model.elemento.Tipo_Hallazgo != null && Model.elemento.Tipo_Hallazgo.Equals("A") ? "checked='checked''" : "") name="tipoHallazgo" />
                                 <label class="form-check-label">A</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="B"
+                                <input class="form-check-input" type="radio" id="radio_B" value="B" onchange="checkRadio();"
                                        @(Model.elemento.Tipo_Hallazgo != null && Model.elemento.Tipo_Hallazgo.Equals("B") ? "checked='checked''" : "") name="tipoHallazgo" />
                                 <label class="form-check-label">B</label>
                             </div>
@@ -74,17 +113,17 @@
                         <label class="col-2" style="text-align:right;">Atendido</label>
                         <div class="col form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="Si"
+                                <input class="form-check-input" type="radio" id="radio_SI" value="Si" onchange="checkRadio();"
                                        @(Model.elemento.Atendido != null && Model.elemento.Atendido.Equals("Si") ? "checked='checked''" : "") name="atendido" />
                                 <label class="form-check-label">Si</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="No"
+                                <input class="form-check-input" type="radio" id="radio_NO" value="No" onchange="checkRadio();"
                                        @(Model.elemento.Atendido != null && Model.elemento.Atendido.Equals("No") ? "checked='checked''" : "") name="atendido" />
                                 <label class="form-check-label">No</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="N/A"
+                                <input class="form-check-input" type="radio" id="radio_NA" value="N/A" onchange="checkRadio();"
                                        @(Model.elemento.Atendido != null && Model.elemento.Atendido.Equals("N/A") ? "checked='checked''" : "") name="atendido" />
                                 <label class="form-check-label">N/A</label>
                             </div>
@@ -103,7 +142,7 @@
 
                     <div class="modal-footer">
 
-                        <button type="submit" role="button" class="btn btn-success">
+                        <button type="submit" id="btnGuardar" disabled role="button" class="btn btn-success">
                             Guardar
                         </button>
                         <a class="btn btn-dark" asp-action="Edit_Seccion2" asp-route-id="@(global.prearranque.prearranque.Id)">

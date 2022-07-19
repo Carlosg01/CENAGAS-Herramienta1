@@ -8,7 +8,7 @@ using SistemaCenagas.Data;
 namespace SistemaCenagas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220712091650_Tablas")]
+    [Migration("20220719151733_Tablas")]
     partial class Tablas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1145,6 +1145,9 @@ namespace SistemaCenagas.Migrations
 
                     b.Property<string>("Descripcion_Recomendacion")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Id_Anexo2")
+                        .HasColumnType("int");
 
                     b.Property<int>("Id_Responsable")
                         .HasColumnType("int");

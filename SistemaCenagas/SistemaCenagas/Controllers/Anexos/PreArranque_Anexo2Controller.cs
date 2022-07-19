@@ -35,9 +35,6 @@ namespace SistemaCenagas.Controllers
                 ViewBag.global = global;
                 return RedirectToAction("Index", "Home");
             }
-
-
-
             ViewBag.global = global;
             return View();
         }
@@ -244,6 +241,8 @@ namespace SistemaCenagas.Controllers
                             Observacion = "",
                             Id_Anexo2_Seccion2 = item.Id
                         });
+                        await _context.SaveChangesAsync();
+
                         j++;
                     }
                     ii++; 
@@ -363,6 +362,8 @@ namespace SistemaCenagas.Controllers
 
             var tareas = _context.PreArranque_Anexo2_Seccion2_Catalogo.ToList();
 
+            int ii = 1;
+
             foreach (var tarea in tareas)
             {
                 var item = new PreArranque_Anexo2_Seccion2
@@ -374,17 +375,22 @@ namespace SistemaCenagas.Controllers
                 await _context.SaveChangesAsync();
 
                 var subtareas = _context.PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo.Where(a => a.Id_Tarea == tarea.Id).ToList();
-
+                int j = 1;
                 foreach (var subtarea in subtareas)
                 {
                     _context.Add(new PreArranque_Anexo2_Seccion2_ElementosRevision
                     {
+                        Clave = $"{ii}.{j}",
                         Elemento_Revision = subtarea.Subtarea,
                         Atendido = "",
                         Observacion = "",
                         Id_Anexo2_Seccion2 = item.Id
                     });
+                    j++;
+                    await _context.SaveChangesAsync();
                 }
+                ii++;
+                
             }
 
             #endregion
@@ -641,6 +647,7 @@ namespace SistemaCenagas.Controllers
                 //var subtareas = _context.PreArranque_Anexo2_Seccion2_ElementosRevision.Where(a => a.Id_Anexo2_Seccion2 == tarea.Id).ToList();
                 var subtareas = (from a in _context.PreArranque_Anexo2_Seccion2_ElementosRevision
                                  where a.Id_Anexo2_Seccion2 == tarea.Id
+                                 //orderby a.Clave ascending
                                  select new PreArranque_Anexo2_Seccion2_ElementosRevision_Model
                                  {
                                      elemento = a,
@@ -653,6 +660,20 @@ namespace SistemaCenagas.Controllers
                     subtareas = subtareas
                 });
             }
+
+            model.seccion3 = (from s3 in _context.PreArranque_Anexo2_Seccion3
+                              join s2 in _context.PreArranque_Anexo2_Seccion2 on s3.Id_Anexo2 equals s2.Id_Anexo2
+                              join _s2 in _context.PreArranque_Anexo2_Seccion2_ElementosRevision on s2.Id equals _s2.Id_Anexo2_Seccion2
+                              where s3.Clave == _s2.Clave
+                              select new PreArranque_Anexo2_Seccion3_Model
+                              {
+                                  elemento = s3,
+                                  tarea = s2.Nombre,
+                                  subtarea = _s2.Elemento_Revision
+
+                              }).ToList();
+
+
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
 
@@ -669,8 +690,8 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Edit_Seccion2(int id, PreArranque_Anexo2_Model model)
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
-            ViewBag.global = global;//
-            return Content(""+id);
+            //ViewBag.global = global;//
+            //return Content(""+id);
             if (id != model.Id_Anexo2)
             {
                 ViewBag.global = global;
@@ -760,9 +781,96 @@ namespace SistemaCenagas.Controllers
                     model.elemento.Atendido = model.RadioAtendido["atendido"].ToString();
                     _context.Update(model.elemento);
 
+                    if(model.elemento.Atendido == "No")
+                    {
+                        if(!_context.PreArranque_Anexo2_Seccion3.Select(a => a.Clave).Contains(model.elemento.Clave))
+                        {
+                            _context.Add(new PreArranque_Anexo2_Seccion3
+                            {
+                                Clave = model.elemento.Clave,
+                                Riesgo = model.elemento.Tipo_Hallazgo,
+                                Id_Responsable = global.RESPONSABLE_PREARRANQUE,
+                                Id_Anexo2 = global.prearranque.anexo2.Id
+
+                            });
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+
                     global.prearranque.prearranque.Fecha_Actualizacion = DateTime.Now.ToString();
                     _context.Update(global.prearranque.prearranque);
                     
+                    await _context.SaveChangesAsync();
+                    HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Anexo1Exists(model.elemento.Id))
+                    {
+                        ViewBag.global = global;
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                ViewBag.global = global;
+                return RedirectToAction("Edit_Seccion2", new { id = global.prearranque.prearranque.Id });
+            }
+            ViewBag.global = global;
+            return PartialView(model);
+        }
+
+        public async Task<IActionResult> Edit_Seccion3_Elementos(int? Id)
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            
+            var model = (from s3 in _context.PreArranque_Anexo2_Seccion3
+                        join s2 in _context.PreArranque_Anexo2_Seccion2 on s3.Id_Anexo2 equals s2.Id_Anexo2
+                        join _s2 in _context.PreArranque_Anexo2_Seccion2_ElementosRevision on s2.Id equals _s2.Id_Anexo2_Seccion2
+                        where s3.Id == Id
+                        select new PreArranque_Anexo2_Seccion3_Model
+                        {
+                            elemento = s3,
+                            tarea = s2.Nombre,
+                            subtarea = _s2.Elemento_Revision
+
+                        }).FirstOrDefault();
+
+            ViewBag.global = global;
+            return PartialView(model);
+        }
+
+        // POST: Anexo1/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit_Seccion3_Elementos(int id, PreArranque_Anexo2_Seccion3_Model model)
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            //ViewBag.global = global;//
+            //return Content(""+id);
+            if (id != model.elemento.Id)
+            {
+                ViewBag.global = global;
+                return NotFound();
+            }
+
+
+            //ViewBag.global = global;//
+            //return Content(JsonConvert.SerializeObject(anexo1));
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(model.elemento);
+
+                    global.prearranque.prearranque.Fecha_Actualizacion = DateTime.Now.ToString();
+                    _context.Update(global.prearranque.prearranque);
+
                     await _context.SaveChangesAsync();
                     HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 }

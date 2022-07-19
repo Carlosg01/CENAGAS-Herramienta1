@@ -1144,6 +1144,9 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Descripcion_Recomendacion")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Id_Anexo2")
+                        .HasColumnType("int");
+
                     b.Property<int>("Id_Responsable")
                         .HasColumnType("int");
 

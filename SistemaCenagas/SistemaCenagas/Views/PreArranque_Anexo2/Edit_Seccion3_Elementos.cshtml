@@ -1,0 +1,94 @@
+﻿@model SistemaCenagas.Models.PreArranque_Anexo2_Seccion3_Model
+
+@{
+    ViewData["Title"] = "Edit_Seccion3_Elementos";
+    Global global = (Global)ViewBag.global;
+}
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editar-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">
+                    Elemento @(Model.elemento.Clave): Descripcion de hallazgos
+                </h6>
+                <a asp-action="Edit_Seccion2" asp-route-id="@(global.prearranque.prearranque.Id)" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+
+                <form asp-action="Edit_Seccion3_Elementos">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="elemento.Id" />
+                    <input type="hidden" asp-for="elemento.Id_Anexo2" />
+                    <input type="hidden" asp-for="elemento.Id_Responsable" />
+                    <input type="hidden" asp-for="elemento.Clave" />
+                    <input type="hidden" asp-for="elemento.Riesgo" />
+
+
+                    <div class="form-group row align-items-center">
+                        <h4><b>@(Model.tarea)</b></h4>
+                        <br />
+                        <p>@(Model.subtarea)</p>
+                    </div>
+                    <hr />
+
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Clave</label>
+                        <div class="col">
+                            <input type="text" asp-for="elemento.Clave" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Descripción del hallazgo</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="elemento.Descripcion_Hallazgo" class="form-control" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Riesgo</label>
+                        <div class="col">
+                            <input type="text" asp-for="elemento.Riesgo" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Descripción de la recomendación</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="elemento.Descripcion_Recomendacion" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-2" style="text-align:right;">Responsable</label>
+                        <div class="col">
+                            <textarea type="text" asp-for="elemento.Responsable" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="modal-footer">
+
+                        <button type="submit" id="btnGuardar" role="button" class="btn btn-success">
+                            Guardar
+                        </button>
+                        <a class="btn btn-dark" asp-action="Edit_Seccion2" asp-route-id="@(global.prearranque.prearranque.Id)">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--script type="text/javascript" src="~/lib/jquery/dist/combo_cascada_edit.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/combo_cascada.js"></script-->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

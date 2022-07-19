@@ -20,6 +20,7 @@ delete from adc;
 delete from prearranque_anexo1_actividades_acciones;
 delete from prearranque_anexo1_actividades;
 delete from prearranque_anexo1;
+delete from prearranque_anexo2_seccion3;
 #delete from prearranque_anexo2_seccion2_elementosrevision_catalogo;
 #delete from prearranque_anexo2_seccion2_catalogo;
 delete from prearranque_anexo2_seccion2_elementosrevision;

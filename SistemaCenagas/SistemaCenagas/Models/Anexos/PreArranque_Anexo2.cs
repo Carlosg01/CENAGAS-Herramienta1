@@ -40,7 +40,7 @@ namespace SistemaCenagas.Models
         public string Tipo_Revision { get; set; }
         public string Tipo_Hallazgo { get; set; }
         public string Atendido { get; set; }
-        
+
         public string Observacion { get; set; }
         public int Id_Anexo2_Seccion2 { get; set; } //FK
     }
@@ -57,8 +57,8 @@ namespace SistemaCenagas.Models
     public class PreArranque_Anexo2_Seccion2_Catalogo
     {
         [Key]
-        public int Id { get; set; } 
-        public string Tarea { get; set; } 
+        public int Id { get; set; }
+        public string Tarea { get; set; }
     }
     public class PreArranque_Anexo2_Seccion2_ElementosRevision_Catalogo
     {
@@ -78,6 +78,7 @@ namespace SistemaCenagas.Models
         public string Descripcion_Recomendacion { get; set; }
         public string Responsable { get; set; }
         public int Id_Responsable { get; set; }
+        public int Id_Anexo2 { get; set; } //FK
 
     }
 
@@ -85,13 +86,21 @@ namespace SistemaCenagas.Models
 
     public class PreArranque_Anexo2_Model
     {
+        //SECCION 2
         public int Id_Anexo2 { get; set; }
         public List<PreArranque_Anexo2_Seccion2_Model> seccion2 { get; set; }
-        public List<PreArranque_Anexo2_Seccion3> seccion3 { get; set; }
+        public List<PreArranque_Anexo2_Seccion3_Model> seccion3 { get; set; }
     }
     public class PreArranque_Anexo2_Seccion2_Model
     {
         public PreArranque_Anexo2_Seccion2 tareas { get; set; }
         public List<PreArranque_Anexo2_Seccion2_ElementosRevision_Model> subtareas { get; set; }
+    }
+
+    public class PreArranque_Anexo2_Seccion3_Model
+    {
+        public PreArranque_Anexo2_Seccion3 elemento { get; set; }
+        public string tarea { get; set; }
+        public string subtarea { get; set; }
     }
 }

@@ -2175,7 +2175,8 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Responsable = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Id_Responsable = table.Column<int>(type: "int", nullable: true)
+                    Id_Responsable = table.Column<int>(type: "int", nullable: true),
+                    Id_Anexo2 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2183,7 +2184,14 @@ namespace SistemaCenagas.Migrations
                     table.ForeignKey(
                        name: "FK_PreArranque_Anexo2_Seccion3__Id_Responsable",
                        column: x => x.Id_Responsable,
-                       principalTable: "PreArranque_Anexo2_Seccion2",
+                       principalTable: "Usuarios",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.SetNull
+                   );
+                    table.ForeignKey(
+                       name: "FK_PreArranque_Anexo2_Seccion3__Id_Anexo2",
+                       column: x => x.Id_Anexo2,
+                       principalTable: "PreArranque_Anexo2",
                        principalColumn: "Id",
                        onDelete: ReferentialAction.SetNull
                    );
@@ -2193,6 +2201,11 @@ namespace SistemaCenagas.Migrations
              name: "Index_PreArranque_Anexo2_Seccion3__Id_Responsable",
              table: "PreArranque_Anexo2_Seccion3",
              column: "Id_Responsable"
+             );
+            migrationBuilder.CreateIndex(
+             name: "Index_PreArranque_Anexo2_Seccion3__Id_Anexo2",
+             table: "PreArranque_Anexo2_Seccion3",
+             column: "Id_Anexo2"
              );
 
             #endregion
