@@ -55,10 +55,16 @@ namespace SistemaCenagas.Controllers
 
         public IActionResult Index()
         {
-
+            
             if (HttpContext.Session.GetString("Global") != null)
             {
+                global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+                if(global == null)
+                {
+                    HttpContext.Session.Clear();
+                }
                 return RedirectToAction(nameof(Dashboard));
+
             }
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(new Global()));
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
@@ -87,7 +93,7 @@ namespace SistemaCenagas.Controllers
             }
 
             */
-            //return Content(JsonConvert.SerializeObject(_context.Roles.ToList()));
+            ////return Content(JsonConvert.SerializeObject(_context.Roles.ToList()));
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
             return View();
@@ -140,7 +146,7 @@ namespace SistemaCenagas.Controllers
             }
             global.ERROR_MSJ = "El correo o contraseña son incorrectos!";
             return RedirectToAction(nameof(Index));
-            //return Content(ViewBag.error ? "True" : "False");
+            ////return Content(ViewBag.error ? "True" : "False");
 
 
         }
@@ -220,47 +226,7 @@ namespace SistemaCenagas.Controllers
             return View();
         }
 
-        public IActionResult CreateAccount()
-        {
-            ViewBag.CreateAccountSendEmail = false;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAccount(Usuarios user)
-        {
-            //return Content(JsonConvert.SerializeObject(user));
-
-            if (ModelState.IsValid)
-            {
-                if (user.Password.Equals(user.Confirmar_Password) &&
-                    user.Email.Split("@")[1].Equals("cenagas.gob.mx")) //validacion de dominio
-                {
-                    user.Username = user.Email.Split("@")[0];
-                    user.Nombre = "";
-                    user.Paterno = "";
-                    user.Materno = "";
-                    user.Titulo = "Ing.";
-                    user.Observaciones = "";
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
-
-                    ViewBag.CreateAccountSendEmail = true;
-                    ViewBag.email = user.Email;
-
-                    string emailText = "<h1>Bienvenido al sistema cenagas</h1>" +
-                    "<p>Por favor confirma tu email haciendo clic en el siguiente enlace. </p>";
-
-                    ServicioEmail.SendEmailResetPassword(user, "CreateAccountConfirm", "Confirma tu email para acceder", emailText);
-
-                    return View();
-                }                    
-            }
-            return View(user);
-
-        }
-
+        
         public IActionResult ForgotPassword()
         {
             ViewBag.ForgotPasswordSendEmail = false;
@@ -278,22 +244,6 @@ namespace SistemaCenagas.Controllers
             "<p>Por favor has clic en el siguiente enlace para resetear tu contraseña. </p>";
 
             ServicioEmail.SendEmailResetPassword(user, "ResetPassword", "Verificacion para cambio de contraseña", emailText);
-
-            return View();
-        }
-
-        
-
-        [HttpGet]
-        public async Task<IActionResult> CreateAccountConfirm(string idUser)
-        {
-            if (string.IsNullOrWhiteSpace(idUser))
-                return NotFound();
-
-            Usuarios confirmUser = _context.Usuarios.Find(int.Parse(idUser));
-            confirmUser.Estatus = "Habilitado";
-            _context.Update(confirmUser);
-            _context.SaveChanges();
 
             return View();
         }
@@ -346,6 +296,8 @@ namespace SistemaCenagas.Controllers
         [Authorize]
         public IActionResult AccountSettings()
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            ViewBag.global = global;
             return View((Usuarios)global.session_usuario.user);
         }
 
@@ -354,6 +306,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAccountSettings(Usuarios user)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             /*actualiza tabla de usuarios*/
             user.Id = int.Parse(User.FindFirstValue("Id"));
             Usuarios consultaUsuario = _context.Usuarios.Find(int.Parse(User.FindFirstValue("Id")));
@@ -366,6 +319,7 @@ namespace SistemaCenagas.Controllers
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
             global.session_usuario.user = consultaUsuario;
+            ViewBag.global = global;
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             return RedirectToAction(nameof(AccountSettings));
         }
@@ -375,6 +329,8 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdatePassword(Usuarios user)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+
             if (user.Password.Equals(global.session_usuario.user.Password) &&
                 user.Nueva_Password.Equals(user.Confirmar_Password))
             {
@@ -387,6 +343,7 @@ namespace SistemaCenagas.Controllers
                 await _context.SaveChangesAsync();
                 global.session_usuario.user = consultaUsuario;
             }
+            ViewBag.global = global;
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             return RedirectToAction(nameof(AccountSettings));
         }
@@ -396,6 +353,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Notificaciones(Usuarios user)
         {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             /*actualiza notificaciones de usuarios*/
             user.Id = int.Parse(User.FindFirstValue("Id"));
             Usuarios consultaUsuario = _context.Usuarios.Find(int.Parse(User.FindFirstValue("Id")));
@@ -405,6 +363,7 @@ namespace SistemaCenagas.Controllers
             _context.Update(consultaUsuario);
             await _context.SaveChangesAsync();
             global.session_usuario.user = consultaUsuario;
+            ViewBag.global = global;
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             return RedirectToAction(nameof(AccountSettings));
         }

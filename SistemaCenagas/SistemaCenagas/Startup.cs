@@ -85,9 +85,12 @@ namespace SistemaCenagas
             //services.AddControllers();
             
             services.AddTransient<ITokenService, TokenService>();
+            
             services.AddAuthentication(auth =>
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                
             })
             .AddJwtBearer(options =>
             {

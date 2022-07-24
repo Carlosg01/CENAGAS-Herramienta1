@@ -467,7 +467,7 @@ namespace SistemaCenagas.Controllers
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
             ViewBag.global = global;
-            return Content("Filename: " + uploadFile.Archivo.FileName);
+            //return Content("Filename: " + uploadFile.Archivo.FileName);
             await UploadFile(uploadFile);
             global.SUCCESS_MSJ = "El archivo se subió correctamente!";
             global.panelTareas = "";

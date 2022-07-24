@@ -324,8 +324,10 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (Id == null)
-                ViewBag.global = global;
+            {
+                //ViewBag.global = global;
                 return NotFound();
+            }
 
             global.proceso = _context.ADC_Procesos.Find(Id);
             global.tarea = Consultas.VistaTareas(_context).Where(a => a.proceso.Id == Id).FirstOrDefault();
@@ -341,7 +343,7 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             ViewBag.global = global;//
-            return Content("Filename: " + uploadFile.Archivo.FileName);
+            //return Content("Filename: " + uploadFile.Archivo.FileName);
             await UploadFile(uploadFile);
             global.SUCCESS_MSJ = "El archivo se subió correctamente!";
             global.panelTareas = "";

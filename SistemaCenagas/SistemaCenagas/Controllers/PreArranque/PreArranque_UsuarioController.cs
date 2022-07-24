@@ -164,7 +164,7 @@ namespace SistemaCenagas.Controllers
                 {
                     HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
                     ViewBag.global = global;
-                    return Content(JsonConvert.SerializeObject(aDC));
+                    //return Content(JsonConvert.SerializeObject(aDC));
                     _context.Update(aDC);
                     await _context.SaveChangesAsync();
                 }

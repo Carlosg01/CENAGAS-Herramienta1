@@ -350,9 +350,11 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             if (Id == null)
-                HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
-                ViewBag.global = global;
+            {
+                //HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+                //ViewBag.global = global;
                 return NotFound();
+            }
 
             global.proceso_prearranque = _context.PreArranque_Procesos.Find(Id);
             global.tarea_prearranque = Consultas.PreArranqueVistaTareas(_context).Where(a => a.proceso.Id == Id).FirstOrDefault();
@@ -369,7 +371,7 @@ namespace SistemaCenagas.Controllers
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
             ViewBag.global = global;
-            return Content("Filename: " + uploadFile.Archivo.FileName);
+            //return Content("Filename: " + uploadFile.Archivo.FileName);
             await UploadFile(uploadFile);
             global.SUCCESS_MSJ = "El archivo se subió correctamente!";
             global.panelTareas = "";

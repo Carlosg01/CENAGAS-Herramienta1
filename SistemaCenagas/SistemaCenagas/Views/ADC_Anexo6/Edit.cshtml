@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Edit";
     Global global = (Global)ViewBag.global;
+    List<ADC_Anexo6_Documentacion_Catalogo> a6_catalogo = (List<ADC_Anexo6_Documentacion_Catalogo>)ViewBag.a6_catalogo;
+
+    string fechaRecepcion = DateTime.Now.ToString();
 }
 
 
@@ -27,31 +30,88 @@
                     <input type="hidden" asp-for="anexo6.Id" />
                     <input type="hidden" asp-for="anexo6.Id_Anexo1" />
                     <input type="hidden" asp-for="anexo6.Id_anexo3" />
+                    <input type="hidden" asp-for="anexo6.Fecha_Recepcion" value="@(fechaRecepcion)" />
 
 
                     <div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Fecha de recepcion:</label>
                         <div class="col">
-                            <input type="date" class="form-control" asp-for="anexo6.Fecha_Recepcion" required />
+                            <input type="text" class="form-control" value="@(fechaRecepcion)" disabled />
                         </div>
                     </div>
-                    <div class="form-group row align-items-center">
+                    <!--div class="form-group row align-items-center">
                         <label class="col-2" style="text-align:right;">Fecha de inicio del cambio:</label>
                         <div class="col">
                             <input type="date" class="form-control" asp-for="anexo6.Fecha_Inicio" required />
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
-                        <label class="col-2" style="text-align:right;">Fecha de inicio del cambio:</label>
+                        <label class="col-2" style="text-align:right;">Fecha de termino del cambio:</label>
                         <div class="col">
                             <input type="date" class="form-control" asp-for="anexo6.Fecha_Termino" required />
                         </div>
-                    </div>
+                    </div-->
 
                     <hr>
-                    <p>El equipo verificador hace constar lo siguiente</p>
+                    <p>
+                        <b>El equipo verificador hace constar lo siguiente</b>                        
+                    </p>
                     <hr />
 
+                    <table>
+                        @for (int i = 0; i < 4; i++)
+                        {
+                            <tr>
+                                <td style="width:5%">
+                                    <input type="hidden" asp-for="documentacion[i].Id" class="">
+                                    <input type="hidden" asp-for="documentacion[i].Id_Anexo6" class="">
+                                    <input type="hidden" asp-for="documentacion[i].Id_Elemento_Catalogo" class="">
+                                    <input type="checkbox" asp-for="documentacion[i].Check" class="">
+                                </td>
+                                <td style="width:95%">
+                                    <label class="col" style="text-align:left;">@(a6_catalogo[i].Elemento)</label>
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+
+                    
+
+                    <hr>
+                    <p>
+                        <b>La siguiente documentación es parte del expediente de la administracion de cambio y se encuentra a resguardo de la dirección de seguridad industrial y del responsable de la administración de cambio.</b>
+                    </p>
+                    <hr />
+
+                    <table>
+                        @for (int i = 4; i < 15; i++)
+                        {
+                            <tr>
+                                <td style="width:5%">
+                                    <input type="hidden" asp-for="documentacion[i].Id" class="">
+                                    <input type="hidden" asp-for="documentacion[i].Id_Anexo6" class="">
+                                    <input type="hidden" asp-for="documentacion[i].Id_Elemento_Catalogo" class="">
+                                    <input type="checkbox" asp-for="documentacion[i].Check" class="">
+                                </td>
+                                <td style="width:45%">
+                                    <label class="col" style="text-align:left;">@(a6_catalogo[i].Elemento)</label>
+                                </td>
+                                <td style="width:5%">
+                                    <input type="hidden" asp-for="documentacion[i+11].Id" class="">
+                                    <input type="hidden" asp-for="documentacion[i+11].Id_Anexo6" class="">
+                                    <input type="hidden" asp-for="documentacion[i+11].Id_Elemento_Catalogo" class="">
+                                    <input type="checkbox" asp-for="documentacion[i+11].Check" class="">
+                                </td>
+                                <td style="width:45%">
+                                    <label class="col" style="text-align:left;">@(a6_catalogo[i+11].Elemento)</label>
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+
+                    <hr />
                     <div class="modal-footer">
 
                         <button type="submit" role="button" class="btn btn-success">

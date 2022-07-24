@@ -407,18 +407,32 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Check")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Elemento")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("Id_Anexo6")
                         .HasColumnType("int");
 
-                    b.Property<string>("Seccion")
-                        .HasColumnType("longtext");
+                    b.Property<int>("Id_Elemento_Catalogo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("ADC_Anexo6_Documentacion");
+                });
+
+            modelBuilder.Entity("SistemaCenagas.Models.ADC_Anexo6_Documentacion_Catalogo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Elemento")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Seccion")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ADC_Anexo6_Documentacion_Catalogo");
                 });
 
             modelBuilder.Entity("SistemaCenagas.Models.ADC_Anexos", b =>
@@ -1144,7 +1158,7 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Descripcion_Recomendacion")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Id_Anexo2")
+                    b.Property<int>("Id_Anexo2_Seccion2")
                         .HasColumnType("int");
 
                     b.Property<int>("Id_Responsable")

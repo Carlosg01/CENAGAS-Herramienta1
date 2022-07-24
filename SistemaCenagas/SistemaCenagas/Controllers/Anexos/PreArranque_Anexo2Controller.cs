@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -587,7 +587,7 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             ViewBag.global = global;//
-            return Content(""+id);
+            //return Content(""+id);
             if (id != model.preArranque.Id)
             {
                 ViewBag.global = global;
@@ -661,18 +661,22 @@ namespace SistemaCenagas.Controllers
                 });
             }
 
+            var secc3 = _context.PreArranque_Anexo2_Seccion3.ToList();
+
             model.seccion3 = (from s3 in _context.PreArranque_Anexo2_Seccion3
-                              join s2 in _context.PreArranque_Anexo2_Seccion2 on s3.Id_Anexo2 equals s2.Id_Anexo2
-                              join _s2 in _context.PreArranque_Anexo2_Seccion2_ElementosRevision on s2.Id equals _s2.Id_Anexo2_Seccion2
-                              where s3.Clave == _s2.Clave
+                              join s2Elementos in _context.PreArranque_Anexo2_Seccion2_ElementosRevision on s3.Id_Anexo2_Seccion2 equals s2Elementos.Id
+                              join s2 in _context.PreArranque_Anexo2_Seccion2 on s2Elementos.Id_Anexo2_Seccion2 equals s2.Id
+                              //where s3.Clave == _s2.Clave
                               select new PreArranque_Anexo2_Seccion3_Model
                               {
+
                                   elemento = s3,
                                   tarea = s2.Nombre,
-                                  subtarea = _s2.Elemento_Revision
+                                  subtarea = s2Elementos.Elemento_Revision,
+                                  //Id_Subtarea = _s2.Id
 
                               }).ToList();
-
+            
 
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
@@ -790,7 +794,7 @@ namespace SistemaCenagas.Controllers
                                 Clave = model.elemento.Clave,
                                 Riesgo = model.elemento.Tipo_Hallazgo,
                                 Id_Responsable = global.RESPONSABLE_PREARRANQUE,
-                                Id_Anexo2 = global.prearranque.anexo2.Id
+                                Id_Anexo2_Seccion2 = model.elemento.Id
 
                             });
                             await _context.SaveChangesAsync();
@@ -825,18 +829,20 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Edit_Seccion3_Elementos(int? Id)
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
-            
-            var model = (from s3 in _context.PreArranque_Anexo2_Seccion3
-                        join s2 in _context.PreArranque_Anexo2_Seccion2 on s3.Id_Anexo2 equals s2.Id_Anexo2
-                        join _s2 in _context.PreArranque_Anexo2_Seccion2_ElementosRevision on s2.Id equals _s2.Id_Anexo2_Seccion2
-                        where s3.Id == Id
-                        select new PreArranque_Anexo2_Seccion3_Model
-                        {
-                            elemento = s3,
-                            tarea = s2.Nombre,
-                            subtarea = _s2.Elemento_Revision
 
-                        }).FirstOrDefault();
+            var model = (from s3 in _context.PreArranque_Anexo2_Seccion3
+                         join s2Elementos in _context.PreArranque_Anexo2_Seccion2_ElementosRevision on s3.Id_Anexo2_Seccion2 equals s2Elementos.Id
+                         join s2 in _context.PreArranque_Anexo2_Seccion2 on s2Elementos.Id_Anexo2_Seccion2 equals s2.Id
+                         where s3.Id == Id
+                         select new PreArranque_Anexo2_Seccion3_Model
+                         {
+
+                             elemento = s3,
+                             tarea = s2.Nombre,
+                             subtarea = s2Elementos.Elemento_Revision,
+                             //Id_Subtarea = _s2.Id
+
+                         }).FirstOrDefault() ;
 
             ViewBag.global = global;
             return PartialView(model);

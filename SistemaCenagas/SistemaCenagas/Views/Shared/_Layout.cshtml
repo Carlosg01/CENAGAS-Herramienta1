@@ -68,7 +68,7 @@
                                 <ul class="nav nav-small flex-column">
 
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Solicitudes: @(User.FindFirst("Email").Value)</a>
+                                        <a class="nav-link" asp-controller="ProyectosUsuario" asp-action="Index">Solicitudes</a>
                                     </li>
                                     @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
                                     {
@@ -327,7 +327,7 @@
         }
 
         $("#ReportesBuscar").change(function () {
-            //alert("BUSCAR");
+            alert("BUSCAR");
             
             buscar('Reportes', '#ReportesBuscar', "#ReportesFiltrar");
         });

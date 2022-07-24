@@ -62,6 +62,8 @@ namespace SistemaCenagas.Controllers
                 documentacion = _context.ADC_Anexo6_Documentacion.Where(a => a.Id_Anexo6 == a6.Id).ToList()
             };
 
+            ViewBag.a6_catalogo = _context.ADC_Anexo6_Documentacion_Catalogo.ToList();
+
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
             return PartialView(model);
@@ -72,13 +74,13 @@ namespace SistemaCenagas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ADC_Anexo4 model)
+        public async Task<IActionResult> Edit(int id, ADC_Anexo6_Model model)
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             //ViewBag.global = global;//
             //return Content(JsonConvert.SerializeObject(proyectos));
 
-            if (id != model.Id_Anexo1)
+            if (id != model.anexo6.Id_Anexo1)
             {
                 ViewBag.global = global;
                 return NotFound();
@@ -88,16 +90,19 @@ namespace SistemaCenagas.Controllers
             {
                 try
                 {
+                    _context.Update(model.anexo6);
+                    _context.UpdateRange(model.documentacion);
 
-                    _context.Update(model);
-
+                    ADC_Procesos a = _context.ADC_Procesos.Where(a => a.Id_ADC == model.anexo6.Id_Anexo1 && a.Id_Actividad == 8).FirstOrDefault();
+                    a.Avance = 100;
+                    _context.Update(a);
                     
                     await _context.SaveChangesAsync();
 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!Anexo3Exists(model.Id_Anexo1))
+                    if (!Anexo3Exists(model.anexo6.Id_Anexo1))
                     {
                         ViewBag.global = global;
                         return NotFound();

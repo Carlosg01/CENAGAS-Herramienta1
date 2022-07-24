@@ -109,8 +109,8 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
-            ViewBag.global = global;
-            return Content(JsonConvert.SerializeObject(_proyecto));
+            //ViewBag.global = global;
+            ////return Content(JsonConvert.SerializeObject(_proyecto));
             if (ModelState.IsValid)
             {
                 Proyectos p = new Proyectos
@@ -231,8 +231,8 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
-            ViewBag.global = global;
-            return Content(JsonConvert.SerializeObject(proyectos));
+            //ViewBag.global = global;
+            ////return Content(JsonConvert.SerializeObject(proyectos));
 
             if (id != proyectos.proyecto.Id)
             {
@@ -262,9 +262,9 @@ namespace SistemaCenagas.Controllers
                             p.Id_Usuario = proyectos.idMiembro[i];
                             p.Estatus = (proyectos.miembros[i].Equals("true") ? "Agregado" : "Eliminado");
                             _context.Update(p);
-                            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
-                            ViewBag.global = global;
-                            return Content(JsonConvert.SerializeObject(p));
+                            //HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+                            //ViewBag.global = global;
+                            ////return Content(JsonConvert.SerializeObject(p));
                             
                         }
                         else if(proyectos.miembros[i].Equals("true"))
@@ -298,9 +298,9 @@ namespace SistemaCenagas.Controllers
 
                             }
 
-                            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
-                            ViewBag.global = global;
-                            return Content(JsonConvert.SerializeObject(pm));
+                            //HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
+                            //ViewBag.global = global;
+                            ////return Content(JsonConvert.SerializeObject(pm));
                         }
                         await _context.SaveChangesAsync();
                     }

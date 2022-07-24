@@ -2002,6 +2002,39 @@ insert into proyectos (Nombre, Descripcion, Estado_ADC, Estado_PreArranque, Elim
 
 
 
+insert into adc_anexo6_documentacion_catalogo (Elemento, Seccion) values
+('La administración de cambio al que hacemos referencia cumple lo dispuesto en la edición vigente en el procedimiento de administración de cambios temporales o definitivos, PRO-CEN-UTA-020.', 1),
+('Que la revisión de seguridad del pre-arranque resultó satisfactoria.', 1),
+('La presente administración de cambio resolvió el problematica que lo originó, que reporta los beneficios esperados.', 1),
+('Que el cambio temporal fue retirado y se retornó a las condiciones originales o de diseño.', 1),
+
+('Análisis del riesgo de proceso', 2),
+('Análisis del riesgo del ducto', 2),
+('Requerimientos de cumplimiento normativo', 2),
+('Actualización de procedimientos de operación', 2),
+('Actualización de procedimientos de mantenimiento', 2),
+('Actualización de procedimientos de seguridad', 2),
+('Actualización de procedimientos de servicios a usuarios', 2),
+('Actualización del plan de respuesta a emergencias', 2),
+('Dictamen emitido por una unidad verificadora', 2),
+('Actualización de capacitación y entrenamiento del personal', 2),
+('Revisión de seguridad del pre-arranque', 2),
+
+('Diagramas de flujo de proceso', 2),
+('Diagramas de tubería e instrumentación (DTI)', 2),
+('Planos de construcción', 2),
+('Planos de diseño', 2),
+('Planos de clasificación eléctrica', 2),
+('Diagramas eléctricos', 2),
+('Materiales de construcción', 2),
+('Especificaciones de tubería, accesorios, válvulas y conexiones', 2),
+('Inventario de sustancias peligrosas', 2),
+('Inspecciones y pruebas por un Tercero calificado', 2),
+('Dictamen por una Unidad Verificadora. (Pre-arranque).', 2);
+
+
+
+
 insert into prearranque_anexo2_seccion2_catalogo (tarea) values 
 ('Tecnología del Proceso');
 insert into prearranque_anexo2_seccion2_elementosrevision_catalogo (id_tarea, subtarea) values 

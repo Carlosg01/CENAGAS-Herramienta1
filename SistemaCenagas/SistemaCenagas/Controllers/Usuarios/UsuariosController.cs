@@ -108,7 +108,7 @@ namespace SistemaCenagas.Controllers
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
             ViewBag.global = global;
-            return Content(JsonConvert.SerializeObject(usuario));
+            //return Content(JsonConvert.SerializeObject(usuario));
             if (ModelState.IsValid)
             {
                 usuario.Email = usuario.Username + "@cenagas.gob.mx";
@@ -187,7 +187,7 @@ namespace SistemaCenagas.Controllers
                     }
                     HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
                     ViewBag.global = global;
-                    return Content(JsonConvert.SerializeObject(usuario));
+                    //return Content(JsonConvert.SerializeObject(usuario));
 
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();

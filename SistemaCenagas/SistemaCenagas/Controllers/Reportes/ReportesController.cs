@@ -36,13 +36,15 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            if (global.busqueda != null) { 
+            if (global.busqueda != null && global.busqueda.Busqueda != null) { 
                 HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 ViewBag.global = global;
                 return View(global.busqueda);
             }
             else
                 global.vista_adc = Consultas.VistaADC(_context);
+
+            global.resumenADC = Consultas.VistaResumenADC(_context);
 
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
@@ -59,26 +61,26 @@ namespace SistemaCenagas.Controllers
                 global.vista_proyectos = Consultas.VistaProyectos(_context);
                 HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 ViewBag.global = global;
-                return Json(new SelectList(global.vista_proyectos, "Id_Proyecto", "Nombre"));
+                return Json(new SelectList(global.vista_proyectos, "Id", "Nombre"));
             }
             else if(idBusqueda == 2)
             {
                 global.residencias = _context.Residencias.ToList();
                 HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 ViewBag.global = global;
-                return Json(new SelectList(global.residencias, "Id_Residencia", "Nombre"));
+                return Json(new SelectList(global.residencias, "Id", "Nombre"));
             }
             else// if (idBusqueda == 3)
             {
                 global.adcs = _context.ADC.ToList();
                 HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 ViewBag.global = global;
-                return Json(new SelectList(global.adcs, "Id_ADC", "Folio"));
+                return Json(new SelectList(global.adcs, "Id", "Folio"));
             }
 
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
             ViewBag.global = global;
-            return Json(new SelectList(global.gasoductos, "Id_Residencia", "Nombre"));
+            return Json(new SelectList(global.gasoductos, "Id", "Nombre"));
         }
 
         [HttpPost]

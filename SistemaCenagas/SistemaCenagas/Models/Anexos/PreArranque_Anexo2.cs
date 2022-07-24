@@ -78,7 +78,7 @@ namespace SistemaCenagas.Models
         public string Descripcion_Recomendacion { get; set; }
         public string Responsable { get; set; }
         public int Id_Responsable { get; set; }
-        public int Id_Anexo2 { get; set; } //FK
+        public int Id_Anexo2_Seccion2 { get; set; } //FK
 
     }
 
@@ -102,5 +102,6 @@ namespace SistemaCenagas.Models
         public PreArranque_Anexo2_Seccion3 elemento { get; set; }
         public string tarea { get; set; }
         public string subtarea { get; set; }
+        public int Id_Subtarea { get; set; }
     }
 }

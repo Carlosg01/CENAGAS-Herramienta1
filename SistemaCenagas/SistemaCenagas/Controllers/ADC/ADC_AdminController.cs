@@ -363,8 +363,8 @@ namespace SistemaCenagas.Controllers
                             p.Id_Usuario = model.idMiembro[i];
                             p.Estatus = (model.miembros[i].Equals("true") ? "Agregado" : "Eliminado");
                             _context.Update(p);
-                            ViewBag.global = global;//
-                            return Content(JsonConvert.SerializeObject(p));
+                            //ViewBag.global = global;//
+                            //return Content(JsonConvert.SerializeObject(p));
 
                         }
                         else if (model.miembros[i].Equals("true"))
@@ -376,8 +376,8 @@ namespace SistemaCenagas.Controllers
                                 Estatus = "Agregado"
                             };
                             _context.Add(pm);
-                            ViewBag.global = global;//
-                            return Content(JsonConvert.SerializeObject(pm));
+                            //ViewBag.global = global;//
+                            //return Content(JsonConvert.SerializeObject(pm));
                         }
                         await _context.SaveChangesAsync();
                     }*/
@@ -458,8 +458,8 @@ namespace SistemaCenagas.Controllers
         public async Task<ActionResult> FileUpload(ADCModel_SubirArchivo uploadFile)
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
-            ViewBag.global = global;//
-            return Content("Filename: " + uploadFile.Archivo.FileName);
+            //ViewBag.global = global;//
+            //return Content("Filename: " + uploadFile.Archivo.FileName);
             await UploadFile(uploadFile);
             global.SUCCESS_MSJ = "El archivo se subió correctamente!";
             global.panelTareas = "";

@@ -193,42 +193,18 @@ namespace SistemaCenagas.Controllers
 
                 await _context.SaveChangesAsync();
 
-                _context.AddRange( new List<ADC_Anexo6_Documentacion>()
+                var a6_catalogo = _context.ADC_Anexo6_Documentacion_Catalogo.ToList();
+                foreach(var item in a6_catalogo)
                 {
-                    new ADC_Anexo6_Documentacion
+                    _context.Add(new ADC_Anexo6_Documentacion
                     {
                         Id_Anexo6 = a6.Id,
-                        Elemento = "Elemento 1",
-                        Check = "false",
-                        Seccion = "4"
-                    },
-                    new ADC_Anexo6_Documentacion
-                    {
-                        Id_Anexo6 = a6.Id,
-                        Elemento = "Elemento 2",
-                        Check = "false",
-                        Seccion = "4"
-                    },
-                    new ADC_Anexo6_Documentacion
-                    {
-                        Id_Anexo6 = a6.Id,
-                        Elemento = "Elemento 1",
-                        Check = "false",
-                        Seccion = "5"
-                    },
-                    new ADC_Anexo6_Documentacion
-                    {
-                        Id_Anexo6 = a6.Id,
-                        Elemento = "Elemento 2",
-                        Check = "false",
-                        Seccion = "5"
-                    },
-
+                        Id_Elemento_Catalogo = item.Id,
+                        Check = "false"
+                    });
+                    await _context.SaveChangesAsync();
                 }
-                );
 
-
-                await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 ViewBag.global = global;
                 return RedirectToAction("Index", "ADC_Procesos");

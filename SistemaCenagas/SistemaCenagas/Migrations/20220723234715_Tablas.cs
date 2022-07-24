@@ -18,13 +18,13 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Privilegios = table.Column<string>(type: "longtext", nullable: true)
+                    Privilegios = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                    Estado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -44,13 +44,13 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Privilegios = table.Column<string>(type: "longtext", nullable: true)
+                    Privilegios = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                    Estado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -70,33 +70,33 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Username = table.Column<string>(type: "longtext", nullable: true)
+                    Username = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: true)
+                    Email = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: true)
+                    Password = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Token = table.Column<string>(type: "longtext", nullable: true)
+                    Token = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Rol = table.Column<int>(type: "int", nullable: true),
-                    Estatus = table.Column<string>(type: "longtext", nullable: true)
+                    Estatus = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Confirmar_Password = table.Column<string>(type: "longtext", nullable: true)
+                    Confirmar_Password = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nueva_Password = table.Column<string>(type: "longtext", nullable: true)
+                    Nueva_Password = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Puesto = table.Column<int>(type: "int", nullable: true),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Paterno = table.Column<string>(type: "longtext", nullable: true)
+                    Paterno = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Materno = table.Column<string>(type: "longtext", nullable: true)
+                    Materno = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Titulo = table.Column<string>(type: "longtext", nullable: true)
+                    Titulo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Observaciones = table.Column<string>(type: "longtext", nullable: true)
+                    Observaciones = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Image_Url = table.Column<string>(type: "longtext", nullable: true)
+                    Image_Url = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Notificacion_Proyecto = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -146,7 +146,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -165,9 +165,9 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                    Abreviatura = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -186,9 +186,9 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                    Abreviatura = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Unidad = table.Column<int>(type: "int", nullable: true),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
@@ -221,9 +221,9 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                    Abreviatura = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_DireccionEjecutiva = table.Column<int>(type: "int", nullable: true),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
@@ -255,11 +255,11 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Elemento = table.Column<string>(type: "longtext", nullable: true)
+                    Elemento = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -278,7 +278,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -297,11 +297,11 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Pais = table.Column<string>(type: "longtext", nullable: true)
+                    Pais = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                    Estado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Capital = table.Column<string>(type: "longtext", nullable: true)
+                    Capital = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Latitud = table.Column<double>(type: "double", nullable: false),
                     Longitud = table.Column<double>(type: "double", nullable: false),
@@ -322,7 +322,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Etapa = table.Column<string>(type: "longtext", nullable: true)
+                    Etapa = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Avance = table.Column<int>(type: "int", nullable: false),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
@@ -342,9 +342,9 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Fuente = table.Column<string>(type: "longtext", nullable: true)
+                    Fuente = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                    Abreviatura = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -364,10 +364,10 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Estado = table.Column<int>(type: "int", nullable: true),
-                    Codigo_Postal = table.Column<string>(type: "longtext", nullable: true)
+                    Codigo_Postal = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -399,9 +399,9 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Denominacion = table.Column<string>(type: "longtext", nullable: true)
+                    Denominacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -420,11 +420,11 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Abreviatura = table.Column<string>(type: "longtext", nullable: true)
+                    Abreviatura = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tipo_Instalacion = table.Column<string>(type: "longtext", nullable: true)
+                    Tipo_Instalacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Resumen = table.Column<string>(type: "longtext", nullable: true)
+                    Resumen = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -443,7 +443,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -463,15 +463,15 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estado_ADC = table.Column<string>(type: "longtext", nullable: true)
+                    Estado_ADC = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estado_PreArranque = table.Column<string>(type: "longtext", nullable: true)
+                    Estado_PreArranque = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -493,7 +493,7 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
                     Id_Usuario = table.Column<int>(type: "int", nullable: true),
-                    Estatus = table.Column<string>(type: "longtext", nullable: true)
+                    Estatus = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -537,7 +537,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -557,21 +557,21 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ut_Gasoducto = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Gasoducto = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Gasoducto = table.Column<string>(type: "longtext", nullable: true)
+                    Gasoducto = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Sistema = table.Column<string>(type: "longtext", nullable: true)
+                    Sistema = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Ducto = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Ducto = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Diametro_o_pulgadas = table.Column<float>(type: "float", nullable: true),
-                    Denominacion = table.Column<string>(type: "longtext", nullable: true)
+                    Denominacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Longitud_Metros = table.Column<float>(type: "float", nullable: true),
-                    Ut_Pemex = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Pemex = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion_Pemex = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion_Pemex = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -591,27 +591,27 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Instalacion = table.Column<string>(type: "longtext", nullable: true)
+                    Instalacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Instalacion = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Instalacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Clase = table.Column<string>(type: "longtext", nullable: true)
+                    Clase = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Km = table.Column<float>(type: "float", nullable: true),
-                    Residencia = table.Column<string>(type: "longtext", nullable: true)
+                    Residencia = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Region = table.Column<string>(type: "longtext", nullable: true)
+                    Region = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Tramo = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Tramo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Sistema = table.Column<string>(type: "longtext", nullable: true)
+                    Sistema = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Longitud_X_decimal = table.Column<float>(type: "float", nullable: true),
                     Latitud_Y_decimal = table.Column<float>(type: "float", nullable: true),
                     Altitud_Z_decimal = table.Column<float>(type: "float", nullable: true),
-                    Sector_Pemex = table.Column<string>(type: "longtext", nullable: true)
+                    Sector_Pemex = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Gmas_Pemex = table.Column<string>(type: "longtext", nullable: true)
+                    Gmas_Pemex = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -631,9 +631,9 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ut_Tramo = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Tramo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tramo = table.Column<string>(type: "longtext", nullable: true)
+                    Tramo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Km_Inicio = table.Column<float>(type: "float", nullable: true),
                     Km_Fin = table.Column<float>(type: "float", nullable: true),
@@ -641,11 +641,11 @@ namespace SistemaCenagas.Migrations
                     Diametro = table.Column<float>(type: "float", nullable: true),
                     Espesor_Nominal = table.Column<float>(type: "float", nullable: true),
                     SMYS = table.Column<float>(type: "float", nullable: true),
-                    Fecha_Construccion = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Construccion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Residencia = table.Column<string>(type: "longtext", nullable: true)
+                    Residencia = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Gasoducto = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Gasoducto = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -666,15 +666,15 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
-                    Folio = table.Column<string>(type: "longtext", nullable: true)
+                    Folio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_ProponenteCambio = table.Column<int>(type: "int", nullable: true),
                     Id_ResponsableADC = table.Column<int>(type: "int", nullable: true),
                     Id_Suplente = table.Column<int>(type: "int", nullable: true),
                     Id_LiderEquipoVerificador = table.Column<int>(type: "int", nullable: true),
-                    Fecha_Actualizacion = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Actualizacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PreArranque = table.Column<string>(type: "longtext", nullable: true)
+                    PreArranque = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -754,7 +754,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Actividad = table.Column<string>(type: "longtext", nullable: true)
+                    Actividad = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -776,15 +776,15 @@ namespace SistemaCenagas.Migrations
                     Id_Actividad = table.Column<int>(type: "int", nullable: true),
                     Id_ADC = table.Column<int>(type: "int", nullable: true),
                     Avance = table.Column<float>(type: "float", nullable: true),
-                    Faltante_Comentarios = table.Column<string>(type: "longtext", nullable: true)
+                    Faltante_Comentarios = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Plan_Accion = table.Column<string>(type: "longtext", nullable: true)
+                    Plan_Accion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Terminado = table.Column<string>(type: "longtext", nullable: true)
+                    Terminado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Confirmado = table.Column<string>(type: "longtext", nullable: true)
+                    Confirmado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Activo = table.Column<string>(type: "longtext", nullable: true)
+                    Activo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -830,17 +830,17 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_ADC = table.Column<int>(type: "int", nullable: true),
                     Id_Proceso = table.Column<int>(type: "int", nullable: true),
-                    Actividad = table.Column<string>(type: "longtext", nullable: true)
+                    Actividad = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Usuario = table.Column<int>(type: "int", nullable: true),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Extension = table.Column<string>(type: "longtext", nullable: true)
+                    Extension = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Size = table.Column<float>(type: "float", nullable: true),
-                    Ubicacion = table.Column<string>(type: "longtext", nullable: true)
+                    Ubicacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -896,13 +896,13 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Actividad = table.Column<int>(type: "int", nullable: true),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Responsable = table.Column<string>(type: "longtext", nullable: true)
+                    Responsable = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Registro = table.Column<string>(type: "longtext", nullable: true)
+                    Registro = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -978,7 +978,7 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Equipo_Verificador_ADC = table.Column<int>(type: "int", nullable: true),
                     Id_Usuario = table.Column<int>(type: "int", nullable: true),
-                    Estatus = table.Column<string>(type: "longtext", nullable: true)
+                    Estatus = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                 },
                 constraints: table =>
@@ -1051,32 +1051,32 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
-                    Tipo_Cambio = table.Column<string>(type: "longtext", nullable: true)
+                    Tipo_Cambio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fecha = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Residencia = table.Column<int>(type: "int", nullable: true),
-                    Ut_Gasoducto = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Gasoducto = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Tramo = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Tramo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Proceso = table.Column<string>(type: "longtext", nullable: true)
+                    Proceso = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Prestacion_Servicio = table.Column<string>(type: "longtext", nullable: true)
+                    Prestacion_Servicio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Resultados_Analisis = table.Column<string>(type: "longtext", nullable: true)
+                    Resultados_Analisis = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Resultados_Propuesta = table.Column<string>(type: "longtext", nullable: true)
+                    Resultados_Propuesta = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estatus = table.Column<string>(type: "longtext", nullable: true)
+                    Estatus = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Registro_Eliminado = table.Column<int>(type: "int", nullable: true),
 
-                    EstatusADC = table.Column<string>(type: "longtext", nullable: true)
+                    EstatusADC = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PresentoARP = table.Column<string>(type: "longtext", nullable: true)
+                    PresentoARP = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo2 = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1131,45 +1131,45 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Fecha_Registro = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Registro = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tipo_ADC = table.Column<string>(type: "longtext", nullable: true)
+                    Tipo_ADC = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo1 = table.Column<int>(type: "int", nullable: true),
 
-                    Equipo = table.Column<string>(type: "longtext", nullable: true)
+                    Equipo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Instrumento = table.Column<string>(type: "longtext", nullable: true)
+                    Instrumento = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Componente_o_Dispositivo = table.Column<string>(type: "longtext", nullable: true)
+                    Componente_o_Dispositivo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Valvula = table.Column<string>(type: "longtext", nullable: true)
+                    Valvula = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Accesorio_o_Ducto = table.Column<string>(type: "longtext", nullable: true)
+                    Accesorio_o_Ducto = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estacion_Compresion = table.Column<string>(type: "longtext", nullable: true)
+                    Estacion_Compresion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estacion_Medicion_y_Regulacion = table.Column<string>(type: "longtext", nullable: true)
+                    Estacion_Medicion_y_Regulacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Trampa_Envios_y_Recibo_Diablos = table.Column<string>(type: "longtext", nullable: true)
+                    Trampa_Envios_y_Recibo_Diablos = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Otro_Elemento = table.Column<string>(type: "longtext", nullable: true)
+                    Otro_Elemento = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
 
-                    Numero_Identificacion = table.Column<string>(type: "longtext", nullable: true)
+                    Numero_Identificacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion_Riesgo = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion_Riesgo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Inversion_Cambio = table.Column<double>(type: "double", nullable: true),
-                    Fecha_Inicio = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Inicio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fecha_Termino = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Termino = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Justificacion = table.Column<string>(type: "longtext", nullable: true)
+                    Justificacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion_Cambio = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion_Cambio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Otra_Documentacion = table.Column<string>(type: "longtext", nullable: true)
+                    Otra_Documentacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
 
                     Id_Responsable_ADC = table.Column<int>(type: "int", nullable: true),
@@ -1267,13 +1267,13 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo1 = table.Column<int>(type: "int", nullable: true),
-                    Fecha_Retiro_Cambio_Temporal = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Retiro_Cambio_Temporal = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tiempo_Estimado = table.Column<string>(type: "longtext", nullable: true)
+                    Tiempo_Estimado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Propuesta_Inicio_Operacion = table.Column<string>(type: "longtext", nullable: true)
+                    Propuesta_Inicio_Operacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Autorizacion_Inicio_Operacion = table.Column<string>(type: "longtext", nullable: true)
+                    Autorizacion_Inicio_Operacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
                     Id_Residente = table.Column<int>(type: "int", nullable: true),
@@ -1330,23 +1330,23 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo1 = table.Column<int>(type: "int", nullable: true),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Responsable_Cambio_Temporal = table.Column<int>(type: "int", nullable: true),
 
-                    Dia_Cambio = table.Column<string>(type: "longtext", nullable: true)
+                    Dia_Cambio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Mes_Cambio = table.Column<string>(type: "longtext", nullable: true)
+                    Mes_Cambio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Anio_Cambio = table.Column<string>(type: "longtext", nullable: true)
+                    Anio_Cambio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Dia_Retiro = table.Column<string>(type: "longtext", nullable: true)
+                    Dia_Retiro = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Mes_Retiro = table.Column<string>(type: "longtext", nullable: true)
+                    Mes_Retiro = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Anio_Retiro = table.Column<string>(type: "longtext", nullable: true)
+                    Anio_Retiro = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Confirmacion_Retiro_Cambios_Temporales = table.Column<string>(type: "longtext", nullable: true)
+                    Confirmacion_Retiro_Cambios_Temporales = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
 
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
@@ -1403,13 +1403,13 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Fecha_Recepcion = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Recepcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo1 = table.Column<int>(type: "int", nullable: true),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
-                    Fecha_Inicio = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Inicio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fecha_Termino = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Termino = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -1452,7 +1452,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TipoDocumentacion = table.Column<string>(type: "longtext", nullable: true)
+                    TipoDocumentacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -1473,11 +1473,11 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
                     Id_Tipo = table.Column<int>(type: "int", nullable: true),
-                    Check = table.Column<string>(type: "longtext", nullable: true)
+                    Check = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Anotaciones = table.Column<string>(type: "longtext", nullable: true)
+                    Anotaciones = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Responsable_Area = table.Column<string>(type: "longtext", nullable: true)
+                    Responsable_Area = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                 },
                 constraints: table =>
@@ -1521,9 +1521,9 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Responsable = table.Column<int>(type: "int", nullable: true),
-                    Check = table.Column<string>(type: "longtext", nullable: true)
+                    Check = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Estatus = table.Column<string>(type: "longtext", nullable: true)
+                    Estatus = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo3 = table.Column<int>(type: "int", nullable: true),
                     Id_Documentacion = table.Column<int>(type: "int", nullable: true),
@@ -1573,6 +1573,27 @@ namespace SistemaCenagas.Migrations
                );
             #endregion
 
+            #region ADC_Anexo6_Documentacion_Catalogo
+
+            migrationBuilder.CreateTable(
+                name: "ADC_Anexo6_Documentacion_Catalogo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Elemento = table.Column<string>(type: "varchar(900)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Seccion = table.Column<int>(type: "int", nullable: true),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Anexo6_Documentacion_Catalogo", x => x.Id);
+
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            #endregion
+
             #region ADC_Anexo6_Documentacion
 
             migrationBuilder.CreateTable(
@@ -1582,11 +1603,8 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo6 = table.Column<int>(type: "int", nullable: true),
-                    Elemento = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Check = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Seccion = table.Column<string>(type: "longtext", nullable: true)
+                    Id_Elemento_Catalogo = table.Column<int>(type: "int", nullable: true),
+                    Check = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                 },
                 constraints: table =>
@@ -1599,6 +1617,13 @@ namespace SistemaCenagas.Migrations
                       principalColumn: "Id",
                       onDelete: ReferentialAction.SetNull
                     );
+                    table.ForeignKey(
+                      name: "FK_Anexo6_Documentacion__IdElemento",
+                      column: x => x.Id_Elemento_Catalogo,
+                      principalTable: "ADC_Anexo6_Documentacion_Catalogo",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull
+                    );
 
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -1606,6 +1631,11 @@ namespace SistemaCenagas.Migrations
                name: "Index_Anexo6_Documentacion__Anexo6",
                table: "ADC_Anexo6_Documentacion",
                column: "Id_Anexo6"
+               );
+            migrationBuilder.CreateIndex(
+               name: "Index_Anexo6_Documentacion__IdElemento",
+               table: "ADC_Anexo6_Documentacion",
+               column: "Id_Elemento_Catalogo"
                );
 
             #endregion
@@ -1619,17 +1649,17 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Con_ADC = table.Column<string>(type: "longtext", nullable: true)
+                    Con_ADC = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_ADC = table.Column<int>(type: "int", nullable: true),
                     Id_Proyecto = table.Column<int>(type: "int", nullable: true),
-                    Folio = table.Column<string>(type: "longtext", nullable: true)
+                    Folio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     //Id_ProponenteCambio = table.Column<int>(type: "int", nullable: true),
                     Id_Responsable = table.Column<int>(type: "int", nullable: true),
                     Id_Suplente = table.Column<int>(type: "int", nullable: true),
                     Id_LiderEquipoVerificador = table.Column<int>(type: "int", nullable: true),
-                    Fecha_Actualizacion = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Actualizacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1721,7 +1751,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Actividad = table.Column<string>(type: "longtext", nullable: true)
+                    Actividad = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1743,15 +1773,15 @@ namespace SistemaCenagas.Migrations
                     Id_Actividad = table.Column<int>(type: "int", nullable: true),
                     Id_PreArranque = table.Column<int>(type: "int", nullable: true),
                     Avance = table.Column<float>(type: "float", nullable: true),
-                    Faltante_Comentarios = table.Column<string>(type: "longtext", nullable: true)
+                    Faltante_Comentarios = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Plan_Accion = table.Column<string>(type: "longtext", nullable: true)
+                    Plan_Accion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Terminado = table.Column<string>(type: "longtext", nullable: true)
+                    Terminado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Confirmado = table.Column<string>(type: "longtext", nullable: true)
+                    Confirmado = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Activo = table.Column<string>(type: "longtext", nullable: true)
+                    Activo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1797,17 +1827,17 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_PreArranque = table.Column<int>(type: "int", nullable: true),
                     Id_Proceso = table.Column<int>(type: "int", nullable: true),
-                    Actividad = table.Column<string>(type: "longtext", nullable: true)
+                    Actividad = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Usuario = table.Column<int>(type: "int", nullable: true),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Extension = table.Column<string>(type: "longtext", nullable: true)
+                    Extension = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Size = table.Column<float>(type: "float", nullable: true),
-                    Ubicacion = table.Column<string>(type: "longtext", nullable: true)
+                    Ubicacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1863,13 +1893,13 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Actividad = table.Column<int>(type: "int", nullable: true),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Responsable = table.Column<string>(type: "longtext", nullable: true)
+                    Responsable = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Registro = table.Column<string>(type: "longtext", nullable: true)
+                    Registro = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1945,7 +1975,7 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Equipo_Verificador_PreArranque = table.Column<int>(type: "int", nullable: true),
                     Id_Usuario = table.Column<int>(type: "int", nullable: true),
-                    Estatus = table.Column<string>(type: "longtext", nullable: true)
+                    Estatus = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                 },
                 constraints: table =>
@@ -1990,12 +2020,12 @@ namespace SistemaCenagas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Numero_Revisiones = table.Column<int>(type: "int", nullable: true),
                     Revision_Actual = table.Column<int>(type: "int", nullable: true),
-                    Fecha_Elaboracion = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Elaboracion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Residencia = table.Column<int>(type: "int", nullable: true),
-                    Ut_Gasoducto = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Gasoducto = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ut_Tramo = table.Column<string>(type: "longtext", nullable: true)
+                    Ut_Tramo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Prearranque = table.Column<int>(type: "int", nullable: true)
                 },
@@ -2040,7 +2070,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo2 = table.Column<int>(type: "int", nullable: true)
                 },
@@ -2072,17 +2102,17 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Elemento_Revision = table.Column<string>(type: "longtext", nullable: true)
+                    Elemento_Revision = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tipo_Revision = table.Column<string>(type: "longtext", nullable: true)
+                    Tipo_Revision = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tipo_Hallazgo = table.Column<string>(type: "longtext", nullable: true)
+                    Tipo_Hallazgo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Atendido = table.Column<string>(type: "longtext", nullable: true)
+                    Atendido = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Observacion = table.Column<string>(type: "longtext", nullable: true)
+                    Observacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Anexo2_Seccion2 = table.Column<int>(type: "int", nullable: true)
                 },
@@ -2114,7 +2144,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Tarea = table.Column<string>(type: "longtext", nullable: true)
+                    Tarea = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -2134,7 +2164,7 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Tarea = table.Column<int>(type: "int", nullable: true),
-                    Subtarea = table.Column<string>(type: "longtext", nullable: true)
+                    Subtarea = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -2165,18 +2195,18 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion_Hallazgo = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion_Hallazgo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Riesgo = table.Column<string>(type: "longtext", nullable: true)
+                    Riesgo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion_Recomendacion = table.Column<string>(type: "longtext", nullable: true)
+                    Descripcion_Recomendacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Responsable = table.Column<string>(type: "longtext", nullable: true)
+                    Responsable = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Responsable = table.Column<int>(type: "int", nullable: true),
-                    Id_Anexo2 = table.Column<int>(type: "int", nullable: true)
+                    Id_Anexo2_Seccion2 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2189,9 +2219,9 @@ namespace SistemaCenagas.Migrations
                        onDelete: ReferentialAction.SetNull
                    );
                     table.ForeignKey(
-                       name: "FK_PreArranque_Anexo2_Seccion3__Id_Anexo2",
-                       column: x => x.Id_Anexo2,
-                       principalTable: "PreArranque_Anexo2",
+                       name: "FK_PreArranque_Anexo2_Seccion3__Id_Anexo2Seccion2",
+                       column: x => x.Id_Anexo2_Seccion2,
+                       principalTable: "PreArranque_Anexo2_Seccion2_ElementosRevision",
                        principalColumn: "Id",
                        onDelete: ReferentialAction.SetNull
                    );
@@ -2203,9 +2233,9 @@ namespace SistemaCenagas.Migrations
              column: "Id_Responsable"
              );
             migrationBuilder.CreateIndex(
-             name: "Index_PreArranque_Anexo2_Seccion3__Id_Anexo2",
+             name: "Index_PreArranque_Anexo2_Seccion3__Id_Anexo2Seccion2",
              table: "PreArranque_Anexo2_Seccion3",
-             column: "Id_Anexo2"
+             column: "Id_Anexo2_Seccion2"
              );
 
             #endregion
@@ -2218,7 +2248,7 @@ namespace SistemaCenagas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Fecha_Elaboracion = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Elaboracion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Prearranque = table.Column<int>(type: "int", nullable: true)
                 },
@@ -2251,9 +2281,9 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     //Id_Anexo2_Seccion2 = table.Column<int>(type: "int", nullable: true),
-                    Accion_Descriptiva = table.Column<string>(type: "longtext", nullable: true)
+                    Accion_Descriptiva = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Responsable = table.Column<string>(type: "longtext", nullable: true)
+                    Responsable = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Responsable = table.Column<int>(type: "int", nullable: true),
                     Id_Anexo1 = table.Column<int>(type: "int", nullable: true)
@@ -2317,18 +2347,18 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Anexo1_Actividades = table.Column<int>(type: "int", nullable: true),
-                    Actividad = table.Column<string>(type: "longtext", nullable: true)
+                    Actividad = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fecha_Inicio = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Inicio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fecha_Termino = table.Column<string>(type: "longtext", nullable: true)
+                    Fecha_Termino = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Evidencia = table.Column<string>(type: "longtext", nullable: true)
+                    Evidencia = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Avance = table.Column<float>(type: "float", nullable: false),
-                    Responsable = table.Column<string>(type: "longtext", nullable: true)
+                    Responsable = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Concluida = table.Column<string>(type: "longtext", nullable: true)
+                    Concluida = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -2358,17 +2388,17 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Accion = table.Column<int>(type: "int", nullable: true),
-                    Actividad = table.Column<string>(type: "longtext", nullable: true)
+                    Actividad = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id_Usuario = table.Column<int>(type: "int", nullable: true),
-                    Clave = table.Column<string>(type: "longtext", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Extension = table.Column<string>(type: "longtext", nullable: true)
+                    Extension = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Size = table.Column<float>(type: "float", nullable: false),
-                    Ubicacion = table.Column<string>(type: "longtext", nullable: true)
+                    Ubicacion = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eliminado = table.Column<int>(type: "int", nullable: false)
                 },
@@ -2437,6 +2467,9 @@ namespace SistemaCenagas.Migrations
 
             migrationBuilder.DropTable(
                 name: "ADC_Anexo6");
+
+            migrationBuilder.DropTable(
+                name: "ADC_Anexo6_Documentacion_Catalogo");
 
             migrationBuilder.DropTable(
                 name: "ADC_Anexo6_Documentacion");
