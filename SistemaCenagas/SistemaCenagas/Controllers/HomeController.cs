@@ -61,9 +61,13 @@ namespace SistemaCenagas.Controllers
                 global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
                 if(global == null)
                 {
-                    HttpContext.Session.Clear();
+                    HttpContext.Session.Clear();                    
                 }
-                return RedirectToAction(nameof(Dashboard));
+                else if (global.session_usuario.user != null)
+                {
+                    return RedirectToAction(nameof(Dashboard));
+                }
+                
 
             }
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(new Global()));

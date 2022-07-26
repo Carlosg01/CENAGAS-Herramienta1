@@ -16,6 +16,7 @@ drop table prearranque_procesos;
 drop table prearranque_actividades;
 drop table prearranque;
 drop table adc_anexo6_documentacion;
+drop table adc_anexo6_documentacion_catalogo;
 drop table adc_anexo3_documentacionresponsable;
 drop table adc_anexo3_documentacion;
 drop table adc_anexo3_catalogotipodocumentacion;

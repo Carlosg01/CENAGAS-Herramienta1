@@ -139,7 +139,7 @@ namespace SistemaCenagas.Models
         public int id_proyecto;
         public string proyecto;
         public float avance_ADC;
-        public float avance_Pre;
+        public float avance_Pre { get; set; }
         public float avance_Fisico;
     }
 

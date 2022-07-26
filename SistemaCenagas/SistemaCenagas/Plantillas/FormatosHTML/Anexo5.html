@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet">
+      <meta name="author" content="armandohdz" />
+    <style type="text/css">
+      html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
+      a.comment-indicator:hover + div.comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em }
+      a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em }
+      div.comment { display:none }
+      table { border-collapse:collapse; page-break-after:always }
+      .gridlines td { border:1px dotted black }
+      .gridlines th { border:1px dotted black }
+      .b { text-align:center }
+      .e { text-align:center }
+      .f { text-align:right }
+      .inlineStr { text-align:left }
+      .n { text-align:right }
+      .s { text-align:left }
+      td.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style1 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style1 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style2 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style2 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style3 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style3 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style4 { vertical-align:top; text-align:left; padding-left:0px; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style4 { vertical-align:top; text-align:left; padding-left:0px; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style5 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#FFFFFF; font-family:'Calibri'; font-size:11pt; background-color:#006666 }
+      th.style5 { vertical-align:bottom; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#FFFFFF; font-family:'Calibri'; font-size:11pt; background-color:#006666 }
+      td.style6 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style6 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style7 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style7 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style8 { vertical-align:middle; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style8 { vertical-align:middle; text-align:center; border-bottom:1px solid #FFC000 !important; border-top:1px solid #FFC000 !important; border-left:1px solid #FFC000 !important; border-right:1px solid #FFC000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      table.sheet0 col.col0 { width:55.57777714pt }
+      table.sheet0 col.col1 { width:55.57777714pt }
+      table.sheet0 col.col2 { width:55.57777714pt }
+      table.sheet0 col.col3 { width:55.57777714pt }
+      table.sheet0 col.col4 { width:55.57777714pt }
+      table.sheet0 col.col5 { width:55.57777714pt }
+      table.sheet0 col.col6 { width:55.57777714pt }
+      table.sheet0 col.col7 { width:55.57777714pt }
+      table.sheet0 col.col8 { width:55.57777714pt }
+      table.sheet0 col.col9 { width:55.57777714pt }
+      table.sheet0 col.col10 { width:55.57777714pt }
+      table.sheet0 col.col11 { width:55.57777714pt }
+      table.sheet0 col.col12 { width:55.57777714pt }
+      table.sheet0 col.col13 { width:55.57777714pt }
+      table.sheet0 col.col14 { width:55.57777714pt }
+      table.sheet0 tr { height:15pt }
+      table.sheet0 tr.row34 { height:15pt }
+      table.sheet0 tr.row35 { height:15pt }
+      table.sheet0 tr.row36 { height:15pt }
+    </style>
+  
+    <script type="text/javascript">
+        setTimeout(function () { window.print(); }, 2000);
+
+        function download() {
+            window.print();
+        }
+    </script>
+  </head>
+
+  <body>
+      <style>
+          @media print {
+              #btnDescargar {
+                  display: none;
+              }
+          }
+
+          @page {
+              size: auto;
+              margin: 20px;
+          }
+      </style>
+      <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
+          <col class="col0">
+          <col class="col1">
+          <col class="col2">
+          <col class="col3">
+          <col class="col4">
+          <col class="col5">
+          <col class="col6">
+          <col class="col7">
+          <col class="col8">
+          <col class="col9">
+          <col class="col10">
+          <col class="col11">
+          <col class="col12">
+          <col class="col13">
+          <col class="col14">
+          <tbody>
+              <tr class="row0">
+                  <td class="column0 style1 null style1" colspan="4">
+                      <img src="#C_LOGO" width="250" />
+                  </td>
+                  <td class="column4 style2 s style2" colspan="11">
+                      <br />
+                      UNIDAD DE TRANSPORTE Y ALMACENAMIENTO<br />
+                      PROCEDIMIENTO DE ADMINISTRACIÓN DE CAMBIOS TEMPORALES O DEFINITIVOS<br />
+                      SOLICITUD DE RETIRO DE CAMBIOS TEMPORALES<br /><br />
+                  </td>
+              </tr>
+              <tr class="row6">
+                  <td class="column0 style1 null style1" colspan="11"></td>
+                  <td class="column11 style3 s style3" colspan="4">PRO-CEN-UTA-020-F05</td>
+              </tr>
+              <tr class="row7">
+                  <td class="column0 style4 s style4" colspan="15">Sector/Área: #C_1_</td>
+              </tr>
+              <tr class="row8">
+                  <td class="column0 style4 s style4" colspan="15">Planta o instalación: #C_2_</td>
+              </tr>
+              <tr class="row9">
+                  <td class="column0 style4 s style4" colspan="15">Proceso, maquinaria o equipo por modificar: #C_3_</td>
+              </tr>
+              <tr class="row11">
+                  <td class="column0 style4 s style4" colspan="15">Prestación del servicio de la maquinaria o equipo: #C_4_</td>
+              </tr>
+              <tr class="row13">
+                  <td class="column0 style4 s style4" colspan="7">Fecha retiro de cambio temporal: #C_5_</td>
+                  <td class="column7 style4 s style4" colspan="8">Fecha de inicio de operación del cambio temporal: #C_6_</td>
+              </tr>
+              <tr class="row15">
+                  <td class="column0 style5 s style5" colspan="15">Descripción del cambio temporal</td>
+              </tr>
+              <tr class="row16">
+                  <td class="column0 style6 s style6" colspan="15">#C_7_</td>
+              </tr>
+              <tr class="row19">
+                  <td class="column0 style6 s style6" colspan="15"><span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">Nombre y firma:</span> #C_8_</td>
+              </tr>
+              <tr class="row20">
+                  <td class="column0 style6 s style6" colspan="15"><span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">Responsable de retirar el cambio temporal:</span> #C_9_</td>
+              </tr>
+              <tr class="row21">
+                  <td class="column0" colspan="15">
+                      <br />
+                      <span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">PRESENTE:</span><br /><br />
+                      Informamos a usted que el cambio temporal al que hacemos referencia y cuya documentación se encuentra resguardada en el expediente correspondiente a los archivos del lider del equipo verificador, inició su operación del cambio temporal el día 
+                      <span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">#C_10</span> del mes 
+                      <span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">#C_11</span> del año
+                      <span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt"> #C_12</span>
+                      y que con base en el análisis realizado durante la etapa del proyecto que se estableció como fecha de retiro el día 
+                      <span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">#C_13</span> del mes 
+                      <span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">#C_14</span> del año 
+                      <span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">#C_15</span>.<br />
+                          <br />
+                          En virtud de lo anterior, le solicitamos atentamente instruya la ejecución de las acciones que correspondan para que dicho cambio sea retirado en la fecha establecida y se retorne a las condiciones originales.
+                      </span>
+                      <br /><br />
+                  </td>
+              </tr>
+              <tr class="row31">
+                  <td class="column0 style3 s style3" colspan="15">Atentamente:</td>
+              </tr>
+              <tr class="row32">
+                  <td class="column0 style1 null style1" colspan="15"></td>
+              </tr>
+              <tr class="row33">
+                  <td class="column0 style3 s style3" colspan="5">Responsable operativo</td>
+                  <td class="column5 style3 s style3" colspan="5">Responsable de mantenimiento</td>
+                  <td class="column10 style3 s style3" colspan="5">Responsable de seguridad</td>
+              </tr>
+              <tr class="row34">
+                  <td class="column0 style8 s style8" colspan="5"><br />#C_16<br /><br /><br /></td>
+                  <td class="column5 style8 s style8" colspan="5"><br />#C_17<br /><br /><br /></td>
+                  <td class="column10 style8 s style8" colspan="5"><br />#C_18<br /><br /><br /></td>
+              </tr>
+              <tr class="row37">
+                  <td class="column0 style3 s style3" colspan="5">(Nombre y firma)</td>
+                  <td class="column5 style3 s style3" colspan="5">(Nombre y firma)</td>
+                  <td class="column10 style3 s style3" colspan="5">(Nombre y firma)</td>
+              </tr>
+          </tbody>
+      </table>
+      <br />
+      <br />
+
+      <button id="btnDescargar" class="btn btn-success" onclick="download();">Descargar</button>
+  </body>
+</html>

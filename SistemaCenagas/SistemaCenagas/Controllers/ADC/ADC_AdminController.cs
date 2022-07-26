@@ -348,6 +348,13 @@ namespace SistemaCenagas.Controllers
 
                     model.Eliminado = 0;
                     _context.Update(model);
+
+                    var anexo3 = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == model.Id).FirstOrDefault();
+                    anexo3.Id_Responsable_ADC = model.Id_ResponsableADC;
+
+                    _context.Update(anexo3);
+
+
                     await _context.SaveChangesAsync();
 
                     /*for (int i = 0; i < model.miembros.Count(); i++)

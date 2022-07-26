@@ -182,7 +182,7 @@
 
                     <div class="form-group row align-items-center">
                         <label asp-for="Resultados_Analisis" class="col-2" style="text-align:right;">
-                            Resultado del análisis de la propuesta
+                            Resultado de la propuesta de la solicitud de cambio
                         </label>
                         <div class="col">
                             @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC}.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC

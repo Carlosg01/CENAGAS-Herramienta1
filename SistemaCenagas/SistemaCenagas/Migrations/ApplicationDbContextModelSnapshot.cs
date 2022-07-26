@@ -219,6 +219,9 @@ namespace SistemaCenagas.Migrations
                     b.Property<string>("Tipo_ADC")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Tipo_Moneda")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Trampa_Envios_y_Recibo_Diablos")
                         .HasColumnType("longtext");
 

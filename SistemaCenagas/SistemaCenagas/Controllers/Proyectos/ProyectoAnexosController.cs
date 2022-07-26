@@ -45,7 +45,7 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            global.anexos = _context.ADC_Anexos.Where(a => a.Id <= 3).ToList();
+            global.anexos = _context.ADC_Anexos.ToList();
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
             return View();
@@ -64,8 +64,10 @@ namespace SistemaCenagas.Controllers
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             ReporteAnexos reporte = new ReporteAnexos(_context, global);
             byte[] pdf = reporte.Anexo2_PDF(global.proyectos);
+            //reporte.Anexo2_PDF(global.proyectos);
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
+            //return RedirectToAction(nameof(Index));
             return File(pdf, "application/pdf", $"Anexo 2 - {global.proyectos.Nombre}.pdf");
         }
 
@@ -75,6 +77,27 @@ namespace SistemaCenagas.Controllers
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
             return RedirectToAction("Index", "ReporteProyectoAnexo3");
+        }
+        public async Task<IActionResult> Anexo4(int? idProyecto)
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return RedirectToAction("Index", "ReporteProyectoAnexo4");
+        }
+        public async Task<IActionResult> Anexo5(int? idProyecto)
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return RedirectToAction("Index", "ReporteProyectoAnexo5");
+        }
+        public async Task<IActionResult> Anexo6(int? idProyecto)
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return RedirectToAction("Index", "ReporteProyectoAnexo6");
         }
 
 

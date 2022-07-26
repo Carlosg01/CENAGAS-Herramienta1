@@ -144,6 +144,7 @@
                             @(item.responsable)
                         </td>
                         <td>
+                            @((int)global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.prearranque.Id_ADC).FirstOrDefault().avance_Pre)%
                         </td>
                         <td style="width:10%;">
                             <a class="btn btn-dark form-control" asp-action="Tareas" asp-route-id="@item.prearranque.Id">Tareas</a>

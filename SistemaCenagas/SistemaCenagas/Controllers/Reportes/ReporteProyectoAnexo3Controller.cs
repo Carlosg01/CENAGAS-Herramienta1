@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 using SistemaCenagas.Reportes;
+using System.Web;
+using Microsoft.JSInterop;
 
 namespace SistemaCenagas.Controllers
 {
@@ -73,10 +75,32 @@ namespace SistemaCenagas.Controllers
 
             ReporteAnexos reporte = new ReporteAnexos(_context, global);
             byte[] pdf = reporte.Anexo3_PDF(id_anexo3);
+            //var dir = reporte.Anexo3_PDF(id_anexo3);
+            //reporte.Anexo3_PDF(id_anexo3);
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
+            //return RedirectToAction(nameof(PDF));
+            //return Redirect(dir);
             return File(pdf, "application/pdf", $"Anexo 3 - {global.proyectos.Nombre}.pdf");
+            //return Ok();
+            //return RedirectToAction(nameof(Index));
         }
-        
+
+        public async Task<IActionResult> PDF()
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+
+            //global.VISTA_PDF = true;
+
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+
+            //await js.InvokeVoidAsync("setTimeout(function(){window.print()}, 3000);");
+            return View();
+
+        }
+
+
+
     }
 }

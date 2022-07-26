@@ -27,6 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Plantillas\PDF.html" />
+    <None Remove="Views\ProyectoAnexos\PDF.html" />
+    <None Remove="Views\ReporteProyectoAnexo6\PDF.html" />
+    <None Remove="Views\ReporteProyectoAnexo5\PDF.html" />
+    <None Remove="Views\ReporteProyectoAnexo4\PDF.html" />
+    <None Remove="Views\ReporteProyectoAnexo3\PDF.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.3" />
     <PackageReference Include="MailKit" Version="3.1.1" />
@@ -48,7 +57,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.16.0" />
-    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="Microsoft.PowerBI.Api" Version="4.5.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
@@ -110,6 +119,15 @@
 
   <ItemGroup>
     <SourceGeneratorInput Remove="Migrations\20220719151733_Tablas.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Plantillas\PDF.html" />
+    <Content Include="Views\ProyectoAnexos\PDF.html" />
+    <Content Include="Views\ReporteProyectoAnexo6\PDF.html" />
+    <Content Include="Views\ReporteProyectoAnexo5\PDF.html" />
+    <Content Include="Views\ReporteProyectoAnexo4\PDF.html" />
+    <Content Include="Views\ReporteProyectoAnexo3\PDF.html" />
   </ItemGroup>
 
 </Project>

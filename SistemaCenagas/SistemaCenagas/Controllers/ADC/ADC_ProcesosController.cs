@@ -301,16 +301,6 @@ namespace SistemaCenagas.Controllers
             return _context.ADC_Procesos.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> Anexo1_Descargar(int idADC)
-        {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
-            ReporteAnexos reporte = new ReporteAnexos(_context, global);
-            byte[] pdf = reporte.Anexo1_PDF(global.proyectos, idADC);
-            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
-            ViewBag.global = global;
-            return File(pdf, "application/pdf", $"Anexo 1 - {global.proyectos.Nombre}.pdf");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Terminado(string check)

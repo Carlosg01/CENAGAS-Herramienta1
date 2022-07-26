@@ -207,10 +207,15 @@
                             </div>
 
                             <div class="form-group row align-items-center">
-                                <label class="col-2" style="text-align:right;">Inversión económica del cambio:</label>
+                                <label class="col-2" style="text-align:right;">Inversión económica del cambio $:</label>
                                 <div class="col">
                                     <input type="hidden" asp-for="anexo3.Inversion_Cambio" />
-                                    <input asp-for="anexo3.Inversion_Cambio" type="text" class="form-control" disabled />
+                                    <input asp-for="anexo3.Inversion_Cambio" type="number" class="form-control" disabled />
+                                </div>
+                                <label class="col-2" style="text-align:right;">Moneda:</label>
+                                <div class="col">
+                                    <input type="hidden" asp-for="anexo3.Tipo_Moneda" />
+                                    <input asp-for="anexo3.Tipo_Moneda" type="text" class="form-control" disabled />
                                 </div>
                             </div>
 
@@ -232,7 +237,7 @@
                                 <label class="col-2" style="text-align:right;">Justificación técnico-económico del cambio:</label>
                                 <div class="col">
                                     @if (new List<int>() { global.RESPONSABLE_ADC, global.ADMINISTRADOR, global.SUPERADMIN }
-                                     .Contains(global.session_usuario.user.Id_Rol))
+                                    .Contains(global.session_usuario.user.Id_Rol))
                                     {
                                         <textarea asp-for="anexo3.Justificacion" type="text" class="form-control" required></textarea>
                                     }
@@ -247,7 +252,7 @@
                                 <label class="col-2" style="text-align:right;">Descripción del cambio:</label>
                                 <div class="col">
                                     @if (new List<int>() { global.EQUIPO_VERIFICADOR, global.LIDER_EQUIPO_VERIFICADOR, global.ADMINISTRADOR, global.SUPERADMIN }
-                                    .Contains(global.session_usuario.user.Id_Rol))
+                                   .Contains(global.session_usuario.user.Id_Rol))
                                     {
                                         <textarea asp-for="anexo3.Descripcion_Cambio" type="text" class="form-control" required></textarea>
                                     }
@@ -260,7 +265,7 @@
                             </div>
 
                             @if (new List<int>() { global.EQUIPO_VERIFICADOR, global.LIDER_EQUIPO_VERIFICADOR, global.ADMINISTRADOR, global.SUPERADMIN }
-                                    .Contains(global.session_usuario.user.Id_Rol))
+                                   .Contains(global.session_usuario.user.Id_Rol))
                             {
                                 <hr />
                                 <div class="form-group row align-items-center">

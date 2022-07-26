@@ -187,24 +187,46 @@ namespace SistemaCenagas
         }
         public static IEnumerable<V_Resumen> VistaResumenADC(ApplicationDbContext context)
         {
-            IEnumerable<V_Resumen> resumen = (from a1 in context.ADC_Anexo1
-                                                     join adc in context.ADC on a1.Id equals adc.Id
-                                                     join r in context.Residencias on a1.Id_Residencia equals r.Id
-                                                     join p in context.Proyectos on a1.Id_Proyecto equals p.Id
-                                                     join proc in context.ADC_Procesos on adc.Id equals proc.Id_ADC
-                                                     where adc.Eliminado == 0 //&& proc.Id_Actividad == 1
+            List<V_Resumen> resumen = (from a1 in context.ADC_Anexo1
+                            join adc in context.ADC on a1.Id equals adc.Id
+                            join r in context.Residencias on a1.Id_Residencia equals r.Id
+                            join p in context.Proyectos on a1.Id_Proyecto equals p.Id
+                            join adc_proc in context.ADC_Procesos on adc.Id equals adc_proc.Id_ADC
+                            where adc.Eliminado == 0 //&& proc.Id_Actividad == 1
 
-                                                     select new V_Resumen
-                                                     {
-                                                         id_adc = adc.Id,
-                                                         folio_adc = adc.Folio,
-                                                         id_residencia = r.Id,
-                                                         residencia = r.Nombre,
-                                                         id_proyecto = p.Id,
-                                                         proyecto = p.Nombre,
-                                                         avance_ADC = proc.Avance
-                                                     }).ToList();
+                            select new V_Resumen
+                            {
+                                id_adc = adc.Id,
+                                folio_adc = adc.Folio,
+                                id_residencia = r.Id,
+                                residencia = r.Nombre,
+                                id_proyecto = p.Id,
+                                proyecto = p.Nombre,
+                                avance_ADC = adc_proc.Avance,
+                                
+                            }).ToList();
 
+            for(int i = 0; i < resumen.Count; i++)
+            {
+                var avance_prearranque = (from pre in context.PreArranque
+                                          join pre_proc in context.PreArranque_Procesos on pre.Id equals pre_proc.Id_PreArranque
+                                          where pre.Id_ADC == resumen[i].id_adc
+                                          select pre_proc).Select(p => p.Avance).ToList();
+
+                resumen[i] = new V_Resumen
+                {
+                    id_adc = resumen[i].id_adc,
+                    folio_adc = resumen[i].folio_adc,
+                    id_residencia = resumen[i].id_residencia,
+                    residencia = resumen[i].residencia,
+                    id_proyecto = resumen[i].id_proyecto,
+                    proyecto = resumen[i].proyecto,
+                    avance_ADC = resumen[i].avance_ADC,
+                    avance_Pre = avance_prearranque.Sum() / avance_prearranque.Count()
+                };
+            }
+
+            
 
             return resumen
                 .GroupBy(r => r.id_adc)
@@ -217,7 +239,7 @@ namespace SistemaCenagas
                     id_proyecto = s.First().id_proyecto,
                     proyecto = s.First().proyecto,
                     avance_ADC = (int)(s.Sum(a => a.avance_ADC) / s.Count()),
-                    avance_Pre = 0,
+                    avance_Pre = s.First().avance_Pre,
                     avance_Fisico = 0
                 }).ToList();
         }

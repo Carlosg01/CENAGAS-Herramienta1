@@ -104,6 +104,45 @@
                             </a>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            @(global.anexos.ElementAt(3).Id)
+                        </td>
+                        <td>
+                            @(global.anexos.ElementAt(3).Nombre)
+                        </td>
+                        <td style="width:10%;">
+                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo4" asp-route-idProyecto="@(global.proyectos.Id)">
+                                <span class="material-icons">get_app</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @(global.anexos.ElementAt(4).Id)
+                        </td>
+                        <td>
+                            @(global.anexos.ElementAt(4).Nombre)
+                        </td>
+                        <td style="width:10%;">
+                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo5" asp-route-idProyecto="@(global.proyectos.Id)">
+                                <span class="material-icons">get_app</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @(global.anexos.ElementAt(5).Id)
+                        </td>
+                        <td>
+                            @(global.anexos.ElementAt(5).Nombre)
+                        </td>
+                        <td style="width:10%;">
+                            <a class="btn btn-round form-control" title="Descargar" asp-action="Anexo6" asp-route-idProyecto="@(global.proyectos.Id)">
+                                <span class="material-icons">get_app</span>
+                            </a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         }

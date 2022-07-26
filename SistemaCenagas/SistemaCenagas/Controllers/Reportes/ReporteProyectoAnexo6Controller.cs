@@ -10,19 +10,19 @@ using Newtonsoft.Json;
 using SistemaCenagas.Data;
 using SistemaCenagas.Models;
 using SistemaCenagas.Reportes;
+using System.Web;
+using Microsoft.JSInterop;
 
 namespace SistemaCenagas.Controllers
 {
-    public class ReporteProyectoAnexo1Controller : Controller
+    public class ReporteProyectoAnexo6Controller : Controller
     {
         private readonly ApplicationDbContext _context;
         private Global global;
 
-        public ReporteProyectoAnexo1Controller(ApplicationDbContext context)
+        public ReporteProyectoAnexo6Controller(ApplicationDbContext context)
         {
-            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             _context = context;
-            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
         // GET: ADC
@@ -68,20 +68,20 @@ namespace SistemaCenagas.Controllers
         public async Task<IActionResult> Descargar(int idADC)
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+
+            int id_anexo6 = _context.ADC_Anexo6.Where(a => a.Id_Anexo1 == idADC).OrderBy(a=>a.Id).LastOrDefault().Id;
+
             ReporteAnexos reporte = new ReporteAnexos(_context, global);
-            byte[] pdf = reporte.Anexo1_PDF(global.proyectos, idADC);
-
-
-            //Microsoft.Office.Interop.Excel excel = new Microsoft.Office.Interop.Excel.Application();
-            
-
-
-            //reporte.Anexo1_PDF(global.proyectos, idADC);
+            byte[] pdf = reporte.Anexo6_PDF(id_anexo6);
+            //var dir = reporte.Anexo3_PDF(id_anexo3);
+            //reporte.Anexo4_PDF(id_anexo4);
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
+            //return RedirectToAction(nameof(PDF));
+            //return Redirect(dir);
+            return File(pdf, "application/pdf", $"Anexo 6 - {global.proyectos.Nombre}.pdf");
+            //return Ok();
             //return RedirectToAction(nameof(Index));
-            return File(pdf, "application/pdf", $"Anexo 1 - {global.proyectos.Nombre}.pdf");
         }
-        
     }
 }

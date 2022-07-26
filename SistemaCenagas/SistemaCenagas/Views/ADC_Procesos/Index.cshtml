@@ -228,7 +228,8 @@
                                    (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)))
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 9 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)))
                                 {
                                     <button class="btn btn-round" title="Editar actividad"
                                             data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{actividad.proceso.Id}")">
@@ -251,7 +252,8 @@
                                    (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)))
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 9 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)))
                                 {
                                     <button class="btn btn-round" title="Gestionar archivos"
                                             data-toggle="modal" data-target="#archivoProceso-modal" data-url="@Url.Action($"Archivos/{actividad.proceso.Id}")">

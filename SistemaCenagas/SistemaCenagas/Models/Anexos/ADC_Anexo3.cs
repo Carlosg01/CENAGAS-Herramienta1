@@ -34,6 +34,7 @@ namespace SistemaCenagas.Models
         public string Numero_Identificacion { get; set; }
         public string Descripcion_Riesgo { get; set; }
         public double Inversion_Cambio { get; set; }
+        public string Tipo_Moneda { get; set; }
         public string Fecha_Inicio { get; set; }
         public string Fecha_Termino { get; set; }
         public string Justificacion { get; set; }

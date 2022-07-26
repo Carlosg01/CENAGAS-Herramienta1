@@ -26,6 +26,8 @@ namespace SistemaCenagas
         public ADC_Procesos proceso { get; set; }
         public PreArranque_Procesos proceso_prearranque { get; set; }
 
+        public bool VISTA_PDF { get; set; }
+
         public int ADMINISTRADOR { get; set; }
         public int SUPERADMIN { get; set; }
         public int RESPONSABLE_ADC { get; set; }

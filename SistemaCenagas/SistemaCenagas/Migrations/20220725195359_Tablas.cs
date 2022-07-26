@@ -1161,6 +1161,8 @@ namespace SistemaCenagas.Migrations
                     Descripcion_Riesgo = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Inversion_Cambio = table.Column<double>(type: "double", nullable: true),
+                    Tipo_Moneda = table.Column<string>(type: "text", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Fecha_Inicio = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fecha_Termino = table.Column<string>(type: "varchar(900)", nullable: true)

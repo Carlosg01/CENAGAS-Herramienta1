@@ -1,4 +1,4 @@
-use cenagas;
+#use cenagas;
 
 SET SQL_SAFE_UPDATES = 0;
 #SET GLOBAL FOREIGN_KEY_CHECKS=0;

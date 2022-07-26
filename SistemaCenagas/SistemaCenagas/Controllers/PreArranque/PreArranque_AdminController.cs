@@ -59,7 +59,7 @@ namespace SistemaCenagas.Controllers
                 global.vista_prearranque = Consultas.PreArranqueVista_EV(_context);
             }
 
-            //global.resumenADC = Consultas.VistaResumenADC(_context);
+            global.resumenADC = Consultas.VistaResumenADC(_context);
 
 
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));

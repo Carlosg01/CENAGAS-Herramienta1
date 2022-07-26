@@ -158,9 +158,16 @@
                             </div>
 
                             <div class="form-group row align-items-center">
-                                <label class="col-2" style="text-align:right;">Inversión económica del cambio:</label>
+                                <label class="col-2" style="text-align:right;">Inversión económica del cambio $:</label>
                                 <div class="col">
-                                    <input asp-for="anexo3.Inversion_Cambio" type="text" class="form-control" required />
+                                    <input asp-for="anexo3.Inversion_Cambio" type="number" class="form-control" required />
+                                </div>
+                                <label class="col-2" style="text-align:right;">Moneda:</label>
+                                <div class="col">
+                                    <select asp-for="anexo3.Tipo_Moneda" type="text" class="form-control" required >
+                                        <option>PESO</option>
+                                        <option>DOLAR</option>
+                                    </select>
                                 </div>
                             </div>
 
