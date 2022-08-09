@@ -180,6 +180,8 @@ namespace SistemaCenagas.Controllers
                 return NotFound();
             }
 
+            ViewBag.existe_ev = _context.ADC_Equipo_Verificador.Where(e => e.Id_ADC == global.adc.adc.Id).Count();
+
             global.tarea = global.vista_tareas
                 .Where(t => t.proceso.Id_Actividad == aDC_Procesos.Id_Actividad).FirstOrDefault();
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));

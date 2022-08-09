@@ -53,7 +53,7 @@ namespace SistemaCenagas.Controllers
             ViewBag.liderEV = global.adc.lider;
 
             global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
+                .Where(u => u.user.Eliminado == 0).ToList();
             ViewBag.clave = "PRO-CEN-UTA-022";
             /*
             Model_ProyectoMiembro model_ProyectoMiembro = new Model_ProyectoMiembro();
@@ -255,7 +255,7 @@ namespace SistemaCenagas.Controllers
             //model.RadioModificado = "false";
 
             global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == global.EQUIPO_VERIFICADOR && u.user.Eliminado == 0).ToList();
+                .Where(u => u.user.Eliminado == 0).ToList();
 
             if(equipoVerificador != null)
             {
@@ -475,7 +475,7 @@ namespace SistemaCenagas.Controllers
             }
 
             global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == 6 && u.user.Eliminado == 0).ToList();
+                .Where(u => u.user.Eliminado == 0).ToList();
             for (int i = 0; i < global.vista_usuarios.Count(); i++)
             {
                 model.miembros.Add("false");
@@ -584,7 +584,7 @@ namespace SistemaCenagas.Controllers
             }
 
             global.vista_usuarios = Consultas.VistaUsuarios(_context)
-                .Where(u => u.user.Id_Rol == 6 && u.user.Eliminado == 0).ToList();
+                .Where(u => u.user.Eliminado == 0).ToList();
             for (int i = 0; i < global.vista_usuarios.Count(); i++)
             {
                 model.miembros.Add("false");

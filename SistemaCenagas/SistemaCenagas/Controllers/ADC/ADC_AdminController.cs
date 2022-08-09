@@ -350,9 +350,13 @@ namespace SistemaCenagas.Controllers
                     _context.Update(model);
 
                     var anexo3 = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == model.Id).FirstOrDefault();
-                    anexo3.Id_Responsable_ADC = model.Id_ResponsableADC;
 
-                    _context.Update(anexo3);
+                    if(anexo3 != null)
+                    {
+                        anexo3.Id_Responsable_ADC = model.Id_ResponsableADC;
+                        _context.Update(anexo3);
+                    }
+                    
 
 
                     await _context.SaveChangesAsync();

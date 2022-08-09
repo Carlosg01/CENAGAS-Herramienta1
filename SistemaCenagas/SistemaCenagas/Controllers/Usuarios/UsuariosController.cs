@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -114,6 +115,24 @@ namespace SistemaCenagas.Controllers
                 usuario.Email = usuario.Username + "@cenagas.gob.mx";
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
+
+                if(usuario.Id_Rol == global.LIDER_EQUIPO_VERIFICADOR)
+                {
+                    global.lideres = _context.Usuarios.Where(u => u.Id_Rol == global.LIDER_EQUIPO_VERIFICADOR && u.Id != global.session_usuario.user.Id).ToList();
+                } 
+                if(usuario.Id_Rol == global.RESPONSABLE_ADC)
+                {
+                    global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == global.RESPONSABLE_ADC && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
+                }
+                if (usuario.Id_Rol == global.RESPONSABLE_PREARRANQUE)
+                {
+                    global.responsablesPreArranque = _context.Usuarios.Where(u => u.Id_Rol == global.RESPONSABLE_PREARRANQUE && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
+                }
+                if (usuario.Id_Rol == global.SUPLENTE)
+                {
+                    global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == global.SUPLENTE && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
+                }
+
                 HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                 ViewBag.global = global;
                 return RedirectToAction(nameof(Index));
@@ -169,7 +188,7 @@ namespace SistemaCenagas.Controllers
                 try
                 {
                     usuario.Email = usuario.Username + (usuario.Username.Equals("ahdzt.97") ? "@gmail.com" : "@cenagas.gob.mx");
-
+                    /*
                     if (usuario.Id_Rol == 2)
                     {
                         global.lideres = _context.Usuarios
@@ -185,12 +204,33 @@ namespace SistemaCenagas.Controllers
                         global.suplentes = _context.Usuarios
                             .Where(u => u.Id_Rol == 4 && u.Id != global.session_usuario.user.Id).ToList();
                     }
+                    */
+                    
                     HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));//
                     ViewBag.global = global;
                     //return Content(JsonConvert.SerializeObject(usuario));
 
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();
+
+                    
+                    if (usuario.Id_Rol == global.LIDER_EQUIPO_VERIFICADOR)
+                    {
+                        global.lideres = _context.Usuarios.Where(u => u.Id_Rol == global.LIDER_EQUIPO_VERIFICADOR && u.Id != global.session_usuario.user.Id).ToList();
+                    }
+                    if (usuario.Id_Rol == global.RESPONSABLE_ADC)
+                    {
+                        global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == global.RESPONSABLE_ADC && u.Id != global.session_usuario.user.Id).ToList();
+                    }
+                    if (usuario.Id_Rol == global.RESPONSABLE_PREARRANQUE)
+                    {
+                        global.responsablesPreArranque = _context.Usuarios.Where(u => u.Id_Rol == global.RESPONSABLE_PREARRANQUE && u.Id != global.session_usuario.user.Id).ToList();
+                    }
+                    if (usuario.Id_Rol == global.SUPLENTE)
+                    {
+                        global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == global.SUPLENTE && u.Id != global.session_usuario.user.Id).ToList();
+                    }
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

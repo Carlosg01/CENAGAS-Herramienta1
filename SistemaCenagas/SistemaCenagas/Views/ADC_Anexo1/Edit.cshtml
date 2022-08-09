@@ -5,6 +5,29 @@
     Global global = (Global)ViewBag.global;
 }
 
+<script>
+
+    var textarea__max_length = 5000;
+
+    $('#textarea1').text("Longitud máxima: " + @(Model.Resultados_Analisis.Length) + "/" + textarea__max_length);
+    $('#textarea2').text("Longitud máxima: " + @(Model.Resultados_Propuesta.Length) + "/" + textarea__max_length);
+
+    function set(val, textarea) {
+        $(textarea).text("Longitud máxima: " + val + "/" + textarea__max_length);
+    }
+
+    function countChar(val, txtarea) {
+        var len = val.value.length;
+        if (len > textarea__max_length) {
+            val.value = val.value.substring(0, textarea__max_length);
+        } else {
+            $(txtarea).text("Longitud máxima: " + len + "/" + textarea__max_length);
+        }
+    };
+
+
+</script>
+
 <div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo1-modal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -185,15 +208,19 @@
                             Resultado de la propuesta de la solicitud de cambio
                         </label>
                         <div class="col">
-                            @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC}.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
+                            @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.SUPLENTE }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
-                                <textarea type="text" asp-for="Resultados_Analisis" class="form-control"></textarea>
+                                <textarea type="text" id="textarea_Resultados_Analisis" asp-for="Resultados_Analisis" onkeyup="countChar(this, '#textarea1');" class="form-control" style="height:300px;"></textarea>
+                                
+                                <label id="textarea1" style="color:grey; font-size:12px;"></label>
                             }
                             else
                             {
                                 <input type="hidden" asp-for="Resultados_Analisis" />
-                                <textarea type="text" asp-for="Resultados_Analisis" class="form-control" disabled></textarea>
+                                <textarea type="text" asp-for="Resultados_Analisis" class="form-control" disabled style="height:300px;"></textarea>
                             }
+
+                            
                         </div>
                         <span asp-validation-for="Resultados_Analisis" class="text-danger"></span>
                     </div>
@@ -206,14 +233,15 @@
                         </label>
                         <div class="col">
                             @if ((global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio &&
-                       global.anexo1.anexo1.Resultados_Analisis != null) || new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
+                      global.anexo1.anexo1.Resultados_Analisis != null) || new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
-                                <textarea type="text" asp-for="Resultados_Propuesta" class="form-control"></textarea>
+                                <textarea type="text" id="textarea_Resultados_Propuesta" asp-for="Resultados_Propuesta" onkeyup="countChar(this, '#textarea2');" class="form-control" style="height:300px;"></textarea>
+                                <label id="textarea2" style="color:grey; font-size:12px;"></label>
                             }
                             else
                             {
                                 <input type="hidden" asp-for="Resultados_Propuesta" />
-                                <textarea type="text" asp-for="Resultados_Propuesta" class="form-control" disabled></textarea>
+                                <textarea type="text" asp-for="Resultados_Propuesta" class="form-control" style="height:300px;" disabled></textarea>
                             }
                         </div>
                         <span asp-validation-for="Resultados_Propuesta" class="text-danger"></span>
@@ -225,7 +253,7 @@
                             Estatus
                         </label>
                         <div class="col">
-                            @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
+                            @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.SUPLENTE }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
                                 <select asp-for="Estatus" class="form-control" required>
                                     <option>Pendiente</option>

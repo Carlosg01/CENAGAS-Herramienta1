@@ -5,6 +5,23 @@
     Global global = (Global)ViewBag.global;
 }
 
+<script>
+
+    var textarea__max_length = 5000;
+
+    $('#textarea1').text("Longitud máxima: " + 0 + "/" + textarea__max_length);
+
+    function countChar(val, txtarea) {
+        var len = val.value.length;
+        if (len > textarea__max_length) {
+            val.value = val.value.substring(0, textarea__max_length);
+        } else {
+            $(txtarea).text("Longitud máxima: " + len + "/" + textarea__max_length);
+        }
+    };
+
+
+</script>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo4-modal">
     <div class="modal-dialog modal-lg" role="document">
@@ -29,7 +46,7 @@
                     <input type="hidden" asp-for="Id_Anexo3" />
                     <input type="hidden" asp-for="Id_Residente" />
 
-                    @if (global.session_usuario.user.Id_Rol == global.RESPONSABLE_ADC)
+                    @if (global.session_usuario.user.Id_Rol == global.RESPONSABLE_ADC || global.session_usuario.user.Id_Rol == global.SUPLENTE)
                     {
                         <div class="form-group row align-items-center">
                             <label class="col-2" style="text-align:right;">Fecha retiro de cambio temporal:</label>
@@ -46,7 +63,8 @@
                         <div class="form-group row align-items-center">
                             <label class="col-2" style="text-align:right;">Propuesta de inicio de operación:</label>
                             <div class="col">
-                                <textarea type="text" class="form-control" asp-for="Propuesta_Inicio_Operacion" required></textarea>
+                                <textarea type="text" class="form-control" style="height:300px;" asp-for="Propuesta_Inicio_Operacion" onkeyup="countChar(this, '#textarea1');" required></textarea>
+                                <label id="textarea1" style="color:grey; font-size:12px;"></label>
                             </div>
                         </div>
 
@@ -90,7 +108,7 @@
                             <div class="form-group row align-items-center">
                                 <label class="col-2" style="text-align:right;">Propuesta de inicio de operación:</label>
                                 <div class="col">
-                                    <textarea type="text" class="form-control" asp-for="Propuesta_Inicio_Operacion" disabled></textarea>
+                                    <textarea type="text" class="form-control" style="height:300px;" onkeyup="countChar(this, '#');" asp-for="Propuesta_Inicio_Operacion" disabled></textarea>
                                 </div>
                             </div>
 
@@ -118,7 +136,7 @@
                     <div class="modal-footer">
 
                         <button type="submit" role="button" class="btn btn-success">
-                            @(global.session_usuario.user.Id_Rol == global.RESPONSABLE_ADC ? "Solicitar autorización" : "Aceptar")
+                            @(global.session_usuario.user.Id_Rol == global.RESPONSABLE_ADC || global.session_usuario.user.Id_Rol == global.SUPLENTE ? "Solicitar autorización" : "Aceptar")
                         </button>
                         <a class="btn btn-dark" asp-controller="ADC_Procesos" asp-action="Index">
                             Cancelar

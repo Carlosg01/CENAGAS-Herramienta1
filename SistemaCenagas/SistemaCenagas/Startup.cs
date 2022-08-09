@@ -35,17 +35,17 @@ namespace SistemaCenagas
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.28-mysql")));
 
-            /*
+            
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
                 //options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.IdleTimeout = TimeSpan.FromDays(30);
                 options.Cookie.HttpOnly = true;
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
             });
-            */
+            
 
             /*services.Configure<CookiePolicyOptions>(options =>
             {

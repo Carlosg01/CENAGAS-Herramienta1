@@ -28,6 +28,8 @@ insert into puestos (nombre) values
 ('Supervisor'),
 ('Direccion ejecutiva comercial de los permisos de transporte y cumplimiento regulatorio'),
 ('Jefe de la unidad de transporte y almacenamiento'),
+('Director de Operación'),
+('Director de Operación'),
 ('Otro');
 
 update usuarios set token = null;

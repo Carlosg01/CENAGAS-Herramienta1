@@ -60,7 +60,7 @@ namespace SistemaCenagas
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
             var tokenDescriptor = new JwtSecurityToken(issuer, issuer, claims,
-                expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
+                expires: DateTime.Now.AddDays(30), signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
         public bool IsTokenValid(string key, string issuer, string token)

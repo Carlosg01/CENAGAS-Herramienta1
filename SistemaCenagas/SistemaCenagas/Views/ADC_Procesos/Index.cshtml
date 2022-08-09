@@ -3,6 +3,7 @@
     ViewData["Title"] = "Index";
     Global global = (Global)ViewBag.global;
     int resp = global.RESPONSABLE_ADC;
+    int suplente = global.SUPLENTE;
     int lider = global.LIDER_EQUIPO_VERIFICADOR;
     int ev = global.EQUIPO_VERIFICADOR;
     int admin = global.ADMINISTRADOR;
@@ -221,15 +222,15 @@
                          global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
 
-                                if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, global.adc.adc.Id_ProponenteCambio }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 2 && new List<int> { super, admin, resp }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 9 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)))
+                                if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, suplente, global.adc.adc.Id_ProponenteCambio }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 2 && new List<int> { super, admin, resp, suplente }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, suplente, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 9 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)))
                                 {
                                     <button class="btn btn-round" title="Editar actividad"
                                             data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{actividad.proceso.Id}")">
@@ -245,15 +246,15 @@
                           (global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
                            global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
-                                if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, global.adc.adc.Id_ProponenteCambio }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 2 && new List<int> { super, admin, resp }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, suplente, global.adc.adc.Id_ProponenteCambio }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 2 && new List<int> { super, admin, resp, suplente }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
                                    (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 9 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)))
+                                   (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 9 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)))
                                 {
                                     <button class="btn btn-round" title="Gestionar archivos"
                                             data-toggle="modal" data-target="#archivoProceso-modal" data-url="@Url.Action($"Archivos/{actividad.proceso.Id}")">
@@ -266,17 +267,17 @@
                         </td>
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-             (global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-              global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+(global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+             global.vista_tareas.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
-                                if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, global.adc.adc.Id_ProponenteCambio }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 2 && new List<int> { super, admin, resp }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)) ||
-                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, lider, ev }.Contains(global.session_usuario.user.Id)))
+                                if ((actividad.actividad.Id == 1 && new List<int> { super, admin, resp, suplente, global.adc.adc.Id_ProponenteCambio }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 2 && new List<int> { super, admin, resp, suplente }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 3 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 4 && new List<int> { super, admin, lider, suplente, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 5 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 6 && new List<int> { super, admin, resp, suplente }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 7 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)) ||
+                                   (actividad.actividad.Id == 8 && new List<int> { super, admin, resp, suplente, lider, ev }.Contains(global.session_usuario.user.Id)))
                                 {
                                     @if (actividad.actividad.Id == 1)
                                     {
@@ -321,6 +322,10 @@
                                     }
                                     @if (actividad.actividad.Id == 5)
                                     {
+                                        <!--a class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 3).FirstOrDefault().Nombre)"
+                                           asp-controller="ADC_Anexo3" asp-action="Edit4" asp-route-id="@(global.adc.adc.Id)">
+                                            <span class="material-icons">exit_to_app</span>
+                                        </a-->
 
                                         <button class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 3).FirstOrDefault().Nombre)"
                                                 data-toggle="modal" data-target="#editarAnexo3-modal" data-url="@Url.Action($"Edit4/{global.adc.adc.Id}", "ADC_Anexo3")">

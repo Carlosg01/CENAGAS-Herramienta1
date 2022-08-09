@@ -145,8 +145,6 @@ namespace SistemaCenagas.Controllers
                     global.ERROR_MSJ = "Error al generar el token!";
                     return RedirectToAction(nameof(Index));
                 }
-                
-
             }
             global.ERROR_MSJ = "El correo o contraseña son incorrectos!";
             return RedirectToAction(nameof(Index));
@@ -174,47 +172,51 @@ namespace SistemaCenagas.Controllers
 
             _user.Token = token;
 
-            global.session_usuario = new V_Usuarios
+            if(global.session == null || global.session == "LogOut")
             {
-                user = new Usuarios
+                global.session_usuario = new V_Usuarios
                 {
-                    Id = int.Parse(User.FindFirstValue("Id")),
-                    Id_Rol = int.Parse(User.FindFirstValue("Id_Rol")),
-                    Nombre = User.FindFirstValue("Nombre"),
-                    Titulo = User.FindFirstValue("Titulo"),
-                    Email = User.FindFirstValue("Email")
-                },
-                Rol = User.FindFirstValue("Rol") //_context.Roles.Where(r => r.Id == int.Parse(User.FindFirstValue("Rol"))).FirstOrDefault().Nombre
-            };
+                    user = new Usuarios
+                    {
+                        Id = int.Parse(User.FindFirstValue("Id")),
+                        Id_Rol = int.Parse(User.FindFirstValue("Id_Rol")),
+                        Nombre = User.FindFirstValue("Nombre"),
+                        Titulo = User.FindFirstValue("Titulo"),
+                        Email = User.FindFirstValue("Email")
+                    },
+                    Rol = User.FindFirstValue("Rol") //_context.Roles.Where(r => r.Id == int.Parse(User.FindFirstValue("Rol"))).FirstOrDefault().Nombre
+                };
 
-            //var _prueba = JsonConvert.DeserializeObject<Prueba>(HttpContext.Session.GetString("prueba"));
+                if (token == null && !_tokenService.IsTokenValid(_config["Jwt:SecretKey1"].ToString(), _config["Jwt:Issuer"].ToString(), token))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
 
+                _context.Update(_user);
+                await _context.SaveChangesAsync();
 
-
-
-
-            if (token == null && !_tokenService.IsTokenValid(_config["Jwt:SecretKey1"].ToString(), _config["Jwt:Issuer"].ToString(), token))
-            {
-                
-                return RedirectToAction(nameof(Index));
+                if (JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global")) == null)
+                    return RedirectToAction(nameof(Index));
             }
-
-            
-
-            _context.Update(_user);
-            await _context.SaveChangesAsync();
-
-            
-
-            if (global.session_usuario.user == null)
-                return RedirectToAction(nameof(Index));
+            /*
+            global.ADMINISTRADOR = _context.Roles.Where(x => x.Nombre.Equals("Administrador")).FirstOrDefault().Id;
+            global.SUPERADMIN = _context.Roles.Where(x => x.Nombre.Equals("Superadmin")).FirstOrDefault().Id;
+            global.RESPONSABLE_ADC = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la administración de cambio")).FirstOrDefault().Id;
+            global.RESPONSABLE_PREARRANQUE = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la revisión de seguridad del pre-arranque")).FirstOrDefault().Id;
+            global.SUPLENTE = _context.Roles.Where(x => x.Nombre.Equals("Suplente")).FirstOrDefault().Id;
+            global.LIDER_EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Lider de equipo verificador")).FirstOrDefault().Id;
+            global.EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Equipo verificador")).FirstOrDefault().Id;
+            global.EMPLEADO = _context.Roles.Where(x => x.Nombre.Equals("Empleado")).FirstOrDefault().Id;
+            */
 
             //catalogos
             global.roles = _context.Roles.Where(r => r.Id != 1).ToList();            
             global.puestos = _context.Puestos.ToList();            
             global.residencias = _context.Residencias.ToList();
+
             global.lideres = _context.Usuarios.Where(u => u.Id_Rol == global.LIDER_EQUIPO_VERIFICADOR && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
             global.responsablesADC = _context.Usuarios.Where(u => u.Id_Rol == global.RESPONSABLE_ADC && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
+            global.responsablesPreArranque = _context.Usuarios.Where(u => u.Id_Rol == global.RESPONSABLE_PREARRANQUE && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
             global.suplentes = _context.Usuarios.Where(u => u.Id_Rol == global.SUPLENTE && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
             global.equipo_verificador = _context.Usuarios.Where(u => u.Id_Rol == global.EQUIPO_VERIFICADOR && u.Id != int.Parse(User.FindFirstValue("Id"))).ToList();
 
@@ -302,6 +304,7 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             ViewBag.global = global;
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             return View((Usuarios)global.session_usuario.user);
         }
 

@@ -195,18 +195,18 @@
 
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                    (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                     global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+             (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+              global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
-                                
-                                if ((actividad.actividad.Id == 1 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE }.Contains(global.session_usuario.user.Id_Rol)) ||
-                                    (actividad.actividad.Id == 2 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+
+                                if ((actividad.actividad.Id == 1 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 2 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
                                     (actividad.actividad.Id == 3 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
-                                    (actividad.actividad.Id == 4 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
-                                    (actividad.actividad.Id == 5 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
-                                    (actividad.actividad.Id == 6 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
-                                    (actividad.actividad.Id == 7 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
-                                    (actividad.actividad.Id == 8 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)))
+                                    (actividad.actividad.Id == 4 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
+                                    (actividad.actividad.Id == 5 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
+                                    (actividad.actividad.Id == 6 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
+                                    (actividad.actividad.Id == 7 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol))||
+                                    (actividad.actividad.Id == 8 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)))
                                 {
                                     <button class="btn btn-round" title="Editar actividad"
                                             data-toggle="modal" data-target="#editarProceso-modal" data-url="@Url.Action($"Edit/{actividad.proceso.Id}")">
@@ -217,17 +217,17 @@
                         </td>
                         <td>
                             @if (actividad.actividad.Id == 1 ||
-                     (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
-                      global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
+              (global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Confirmado.Equals("true") &&
+               global.vista_tareas_prearranque.ElementAt(actividad.actividad.Id - 2).proceso.Terminado.Equals("true")))
                             {
-                                if ((actividad.actividad.Id == 1 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE }.Contains(global.session_usuario.user.Id_Rol)) ||
-                                    (actividad.actividad.Id == 2 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                if ((actividad.actividad.Id == 1 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 2 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
                                     (actividad.actividad.Id == 3 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
-                                    (actividad.actividad.Id == 4 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
-                                    (actividad.actividad.Id == 5 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
-                                    (actividad.actividad.Id == 6 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
-                                    (actividad.actividad.Id == 7 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
-                                    (actividad.actividad.Id == 8 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)))
+                                    (actividad.actividad.Id == 4 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 5 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 6 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 7 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)) ||
+                                    (actividad.actividad.Id == 8 && new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.RESPONSABLE_PREARRANQUE, global.SUPLENTE, global.LIDER_EQUIPO_VERIFICADOR, global.EQUIPO_VERIFICADOR }.Contains(global.session_usuario.user.Id_Rol)))
                                 {
                                     <button class="btn btn-round" title="Gestionar archivos"
                                             data-toggle="modal" data-target="#archivoProceso-modal" data-url="@Url.Action($"Archivos/{actividad.proceso.Id}")">
