@@ -33,6 +33,7 @@ namespace SistemaCenagas.Reportes
         public string Dir_LOGO { get; set; }
         public string mark_yes { get; set; }
         public string mark_no { get; set; }
+        public string URL_ROOT { get; set; }
 
         #endregion
 
@@ -45,51 +46,32 @@ namespace SistemaCenagas.Reportes
             context = _context;
             global = _global;
 
-            string ubicacion = "";
-            
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo1 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Formato_Anexo1.html");
+            URL_ROOT = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\assets\\"));
+            html_anexo1 = System.IO.File.ReadAllText(URL_ROOT + "Anexo1.html");
+            html_anexo2 = System.IO.File.ReadAllText(URL_ROOT + "Anexo2.html");
+            html_anexo3 = System.IO.File.ReadAllText(URL_ROOT + "Anexo3.html");
+            html_anexo4 = System.IO.File.ReadAllText(URL_ROOT + "Anexo4.html");
+            html_anexo5 = System.IO.File.ReadAllText(URL_ROOT + "Anexo5.html");
+            html_anexo6 = System.IO.File.ReadAllText(URL_ROOT + "Anexo6.html");
 
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo2 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Formato_Anexo2.html");
+            Dir_LOGO = URL_ROOT; //Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "img\\"));
 
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo3 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Formato_Anexo3.html");
-
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo4 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Anexo4.html");
-
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo5 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Anexo5.html");
-
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo6 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Anexo6.html");
-
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo3_1 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Formato_Anexo3_1.html");
-
-            ubicacion = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas"));
-            html_anexo3_2 = System.IO.File.ReadAllText(ubicacion + "\\FormatosHTML\\Formato_Anexo3_2.html");
-
-
-            Dir_LOGO = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas\\FormatosHTML\\"));
-
-            mark_yes = "<span>&#9746;</span>";
-            mark_no = "<span>&#9744;</span>";
+            mark_yes = "<span style='font-size:30px;'>&#9746;</span>";
+            mark_no = "<span style='font-size:30px;'>&#9744;</span>";
 
             Anexo2_REGISTROS = "";
         }
 
         #region ANEXO 1
 
-        public byte[] Anexo1_PDF(Proyectos proyecto, int idADC)
+        public void Anexo1_PDF(Proyectos proyecto, int idADC)
         {
             var anexo1 = Consultas.VistaAnexo1(context, idADC);
             var adc = Consultas.VistaADC(context).Where(a => a.adc.Id == idADC).FirstOrDefault();
             html_anexo1 = html_anexo1.Replace("#C_LOGO", Dir_LOGO + "logo.png");
             html_anexo1 = html_anexo1.Replace("#C_0_", "PRO-CEN-UTA-020-F01");
-            html_anexo1 = html_anexo1.Replace("#C_1_", anexo1.anexo1.Tipo_Cambio.Equals("Temporal") ? mark_yes : mark_no);
-            html_anexo1 = html_anexo1.Replace("#C_2_", anexo1.anexo1.Tipo_Cambio.Equals("Permanente") ? mark_yes : mark_no);
+            html_anexo1 = html_anexo1.Replace("#C_1_", (anexo1.anexo1.Tipo_Cambio.Equals("Temporal") ? mark_yes : mark_no));
+            html_anexo1 = html_anexo1.Replace("#C_2_", (anexo1.anexo1.Tipo_Cambio.Equals("Permanente") ? mark_yes : mark_no));
             html_anexo1 = html_anexo1.Replace("#C_3_", anexo1.anexo1.Fecha);
             html_anexo1 = html_anexo1.Replace("#C_4_", anexo1.residencia);
             html_anexo1 = html_anexo1.Replace("#C_5_", anexo1.gasoducto);
@@ -123,10 +105,13 @@ namespace SistemaCenagas.Reportes
             excel.Quit();
             */
 
-            /*
-            var dir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Plantillas\\PDF.html"));
+            ///*
+            //var dir = URL_ROOT + "PDF.html"; 
+            var dir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Views\\ReporteProyectoAnexo1\\PDF.cshtml"));
+            //var dir = "..\\wwwroot\\assets\\PDF.cshtml";
             System.IO.File.WriteAllText(dir, html_anexo1);
 
+            /*
             var p = new System.Diagnostics.Process();
             p.StartInfo = new System.Diagnostics.ProcessStartInfo(dir)
             {
@@ -134,8 +119,9 @@ namespace SistemaCenagas.Reportes
             };
             p.Start();
             */
+            //*/
 
-
+            /*
             HtmlToPdf htmlToPdf = new HtmlToPdf();
             htmlToPdf.Options.PdfPageSize = PdfPageSize.A4;
             htmlToPdf.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
@@ -144,9 +130,9 @@ namespace SistemaCenagas.Reportes
             SelectPdf.PdfDocument doc = htmlToPdf.ConvertHtmlString(html_anexo1);
             byte[] pdf = doc.Save();
             doc.Close();
-            return pdf;
             
-
+            return pdf;
+            */
         }
 
         #endregion
@@ -168,7 +154,7 @@ namespace SistemaCenagas.Reportes
             public string presentoARP { get; set; }
         }
         public string Anexo2_REGISTROS { get; set; }
-        public void Anexo2_AgregarRegistros(int IdProyecto)
+        public string Anexo2_AgregarRegistros(int IdProyecto)
         {
             global.resumenADC = Consultas.VistaResumenADC(context).Where(r => r.id_proyecto == IdProyecto);
 
@@ -219,6 +205,7 @@ namespace SistemaCenagas.Reportes
                 Anexo2_REGISTROS += "</tr>";
                 i++;
             }
+            return Anexo2_REGISTROS;
         }
         public byte[] Anexo2_PDF(Proyectos proyecto)
         {
@@ -264,7 +251,7 @@ namespace SistemaCenagas.Reportes
             var adc = Consultas.VistaADC(context).Where(a => a.adc.Id == anexo3.Id_Anexo1).FirstOrDefault();
             var proyecto = Consultas.VistaProyectos(context).Where(p => p.Id == adc.adc.Id_Proyecto).FirstOrDefault();
             var EV = context.ADC_Equipo_Verificador.Where(a => a.Id_ADC == anexo3.Id_Anexo1).FirstOrDefault();//OrderBy(a => a.Id_Equipo_Verificador).LastOrDefault();
-            var integrantesEV = context.ADC_Equipo_Verificador_Integrantes.Where(a => a.Id_Equipo_Verificador_ADC == EV.Id);
+            //var integrantesEV = context.ADC_Equipo_Verificador_Integrantes.Where(a => a.Id_Equipo_Verificador_ADC == EV.Id);
 
             IEnumerable<Usuarios> usuarios = (from u in context.Usuarios
                             join ev in context.ADC_Equipo_Verificador_Integrantes on u.Id equals ev.Id_Usuario
@@ -356,6 +343,7 @@ namespace SistemaCenagas.Reportes
             htmlToPdf.Options.MarginBottom = 20;
             htmlToPdf.Options.MarginLeft = 20;
             htmlToPdf.Options.MarginRight = 20;
+            //htmlToPdf.Options.po
             //htmlToPdf.Options.web
             SelectPdf.PdfDocument doc = htmlToPdf.ConvertHtmlString(html_anexo3);
             byte[] pdf = doc.Save();

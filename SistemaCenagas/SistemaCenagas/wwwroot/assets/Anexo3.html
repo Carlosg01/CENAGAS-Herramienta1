@@ -1,0 +1,648 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet">
+      <meta name="author" content="armandohdz" />
+    <style type="text/css">
+      html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
+      a.comment-indicator:hover + div.comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em }
+      a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em }
+      div.comment { display:none }
+      table { border-collapse:collapse; page-break-after:always }
+      .gridlines td { border:1px dotted black }
+      .gridlines th { border:1px dotted black }
+      .b { text-align:center }
+      .e { text-align:center }
+      .f { text-align:right }
+      .inlineStr { text-align:left }
+      .n { text-align:right }
+      .s { text-align:left }
+      td.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style0 { vertical-align:bottom; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style1 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style1 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style2 { vertical-align:middle; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style2 { vertical-align:middle; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style3 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style3 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style4 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style4 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style5 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style5 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style6 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style6 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style7 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style7 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style8 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style8 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style9 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style9 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style10 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style10 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style11 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style11 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style12 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style12 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style13 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style13 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style14 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style14 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style15 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style15 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style16 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style16 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style17 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style17 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style18 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style18 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style19 { vertical-align:bottom; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style19 { vertical-align:bottom; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style20 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style20 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style21 { vertical-align:bottom; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style21 { vertical-align:bottom; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style22 { vertical-align:middle; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style22 { vertical-align:middle; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style23 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      th.style23 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      td.style24 { vertical-align:middle; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style24 { vertical-align:middle; text-align:right; padding-right:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style25 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style25 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style26 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style26 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style27 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style27 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style28 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style28 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style29 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style29 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style30 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style30 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style31 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style31 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style32 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style32 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style33 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style33 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style34 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style34 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style35 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style35 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style36 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style36 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style37 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style37 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style38 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style38 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style39 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style39 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style40 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style40 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      td.style41 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style41 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style42 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      th.style42 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; color:#000000; font-family:'Calibri'; font-size:11pt; background-color:white }
+      td.style43 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style43 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style44 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style44 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style45 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style45 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style46 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style46 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style47 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style47 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style48 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style48 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style49 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style49 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:1px solid #BF9000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style50 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style50 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style51 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      th.style51 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:none #000000; border-left:none #000000; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:14pt; background-color:white }
+      td.style52 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      th.style52 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #BF9000 !important; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:11pt; background-color:white }
+      td.style53 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      th.style53 { vertical-align:middle; text-align:center; border-bottom:1px solid #BF9000 !important; border-top:1px solid #BF9000 !important; border-left:1px solid #BF9000 !important; border-right:1px solid #BF9000 !important; font-weight:bold; color:#000000; font-family:'Calibri'; font-size:12pt; background-color:white }
+      table.sheet0 col.col0 { width:65.06666592pt }
+      table.sheet0 col.col1 { width:65.06666592pt }
+      table.sheet0 col.col2 { width:65.06666592pt }
+      table.sheet0 col.col3 { width:65.06666592pt }
+      table.sheet0 col.col4 { width:65.06666592pt }
+      table.sheet0 col.col5 { width:65.06666592pt }
+      table.sheet0 col.col6 { width:65.06666592pt }
+      table.sheet0 col.col7 { width:65.06666592pt }
+      table.sheet0 col.col8 { width:65.06666592pt }
+      table.sheet0 col.col9 { width:65.06666592pt }
+      table.sheet0 col.col10 { width:65.06666592pt }
+      table.sheet0 col.col11 { width:65.06666592pt }
+      table.sheet0 col.col12 { width:42pt }
+      table.sheet0 col.col13 { width:42pt }
+      table.sheet0 col.col14 { width:42pt }
+      table.sheet0 col.col15 { width:42pt }
+      table.sheet0 tr { height:15pt }
+      table.sheet0 tr.row0 { height:15pt }
+      table.sheet0 tr.row1 { height:15pt }
+      table.sheet0 tr.row2 { height:15pt }
+      table.sheet0 tr.row3 { height:15pt }
+      table.sheet0 tr.row4 { height:15pt }
+      table.sheet0 tr.row5 { height:15pt }
+      table.sheet0 tr.row18 { height:15pt }
+      table.sheet0 tr.row23 { height:15pt }
+      table.sheet0 tr.row39 { height:15pt }
+      table.sheet0 tr.row40 { height:15pt }
+      table.sheet0 tr.row54 { height:15pt }
+      table.sheet0 tr.row68 { height:15pt }
+      table.sheet0 tr.row71 { height:15pt }
+      table.sheet0 tr.row77 { height:15pt }
+      table.sheet0 tr.row78 { height:15pt }
+      table.sheet0 tr.row79 { height:15pt }
+      table.sheet0 tr.row80 { height:15pt }
+      table.sheet0 tr.row81 { height:15pt }
+      table.sheet0 tr.row82 { height:15.75pt }
+      table.sheet0 tr.row84 { height:15pt }
+      table.sheet0 tr.row85 { height:15pt }
+      table.sheet0 tr.row86 { height:15pt }
+      table.sheet0 tr.row87 { height:15pt }
+      table.sheet0 tr.row88 { height:15pt }
+      table.sheet0 tr.row89 { height:15.75pt }
+    </style>
+    <script type="text/javascript">
+        setTimeout(function () { window.print(); }, 2000);
+
+        function download() {
+            window.print();
+        }
+    </script>
+
+  </head>
+
+  <body>
+    <style>
+        @media print{
+            #btnDescargar{
+                display: none; 
+            }
+        }
+
+        @page {
+            size: auto;
+            margin: 20px;            
+        }
+    </style>
+    <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
+        <col class="col0">
+        <col class="col1">
+        <col class="col2">
+        <col class="col3">
+        <col class="col4">
+        <col class="col5">
+        <col class="col6">
+        <col class="col7">
+        <col class="col8">
+        <col class="col9">
+        <col class="col10">
+        <col class="col11">
+        <col class="col12">
+        <col class="col13">
+        <col class="col14">
+        <col class="col15">
+        <tbody>
+          <tr class="row0">
+            <td style="padding: 5px;" class="column0 style9 null style9" colspan="3" rowspan="6"><img src="#C_LOGO" width="250" /></td>
+            <td style="padding: 5px;" class="column3 style10 s style18" colspan="9" rowspan="6"><br />UNIDAD DE TRANSPORTE Y ALMACENAMIENTO<br />
+PROCEDIMIENTO DE ADMINISTRACIÓN DE CAMBIOS TEMPORALES O DEFINITIVOS<br />
+PROYECTO DE LA ADMINISTRACIÓN DEL CAMBIO<br /><br /></td>
+            
+          </tr>
+          <tr class="row1">
+            
+          </tr>
+          <tr class="row2">
+            
+          </tr>
+          <tr class="row3">
+            
+          </tr>
+          <tr class="row4">
+            
+          </tr>
+          <tr class="row5">
+            
+          </tr>
+          <tr class="row6">
+            <td style="padding: 5px;" class="column0 style23 null style23" colspan="9"></td>
+            <td style="padding: 5px;" class="column9 style23 s style23" colspan="3">#C_1</td>
+            
+          </tr>
+          <tr class="row7">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="4" rowspan="3">1. No. de folio de la administración del cambio</td>
+            <td style="padding: 5px;" class="column4 style26 s style26" colspan="4" rowspan="3">#C_2</td>
+            <td style="padding: 5px;" class="column8 style27 s style27" colspan="4" rowspan="3">1.1 Fecha de registro: <span style="color:#000000; font-family:'Calibri'; font-size:11pt">#C_3</span></td>
+            
+          </tr>
+          <tr class="row8">
+            
+          </tr>
+          <tr class="row9">
+            
+          </tr>
+          <tr class="row10">
+            <td style="padding: 5px;" class="column0 style19 s style19" colspan="12">Estos campos deben ser llenados por el Responsable de la Administración del Cambio</td>
+            
+          </tr>
+          <tr class="row11">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="4" rowspan="2">2. Indicar el Tipo de la Administración del Cambio</td>
+            <td style="padding: 5px;" class="column4 style21 s style21" colspan="3">Temporal</td>
+            <td style="padding: 5px;" class="column7 style1 s">#C_4</td>
+            <td style="padding: 5px;" class="column8 style21 s style21" colspan="3">Definitivo</td>
+            <td style="padding: 5px;" class="column11 style1 s">#C_5</td>
+            
+          </tr>
+          <tr class="row12">
+            <td style="padding: 5px;" class="column4 style2 s">Nuevo</td>
+            <td style="padding: 5px;" class="column5 style1 s">#C_6</td>
+            <td style="padding: 5px;" class="column6 style22 s style22" colspan="2">Rehabilitado</td>
+            <td style="padding: 5px;" class="column8 style1 s">#C_7</td>
+            <td style="padding: 5px;" class="column9 style22 s style22" colspan="2">Modificado</td>
+            <td style="padding: 5px;" class="column11 style1 s">#C_8</td>
+            
+          </tr>
+          <tr class="row13">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="4" rowspan="2">3. Nombre de la residencia de la administración del cambio</td>
+            <td style="padding: 5px;" class="column4 style30 s style30" colspan="8" rowspan="2">#C_9</td>
+            
+          </tr>
+          <tr class="row14">
+            
+          </tr>
+          <tr class="row15">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="4" rowspan="2">4. Nombre del líder de la administración del cambio</td>
+            <td style="padding: 5px;" class="column4 style30 s style30" colspan="8" rowspan="2">#C_10</td>
+            
+          </tr>
+          <tr class="row16">
+            
+          </tr>
+          <tr class="row17">
+            <td style="padding: 5px;" class="column0 style31 s style36" colspan="4" rowspan="2">5. Integrantes del equipo verificador (Nombres, puesto, firma)</td>
+            <td style="padding: 5px;" class="column4 style3 s style5" colspan="3">Nombre</td>
+            <td style="padding: 5px;" class="column7 style3 s style5" colspan="3">Puesto</td>
+            <td style="padding: 5px;" class="column10 style3 s style5" colspan="2">Firma</td>
+            
+          </tr>
+          <tr class="row18">
+            <td style="padding: 5px;" class="column4 style6 s style7" colspan="3">#C_11</td>
+            <td style="padding: 5px;" class="column7 style7 s style7" colspan="3">#C_12</td>
+            <td style="padding: 5px;" class="column10 style3 null style5" colspan="2"></td>
+            
+          </tr>
+          <tr class="row19">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="12">6. Selecciona que se va a modificar</td>
+            
+          </tr>
+
+          <tr class="row20">
+            <td style="padding: 5px;" class="column0 style24 s style24" colspan="3">Equipo</td>
+            <td style="padding: 5px;" class="column3 style25 s style25">#C_13</td>
+            <td style="padding: 5px;" class="column4 style24 s style24" colspan="3">Válvula</td>
+            <td style="padding: 5px;" class="column7 style25 s style25">#C_16</td>
+            <td style="padding: 5px;" class="column8 style24 s style24" colspan="3">Estación de Medición y Regulación</td>
+            <td style="padding: 5px;" class="column11 style25 s style25">#C_19</td>
+            <td style="padding: 5px;" class="column12 style8 null style8" colspan="3"></td>
+            <td style="padding: 5px;" class="column15 style8 null style8"></td>
+          </tr>
+          
+          <tr class="row22">
+            <td style="padding: 5px;" class="column0 style24 s style24" colspan="3" rowspan="2">Instrumento</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" rowspan="2">#C_14</td>
+            <td style="padding: 5px;" class="column4 style24 s style24" colspan="3" rowspan="2">Accesorio unido al Ducto</td>
+            <td style="padding: 5px;" class="column7 style25 s style25" rowspan="2">#C_17</td>
+            <td style="padding: 5px;" class="column8 style24 s style24" colspan="3" rowspan="2">Trampa de envio y recibo de diablos</td>
+            <td style="padding: 5px;" class="column11 style25 s style25" rowspan="2">#C_20</td>
+            
+          </tr>
+          <tr class="row23">
+            
+          </tr>
+          <tr class="row24">
+            <td style="padding: 5px;" class="column0 style24 s style24" colspan="3" rowspan="2">Componente o dispositivo</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" rowspan="2">#C_15</td>
+            <td style="padding: 5px;" class="column4 style24 s style24" colspan="3" rowspan="2">Estación de Compresión</td>
+            <td style="padding: 5px;" class="column7 style25 s style25" rowspan="2">#C_18</td>
+            <td style="padding: 5px;" class="column8 style24 s style24" colspan="3" rowspan="2">Otro Especificar</td>
+            <td style="padding: 5px;" class="column11 style25 s style25" rowspan="2">#C_21</td>
+            
+          </tr>
+          <tr class="row25">
+            
+          </tr>
+          <tr class="row26">
+            <td style="padding: 5px;" class="column0 style28 s style28" colspan="4" rowspan="2">7. No. de identificación del proceso, maquinaria o equipo</td>
+            <td style="padding: 5px;" class="column4 style37 s style37" colspan="8" rowspan="2">#C_22</td>
+            
+          </tr>
+          <tr class="row27">
+            
+          </tr>
+          <tr class="row28">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="12">8. Describir el riesgo inminente por eliminar conforme al cambio:</td>
+            
+          </tr>
+          <tr class="row29">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="12">#C_23</td>
+            
+          </tr>
+          <tr class="row30">
+            <td style="padding: 5px;" class="column0 style28 s style28" colspan="4" rowspan="2">9. Inversión económica del cambio</td>
+            <td style="padding: 5px;" class="column4 style37 s style37" colspan="8" rowspan="2">#C_24</td>
+            
+          </tr>
+          <tr class="row31">
+            
+          </tr>
+          <tr class="row32">
+            <td style="padding: 5px;" class="column0 style28 s style28" colspan="4" rowspan="2">10. Periodo de tiempo que conlleva el cambio</td>
+            <td style="padding: 5px;" class="column4 style29 s style25" colspan="2" rowspan="2">10.1 Fecha de Inicio</td>
+            <td style="padding: 5px;" class="column6 style25 s style25" colspan="2" rowspan="2">#C_25</td>
+            <td style="padding: 5px;" class="column8 style29 s style29" colspan="2" rowspan="2">10.2 Fecha término</td>
+            <td style="padding: 5px;" class="column10 style25 s style25" colspan="2" rowspan="2">#C_26</td>
+            
+          </tr>
+          <tr class="row33">
+            
+          </tr>
+          <tr class="row34">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="12">11. Justificación técnico-económico del cambio comprado contra lo que actualmente se tiene</td>
+            
+          </tr>
+          <tr class="row35">
+            <td style="padding: 5px;" class="column0 style30 s style30" colspan="12">#C_27</td>
+            
+          </tr>
+          <tr class="row36">
+            <td style="padding: 5px;" class="column0 style20 s style20" colspan="12">12. Descripción del cambio</td>
+            
+          </tr>
+          <tr class="row37">
+            <td style="padding: 5px;" class="column0 style30 s style30" colspan="12">#C_28</td>
+            
+          </tr>
+          <tr class="row38">
+            <td style="padding: 5px;" class="column0 style28 s style28" colspan="12">13. Documentación que se debe presentar para esta Administración del Cambio el Equipo Verificador</td>
+            
+          </tr>
+          <tr class="row39">
+            <td style="padding: 5px;" class="column0 style27 s style27" colspan="3" rowspan="2">Tipo de documentación</td>
+            <td style="padding: 5px;" class="column3 style29 s style29" colspan="3" rowspan="2">Nombre del responsable del equipo verificador para el cumplimiento</td>
+            <td style="padding: 5px;" class="column6 style27 s style27" colspan="3" rowspan="2">Tipo de documentación</td>
+            <td style="padding: 5px;" class="column9 style29 s style29" colspan="3" rowspan="2">Nombre del responsable del equipo verificador para el cumplimiento</td>
+            
+          </tr>
+          <tr class="row40">
+            
+          </tr>
+          <tr class="row41">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Análisis del riesgo del proceso</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_29</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_30</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Diagramas de flujo de procesos</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_51</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_52</td>
+            
+          </tr>
+          <tr class="row42">
+            
+          </tr>
+          <tr class="row43">
+            
+          </tr>
+          <tr class="row44">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Análisis del riesgo del Ducto</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_31</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_32</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Diagramas de tubería e instrumentación (DTI)</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_53</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_54</td>
+            
+          </tr>
+          <tr class="row45">
+            
+          </tr>
+          <tr class="row46">
+            
+          </tr>
+          <tr class="row47">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Requerimientos de cumplimiento normativo</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_33</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_34</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Planos de construcción</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_55</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_56</td>
+            
+          </tr>
+          <tr class="row48">
+            
+          </tr>
+          <tr class="row49">
+            
+          </tr>
+          <tr class="row50">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Actualización de procedimientos de operación</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_35</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_36</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Planos de diseño</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_57</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_58</td>
+            
+          </tr>
+          <tr class="row51">
+            
+          </tr>
+          <tr class="row52">
+            
+          </tr>
+          <tr class="row53">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Actualización de procedimientos de mantenimiento</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_37</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_38</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Planos de clasificación eléctrica</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_59</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_60</td>
+            
+          </tr>
+          <tr class="row54">
+            
+          </tr>
+          <tr class="row55">
+            
+          </tr>
+          <tr class="row56">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Actualización de procedimientos de seguridad</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_39</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_40</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Diagramas eléctricos</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_61</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_62</td>
+            
+          </tr>
+          <tr class="row57">
+            
+          </tr>
+          <tr class="row58">
+            
+          </tr>
+          <tr class="row59">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Actualización de procedimientos de servicios a usuarios</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_41</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_42</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Materiales de construcción</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_63</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_64</td>
+            
+          </tr>
+          <tr class="row60">
+            
+          </tr>
+          <tr class="row61">
+            
+          </tr>
+          <tr class="row62">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Actualización del plan de respuesta a emergencias</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_43</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_44</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Especificaciones de tubería, accesorios, válvulas y conexiones</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_65</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_66</td>
+            
+          </tr>
+          <tr class="row63">
+            
+          </tr>
+          <tr class="row64">
+            
+          </tr>
+          <tr class="row65">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Dictamen emitido por una unidad verificadora</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_45</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_46</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Inventario de sustancias peligrosas</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_67</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_68</td>
+            
+          </tr>
+          <tr class="row66">
+            
+          </tr>
+          <tr class="row67">
+            
+          </tr>
+          <tr class="row68">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Actualización de capacitación y entrenamiento del personal</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_47</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_48</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Inspecciones y pruebas por un Tercero calificado</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_69</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_70</td>
+            
+          </tr>
+          <tr class="row69">
+            
+          </tr>
+          <tr class="row70">
+            
+          </tr>
+          <tr class="row71">
+            <td style="padding: 5px;" class="column0 style37 s style37" colspan="2" rowspan="3">Revisión de seguridad del pre-arranque</td>
+            <td style="padding: 5px;" class="column2 style25 s style25" rowspan="3">#C_49</td>
+            <td style="padding: 5px;" class="column3 style25 s style25" colspan="3" rowspan="3">#C_50</td>
+            <td style="padding: 5px;" class="column6 style37 s style37" colspan="2" rowspan="3">Dictamen por una Unidad Verificadora. (Pre-arranque).</td>
+            <td style="padding: 5px;" class="column8 style25 s style25" rowspan="3">#C_71</td>
+            <td style="padding: 5px;" class="column9 style25 s style25" colspan="3" rowspan="3">#C_72</td>
+            
+          </tr>
+          <tr class="row72">
+            
+          </tr>
+          <tr class="row73">
+            
+          </tr>
+          <tr class="row74">
+            <td style="padding: 5px;" class="column0 style28 s style28" colspan="12">Otro (Especificar): <span style="color:#000000; font-family:'Calibri'; font-size:11pt">#OTRO_ESPECIFICAR</span></td>
+            
+          </tr>
+          <tr class="row75">
+            <td style="padding: 5px;" class="column0 style28 s style28" colspan="12">14. Autorización de la ejecución del proyecto de cambio</td>
+            
+          </tr>
+          <tr class="row76">
+            <td style="padding: 5px;" class="column0 style29 s style29" colspan="5">Responsable de la administración del cambio</td>
+            <td style="padding: 5px;" class="column5 style25 null style25" colspan="2" rowspan="16"></td>
+            <td style="padding: 5px;" class="column7 style29 s style29" colspan="5">Director de seguridad industrial</td>
+            
+          </tr>
+          <tr class="row77">
+            <td style="padding: 5px;" class="column0 style25 s style25" colspan="5" rowspan="6">#C_73</td>
+            <td style="padding: 5px;" class="column7 style25 s style25" colspan="5" rowspan="6">#C_74</td>
+            
+          </tr>
+          <tr class="row78">
+            
+          </tr>
+          <tr class="row79">
+            
+          </tr>
+          <tr class="row80">
+            
+          </tr>
+          <tr class="row81">
+            
+          </tr>
+          <tr class="row82">
+            
+          </tr>
+          <tr class="row83">
+            <td style="padding: 5px;" class="column0 style25 s style25" colspan="5">(Nombre y firma)</td>
+            <td style="padding: 5px;" class="column7 style25 s style25" colspan="5">(Nombre y Firma)</td>
+            
+          </tr>
+          <tr class="row84">
+            <td style="padding: 5px;" class="column0 style29 s style29" colspan="5">Director ejecutivo de operación</td>
+            <td style="padding: 5px;" class="column7 style29 s style29" colspan="5">Director ejecutivo de mantenimiento y seguridad</td>
+            
+          </tr>
+          <tr class="row85">
+            <td style="padding: 5px;" class="column0 style25 s style25" colspan="5" rowspan="6">#C_75</td>
+            <td style="padding: 5px;" class="column7 style25 s style25" colspan="5" rowspan="6">#C_76</td>
+            
+          </tr>
+          <tr class="row86">
+            
+          </tr>
+          <tr class="row87">
+            
+          </tr>
+          <tr class="row88">
+            
+          </tr>
+          <tr class="row89">
+            
+          </tr>
+          <tr class="row90">
+            
+          </tr>
+          <tr class="row91">
+            <td style="padding: 5px;" class="column0 style25 s style25" colspan="5">(Nombre y Firma)</td>
+            <td style="padding: 5px;" class="column7 style25 s style25" colspan="5">(Nombre y Firma)</td>
+            
+          </tr>
+        </tbody>
+    </table>
+    <br />
+    <br />
+
+    <button id="btnDescargar" class="btn btn-success" onclick="download();">Descargar</button>
+  </body>
+</html>

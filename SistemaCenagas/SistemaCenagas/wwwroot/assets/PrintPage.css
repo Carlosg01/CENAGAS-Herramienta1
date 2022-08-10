@@ -1,0 +1,13 @@
+﻿@media print {
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+    #btnDescargar {
+        display: none;
+    }
+}
+
+@page {
+    size: auto;
+    margin: 20px;
+}

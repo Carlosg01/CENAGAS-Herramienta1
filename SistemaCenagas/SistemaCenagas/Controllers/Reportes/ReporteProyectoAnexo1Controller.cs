@@ -69,7 +69,8 @@ namespace SistemaCenagas.Controllers
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             ReporteAnexos reporte = new ReporteAnexos(_context, global);
-            byte[] pdf = reporte.Anexo1_PDF(global.proyectos, idADC);
+            //byte[] pdf = reporte.Anexo1_PDF(global.proyectos, idADC);
+            reporte.Anexo1_PDF(global.proyectos, idADC);
 
 
             //Microsoft.Office.Interop.Excel excel = new Microsoft.Office.Interop.Excel.Application();
@@ -79,9 +80,38 @@ namespace SistemaCenagas.Controllers
             //reporte.Anexo1_PDF(global.proyectos, idADC);
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
-            //return RedirectToAction(nameof(Index));
-            return File(pdf, "application/pdf", $"Anexo 1 - {global.proyectos.Nombre}.pdf");
+            return RedirectToAction(nameof(PDF));
+            //return File(pdf, "application/pdf", $"Anexo 1 - {global.proyectos.Nombre}.pdf");
         }
-        
+
+        public async Task<IActionResult> PDF()
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return View();
+        }
+        public async Task<IActionResult> PDF_Viewer(int idADC)
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+
+
+            var model = new V_Reporte_Anexo1_ADC
+            {
+                anexo1 = Consultas.VistaAnexo1(_context, idADC),
+                adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == idADC).FirstOrDefault()
+            };
+
+            //ViewBag.anexo1 = Consultas.VistaAnexo1(_context, idADC);
+            //ViewBag.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == idADC).FirstOrDefault();
+
+
+
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return View(model);
+        }
+
+
     }
 }

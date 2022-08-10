@@ -24,6 +24,7 @@
     <Content Remove="Views\Reporte\ReporteProyectoAnexo3\Delete.cshtml" />
     <Content Remove="Views\Reporte\ReporteProyectoAnexo3\Details.cshtml" />
     <Content Remove="Views\Reporte\ReporteProyectoAnexo3\Edit.cshtml" />
+    <Content Remove="wwwroot\assets\img\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +45,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.15">
@@ -128,6 +130,10 @@
     <Content Include="Views\ReporteProyectoAnexo5\PDF.html" />
     <Content Include="Views\ReporteProyectoAnexo4\PDF.html" />
     <Content Include="Views\ReporteProyectoAnexo3\PDF.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\img\logo.png" />
   </ItemGroup>
 
 </Project>

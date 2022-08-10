@@ -86,17 +86,47 @@ namespace SistemaCenagas.Controllers
             //return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> PDF()
+        public async Task<IActionResult> PDF_Viewer(int idADC)
         {
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
-            //global.VISTA_PDF = true;
+            int id_anexo3 = _context.ADC_Anexo3.Where(a => a.Id_Anexo1 == idADC).OrderBy(a => a.Id).LastOrDefault().Id;
+            var anexo3 = _context.ADC_Anexo3.Find(id_anexo3);
+            var anexo1 = Consultas.VistaAnexo1(_context, anexo3.Id_Anexo1);
+            var adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == anexo3.Id_Anexo1).FirstOrDefault();
+            var proyecto = Consultas.VistaProyectos(_context).Where(p => p.Id == adc.adc.Id_Proyecto).FirstOrDefault();
+            var EV = _context.ADC_Equipo_Verificador.Where(a => a.Id_ADC == anexo3.Id_Anexo1).FirstOrDefault();//OrderBy(a => a.Id_Equipo_Verificador).LastOrDefault();
+            var integrantesEV = _context.ADC_Equipo_Verificador_Integrantes.Where(a => a.Id_Equipo_Verificador_ADC == EV.Id);
+
+            IEnumerable<Usuarios> usuarios = (from u in _context.Usuarios
+                                              join ev in _context.ADC_Equipo_Verificador_Integrantes on u.Id equals ev.Id_Usuario
+                                              where ev.Id_Equipo_Verificador_ADC == EV.Id
+                                              select u).ToList();
+
+            ViewBag.puestos = _context.Puestos.ToList();
+            ViewBag.usuarios = _context.Usuarios.ToList();
+
+            var model = new V_Reporte_Anexo3_ADC
+            {
+                anexo3 = _context.ADC_Anexo3.Find(id_anexo3),
+                anexo1 = Consultas.VistaAnexo1(_context, anexo3.Id_Anexo1),
+                adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == anexo3.Id_Anexo1).FirstOrDefault(),
+                proyecto = Consultas.VistaProyectos(_context).Where(p => p.Id == adc.adc.Id_Proyecto).FirstOrDefault(),
+                EV = _context.ADC_Equipo_Verificador.Where(a => a.Id_ADC == anexo3.Id_Anexo1).FirstOrDefault(),//OrderBy(a => a.Id_Equipo_Verificador).LastOrDefault();
+                //integrantesEV = _context.ADC_Equipo_Verificador_Integrantes.Where(a => a.Id_Equipo_Verificador_ADC == EV.Id),
+
+                usuarios = (from u in _context.Usuarios
+                            join ev in _context.ADC_Equipo_Verificador_Integrantes on u.Id equals ev.Id_Usuario
+                            where ev.Id_Equipo_Verificador_ADC == EV.Id
+                            select u).ToList(),
+                documentacion = _context.ADC_Anexo3_Documentacion.Where(a => a.Id_Anexo3 == id_anexo3).ToList()
+            };
+
+
 
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
-
-            //await js.InvokeVoidAsync("setTimeout(function(){window.print()}, 3000);");
-            return View();
+            return View(model);
 
         }
 

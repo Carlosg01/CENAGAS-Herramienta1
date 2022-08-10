@@ -61,6 +61,9 @@ namespace SistemaCenagas
                 options.MaxModelBindingCollectionSize = 8000;
             });
 
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            //services.AddMvc().AddRazorRuntimeCompilation();
+
 
             //-----------AUTENTICACION DE USUARIO----------
 

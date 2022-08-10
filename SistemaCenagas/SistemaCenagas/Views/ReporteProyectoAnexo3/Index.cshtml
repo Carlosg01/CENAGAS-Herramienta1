@@ -113,7 +113,7 @@
                                         @(global.resumenADC.Where(r => r.id_proyecto == item.id_proyecto && r.id_adc == item.adc.Id).FirstOrDefault().avance_ADC)%
                                     </td>
                                     <td style="width:10%;">
-                                        <a class="btn btn-round form-control" title="Descargar Anexo 3" asp-action="Descargar" asp-route-idADC="@(item.adc.Id)">
+                                        <a class="btn btn-round form-control" title="Descargar Anexo 3" asp-action="PDF_Viewer" asp-route-idADC="@(item.adc.Id)">
                                             <span class="material-icons">get_app</span>
                                         </a>
                                     </td>
