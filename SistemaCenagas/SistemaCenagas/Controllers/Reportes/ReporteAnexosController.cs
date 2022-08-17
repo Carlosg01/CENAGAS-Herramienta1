@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class ReporteAnexosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,7 +25,16 @@ namespace SistemaCenagas.Controllers
             _context = context;
             //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
-
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: ProyectosUsuario
         public async Task<IActionResult> Index()
         {

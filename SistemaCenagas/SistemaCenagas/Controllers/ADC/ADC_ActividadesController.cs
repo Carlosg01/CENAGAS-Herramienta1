@@ -22,15 +22,25 @@ namespace SistemaCenagas.Controllers
         public ADC_ActividadesController(ApplicationDbContext context)
         {
             _context = context;
-            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            //if(!await getGlobal()) return RedirectToAction("Index", "Home");
 
             
+        }
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
         }
 
         // GET: ADC_Actividades
         public async Task<IActionResult> Index()
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             if (!global.session.Equals("LogIn"))
             {
                 ViewBag.global = global;
@@ -45,7 +55,7 @@ namespace SistemaCenagas.Controllers
 
         public async Task<IActionResult> Normativas(int? id)
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 ViewBag.global = global;
@@ -67,7 +77,7 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Actividades/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 ViewBag.global = global;
@@ -87,9 +97,9 @@ namespace SistemaCenagas.Controllers
         }
 
         // GET: ADC_Actividades/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             ViewBag.global = global;
             return View();
         }
@@ -101,7 +111,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id_Actividad,Actividad,Registro_Eliminado")] ADC_Actividades aDC_Actividades)
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 _context.Add(aDC_Actividades);
@@ -116,7 +126,7 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Actividades/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 ViewBag.global = global;
@@ -140,7 +150,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id_Actividad,Actividad,Registro_Eliminado")] ADC_Actividades aDC_Actividades)
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             if (id != aDC_Actividades.Id)
             {
                 ViewBag.global = global;
@@ -176,7 +186,7 @@ namespace SistemaCenagas.Controllers
         // GET: ADC_Actividades/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 ViewBag.global = global;
@@ -200,7 +210,7 @@ namespace SistemaCenagas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
             var aDC_Actividades = await _context.ADC_Actividades.FindAsync(id);
             aDC_Actividades.Eliminado = 1;
             _context.ADC_Actividades.Update(aDC_Actividades);

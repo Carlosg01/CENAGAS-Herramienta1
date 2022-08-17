@@ -24,6 +24,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
+using Jint;
 
 /*using System.Net;
 using System.Net.Mail;
@@ -31,6 +32,7 @@ using SistemaCenagas.Email;*/
 
 namespace SistemaCenagas.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -56,6 +58,7 @@ namespace SistemaCenagas.Controllers
         public IActionResult Index()
         {
             
+            /*
             if (HttpContext.Session.GetString("Global") != null)
             {
                 global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
@@ -85,21 +88,11 @@ namespace SistemaCenagas.Controllers
 
             global.vista_usuarios = Consultas.VistaUsuarios(_context);
             global.session = "LogOut";
-            /*
-
-            var token = "yeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhZG1pbkBjZW5hZ2FzLmdvYi5teCIsIm5iZiI6MTY1NzYxNjU4NSwiZXhwIjoxNjU3NjIwMTg1LCJpYXQiOjE2NTc2MTY1ODV9.Fwq4jTsK4E2utECzTzEl7JuzWXnPPAp_6PecYG2iim0";
-            var isValid = _tokenService.IsTokenValid(_config["SecretKey"].ToString(), token);
-
-            if (isValid)
-            {
-                HttpContext.Session.SetString("Token", token);
-                return RedirectToAction(nameof(Dashboard));
-            }
-
-            */
+            
             ////return Content(JsonConvert.SerializeObject(_context.Roles.ToList()));
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
             ViewBag.global = global;
+            */
             return View();
         }
 
@@ -113,10 +106,9 @@ namespace SistemaCenagas.Controllers
 
             IActionResult response = Unauthorized();
 
-            Prueba p = new Prueba();
+            //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
-            
+            var engine = new Engine().Execute("function alertError(msj){alert(msj);}");
 
             if (us != null && us.Estatus.Equals("Habilitado"))
             {
@@ -138,15 +130,34 @@ namespace SistemaCenagas.Controllers
                     HttpContext.Session.SetString("User", JsonConvert.SerializeObject(us));
                     HttpContext.Session.SetString("Token", generatedToken);
 
+                    HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(new Global()));
+                    global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+
+                    //Se carga la informacion
+                    global.ADMINISTRADOR = _context.Roles.Where(x => x.Nombre.Equals("Administrador")).FirstOrDefault().Id;
+                    global.SUPERADMIN = _context.Roles.Where(x => x.Nombre.Equals("Superadmin")).FirstOrDefault().Id;
+                    global.RESPONSABLE_ADC = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la administración de cambio")).FirstOrDefault().Id;
+                    global.RESPONSABLE_PREARRANQUE = _context.Roles.Where(x => x.Nombre.Equals("Responsable de la revisión de seguridad del pre-arranque")).FirstOrDefault().Id;
+                    global.SUPLENTE = _context.Roles.Where(x => x.Nombre.Equals("Suplente")).FirstOrDefault().Id;
+                    global.LIDER_EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Lider de equipo verificador")).FirstOrDefault().Id;
+                    global.EQUIPO_VERIFICADOR = _context.Roles.Where(x => x.Nombre.Equals("Equipo verificador")).FirstOrDefault().Id;
+                    global.EMPLEADO = _context.Roles.Where(x => x.Nombre.Equals("Empleado")).FirstOrDefault().Id;
+
+                    global.vista_usuarios = Consultas.VistaUsuarios(_context);
+                    global.session = "LogOut";
+
+                    HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
                     return RedirectToAction(nameof(Dashboard));
                 }
                 else
                 {
-                    global.ERROR_MSJ = "Error al generar el token!";
+                    //engine.Invoke("alertError", "Error al generar el token!");
+                    //global.ERROR_MSJ = "Error al generar el token!";
                     return RedirectToAction(nameof(Index));
                 }
             }
-            global.ERROR_MSJ = "El correo o contraseña son incorrectos!";
+            //engine.Invoke("alertError", "El correo o contraseña son incorrectos!");
+            //global.ERROR_MSJ = "El correo o contraseña son incorrectos!";
             return RedirectToAction(nameof(Index));
             ////return Content(ViewBag.error ? "True" : "False");
 
@@ -157,6 +168,11 @@ namespace SistemaCenagas.Controllers
         [Authorize]
         public async Task<IActionResult> Dashboard()
         {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return RedirectToAction("Index");
+            }
             global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
 
             string token = HttpContext.Session.GetString("Token");

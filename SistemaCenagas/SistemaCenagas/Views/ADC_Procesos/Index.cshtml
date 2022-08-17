@@ -322,15 +322,15 @@
                                     }
                                     @if (actividad.actividad.Id == 5)
                                     {
-                                        <!--a class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 3).FirstOrDefault().Nombre)"
+                                        <a class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 3).FirstOrDefault().Nombre)"
                                            asp-controller="ADC_Anexo3" asp-action="Edit4" asp-route-id="@(global.adc.adc.Id)">
                                             <span class="material-icons">exit_to_app</span>
-                                        </a-->
+                                        </a>
 
-                                        <button class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 3).FirstOrDefault().Nombre)"
-                                                data-toggle="modal" data-target="#editarAnexo3-modal" data-url="@Url.Action($"Edit4/{global.adc.adc.Id}", "ADC_Anexo3")">
+                                        <!--button class="btn btn-round" title="@(global.anexos.Where(a=>a.Id == 3).FirstOrDefault().Nombre)"
+                                                data-toggle="modal" data-target="#editarAnexo3-modal" data-url="@Url.Action($"Modal_Edit4/{global.adc.adc.Id}", "ADC_Anexo3")">
                                             <span class="material-icons">exit_to_app</span>
-                                        </button>
+                                        </button-->
                                     }
                                     @if (actividad.actividad.Id == 6)
                                     {

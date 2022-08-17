@@ -20,9 +20,11 @@ using System.Text;
 using SelectPdf;
 using SistemaCenagas.Reportes;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class PreArranque_ProcesosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,7 +36,16 @@ namespace SistemaCenagas.Controllers
             _context = context;
             //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
-
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: ADC_Procesos
         public async Task<IActionResult> Index()
         {

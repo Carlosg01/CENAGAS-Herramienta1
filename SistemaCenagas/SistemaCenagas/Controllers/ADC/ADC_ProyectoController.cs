@@ -27,6 +27,16 @@ namespace SistemaCenagas.Controllers
             //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: ADC
         public async Task<IActionResult> Index()
         {

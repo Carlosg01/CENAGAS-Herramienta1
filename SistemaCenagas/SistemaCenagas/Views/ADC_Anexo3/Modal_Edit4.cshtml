@@ -9,6 +9,21 @@
 
 <script>
 
+    function validateCheck(i) {
+        if ($("#Check_" + (i + 1)).is(':checked')) {
+            $("#Input1_Check_" + (i + 1)).removeAttr('disabled');
+            $("#Input2_Check_" + (i + 1)).removeAttr('disabled');
+        }
+        else {
+            $("#Input1_Check_" + (i + 1)).attr('disabled', 'disabled');
+            $("#Input2_Check_" + (i + 1)).attr('disabled', 'disabled');
+        }
+    }
+
+</script>
+
+<script>
+
     var textarea__max_length = 3000;
 
     $('#textarea1').text("Longitud máxima: " + @(Model.anexo3.Justificacion != null ? Model.anexo3.Justificacion.Length : 0) + "/" + textarea__max_length);
@@ -30,25 +45,7 @@
 
 </script>
 
-<script>
-
-    function validateCheck(i) {
-        //alert("#Check_" + (i + 1) + ":" + $("#Check_" + (i + 1)).is(':checked') + ", #Input_Check_" + (i + 1));
-
-        if ($("#Check_" + (i + 1)).is(':checked')) {
-            $("#Input1_Check_" + (i + 1)).removeAttr('disabled');
-            $("#Input2_Check_" + (i + 1)).removeAttr('disabled');
-        }
-        else {
-            $("#Input1_Check_" + (i + 1)).attr('disabled', 'disabled');
-            $("#Input2_Check_" + (i + 1)).attr('disabled', 'disabled');
-        }
-    }
-
-</script>
-
-
-<div class="main-container">
+<!--div class="main-container">
 
     <div class="navbar bg-white breadcrumb-bar">
         <nav aria-label="breadcrumb">
@@ -57,7 +54,7 @@
                     <a asp-controller="Home" asp-action="Dashboard">Inicio</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a asp-controller="ADC_Admin" asp-action="Index">ADC</a>
+                    <a asp-controller="PreArranque_Admin" asp-action="Index">Pre-arranque</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Tareas</li>
 
@@ -79,25 +76,45 @@
 
     </div>
 
-    <div style="padding-left:20px; padding-right:20px;">
+    <div style="padding-left:10px; padding-right:10px;">
 
         <div id="PlaceHolderHere"></div>
 
         <div class="page-header mb-4">
             <div class="media">
                 <div class="media-body ml-3">
-                    <h3 class="mb-0">
-                        @(global.anexos.Where(a => a.Id == 3).FirstOrDefault().Nombre):
-                        <br />
-                        @(global.proyectos.Nombre)
-                    </h3>
+                    <h3 class="mb-0">Revisión de seguridad de pre-arranque</h3>
                 </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-body">
-                <form asp-action="Edit4">
+        
+
+    </div>
+
+
+
+
+</div-->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editarAnexo3-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">
+                    @(global.anexos.Where(a => a.Id == 3).FirstOrDefault().Nombre):
+                    <br />
+                    @(global.proyectos.Nombre)
+                </h6>
+                <a asp-controller="ADC_Procesos" asp-action="Index" class="close btn btn-round">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <!--end of modal head-->
+            <div class="modal-body">
+
+                <form asp-action="Modal_Edit4">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="anexo3.Fecha_Registro" />
                     <input type="hidden" asp-for="anexo3.Id_Anexo1" />
@@ -267,7 +284,7 @@
                                 <label class="col-2" style="text-align:right;">Justificación técnico-económico del cambio:</label>
                                 <div class="col">
                                     @if (new List<int>() { global.RESPONSABLE_ADC, global.ADMINISTRADOR, global.SUPERADMIN }
-                             .Contains(global.session_usuario.user.Id_Rol))
+                               .Contains(global.session_usuario.user.Id_Rol))
                                     {
                                         <textarea asp-for="anexo3.Justificacion" onkeyup="countChar(this, '#textarea1');" style="height:200px;" type="text" class="form-control" required></textarea>
                                         <label id="textarea1" style="color:grey; font-size:12px;"></label>
@@ -283,7 +300,7 @@
                                 <label class="col-2" style="text-align:right;">Descripción del cambio:</label>
                                 <div class="col">
                                     @if (new List<int>() { global.EQUIPO_VERIFICADOR, global.LIDER_EQUIPO_VERIFICADOR, global.ADMINISTRADOR, global.SUPERADMIN }
-                            .Contains(global.session_usuario.user.Id_Rol))
+                              .Contains(global.session_usuario.user.Id_Rol))
                                     {
                                         <textarea asp-for="anexo3.Descripcion_Cambio" onkeyup="countChar(this, '#textarea2');" style="height:200px;" type="text" class="form-control" required></textarea>
                                         <label id="textarea2" style="color:grey; font-size:12px;"></label>
@@ -297,10 +314,14 @@
                             </div>
 
                             @if (new List<int>() { global.EQUIPO_VERIFICADOR, global.LIDER_EQUIPO_VERIFICADOR, global.ADMINISTRADOR, global.SUPERADMIN }
-                              .Contains(global.session_usuario.user.Id_Rol))
+                               .Contains(global.session_usuario.user.Id_Rol))
                             {
                                 <hr />
-                                <span><b>Documentación por parte del equipo verificador</b></span>
+                                <div class="form-group row align-items-center">
+                                    <div class="col">
+                                        <label class="col-6" style="text-align:right;">Documentación por parte del equipo verificador</label>
+                                    </div>
+                                </div>
                                 <hr />
                                 <div class="form-group row align-items-center">
                                     <div class="col">
@@ -311,7 +332,7 @@
                                                     <th>Tipo de documentacion</th>
                                                     <th style="width:5%;"></th>
                                                     <!--th>Documentos requeridos</!--th>
-                                    <th>Responsable / Área</th-->
+                                        <th>Responsable / Área</th-->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -412,17 +433,14 @@
                         </a>
                     </div>
                 </form>
+
             </div>
         </div>
-
-        
-
     </div>
-
-
-
-
 </div>
+
+<!--script type="text/javascript" src="~/lib/jquery/dist/combo_cascada_edit.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/combo_cascada.js"></script-->
 
 
 @section Scripts {

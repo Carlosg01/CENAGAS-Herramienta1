@@ -12,9 +12,11 @@ using SistemaCenagas.Models;
 using SistemaCenagas.Reportes;
 using System.Web;
 using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class ReporteProyectoAnexo3Controller : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +28,16 @@ namespace SistemaCenagas.Controllers
             _context = context;
             //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
-
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: ADC
         public async Task<IActionResult> Index()
         {

@@ -3,14 +3,19 @@
 @{
     ViewData["Title"] = "Edit";
     Global global = (Global)ViewBag.global;
+    var x = Model.Resultados_Analisis;
 }
 
 <script>
 
-    var textarea__max_length = 5000;
+    var textarea__max_length = 3000;
 
-    $('#textarea1').text("Longitud máxima: " + @(Model.Resultados_Analisis.Length) + "/" + textarea__max_length);
-    $('#textarea2').text("Longitud máxima: " + @(Model.Resultados_Propuesta.Length) + "/" + textarea__max_length);
+    $('#textarea1').text("Longitud máxima: " + @(Model.Proceso != null ? Model.Proceso.Length : 0) + "/" + textarea__max_length);
+    $('#textarea2').text("Longitud máxima: " + @(Model.Prestacion_Servicio != null ? Model.Prestacion_Servicio.Length : 0) + "/" + textarea__max_length);
+    $('#textarea3').text("Longitud máxima: " + @(Model.Descripcion != null ? Model.Descripcion.Length : 0) + "/" + textarea__max_length);
+
+    $('#textarea4').text("Longitud máxima: " + @(Model.Resultados_Analisis != null ? Model.Resultados_Analisis.Length : 0) + "/" + textarea__max_length);
+    $('#textarea5').text("Longitud máxima: " + @(Model.Resultados_Propuesta != null ? Model.Resultados_Propuesta.Length : 0) + "/" + textarea__max_length);
 
     function set(val, textarea) {
         $(textarea).text("Longitud máxima: " + val + "/" + textarea__max_length);
@@ -60,7 +65,6 @@
                                 <select asp-for="Tipo_Cambio" class="form-control" required>
                                     <option>Temporal</option>
                                     <option>Permanente</option>
-                                    <option>Pre arranque</option>
                                 </select>
                             }
                             else
@@ -154,7 +158,8 @@
                         <div class="col">
                             @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
-                                <textarea type="text" asp-for="Proceso" class="form-control" required></textarea>
+                                <textarea type="text" asp-for="Proceso" class="form-control" onkeyup="countChar(this, '#textarea1');" style="height:300px;" required></textarea>
+                                <label id="textarea1" style="color:grey; font-size:12px;"></label>
                             }
                             else
                             {
@@ -172,7 +177,8 @@
                         <div class="col">
                             @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
-                                <textarea type="text" asp-for="Prestacion_Servicio" class="form-control" required></textarea>
+                                <textarea type="text" asp-for="Prestacion_Servicio" class="form-control" onkeyup="countChar(this, '#textarea2');" style="height:300px;" required></textarea>
+                                <label id="textarea2" style="color:grey; font-size:12px;"></label>
                             }
                             else
                             {
@@ -190,7 +196,8 @@
                         <div class="col">
                             @if (global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio)
                             {
-                                <textarea type="text" asp-for="Descripcion" class="form-control" required></textarea>
+                                <textarea type="text" asp-for="Descripcion" class="form-control" onkeyup="countChar(this, '#textarea3');" style="height:300px;" required></textarea>
+                                <label id="textarea3" style="color:grey; font-size:12px;"></label>
                             }
                             else
                             {
@@ -210,9 +217,9 @@
                         <div class="col">
                             @if (new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN, global.RESPONSABLE_ADC, global.SUPLENTE }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
-                                <textarea type="text" id="textarea_Resultados_Analisis" asp-for="Resultados_Analisis" onkeyup="countChar(this, '#textarea1');" class="form-control" style="height:300px;"></textarea>
+                                <textarea type="text" id="textarea_Resultados_Analisis" asp-for="Resultados_Analisis" onkeyup="countChar(this, '#textarea4');" class="form-control" style="height:300px;"></textarea>
                                 
-                                <label id="textarea1" style="color:grey; font-size:12px;"></label>
+                                <label id="textarea4" style="color:grey; font-size:12px;"></label>
                             }
                             else
                             {
@@ -235,8 +242,8 @@
                             @if ((global.session_usuario.user.Id == global.adc.adc.Id_ProponenteCambio &&
                       global.anexo1.anexo1.Resultados_Analisis != null) || new List<int>() { global.ADMINISTRADOR, global.SUPERADMIN }.Contains(global.session_usuario.user.Id_Rol)) //Responsable ADC
                             {
-                                <textarea type="text" id="textarea_Resultados_Propuesta" asp-for="Resultados_Propuesta" onkeyup="countChar(this, '#textarea2');" class="form-control" style="height:300px;"></textarea>
-                                <label id="textarea2" style="color:grey; font-size:12px;"></label>
+                                <textarea type="text" id="textarea_Resultados_Propuesta" asp-for="Resultados_Propuesta" onkeyup="countChar(this, '#textarea5');" class="form-control" style="height:300px;"></textarea>
+                                <label id="textarea5" style="color:grey; font-size:12px;"></label>
                             }
                             else
                             {

@@ -188,7 +188,7 @@
                                         @(item.avance_ADC)
                                     </td>
                                     <td>
-                                        @((int)item.avance_Pre)
+                                        @((int)item.avance_Pre == -1 ? "N/A" : (int)item.avance_Pre)
                                     </td>
                                     <td>
                                         @(item.avance_Fisico)

@@ -45,10 +45,42 @@
 
 <body>
 
-    <div class="layout @if (global.session.Equals("LogIn")) { @Html.Encode("layout-nav-side") } ">
+    <script>
+        
+        /*(function () {
 
-        @if (global.session.Equals("LogIn"))
+            const idleDurationSecs = 5;    // X number of seconds
+            const redirectUrl = '/Home/LogOut';  // Redirect idle users to this URL
+            let idleTimeout; // variable to hold the timeout, do not modify
+
+            const resetIdleTimeout = function () {
+
+                // Clears the existing timeout
+                if (idleTimeout) clearTimeout(idleTimeout);
+                
+
+                // Set a new idle timeout to load the redirectUrl after idleDurationSecs
+                idleTimeout = setTimeout(() => location.href = redirectUrl, idleDurationSecs * 1000);
+            };
+
+            // Reset the idle timeout on any of the events listed below
+            ['click', 'touchstart', 'mousemove'].forEach(evt =>
+                document.addEventListener(evt, resetIdleTimeout, false)
+            );
+
+        })();*/
+        
+    </script>
+
+    <div class="layout @if (global != null && global.session.Equals("LogIn")) { @Html.Encode("layout-nav-side") } ">
+
+        @if (global != null && global.session.Equals("LogIn"))
         {
+            <script>
+                // Init on page load
+                //resetIdleTimeout();
+            </script>
+
             <div class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
                 <div class="collapse navbar-collapse flex-column" id="navbar-collapse">
 
@@ -136,29 +168,29 @@
                         </li>
 
                         <!--li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">Pre arranque</a>
-        <div id="submenu-8" class="collapse">
-            <ul class="nav nav-small flex-column">
-                @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista</a>
-                    </li>
-                }
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
-                </li>
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">Pre arranque</a>
+                            <div id="submenu-8" class="collapse">
+                                <ul class="nav nav-small flex-column">
+                                    @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Lista</a>
+                                        </li>
+                                    }
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="ADCUsuario" asp-action="Index">Mis propuestas</a>
+                                    </li>
 
-                @if ((new List<int> { global.SUPERADMIN, global.ADMINISTRADOR, global.EMPLEADO }.Contains(int.Parse(User.FindFirst("Id_Rol").Value))) == false)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Asignados</a>
-                    </li>
-                }
+                                    @if ((new List<int> { global.SUPERADMIN, global.ADMINISTRADOR, global.EMPLEADO }.Contains(int.Parse(User.FindFirst("Id_Rol").Value))) == false)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="ADCAdmin" asp-action="Index">Asignados</a>
+                                        </li>
+                                    }
 
-            </ul>
-        </div>
-    </li-->
+                                </ul>
+                            </div>
+                        </li-->
                         @if (new List<int> { global.SUPERADMIN, global.ADMINISTRADOR }.Contains(int.Parse(User.FindFirst("Id_Rol").Value)))
                         {
                             <li class="nav-item">
@@ -278,7 +310,7 @@
     <script src="~/lib/jquery/dist/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        
+
         $(document).ready(function () {
             $("#example").DataTable({
                 scrollX: true,
@@ -288,7 +320,7 @@
             });
         })
 
-        
+
 
     </script>
     <script>
@@ -302,7 +334,7 @@
 
                 $.ajax({
                     type: "Post",
-                    url: "/" + controller +"/getFiltro",
+                    url: "/" + controller + "/getFiltro",
                     data: { "idBusqueda": $(buscar).val() },
                     success: function (response) {
                         var items = "<option>--- Selecciona una opción ---</option>";
@@ -328,7 +360,7 @@
 
         $("#ReportesBuscar").change(function () {
             alert("BUSCAR");
-            
+
             buscar('Reportes', '#ReportesBuscar', "#ReportesFiltrar");
         });
         $("#ResumenBuscar").change(function () {
@@ -351,7 +383,7 @@
                 url: "/ADC_Procesos/Terminado",
                 data: { "check": check }
             });
-            
+
         });
 
     </script>

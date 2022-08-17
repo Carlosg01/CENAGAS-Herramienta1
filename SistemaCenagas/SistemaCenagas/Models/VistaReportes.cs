@@ -50,4 +50,25 @@ namespace SistemaCenagas.Models
         public List<ADC_Anexo3_Documentacion> documentacion { get; set; }
 
     }
+    public class V_Reporte_Anexo4_ADC
+    {
+        public ADC_Anexo4 anexo4 { get; set; }
+        public V_Anexo1 anexo1 { get; set; }
+        public V_ADC adc { get; set; }
+        public ADC_Anexo3 anexo3 { get; set; }
+        public string responsable { get; set; }
+        public string lider { get; set; }
+        public string deo { get; set; }
+        public string dems { get; set; }
+        public string residente { get; set; }
+        public List<Usuarios> ev { get; set; }
+    }
+    public class V_Reporte_Anexo5_ADC
+    {
+
+    }
+    public class V_Reporte_Anexo6_ADC
+    {
+
+    }
 }

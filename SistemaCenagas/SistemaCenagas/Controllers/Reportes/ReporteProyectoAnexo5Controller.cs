@@ -12,9 +12,11 @@ using SistemaCenagas.Models;
 using SistemaCenagas.Reportes;
 using System.Web;
 using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class ReporteProyectoAnexo5Controller : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +26,16 @@ namespace SistemaCenagas.Controllers
         {
             _context = context;
         }
-
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: ADC
         public async Task<IActionResult> Index()
         {
@@ -82,6 +93,39 @@ namespace SistemaCenagas.Controllers
             return File(pdf, "application/pdf", $"Anexo 5 - {global.proyectos.Nombre}.pdf");
             //return Ok();
             //return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> PDF_Viewer(int idADC)
+        {
+            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+
+            int id_anexo4 = _context.ADC_Anexo4.Where(a => a.Id_Anexo1 == idADC).OrderBy(a => a.Id).LastOrDefault().Id;
+
+            var model = new V_Reporte_Anexo4_ADC();
+            model.anexo4 = _context.ADC_Anexo4.Find(id_anexo4);
+            model.anexo1 = Consultas.VistaAnexo1(_context, model.anexo4.Id_Anexo1);
+            model.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == model.anexo1.anexo1.Id).FirstOrDefault();
+            model.anexo3 = _context.ADC_Anexo3.Find(model.anexo4.Id_Anexo3);
+
+            model.responsable = _context.Usuarios.Where(u => u.Id == model.anexo3.Id_Responsable_ADC).Select(u => $"{u.Titulo} {u.Nombre} {u.Paterno} {u.Materno}").FirstOrDefault();
+            model.lider = _context.Usuarios.Where(u => u.Id == model.adc.adc.Id_LiderEquipoVerificador).Select(u => $"{u.Titulo} {u.Nombre} {u.Paterno} {u.Materno}").FirstOrDefault();
+            model.deo = _context.Usuarios.Where(u => u.Id == model.anexo3.Id_Director_Ejecutivo_Operacion).Select(u => $"{u.Titulo} {u.Nombre} {u.Paterno} {u.Materno}").FirstOrDefault();
+            model.dems = _context.Usuarios.Where(u => u.Id == model.anexo3.Id_Director_Ejecutivo_Mantenimiento_y_Seguridad).Select(u => $"{u.Titulo} {u.Nombre} {u.Paterno} {u.Materno}").FirstOrDefault();
+            model.residente = _context.Usuarios.Where(u => u.Id == model.anexo4.Id_Residente).Select(u => $"{u.Titulo} {u.Nombre} {u.Paterno} {u.Materno}").FirstOrDefault();
+
+            var EV = _context.ADC_Equipo_Verificador.Where(a => a.Id_ADC == model.anexo3.Id_Anexo1).FirstOrDefault();
+            model.ev = (from u in _context.Usuarios
+                        join ev in _context.ADC_Equipo_Verificador_Integrantes on u.Id equals ev.Id_Usuario
+                        where ev.Id_Equipo_Verificador_ADC == EV.Id
+                        select u).ToList();
+            //ViewBag.anexo1 = Consultas.VistaAnexo1(_context, idADC);
+            //ViewBag.adc = Consultas.VistaADC(_context).Where(a => a.adc.Id == idADC).FirstOrDefault();
+
+
+
+            HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
+            ViewBag.global = global;
+            return View(model);
         }
 
 

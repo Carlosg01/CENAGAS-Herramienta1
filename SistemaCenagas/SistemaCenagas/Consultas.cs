@@ -222,7 +222,7 @@ namespace SistemaCenagas
                     id_proyecto = resumen[i].id_proyecto,
                     proyecto = resumen[i].proyecto,
                     avance_ADC = resumen[i].avance_ADC,
-                    avance_Pre = avance_prearranque.Sum() / avance_prearranque.Count()
+                    avance_Pre = avance_prearranque.Count > 0 ? avance_prearranque.Sum() / avance_prearranque.Count : -1
                 };
             }
 

@@ -9,6 +9,7 @@ using System.util;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,6 +23,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class ProyectoAnexosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -33,7 +35,16 @@ namespace SistemaCenagas.Controllers
             _context = context;
             //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
-
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: ADC_Actividades
         public async Task<IActionResult> Index()
         {

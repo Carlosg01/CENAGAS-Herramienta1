@@ -14,6 +14,7 @@ using SistemaCenagas.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,15 +36,26 @@ namespace SistemaCenagas
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.28-mysql")));
 
-            
+
+
+            services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
-                //options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.IdleTimeout = TimeSpan.FromDays(30);
+                options.IdleTimeout = TimeSpan.FromHours(5);
+                //options.IdleTimeout = TimeSpan.FromDays(30);
                 options.Cookie.HttpOnly = true;
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
+                
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //options.LoginPath = "/Home/Index";
+                options.LoginPath = "/Home";
+                options.LogoutPath = "/Home/LogOut";
+                options.SlidingExpiration = true;
             });
             
 
@@ -54,12 +66,16 @@ namespace SistemaCenagas
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });*/
 
-            services.AddSession();
+
+
+            //services.AddSession();
             services.AddControllersWithViews();
             
+            /*
             services.AddMvc(options => {
                 options.MaxModelBindingCollectionSize = 8000;
             });
+            */
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             //services.AddMvc().AddRazorRuntimeCompilation();
@@ -95,6 +111,11 @@ namespace SistemaCenagas
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 
             })
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Home";
+                options.LogoutPath = "/Home/LogOut";
+            })
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -121,34 +142,30 @@ namespace SistemaCenagas
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            /*if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }*/
-
-            /*app.UseFileServer(new FileServerOptions
-            {
-                FileProvider = new PhysicalFileProvider
-                    (System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "StaticFile")),
-                RequestPath = "",
-                EnableDefaultFiles = true
-            });*/
-
             app.UseSession();
             app.Use(async (context, next) =>
             {
+                //var response = context.Response;
                 var token = context.Session.GetString("Token");
                 if (!string.IsNullOrEmpty(token))
                 {
                     context.Request.Headers.Add("Authorization", "Bearer " + token);
                 }
+                /*
+                else //if(context.Session == null)
+                {
+                    context.Response.Redirect("/Home/");
+                }
+                */
                 await next();
+            });
+            app.UseStatusCodePages(async context =>
+            {
+                var response = context.HttpContext.Response;
+
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
+                        response.StatusCode == (int)HttpStatusCode.Forbidden)
+                    response.Redirect("/Home");
             });
 
             app.UseDeveloperExceptionPage();
@@ -158,6 +175,7 @@ namespace SistemaCenagas
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCookiePolicy();
 
             app.UseAuthentication();
             app.UseAuthorization();

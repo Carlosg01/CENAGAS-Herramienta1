@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ using SistemaCenagas.Models;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class UsuariosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,11 +36,21 @@ namespace SistemaCenagas.Controllers
             ViewBag.global = global;
             return Json(email);            
         }
-
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if(json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
+            if(!await getGlobal()) return RedirectToAction("Index", "Home");
+
             if (!global.session.Equals("LogIn"))
             {
                 HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));

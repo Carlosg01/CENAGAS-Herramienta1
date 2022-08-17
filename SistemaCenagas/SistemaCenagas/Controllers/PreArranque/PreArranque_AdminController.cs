@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,6 +17,7 @@ using SistemaCenagas.PowerBI_Models;
 
 namespace SistemaCenagas.Controllers
 {
+    [Authorize]
     public class PreArranque_AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,7 +30,16 @@ namespace SistemaCenagas.Controllers
             //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
             //global.busqueda = null;
         }
-
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: ADC
         public async Task<IActionResult> Index()
         {

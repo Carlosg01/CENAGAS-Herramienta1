@@ -26,6 +26,16 @@ namespace SistemaCenagas.Controllers
             //global = JsonConvert.DeserializeObject<Global>(HttpContext.Session.GetString("Global"));
         }
 
+        public async Task<bool> getGlobal()
+        {
+            var json = HttpContext.Session.GetString("Global");
+            if (json == null || json.Length == 0)
+            {
+                return false;
+            }
+            global = JsonConvert.DeserializeObject<Global>(json);
+            return true;
+        }
         // GET: Anexo1
         public async Task<IActionResult> Index()
         {
@@ -708,7 +718,7 @@ namespace SistemaCenagas.Controllers
             HttpContext.Session.SetString("Global", JsonConvert.SerializeObject(global));
 
             ViewBag.global = global;
-            return PartialView(model);
+            return View(model);
         }
 
         // POST: Anexo1/Edit/5
@@ -774,7 +784,7 @@ namespace SistemaCenagas.Controllers
                 return RedirectToAction("Index", "ADC_Procesos");
             }
             ViewBag.global = global;
-            return PartialView(model);
+            return View(model);
         }
 
         private bool Anexo3Exists(int id)
