@@ -1895,11 +1895,11 @@ namespace SistemaCenagas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id_Actividad = table.Column<int>(type: "int", nullable: true),
-                    Clave = table.Column<string>(type: "varchar(900)", nullable: true)
+                    Clave = table.Column<string>(type: "varchar(100)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Responsable = table.Column<string>(type: "varchar(900)", nullable: true)
+                    Responsable = table.Column<string>(type: "varchar(100)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "varchar(900)", nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(3000)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Registro = table.Column<string>(type: "varchar(900)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -2383,6 +2383,8 @@ namespace SistemaCenagas.Migrations
 
             #endregion
 
+            #region PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia
+
             migrationBuilder.CreateTable(
                 name: "PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia",
                 columns: table => new
@@ -2434,6 +2436,9 @@ namespace SistemaCenagas.Migrations
                table: "PreArranque_Anexo1_Actividades_Acciones_ArchivosEvidencia",
                column: "Id_Usuario"
             );
+            #endregion
+
+
         }
         protected override void Down(MigrationBuilder migrationBuilder)
         {
